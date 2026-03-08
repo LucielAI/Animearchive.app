@@ -1,0 +1,267 @@
+{
+  "anime": "Jujutsu Kaisen",
+  "tagline": "Negative Energy Economy & Algorithmic Combat",
+  "malId": 40748,
+  "visualizationHint": "timeline",
+  "visualizationReason": "Characters operate as discrete functions within a rigid logic system; a timeline effectively graphs their runtime.",
+  "animeImageUrl": "https://myanimelist.net/images/anime/1171/109222l.jpg",
+  "themeColors": {
+    "primary": "#4f46e5",
+    "secondary": "#0f172a",
+    "accent": "#ef4444",
+    "glow": "rgba(79, 70, 229, 0.4)",
+    "tabActive": "#818cf8",
+    "badgeBg": "rgba(79, 70, 229, 0.2)",
+    "badgeText": "#c7d2fe",
+    "modeGlow": "rgba(34, 197, 94, 0.5)",
+    "heroGradient": "rgba(30, 27, 75, 0.95)"
+  },
+  "powerSystem": [
+    {
+      "name": "Cursed Energy",
+      "subtitle": "Raw Negative Output",
+      "loreDesc": "The unrefined output of human negativity that leaks from humans and coalesces into autonomous Cursed Spirits.",
+      "systemDesc": "The foundational raw processing power. Behaving similarly to anti-matter, it is destructive to biological tissue.",
+      "icon": "Zap",
+      "color": "indigo-400",
+      "signatureMoment": "Yuji Itadori learning to perfectly sync his physical strikes with explosive bursts of raw Cursed Energy."
+    },
+    {
+      "name": "Cursed Technique",
+      "subtitle": "Genetic Proprietary Firmware",
+      "loreDesc": "A proprietary innate ability hardcoded into a sorcerer's genetics, varying from physical enhancements to spatial manipulation.",
+      "systemDesc": "Proprietary software hardcoded into biological hardware (the right prefrontal cortex). Cannot be learned or downloaded.",
+      "icon": "Cpu",
+      "color": "blue-400",
+      "signatureMoment": "Gojo explaining the Limitless technique using the convergence and divergence of an infinite series."
+    },
+    {
+      "name": "Reverse Cursed Technique",
+      "subtitle": "Positron Healing Protocol",
+      "loreDesc": "A complex process of multiplying negative energy against itself to create positive energy, primarily used for healing.",
+      "systemDesc": "A mathematical compilation process triggering a restorative protocol by synthesizing positive energy to cure flesh and poisons.",
+      "icon": "Activity",
+      "color": "green-400",
+      "signatureMoment": "Satoru Gojo ascending and resurrecting himself from the brink of death after being gutted by Toji Fushiguro."
+    },
+    {
+      "name": "Domain Expansion",
+      "subtitle": "Isolated Virtual Sandbox",
+      "loreDesc": "The pinnacle of Jujutsu sorcery, requiring immense energy to render a physical cognitive barrier around the target.",
+      "systemDesc": "The creation of an isolated, sandboxed virtual environment granting the creator total root access with a guaranteed-hit function.",
+      "icon": "Box",
+      "color": "purple-400",
+      "signatureMoment": "Gojo deploying Unlimited Void to instantly paralyze the disaster curses by flooding their brains with infinite data."
+    }
+  ],
+  "rankings": {
+    "systemName": "Jujutsu Sorcerer Classification",
+    "topTierName": "Special Grade",
+    "topTierLore": "Anomalous individuals possessing power so immense and unconventional they are capable of single-handedly overthrowing an entire nation.",
+    "topTierSystem": "Root administrators possessing infinite looping capabilities, uncatchable memory overflow bugs, or system-wide overwrite permissions.",
+    "tiers": [
+      {
+        "name": "Grade 1",
+        "loreDesc": "The pinnacle of normative jujutsu power leading major operations and establishing the standard for excellence.",
+        "systemDesc": "Highly optimized executive functions running critical continuous operations with maximum efficiency."
+      },
+      {
+        "name": "Grade 2",
+        "loreDesc": "Highly capable operatives utilized for independent tactical strikes and solo missions against significant threats.",
+        "systemDesc": "Stable background services executing complex tasks reliably without requiring oversight."
+      },
+      {
+        "name": "Grade 3",
+        "loreDesc": "Average sorcerers tracking standardized targets and providing support to higher-ranked operatives.",
+        "systemDesc": "Standard user applications processing expected inputs within normal operational parameters."
+      },
+      {
+        "name": "Grade 4",
+        "loreDesc": "Inexperienced learners and entry-level sorcerers deployed only against the weakest of curses.",
+        "systemDesc": "Low-priority, localized scripts with limited permissions handling minor background noise."
+      }
+    ]
+  },
+  "characters": [
+    {
+      "name": "Satoru Gojo",
+      "title": "The Anomaly",
+      "rank": "Special Grade",
+      "primaryAbility": "Limitless / Six Eyes",
+      "loreBio": "The strongest jujutsu sorcerer of the modern era, whose birth shifted the balance of the world. Wields the Limitless and Six Eyes.",
+      "systemBio": "A transcendent node operating with an infinite defense protocol (Limitless) and a zero-consumption energy loop (Six Eyes).",
+      "gradientFrom": "blue-900",
+      "gradientTo": "indigo-500",
+      "accentColor": "indigo-300",
+      "icon": "Eye",
+      "dangerLevel": 10,
+      "signatureMoment": "Stating 'Throughout Heaven and Earth, I alone am the honored one' while floating in the sky.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/430722.jpg?s=e780dcbd849cdbaf5160fa110accc3d5",
+      "_fetchFailed": false,
+      "malId": 164471
+    },
+    {
+      "name": "Ryomen Sukuna",
+      "title": "King of Curses",
+      "rank": "Special Grade",
+      "primaryAbility": "Cleave and Dismantle",
+      "loreBio": "An ancient, undefeated sorcerer from the Heian Era who incarnated as a cursed object inside Yuji Itadori.",
+      "systemBio": "A catastrophic legacy virus possessing an open-barrier ('Divine') Domain that executes localized overwrites of physical laws.",
+      "gradientFrom": "red-900",
+      "gradientTo": "orange-600",
+      "accentColor": "red-500",
+      "icon": "Skull",
+      "dangerLevel": 10,
+      "signatureMoment": "Activating Malevolent Shrine in Shibuya to vaporize a massive radius of the city into dust.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/529499.jpg?s=e3a09282305cbe04ca51eb427027c9a9",
+      "_fetchFailed": false,
+      "malId": 166723
+    },
+    {
+      "name": "Kenjaku",
+      "title": "The Architect",
+      "rank": "Special Grade",
+      "primaryAbility": "Brain Transplant",
+      "loreBio": "An ancient, parasitic sorcerer who hops bodies across centuries, seeking to force the evolution of humanity.",
+      "systemBio": "A persistent, body-hopping malware orchestrating massive causal shifts like the Shibuya Incident and the Culling Game.",
+      "gradientFrom": "purple-900",
+      "gradientTo": "fuchsia-700",
+      "accentColor": "purple-400",
+      "icon": "Brain",
+      "dangerLevel": 9,
+      "signatureMoment": "Removing his cranial cap to reveal a terrifying, teeth-baring brain orchestrating the sealing of Satoru Gojo.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/428359.jpg?s=a20720436bc120bd12cd310486c9d06b",
+      "_fetchFailed": false,
+      "malId": 166579
+    },
+    {
+      "name": "Yuta Okkotsu",
+      "title": "The Prodigy",
+      "rank": "Special Grade",
+      "primaryAbility": "Rika / Copy",
+      "loreBio": "A prodigy bound to the Queen of Curses, Rika, granting him infinite cursed energy and the ability to copy techniques.",
+      "systemBio": "A high-capacity node functioning with boundless energy reserves, unconditionally mimicking foreign Cursed Technique code.",
+      "gradientFrom": "slate-800",
+      "gradientTo": "gray-500",
+      "accentColor": "gray-300",
+      "icon": "Copy",
+      "dangerLevel": 9,
+      "signatureMoment": "Kissing the horrifying curse Rika to fully manifest her boundless power against Suguru Geto.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/463691.jpg?s=7b34b15ffdf6ce4df85bca3b2169b109",
+      "_fetchFailed": false,
+      "malId": 188812
+    },
+    {
+      "name": "Toji Fushiguro",
+      "title": "The Sorcerer Killer",
+      "rank": "Unranked",
+      "primaryAbility": "Heavenly Restriction",
+      "loreBio": "An assassin born with a Heavenly Restriction that stripped him of cursed energy in exchange for apex physical prowess.",
+      "systemBio": "A systemic bug with absolute zero Cursed Energy; completely untrackable by targeting algorithms and immune to Domain sure-hits.",
+      "gradientFrom": "stone-900",
+      "gradientTo": "green-800",
+      "accentColor": "green-500",
+      "icon": "Crosshair",
+      "dangerLevel": 9,
+      "signatureMoment": "Bypassing the Six Eyes' perception entirely, plunging a blade through Gojo's chest.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/562627.jpg?s=c8ea0cc501193fdba63b2f69ea5ef664",
+      "_fetchFailed": false,
+      "malId": 188813
+    },
+    {
+      "name": "Maki Zenin",
+      "title": "The Destroyer",
+      "rank": "Grade 4",
+      "primaryAbility": "Heavenly Restriction",
+      "loreBio": "A rejected member of the Zenin clan who fully realized her Heavenly Restriction after her sister Mai's sacrifice.",
+      "systemBio": "The second iteration of the zero-energy anomaly. Exists completely off the grid and systematically dismantled the Zenin establishment.",
+      "gradientFrom": "green-900",
+      "gradientTo": "emerald-600",
+      "accentColor": "emerald-400",
+      "icon": "Swords",
+      "dangerLevel": 9,
+      "signatureMoment": "Massacring the entirety of the corrupt Zenin Clan single-handedly after unlocking her true physical potential.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/15/423949.jpg?s=72edfa936ac89421e8d16970762d8b5b",
+      "_fetchFailed": false,
+      "malId": 164482
+    }
+  ],
+  "factions": [
+    {
+      "name": "Tokyo Jujutsu High",
+      "role": "protagonist",
+      "loreDesc": "A militarized educational facility acting as a progressive faction sheltering anomalies under Gojo's influence.",
+      "systemDesc": "A decentralized hub sheltering outlier nodes and fostering systemic evolutionary variables against central authorities.",
+      "icon": "Shield",
+      "color": "blue-500",
+      "memberCount": "~50 active personnel"
+    },
+    {
+      "name": "The Zenin Clan",
+      "role": "antagonist",
+      "loreDesc": "A highly toxic, aristocratic family operating strictly on genetic determinism, inheriting coveted techniques from the Heian Era.",
+      "systemDesc": "A legacy framework structured hierarchically on genetic code inheritance, ultimately annihilated by its own unhandled exceptions.",
+      "icon": "Users",
+      "color": "amber-700",
+      "memberCount": "~100 elite members"
+    },
+    {
+      "name": "The Higher-Ups",
+      "role": "neutral",
+      "loreDesc": "A shadowy, conservative council maintaining the status quo and routinely issuing execution orders for anomalies.",
+      "systemDesc": "The central administrative authority enforcing rigid compliance standards and suppressing unpredictable system variables.",
+      "icon": "EyeOff",
+      "color": "gray-500",
+      "memberCount": "Unknown"
+    }
+  ],
+  "rules": [
+    {
+      "name": "Genetic Immortality of Techniques",
+      "subtitle": "Hardware-Bound Firmware",
+      "loreConsequence": "A sorcerer's technique is etched into their brain at birth. Overheating it causes a temporary loss of access.",
+      "systemEquivalent": "Firmware hardcoded onto a motherboard. Cannot be rewritten without physically destroying and recreating the sector.",
+      "severity": "fatal"
+    },
+    {
+      "name": "The Absolute Law of Vows",
+      "subtitle": "Lethal Smart Contracts",
+      "loreConsequence": "Mutual Binding Vows are bound by reality. Breaking one results in an undefined, catastrophic backlash that destroys the violator.",
+      "systemEquivalent": "A cryptographic smart contract. Deviation from the executable code triggers a localized system crash, bricking the offending node.",
+      "severity": "fatal"
+    },
+    {
+      "name": "Culling Game Compliance",
+      "subtitle": "Mandatory OS Update",
+      "loreConsequence": "Participants must abide by the tournament rules. Violations result in Cursed Technique Removal and instant death.",
+      "systemEquivalent": "An unyielding OS firmware update. Applications failing compliance are force-quit and permanently uninstalled.",
+      "severity": "fatal"
+    }
+  ],
+  "anomalies": [
+    {
+      "name": "Zero Cursed Energy",
+      "ruleViolated": "Energy Output Requirement",
+      "loreDesc": "Toji Fushiguro and Maki Zenin, born without energy but granted apex physical prowess.",
+      "systemDesc": "Untrackable physical variables entirely invisible to the universe's Cursed Energy targeting algorithms."
+    }
+  ],
+  "causalEvents": [
+    {
+      "name": "The Shibuya Incident",
+      "trigger": "Kenjaku orchestrates a massive, coordinates assault on Halloween using disaster curses.",
+      "consequence": "Satoru Gojo is sealed, plunging the world into chaos and reviving Sukuna.",
+      "timelinePosition": "Modern Day (Oct 31, 2018)",
+      "loreDesc": "Kenjaku orchestrated the sealing of Satoru Gojo, crashing the geopolitical equilibrium of the entire world.",
+      "systemDesc": "A targeted system crash removing the load-bearing pillar of global Jujutsu stability, unleashing millions of dormant malicious variables."
+    },
+    {
+      "name": "The Culling Game",
+      "trigger": "Kenjaku remotely activates thousands of modern sorcerers via mass Idle Transfiguration.",
+      "consequence": "Japan is locked into a nationwide death tournament to optimize cursed energy.",
+      "timelinePosition": "Modern Day (Nov 2018)",
+      "loreDesc": "A nationwide death game forcing the rapid evolution of humanity by optimizing cursed energy through mass slaughter.",
+      "systemDesc": "A malicious OS update disguised as a Binding Vow protocol where only the most violently optimized code will survive the sequence."
+    }
+  ]
+}

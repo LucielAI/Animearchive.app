@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Dashboard from './Dashboard';
-import { aot } from './data';
+import { aot, jjk } from './data';
 import { Lock } from 'lucide-react';
 
 const UNIVERSES = {
-  aot
+  aot,
+  jjk
 };
 
 function App() {
