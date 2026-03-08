@@ -3,7 +3,7 @@
   "tagline": "Negative Energy Economy & Algorithmic Combat",
   "malId": 40748,
   "visualizationHint": "counter-tree",
-  "visualizationReason": "JJK is defined by technique counters and power hierarchies \u2014 the counter-tree maps how abilities nullify, exploit, and amplify each other.",
+  "visualizationReason": "JJK is defined by technique counters and power hierarchies — the counter-tree maps how abilities nullify, exploit, and amplify each other.",
   "animeImageUrl": "https://cdn.myanimelist.net/images/anime/1171/109222l.jpg",
   "themeColors": {
     "primary": "#4f46e5",
@@ -223,8 +223,42 @@
       "icon": "Box",
       "dangerLevel": 8,
       "signatureMoment": "Summoning the uncontrollable Mahoraga as a last resort against Sukuna — a shikigami so powerful that no Ten Shadows user in history had ever tamed it — willing to die if it meant taking his enemy down with him.",
-      "imageUrl": "",
-      "malId": 163918
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/392689.jpg?s=2395a10b59bb54ec9891c74ef214fea1",
+      "malId": 164470
+    },
+    {
+      "name": "Mahito",
+      "title": "The Soul Manipulator",
+      "rank": "Special Grade (Curse)",
+      "primaryAbility": "Idle Transfiguration",
+      "loreBio": "A Disaster Curse born from humanity's hatred and fear of each other. He possesses a terrifyingly juvenile curiosity about the shape of the soul, playfully twisting humans into grotesque, mutilated weapons.",
+      "systemBio": "A malicious formatting utility that bypasses all standard defense protocols to permanently alter the target's biological source code. Because his edits occur at the root level (the soul), traditional healing protocols (Reverse Cursed Technique) cannot restore the corrupted files.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "blue-600",
+      "accentColor": "blue-400",
+      "icon": "Activity",
+      "dangerLevel": 9,
+      "signatureMoment": "Callously transfiguring Junpei in front of Yuji, proving that in the curse economy, innocence provides zero defense against foundational corruption.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/423984.jpg",
+      "_fetchFailed": false,
+      "malId": 178972
+    },
+    {
+      "name": "Kento Nanami",
+      "title": "The Clock-Puncher",
+      "rank": "Grade 1",
+      "primaryAbility": "Ratio Technique / Overtime",
+      "loreBio": "A former salaryman who returned to being a jujutsu sorcerer because 'work is shit, and jujutsu is shit, so I might as well choose the one I have an aptitude for.' He fights with mathematical precision and refuses to work off the clock for free.",
+      "systemBio": "A highly-regulated process operating on a strict temporal resource budget. By implementing a Binding Vow that artificially suppresses output during standard operating hours, he guarantees a massive surge in processing power (Overtime) the instant his shift ends — the purest demonstration of the negative energy contract economy.",
+      "gradientFrom": "yellow-900",
+      "gradientTo": "amber-600",
+      "accentColor": "amber-400",
+      "icon": "Clock",
+      "dangerLevel": 8,
+      "signatureMoment": "Loosening his tie precisely at 5:30 PM, triggering his Overtime vow and systematically destroying Mahito's transfigured humans with overwhelming, budgeted force.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/12/424368.jpg",
+      "_fetchFailed": false,
+      "malId": 164474
     }
   ],
   "factions": [
@@ -272,6 +306,15 @@
       "icon": "Droplets",
       "color": "rose-700",
       "memberCount": "~60 clan members"
+    },
+    {
+      "name": "The Gojo Clan",
+      "role": "systemic",
+      "loreDesc": "One of the Big Three Sorcerer Families, elevated to absolute systemic supremacy purely on the back of a single individual — Satoru Gojo. Without him, the clan's political and military power instantly collapses.",
+      "systemDesc": "A monolithic corporate entity whose entire global valuation is propped up by a single, anomalously powerful server node. If that node goes offline, the enterprise immediately files for bankruptcy.",
+      "icon": "Eye",
+      "color": "indigo-300",
+      "memberCount": "Basically 1 relevant asset"
     }
   ],
   "rules": [
@@ -301,6 +344,15 @@
       "severity": "fatal",
       "systemSubtitle": "Mandatory OS Update",
       "loreSubtitle": "The Forced Death Tournament"
+    },
+    {
+      "name": "Heavenly Restriction",
+      "subtitle": "Absolute Hardware Equivalent",
+      "loreConsequence": "The universe enforces absolute balance. By being born with absolutely zero cursed energy, an individual's physical body is amplified to god-like, superhuman levels to balance the cosmic ledger.",
+      "systemEquivalent": "A hardware-level equivalence protocol. Stripping a system of all software execution capabilities automatically allocates 100% of available cooling and power directly to the physical CPU, resulting in unparalleled clock speeds.",
+      "severity": "high",
+      "systemSubtitle": "Absolute Hardware Equivalent",
+      "loreSubtitle": "The Zero-Energy Cosmic Ledger"
     }
   ],
   "anomalies": [
@@ -369,7 +421,7 @@
       "target": "Ryomen Sukuna",
       "type": "rival",
       "weight": 10,
-      "loreDesc": "The strongest sorcerer vs the King of Curses \u2014 a fated clash across millennia.",
+      "loreDesc": "The strongest sorcerer vs the King of Curses — a fated clash across millennia.",
       "systemDesc": "Two maximum-output processes competing for singular system dominance."
     },
     {
@@ -378,7 +430,7 @@
       "type": "enemy",
       "weight": 8,
       "loreDesc": "Gojo stands as the primary obstacle to Kenjaku's thousand-year plan.",
-      "systemDesc": "Firewall vs persistent rootkit \u2014 each designed specifically to counter the other."
+      "systemDesc": "Firewall vs persistent rootkit — each designed specifically to counter the other."
     },
     {
       "source": "Satoru Gojo",
@@ -393,7 +445,7 @@
       "target": "Kenjaku",
       "type": "ally",
       "weight": 6,
-      "loreDesc": "A temporary alliance of ancient evils \u2014 mutual convenience, not trust.",
+      "loreDesc": "A temporary alliance of ancient evils — mutual convenience, not trust.",
       "systemDesc": "Two legacy processes forming a runtime alliance against the modern OS."
     },
     {
@@ -401,7 +453,7 @@
       "target": "Maki Zenin",
       "type": "mirror",
       "weight": 9,
-      "loreDesc": "Both achieved zero cursed energy \u2014 Toji's path foreshadowed Maki's transformation.",
+      "loreDesc": "Both achieved zero cursed energy — Toji's path foreshadowed Maki's transformation.",
       "systemDesc": "Two instances of the same zero-dependency exploit, generations apart."
     },
     {
@@ -409,7 +461,7 @@
       "target": "Ryomen Sukuna",
       "type": "enemy",
       "weight": 7,
-      "loreDesc": "Yuta carries Gojo's will to stop Sukuna \u2014 the torch passed to the next generation.",
+      "loreDesc": "Yuta carries Gojo's will to stop Sukuna — the torch passed to the next generation.",
       "systemDesc": "Successor process inheriting the mission to terminate the rogue daemon."
     },
     {
@@ -475,6 +527,30 @@
       "weight": 7,
       "loreDesc": "Toji sold Megumi to the Zenin clan as a child and abandoned him — yet his final act during the Shibuya Incident was to ask about his son's welfare, revealing that the paternal bond he tried to sever never fully broke.",
       "systemDesc": "Orphaned child process carrying inherited code from a terminated zero-energy exploit, unknowingly running legacy subroutines that mirror the parent's architecture."
+    },
+    {
+      "source": "Mahito",
+      "target": "Yuji Itadori",
+      "type": "mirror",
+      "weight": 10,
+      "loreDesc": "They are fundamental opposites who realize, terrifyingly, that they are exactly the same. Yuji saves people without needing a logical reason; Mahito slaughters people without needing a logical reason.",
+      "systemDesc": "Two symmetric execution threads running inverse ethical logic loops, inevitably colliding in a zero-sum hardware consumption war."
+    },
+    {
+      "source": "Kento Nanami",
+      "target": "Yuji Itadori",
+      "type": "mentor",
+      "weight": 8,
+      "loreDesc": "Nanami serves as the responsible adult Yuji desperately needs, treating him like a kid who deserves to be protected rather than a system threat that needs to be monitored.",
+      "systemDesc": "A stable senior process reallocating its own processing bandwidth to shield a high-risk, high-potential junior thread from systemic termination."
+    },
+    {
+      "source": "Mahito",
+      "target": "Kento Nanami",
+      "type": "enemy",
+      "weight": 8,
+      "loreDesc": "The chaotic, endlessly mutating curse versus the rigid, mathematically precise sorcerer. Mahito's idle curiosity is the antithesis of Nanami's disciplined overtime.",
+      "systemDesc": "A rogue polymorphic virus engaging a heavily regulated temporal firewall."
     }
   ],
   "counterplay": [
@@ -487,7 +563,7 @@
     {
       "attacker": "Ryomen Sukuna (Malevolent Shrine)",
       "defender": "Satoru Gojo (Unlimited Void)",
-      "mechanic": "Both domains clash \u2014 Malevolent Shrine's guaranteed-hit slashes versus Unlimited Void's infinite information flood.",
+      "mechanic": "Both domains clash — Malevolent Shrine's guaranteed-hit slashes versus Unlimited Void's infinite information flood.",
       "type": "counters"
     },
     {
@@ -519,6 +595,20 @@
       "defender": "Any Opponent",
       "mechanic": "Voluntarily disclosing your technique's mechanics to the enemy in exchange for a significant amplification in output — trading information security for raw power within the cursed energy economy.",
       "type": "exploits"
+    },
+    {
+      "attacker": "Black Flash",
+      "defender": "Standard Output",
+      "mechanic": "By applying cursed energy within 0.000001 seconds of a physical hit, the spatial distortion raises the impact not to the power of two, but to the exponent of 2.5.",
+      "type": "exploits",
+      "loreDesc": "A critical hit mechanic that relies on temporal precision rather than raw force, exponentiating the energy economy and instantly placing the sorcerer in 'the zone'."
+    },
+    {
+      "attacker": "Domain Expansion",
+      "defender": "Anti-Domain Techniques (Simple Domain / Falling Blossom)",
+      "mechanic": "While anti-domain techniques strip the primary domain of its guaranteed hit function for survival, they are ultimately temporary stopgaps. The Domain Expansion's environmental control will eventually strip away the defense.",
+      "type": "counters",
+      "loreDesc": "The ultimate expression of system dominance out-scaling the patchwork defense subroutines. You cannot win inside another's domain using a Simple Domain; you can only delay your execution."
     }
   ]
 }

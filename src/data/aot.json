@@ -64,12 +64,12 @@
   ],
   "rankings": {
     "systemName": "Paradis Military Command Structure",
-    "topTierName": "General / Premier (S\u014dt\u014d)",
+    "topTierName": "General / Premier (Sōtō)",
     "topTierLore": "The ultimate commander-in-chief of all three military branches, holding absolute authority over humanity's armed forces, strategic direction, and judicial military tribunals.",
     "topTierSystem": "The root administrator possessing read, write, and execute permissions across all system directories, user groups, and background processes.",
     "tiers": [
       {
-        "name": "Commander (Danch\u014d)",
+        "name": "Commander (Danchō)",
         "loreDesc": "The absolute leader of a specific military branch.",
         "systemDesc": "A lead software architect managing the deployment and lifecycle of a specific microservice environment."
       },
@@ -79,12 +79,12 @@
         "systemDesc": "A senior systems engineer managing a specialized functional pipeline or data ingestion routine."
       },
       {
-        "name": "Captain (Heich\u014d)",
+        "name": "Captain (Heichō)",
         "loreDesc": "Elite field commanders entrusted with highly sensitive tactical operations and the direct oversight of elite, hand-picked personnel.",
         "systemDesc": "A high-priority, automated background daemon designed for rapid threat isolation and neutralization."
       },
       {
-        "name": "Squad Leader (Hanch\u014d)",
+        "name": "Squad Leader (Hanchō)",
         "loreDesc": "Mid-level officers responsible for managing small, cohesive fireteams of 4 to 10 soldiers during chaotic combat scenarios.",
         "systemDesc": "Load balancers, dynamically distributing combat tasks and resource allocation among individual computational threads."
       },
@@ -161,7 +161,7 @@
       "icon": "Zap",
       "dangerLevel": 10,
       "signatureMoment": "A dizzying, brutal vivisection of the Beast Titan in a forest, reducing a major, seemingly invincible threat to a mutilated husk in mere seconds.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/241413.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/241413.jpg?s=1a789f9d4c7a441881e4b06a75bd91db",
       "_fetchFailed": false,
       "malId": 45627
     },
@@ -212,7 +212,7 @@
       "icon": "Brain",
       "dangerLevel": 8,
       "signatureMoment": "Leading a final suicidal cavalry charge directly into the Beast Titan's kill zone, screaming 'My soldiers, rage!' as boulders shred his formation — buying Levi the opening to annihilate Zeke.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/11/290058.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/14/559023.jpg?s=148a0689d341e23cae536207d030f3fc",
       "_fetchFailed": false,
       "malId": 46496
     },
@@ -229,9 +229,43 @@
       "icon": "Shield",
       "dangerLevel": 8,
       "signatureMoment": "Revealing herself as the Female Titan in the Stohess District, triggering a catastrophic urban battle that forced the Survey Corps to destroy an entire city district to capture her.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/15/337662.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/206357.jpg?s=3a853fc7177a3eeaefbecb530d590a4a",
       "_fetchFailed": false,
       "malId": 46490
+    },
+    {
+      "name": "Ymir Fritz",
+      "title": "The Origin",
+      "rank": "Unranked",
+      "primaryAbility": "Founding Titan / The Coordinate",
+      "loreBio": "The first Titan, a slave girl whose consciousness remained trapped in the Paths dimension for 2,000 years, endlessly building Titan bodies out of sand in terrified obedience to the royal bloodline.",
+      "systemBio": "The original rootkit and primary server orchestrator. An immortal legacy node trapped in an infinite execution loop, endlessly compiling hardware assets for authorized administrators until an unauthenticated user (Eren) offered her local autonomy.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "neutral-600",
+      "accentColor": "neutral-400",
+      "icon": "Globe",
+      "dangerLevel": 10,
+      "signatureMoment": "Weeping as Eren Yeager breaks her 2,000-year programming of obedience by simply asking her to choose for herself.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/402927.jpg",
+      "_fetchFailed": false,
+      "malId": 182601
+    },
+    {
+      "name": "Grisha Yeager",
+      "title": "The Vessel",
+      "rank": "Restorationist",
+      "primaryAbility": "Attack Titan / Founder",
+      "loreBio": "Eren's father, an Eldian restorationist from Marley who stole the Founding Titan. He was terrified of the future he saw, yet was coerced by his own son into fulfilling the deterministic timeline.",
+      "systemBio": "An intermediary execution script forced into a fatal loop by a future output node. The system falsely believed it had free will, only to realize its parameters were hardcoded by its own successor.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "zinc-700",
+      "accentColor": "zinc-500",
+      "icon": "Key",
+      "dangerLevel": 8,
+      "signatureMoment": "Collapsing in horror after slaughtering the Reiss family, screaming to the invisible future Eren, 'Is this what you wanted?'",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/208573.jpg",
+      "_fetchFailed": false,
+      "malId": 46524
     }
   ],
   "relationships": [
@@ -325,6 +359,20 @@
       "type": "enemy",
       "loreDesc": "Annie trained Eren in hand-to-hand combat as a comrade, then tried to kidnap him as the Female Titan. Their fight in Stohess was the first time Eren confronted the reality that his enemies had faces he recognized.",
       "weight": 8
+    },
+    {
+      "source": "Grisha Yeager",
+      "target": "Eren Yeager",
+      "type": "dependent",
+      "loreDesc": "A tragic inversion of the father-son dynamic. Grisha believed he was raising a child to save Eldia, only to discover he was merely a hollow vessel coerced by the future memory of his terrifying son.",
+      "weight": 9
+    },
+    {
+      "source": "Ymir Fritz",
+      "target": "Eren Yeager",
+      "type": "ally",
+      "loreDesc": "A toxic, apocalyptic liberation. Eren was the first person in 2,000 years to treat Ymir as a human rather than a slave or a god, weaponizing her gratitude into planetary annihilation.",
+      "weight": 10
     }
   ],
   "factions": [
@@ -401,6 +449,15 @@
       "severity": "high",
       "systemSubtitle": "Mandatory Intranet Hub",
       "loreSubtitle": "The Blood of Ymir"
+    },
+    {
+      "name": "Attack Titan Temporal Preemption",
+      "subtitle": "Non-Linear Cache Synchronization",
+      "loreConsequence": "While all Shifters can view past memories, the Attack Titan holder simultaneously receives curated memory packets from future inheritors, destroying linear time perception.",
+      "systemEquivalent": "Cross-temporal registry reads where compiling future outputs overwrite present execution paths. A literal bootstrap paradox enforcing a deterministic, closed-loop processing mandate.",
+      "severity": "high",
+      "systemSubtitle": "Non-Linear Cache Synchronization",
+      "loreSubtitle": "Memories of the Future"
     }
   ],
   "counterplay": [
@@ -493,6 +550,14 @@
       "timelinePosition": "Mid-Narrative (Year 850)",
       "loreDesc": "An exploitation of system loopholes; a non-royal user gains momentary root admin privileges by establishing brief contact with a dormant royal node.",
       "systemDesc": "A critical vulnerability exploitation allowing an unauthenticated legacy node to temporarily utilize the absolute permissions of the locked root administrator."
+    },
+    {
+      "name": "The Medal Ceremony Alignment",
+      "trigger": "Eren kisses Historia's royal hand during a military commendation, violently unlocking the full uncompressed memory of his father's massacre.",
+      "consequence": "Eren realizes the horrifying, deterministic truth: he is the one who coerced his father from the future. The entire timeline collapses into a single moment in his mind, cementing his apocalyptic path.",
+      "timelinePosition": "Late Narrative (Year 850)",
+      "loreDesc": "The moment the bootstrap paradox is crystallized. The protagonist witnesses his own future villainy and realizes it is entirely inescapable because it has already happened.",
+      "systemDesc": "A forceful synchronization of the temporal cache. The operating system simultaneously reads its final output sequence and writes it into its base configuration, permanently locking the execution path."
     },
     {
       "name": "The Declaration of War",

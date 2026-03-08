@@ -105,7 +105,7 @@
       "icon": "Crosshair",
       "dangerLevel": 8,
       "signatureMoment": "Sacrificing his entire future — every year of growth, potential, and Nen — in a single binding contract to become powerful enough to destroy Neferpitou, then collapsing as an empty husk.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/11/174517.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/11/174517.jpg?s=c8133cf450dc6bf13ba52d6781759101",
       "malId": 30
     },
     {
@@ -121,7 +121,7 @@
       "icon": "Zap",
       "dangerLevel": 9,
       "signatureMoment": "Ripping Illumi's needle from his own skull mid-combat, permanently overriding years of conditioned obedience and unlocking his full autonomous combat potential.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/5/342824.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/327920.jpg?s=afd533ace6e7ce81ccf877d3d97880bb",
       "malId": 27
     },
     {
@@ -137,7 +137,7 @@
       "icon": "Star",
       "dangerLevel": 9,
       "signatureMoment": "Sparing Gon after their Heavens Arena fight, whispering that the fruit is not yet ripe — revealing that every act of mercy was just deferred predation.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/306948.jpg",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/3/174561.jpg?s=74fd92ebbe0d14dec69aeba8eff36bb9",
       "malId": 31
     },
     {
@@ -153,8 +153,8 @@
       "icon": "BookOpen",
       "dangerLevel": 9,
       "signatureMoment": "Opening Skill Hunter mid-battle against Hisoka in Heavens Arena, cycling through stolen abilities with serene choreography while Hisoka fights for his life.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/5/346418.jpg",
-      "malId": 33
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/4/182387.jpg?s=82532b8deca18069b86e7f598e0ca914",
+      "malId": 58
     },
     {
       "name": "Kurapika",
@@ -169,8 +169,8 @@
       "icon": "Link",
       "dangerLevel": 9,
       "signatureMoment": "Wrapping Chain Jail around Uvogin — the Troupe's strongest enhancer — and watching the chains constrict with absolute certainty, because his binding contract made failure against a Spider physically impossible.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/360641.jpg",
-      "malId": 29
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/3/549312.jpg?s=fc4bb9699591fdf742c7fee5593c961e",
+      "malId": 28
     },
     {
       "name": "Meruem",
@@ -185,8 +185,90 @@
       "icon": "Crown",
       "dangerLevel": 10,
       "signatureMoment": "Asking Komugi to play one final game of Gungi as the Miniature Rose poison dissolved his body — choosing connection over conquest in his last conscious moments.",
-      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/346818.jpg",
-      "malId": 59394
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/6/243861.jpg?s=7d6b962cafaeb5d6ae91fa8b3d9d38a0",
+      "malId": 23277
+    },
+    {
+      "name": "Isaac Netero",
+      "title": "The Apex Precedent",
+      "rank": "Triple-Star Hunter",
+      "primaryAbility": "100-Type Guanyin Bodhisattva / Enhancement",
+      "loreBio": "The 12th Chairman of the Hunter Association and briefly the strongest Nen user in the world. He reached his apex through decades of maddening repetition, dedicating his fist to gratitude until his prayers moved faster than sound.",
+      "systemBio": "The foundational anchor asset of the global regulatory framework. Retained market dominance for half a century through an output velocity that circumvented all known counter-measures, serving as the ultimate institutional deterrent.",
+      "gradientFrom": "amber-900",
+      "gradientTo": "yellow-600",
+      "accentColor": "yellow-400",
+      "icon": "Sun",
+      "dangerLevel": 10,
+      "signatureMoment": "Deploying the Zero Hand against Meruem, expending his entire remaining life force in a concentrated beam of pure gratitude before instantly aging into a gaunt skeleton.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/257355.jpg?s=1371e4c5acb62a73bf7843b25b58d25d",
+      "malId": 14489
+    },
+    {
+      "name": "Illumi Zoldyck",
+      "title": "The Puppeteer",
+      "rank": "Hunter",
+      "primaryAbility": "Needle People / Manipulation",
+      "loreBio": "Killua's eldest brother, an emotionless assassin who fundamentally equates control with love. He implanted a needle in Killua's brain to override his autonomy, genuinely believing he was ensuring his brother's survival.",
+      "systemBio": "A strict compliance officer enforcing dynastic directives through involuntary asset restructuring. Utilizes hard-coded cognitive overrides to eliminate variable outcomes in allied assets and fully commodify hostile targets.",
+      "gradientFrom": "purple-900",
+      "gradientTo": "indigo-800",
+      "accentColor": "purple-500",
+      "icon": "Target",
+      "dangerLevel": 9,
+      "signatureMoment": "Manifesting a terrifying bloodlust aura during the Hunter Exam when Hisoka jokingly threatened to kill Killua, revealing the absolute fanaticism underneath his dead eyes.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/8/174521.jpg?s=3b9c5ccadb580670fc0942edd8d06a6d",
+      "malId": 57
+    },
+    {
+      "name": "Neferpitou",
+      "title": "The Royal Guard",
+      "rank": "Unranked",
+      "primaryAbility": "Terpsichora / Specialization",
+      "loreBio": "The firstborn of the Chimera Ant Royal Guard, possessing a terrifying, playful malice. Pitou wielded an aura so vast that it emotionally broke seasoned Hunters just by grazing them, serving as the King's most loyal surgeon and shield.",
+      "systemBio": "A specialized defense-and-repair mechanism generated exclusively to insure the sovereign asset. Possesses asymmetric force multiplication capabilities that render standard engagement protocols mathematically unviable.",
+      "gradientFrom": "red-900",
+      "gradientTo": "rose-600",
+      "accentColor": "rose-400",
+      "icon": "Crosshair",
+      "dangerLevel": 9,
+      "signatureMoment": "Using Doctor Blythe to painstakingly reconstruct Kite's shattered body into a training dummy, completely disconnected from the emotional horror of the act.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/12/253673.jpg?s=1800b6a0931f971d9c6d47b9ca1cae1c",
+      "malId": 12300
+    },
+    {
+      "name": "Biscuit Krueger",
+      "title": "The Hidden Value",
+      "rank": "Double-Star Hunter",
+      "primaryAbility": "Magical Spa Services / Enhancement",
+      "loreBio": "A 57-year-old Nen master who disguises herself as a little girl to underestimate opponents. She is a profound mentor who structured Gon and Killua's raw potential into functional combat frameworks.",
+      "systemBio": "A high-capability mentor and support asset that deliberately falsifies its front-facing metrics (appearance) to maintain strategic information asymmetry. Cultivates high-yield junior assets into market-ready operators.",
+      "gradientFrom": "pink-900",
+      "gradientTo": "rose-600",
+      "accentColor": "rose-400",
+      "icon": "Activity",
+      "dangerLevel": 8,
+      "signatureMoment": "Dropping her disguise to reveal a hulking, brutally muscled true form, shattering a highly-trained bomber's jaw in a single, unceremonious strike.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/236165.jpg",
+      "_fetchFailed": false,
+      "malId": 4130
+    },
+    {
+      "name": "Ging Freecss",
+      "title": "The Prime Mover",
+      "rank": "Double-Star Hunter",
+      "primaryAbility": "System Mastery / Analysis",
+      "loreBio": "Gon's absentee father, a legendary Ruin Hunter who built Greed Island merely to test his son. Renowned as one of the top five Nen users globally, his true ability remains unknown because he anticipates and outmaneuvers threats before they materialize.",
+      "systemBio": "The ultimate orchestrating process. An untrackable architect node that establishes complex institutional frameworks and testing environments while remaining entirely insulated from liability and direct engagement. He is the benchmark against which the primary protagonist's value is measured.",
+      "gradientFrom": "emerald-900",
+      "gradientTo": "teal-700",
+      "accentColor": "teal-500",
+      "icon": "Globe",
+      "dangerLevel": 10,
+      "signatureMoment": "Replicating Leorio's proprietary teleportation punch perfectly after being hit by it once, casually demonstrating that his base operating system can emulate bespoke applications just by observing them.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/235313.jpg",
+      "_fetchFailed": false,
+      "malId": 3137
     }
   ],
   "factions": [
@@ -254,6 +336,15 @@
       "severity": "fatal",
       "systemSubtitle": "Death-Triggered Escalation Clause",
       "loreSubtitle": "Grudge Beyond the Grave"
+    },
+    {
+      "name": "Information Asymmetry",
+      "subtitle": "Concealment as Strategy",
+      "loreConsequence": "A Nen user's strength relies heavily on the opponent not understanding their Hatsu's conditions. Exposing the mechanics of one's ability drastically increases the probability of being countered and killed.",
+      "systemEquivalent": "In this economy, exposing your source code guarantees liquidation. Proprietary algorithms (Hatsu) provide maximum yield only when their operational parameters remain entirely opaque to hostile actors.",
+      "severity": "high",
+      "systemSubtitle": "Concealment as Strategy",
+      "loreSubtitle": "The Danger of Knowing"
     }
   ],
   "relationships": [
@@ -336,6 +427,78 @@
       "weight": 6,
       "loreDesc": "Direct adversaries during the Chimera Ant invasion. Killua's Godspeed represented one of the few human-speed capabilities that could outpace the Royal Guard — but against the King himself, even that velocity existed on borrowed time.",
       "systemDesc": "An engagement where a high-speed tactical asset operates within the threat radius of a sovereign-class entity. The speed differential provides temporary operational viability but offers no path to strategic victory — only sustained evasion."
+    },
+    {
+      "source": "Isaac Netero",
+      "target": "Meruem",
+      "type": "enemy",
+      "weight": 10,
+      "loreDesc": "The ultimate battle for the survival of humanity. Netero fought not for malice, but as the absolute representative of human malice, determined to draw the King's true name out before detonating the Rose.",
+      "systemDesc": "A final-resolution engagement between the incumbent market regulator and an unprecedented sovereign disruptor. The engagement concluded in a mutually assured destruction protocol that liquidated both assets."
+    },
+    {
+      "source": "Illumi Zoldyck",
+      "target": "Killua Zoldyck",
+      "type": "dependent",
+      "weight": 9,
+      "loreDesc": "Illumi views Killua as the ultimate masterpiece of the Zoldyck family and seeks to control him entirely. He believes Killua is biologically incapable of true friendship and belongs exclusively in the darkness.",
+      "systemDesc": "A senior asset attempting to enforce total proprietary control over a high-yield junior asset. Employs coercive compliance mechanisms to prevent the junior asset from diversifying its alliance portfolio."
+    },
+    {
+      "source": "Illumi Zoldyck",
+      "target": "Hisoka Morow",
+      "type": "ally",
+      "weight": 7,
+      "loreDesc": "A deeply unsettling partnership of convenience between two sociopaths. They assist each other only when their interests momentarily align, fully aware they will likely have to kill one another eventually.",
+      "systemDesc": "A highly volatile strategic alliance characterized by low trust and high mutual utility. Both operators continuously calculate the liquidation value of the partnership versus the threat vector it represents."
+    },
+    {
+      "source": "Neferpitou",
+      "target": "Meruem",
+      "type": "ally",
+      "weight": 10,
+      "loreDesc": "Absolute, uncompromising devotion. Pitou exists purely to serve, heal, and die for the King, possessing no ego outside of that divine mandate.",
+      "systemDesc": "A specialized defense protocol characterized by zero latency and infinite loyalty. The unit possesses no autonomous valuation parameters outside the preservation of the sovereign asset."
+    },
+    {
+      "source": "Gon Freecss",
+      "target": "Neferpitou",
+      "type": "enemy",
+      "weight": 10,
+      "loreDesc": "A vendetta forged in absolute trauma. Pitou's murder and subsequent desecration of Kite broke Gon's mind, converting his profound optimism into an inescapable singularity of revenge.",
+      "systemDesc": "A zero-sum catastrophic conflict vector. The junior asset liquidated its entire future capitalization to forcefully match the defense entity's output ceiling, resulting in the total destruction of the entity."
+    },
+    {
+      "source": "Biscuit Krueger",
+      "target": "Gon Freecss",
+      "type": "mentor",
+      "weight": 8,
+      "loreDesc": "Biscuit took over Gon's training in Greed Island, stripping away his bad habits and establishing the rigorous daily fundamentals that allowed him to survive against vastly superior opponents.",
+      "systemDesc": "A senior asset cultivator enforcing strict standardization protocols on a highly volatile, high-yield variable."
+    },
+    {
+      "source": "Biscuit Krueger",
+      "target": "Killua Zoldyck",
+      "type": "mentor",
+      "weight": 8,
+      "loreDesc": "Biscuit recognized Killua's trauma-induced flight reflex and ruthlessly pinpointed it. She mentored him not just in combat, but in breaking the psychological chains of his upbringing.",
+      "systemDesc": "A diagnostic process identifying and addressing hard-coded compliance bugs in a proprietary Zoldyck asset."
+    },
+    {
+      "source": "Ging Freecss",
+      "target": "Gon Freecss",
+      "type": "successor",
+      "weight": 9,
+      "loreDesc": "Ging is Gon's ultimate objective, but he is a terrible father. He set up lethally dangerous breadcrumbs merely to test if his son was competent enough to find him.",
+      "systemDesc": "An orchestrating prime-mover node that designed a brutal, multi-tier gauntlet strictly to stress-test the operational capacity of its own spawned sub-process."
+    },
+    {
+      "source": "Ging Freecss",
+      "target": "Isaac Netero",
+      "type": "ally",
+      "weight": 7,
+      "loreDesc": "Netero deeply respected Ging's unruly nature and immense talent, recognizing him as one of the few Hunters who truly embodied the chaotic, adventurous spirit of the Association.",
+      "systemDesc": "Mutual recognition between the apex institutional regulator and the most capable off-grid architect, maintaining an unspoken equilibrium."
     }
   ],
   "counterplay": [
@@ -370,6 +533,12 @@
       "ruleViolated": "Nen Condition Proportionality / Sustainable Exchange",
       "loreDesc": "Gon sacrificed every shred of his future potential — growth, Nen, lifespan — in a single binding contract to temporarily achieve the adult form necessary to destroy Neferpitou. He was left as a withered husk, clinically alive but strategically erased.",
       "systemDesc": "A total liquidation event where the practitioner converted all future earnings, unrealized gains, and principal into a single immediate-settlement instrument. The resulting output exceeded any recorded human threshold — but the account was permanently closed at zero balance with no mechanism for recapitalization."
+    },
+    {
+      "name": "Kurapika's Emperor Time",
+      "ruleViolated": "Nen Type Immutability",
+      "loreDesc": "When his eyes turn scarlet, Kurapika's innate category shifts from Conjurer to Specialist, allowing him 100% efficiency in all six Nen categories. However, every second spent in this state permanently burns an hour of his lifespan.",
+      "systemDesc": "A protocol temporarily redefining class immutability to achieve universal 100% operational efficiency. To offset this catastrophic system violation, the host burns unrecoverable hardware lifecycle at a ratio of 1:3600."
     }
   ],
   "causalEvents": [

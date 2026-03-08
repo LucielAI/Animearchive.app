@@ -29,93 +29,21 @@ const EDGE_LABELS = {
 
 const NODE_R = 32
 const PORTRAIT_R = 28
-const VB_W = 700
-const VB_H = 560
-const LABEL_OFFSET = 46
-const TITLE_OFFSET = 58
-const BOUNDS_PAD = 60
+const VB_W = 800
+const VB_H = 650
+const LABEL_OFFSET = 48
+const TITLE_OFFSET = 60
+const BOUNDS_PAD = 80
+
+import * as d3 from 'd3-force'
 
 const MIN_NODE_DIST = 130
 
-function forceLayout(characters, relationships, iterations = 150) {
-  const cx = VB_W / 2, cy = VB_H / 2, spread = 220
-  const nodes = characters.map((char, i) => {
-    const angle = (2 * Math.PI * i) / characters.length - Math.PI / 2
-    return { ...char, x: cx + spread * Math.cos(angle), y: cy + spread * Math.sin(angle) }
-  })
-
-  const nameMap = {}
-  nodes.forEach((n, i) => { nameMap[n.name] = i })
-
-  for (let iter = 0; iter < iterations; iter++) {
-    const force = nodes.map(() => ({ fx: 0, fy: 0 }))
-
-    // Very strong repulsion — prevents clustering
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[j].x - nodes[i].x
-        const dy = nodes[j].y - nodes[i].y
-        const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1)
-        const rep = 55000 / (dist * dist)
-        force[i].fx -= (dx / dist) * rep
-        force[i].fy -= (dy / dist) * rep
-        force[j].fx += (dx / dist) * rep
-        force[j].fy += (dy / dist) * rep
-      }
-    }
-
-    // Weak spring attraction along edges
-    relationships.forEach(rel => {
-      const si = nameMap[rel.source]
-      const ti = nameMap[rel.target]
-      if (si === undefined || ti === undefined) return
-      const dx = nodes[ti].x - nodes[si].x
-      const dy = nodes[ti].y - nodes[si].y
-      const dist = Math.max(Math.sqrt(dx * dx + dy * dy), 1)
-      const idealDist = 200
-      const att = 0.015 * (dist - idealDist)
-      force[si].fx += (dx / dist) * att
-      force[si].fy += (dy / dist) * att
-      force[ti].fx -= (dx / dist) * att
-      force[ti].fy -= (dy / dist) * att
-    })
-
-    // Gentle center gravity
-    nodes.forEach((n, i) => {
-      force[i].fx += (cx - n.x) * 0.004
-      force[i].fy += (cy - n.y) * 0.004
-    })
-
-    const damping = 0.22
-    nodes.forEach((n, i) => {
-      n.x += force[i].fx * damping
-      n.y += force[i].fy * damping
-      n.x = Math.max(BOUNDS_PAD, Math.min(VB_W - BOUNDS_PAD, n.x))
-      n.y = Math.max(BOUNDS_PAD, Math.min(VB_H - BOUNDS_PAD, n.y))
-    })
-
-    // Hard minimum distance constraint — push apart any overlapping pair
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[j].x - nodes[i].x
-        const dy = nodes[j].y - nodes[i].y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < MIN_NODE_DIST && dist > 0.1) {
-          const overlap = (MIN_NODE_DIST - dist) / 2
-          const ux = dx / dist, uy = dy / dist
-          nodes[i].x -= ux * overlap
-          nodes[i].y -= uy * overlap
-          nodes[j].x += ux * overlap
-          nodes[j].y += uy * overlap
-        }
-      }
-    }
-  }
-  return nodes
-}
-
 function getConnectedRelationships(name, relationships) {
-  return relationships.filter(r => r.source === name || r.target === name)
+  return relationships.filter(r => 
+    (typeof r.source === 'object' ? r.source.name === name : r.source === name) || 
+    (typeof r.target === 'object' ? r.target.name === name : r.target === name)
+  )
 }
 
 function EdgeLabel({ x, y, type, color }) {
@@ -148,7 +76,9 @@ function getEdgeLabelPos(sx, sy, tx, ty) {
 
 export default function NodeGraphExplorer({ characters = [], relationships = [], isSystemMode, theme }) {
   const svgRef = useRef(null)
+  const simulationRef = useRef(null)
   const [nodes, setNodes] = useState([])
+  const [links, setLinks] = useState([])
   const [selected, setSelected] = useState(null)
   const [dragging, setDragging] = useState(null)
   const [hoveredEdge, setHoveredEdge] = useState(null)
@@ -156,10 +86,43 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
   const dragOffset = useRef({ x: 0, y: 0 })
 
   const resetLayout = useCallback(() => {
-    setNodes(forceLayout(characters, relationships))
+    if (simulationRef.current) simulationRef.current.stop()
+
+    // Position nodes radially to start
+    const cx = VB_W / 2, cy = VB_H / 2, spread = 220
+    const newNodes = characters.map((c, i) => {
+      const angle = (2 * Math.PI * i) / characters.length - Math.PI / 2
+      return { ...c, x: cx + spread * Math.cos(angle), y: cy + spread * Math.sin(angle) }
+    })
+    
+    // Copy links so d3 doesn't mutate original JSON relationship objects
+    const newLinks = relationships.map(r => ({ ...r }))
+
+    const sim = d3.forceSimulation(newNodes)
+      .force('link', d3.forceLink(newLinks).id(d => d.name).distance(220))
+      .force('charge', d3.forceManyBody().strength(-6500))
+      .force('center', d3.forceCenter(VB_W / 2, VB_H / 2).strength(0.04))
+      .force('collide', d3.forceCollide().radius(NODE_R + 35).iterations(3))
+      .alphaDecay(0.02)
+      .on('tick', () => {
+        // Enforce boundary box
+        newNodes.forEach(n => {
+          n.x = Math.max(BOUNDS_PAD, Math.min(VB_W - BOUNDS_PAD, n.x))
+          n.y = Math.max(BOUNDS_PAD, Math.min(VB_H - BOUNDS_PAD, n.y))
+        })
+        setNodes([...newNodes])
+        setLinks([...newLinks])
+      })
+
+    simulationRef.current = sim
   }, [characters, relationships])
 
-  useEffect(() => { resetLayout() }, [resetLayout])
+  useEffect(() => {
+    resetLayout()
+    return () => {
+      if (simulationRef.current) simulationRef.current.stop()
+    }
+  }, [resetLayout])
 
   if (characters.length === 0) {
     return <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
@@ -184,29 +147,42 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
   const handleStart = (e, name) => {
     e.stopPropagation()
     if (e.cancelable) e.preventDefault()
+    if (!simulationRef.current) return
+    simulationRef.current.alphaTarget(0.3).restart()
     const node = nodeMap[name]
     if (!node) return
     const svgP = getSvgPoint(e)
     if (!svgP) return
     dragOffset.current = { x: svgP.x - node.x, y: svgP.y - node.y }
+    node.fx = node.x
+    node.fy = node.y
     setDragging(name)
   }
 
   const handleMove = (e) => {
-    if (!dragging) return
+    if (!dragging || !simulationRef.current) return
     const svgP = getSvgPoint(e)
     if (!svgP) return
-    setNodes(prev => prev.map(n =>
-      n.name === dragging
-        ? { ...n, x: svgP.x - dragOffset.current.x, y: svgP.y - dragOffset.current.y }
-        : n
-    ))
+    const node = nodeMap[dragging]
+    if (node) {
+      node.fx = svgP.x - dragOffset.current.x
+      node.fy = svgP.y - dragOffset.current.y
+    }
   }
 
-  const handleEnd = () => setDragging(null)
+  const handleEnd = () => {
+    if (!dragging || !simulationRef.current) return
+    const node = nodeMap[dragging]
+    if (node) {
+      node.fx = null
+      node.fy = null
+    }
+    simulationRef.current.alphaTarget(0)
+    setDragging(null)
+  }
 
   const selectedChar = selected ? characters.find(c => c.name === selected) : null
-  const selectedRels = selected ? getConnectedRelationships(selected, relationships) : []
+  const selectedRels = selected ? getConnectedRelationships(selected, links) : []
 
   return (
     <div className="space-y-4 font-mono">
@@ -236,12 +212,11 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
         ))}
       </div>
 
-      <div className="relative">
+      <div className="relative w-full overflow-x-auto scrollbar-hide rounded-xl border border-white/10 bg-[#050508]">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${VB_W} ${VB_H}`}
-          className="w-full h-auto rounded-lg border border-white/10"
-          style={{ backgroundColor: '#050508' }}
+          className="min-w-[800px] lg:min-w-full w-full h-[650px]"
           onMouseMove={handleMove}
           onMouseUp={handleEnd}
           onMouseLeave={handleEnd}
@@ -263,11 +238,11 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
           </defs>
 
           {/* Edges — rendered first (below nodes) */}
-          {relationships.map((rel, i) => {
-            const s = nodeMap[rel.source]
-            const t = nodeMap[rel.target]
-            if (!s || !t) return null
-            const isActive = !selected || rel.source === selected || rel.target === selected
+          {links.map((rel, i) => {
+            const s = rel.source
+            const t = rel.target
+            if (!s || !t || typeof s === 'string' || typeof t === 'string') return null
+            const isActive = !selected || s.name === selected || t.name === selected
             const edgeColor = EDGE_COLORS[rel.type] || '#555'
             const weight = Math.max(1.5, (rel.weight || 5) * 0.7)
             const dx = t.x - s.x, dy = t.y - s.y
@@ -323,9 +298,9 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
           {/* Nodes */}
           {nodes.map(node => {
             const isSelected = selected === node.name
-            const isConnected = selected && relationships.some(r =>
-              (r.source === selected && r.target === node.name) ||
-              (r.target === selected && r.source === node.name)
+            const isConnected = selected && links.some(r =>
+              (r.source.name === selected && r.target.name === node.name) ||
+              (r.target.name === selected && r.source.name === node.name)
             )
             const isFaded = selected && !isSelected && !isConnected
             const nodeColor = resolveColor(node.accentColor, accent)
@@ -371,35 +346,52 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
                       <circle cx="0" cy="0" r={PORTRAIT_R}
                         fill={nodeColor} opacity={0.15} />
                       <text x="0" y="7" textAnchor="middle"
-                        fontSize={15} fontFamily="monospace" fontWeight="bold"
+                        fontSize={20} fontFamily="monospace" fontWeight="bold"
                         fill={nodeColor} style={{ pointerEvents: 'none' }}>
-                        {node.name.split(' ')[0].slice(0, 3)}
+                        {node.name.slice(0, 1).toUpperCase()}
                       </text>
                     </>
                   )}
                 </g>
 
-                {/* Name label */}
-                <text
-                  x={node.x} y={node.y + LABEL_OFFSET}
-                  textAnchor="middle" fontSize={12} fontFamily="monospace"
-                  fontWeight={isSelected ? 'bold' : 'normal'}
-                  fill={isSelected || isConnected ? '#e5e7eb' : '#9ca3af'}
-                  style={{ pointerEvents: 'none' }}
-                >
-                  {node.name.split(' ')[0]}
-                </text>
+                {/* Name label with heavy stroke for readability */}
+                <g style={{ pointerEvents: 'none' }}>
+                  <text
+                    x={node.x} y={node.y + LABEL_OFFSET}
+                    textAnchor="middle" fontSize={12} fontFamily="monospace"
+                    fontWeight={isSelected ? 'bold' : 'normal'}
+                    stroke="#050508" strokeWidth={5} strokeLinejoin="round"
+                  >
+                    {node.name.split(' ')[0]}
+                  </text>
+                  <text
+                    x={node.x} y={node.y + LABEL_OFFSET}
+                    textAnchor="middle" fontSize={12} fontFamily="monospace"
+                    fontWeight={isSelected ? 'bold' : 'normal'}
+                    fill={isSelected || isConnected ? '#e5e7eb' : '#9ca3af'}
+                  >
+                    {node.name.split(' ')[0]}
+                  </text>
+                </g>
 
                 {/* Title on select/connect */}
                 {(isSelected || isConnected) && (
-                  <text
-                    x={node.x} y={node.y + TITLE_OFFSET}
-                    textAnchor="middle" fontSize={9} fontFamily="monospace"
-                    fill={nodeColor} opacity={0.8}
-                    style={{ pointerEvents: 'none' }}
-                  >
-                    {node.title}
-                  </text>
+                  <g style={{ pointerEvents: 'none' }}>
+                    <text
+                      x={node.x} y={node.y + TITLE_OFFSET}
+                      textAnchor="middle" fontSize={9} fontFamily="monospace"
+                      stroke="#050508" strokeWidth={4} strokeLinejoin="round"
+                    >
+                      {node.title}
+                    </text>
+                    <text
+                      x={node.x} y={node.y + TITLE_OFFSET}
+                      textAnchor="middle" fontSize={9} fontFamily="monospace"
+                      fill={nodeColor} opacity={0.9}
+                    >
+                      {node.title}
+                    </text>
+                  </g>
                 )}
               </g>
             )
@@ -407,31 +399,31 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
         </svg>
 
         {/* Edge hover tooltip */}
-        {hoveredEdge !== null && relationships[hoveredEdge] && (
+        {hoveredEdge !== null && links[hoveredEdge] && (
           <div className="absolute bottom-2 left-2 right-2 bg-black/95 border rounded-lg px-3 py-2 z-10"
-            style={{ borderColor: EDGE_COLORS[relationships[hoveredEdge].type] || accent }}>
+            style={{ borderColor: EDGE_COLORS[links[hoveredEdge].type] || accent }}>
             <div className="flex items-center gap-2 mb-1">
               <span className="text-[10px] font-bold tracking-wider"
-                style={{ color: EDGE_COLORS[relationships[hoveredEdge].type] }}>
-                {relationships[hoveredEdge].source.split(' ')[0]}
+                style={{ color: EDGE_COLORS[links[hoveredEdge].type] }}>
+                {links[hoveredEdge].source.name.split(' ')[0]}
               </span>
               <span className="text-[9px] text-gray-500">&rarr;</span>
               <span className="text-[10px] font-bold tracking-wider"
-                style={{ color: EDGE_COLORS[relationships[hoveredEdge].type] }}>
-                {relationships[hoveredEdge].target.split(' ')[0]}
+                style={{ color: EDGE_COLORS[links[hoveredEdge].type] }}>
+                {links[hoveredEdge].target.name.split(' ')[0]}
               </span>
               <span className="text-[8px] px-1.5 py-0.5 rounded uppercase tracking-wider"
                 style={{
-                  color: EDGE_COLORS[relationships[hoveredEdge].type],
-                  backgroundColor: `${EDGE_COLORS[relationships[hoveredEdge].type]}20`
+                  color: EDGE_COLORS[links[hoveredEdge].type],
+                  backgroundColor: `${EDGE_COLORS[links[hoveredEdge].type]}20`
                 }}>
-                {relationships[hoveredEdge].type}
+                {links[hoveredEdge].type}
               </span>
             </div>
             <p className="text-[10px] text-gray-400 leading-relaxed">
               {isSystemMode
-                ? (relationships[hoveredEdge].systemDesc || relationships[hoveredEdge].loreDesc)
-                : relationships[hoveredEdge].loreDesc}
+                ? (links[hoveredEdge].systemDesc || links[hoveredEdge].loreDesc)
+                : links[hoveredEdge].loreDesc}
             </p>
           </div>
         )}
@@ -439,8 +431,9 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
 
       {/* Selected character detail panel */}
       {selectedChar && (
-        <div className="bg-[#0a0a14] border border-white/10 rounded-lg overflow-hidden">
-          <div className="flex gap-4 p-4">
+        <div className="bg-[#050508] border border-white/10 rounded-xl overflow-hidden shadow-2xl animate-fade-in relative">
+          <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: resolveColor(selectedChar.accentColor, accent) }} />
+          <div className="flex gap-4 p-5">
             {/* Portrait with proper gradient fallback */}
             <div className="shrink-0 w-20 h-24 rounded-lg overflow-hidden border border-white/10"
               style={{
@@ -497,17 +490,22 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
           </div>
 
           {/* Bio */}
-          <div className="px-4 pb-3">
-            <p className="text-xs text-gray-400 leading-relaxed">
-              {isSystemMode ? selectedChar.systemBio : selectedChar.loreBio}
-            </p>
+          <div className="px-5 pb-4">
+            <div className="bg-white/5 border border-white/5 rounded p-3">
+              <p className="text-xs text-gray-300 leading-relaxed tracking-wide">
+                {isSystemMode ? selectedChar.systemBio : selectedChar.loreBio}
+              </p>
+            </div>
           </div>
 
           {/* Signature Moment */}
-          {selectedChar.signatureMoment && (
-            <div className="px-4 pb-3">
-              <p className="text-[9px] text-gray-500 uppercase tracking-wider mb-1">Signature Moment</p>
-              <p className="text-[10px] text-gray-400 leading-relaxed italic">
+          {selectedChar.signatureMoment && !isSystemMode && (
+            <div className="px-5 pb-4">
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                <span className="w-2 h-0.5 bg-gray-600"></span> Signature Moment
+              </p>
+              <p className="text-[11px] text-gray-400 leading-relaxed italic border-l-2 pl-3 py-1"
+                style={{ borderColor: resolveColor(selectedChar.accentColor, accent) }}>
                 &ldquo;{selectedChar.signatureMoment}&rdquo;
               </p>
             </div>
@@ -515,14 +513,14 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
 
           {/* Connected relationships */}
           {selectedRels.length > 0 && (
-            <div className="border-t border-white/5 px-4 py-3">
-              <p className="text-[9px] text-gray-500 uppercase tracking-wider mb-2">
-                Connections ({selectedRels.length})
+            <div className="border-t border-white/10 bg-white/[0.02] px-5 py-4">
+              <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <span className="w-2 h-0.5 bg-gray-600"></span> Operational Ties ({selectedRels.length})
               </p>
               <div className="space-y-2">
                 {selectedRels.map((rel, i) => {
-                  const isSource = rel.source === selected
-                  const other = isSource ? rel.target : rel.source
+                  const isSource = rel.source.name === selected
+                  const other = isSource ? rel.target.name : rel.source.name
                   const edgeColor = EDGE_COLORS[rel.type] || '#555'
                   return (
                     <div key={i}
