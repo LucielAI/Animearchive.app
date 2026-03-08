@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Dashboard from './Dashboard'
 import { ANIME_LIST } from './data/index.js'
-import { Lock } from 'lucide-react'
+import { Lock, ExternalLink } from 'lucide-react'
 
 export default function App() {
   const [activeUniverse, setActiveUniverse] = useState(null)
@@ -13,9 +13,9 @@ export default function App() {
       <div className="relative">
         <button
           onClick={() => setActiveUniverse(null)}
-          className="fixed top-6 left-6 z-50 px-4 py-2 bg-black/50 hover:bg-black/80 border border-white/20 rounded font-mono text-[10px] text-gray-300 hover:text-white tracking-[0.2em] transition-all backdrop-blur-md uppercase cursor-pointer min-h-[44px] min-w-[44px]"
+          className="fixed top-6 left-6 z-50 px-5 py-2.5 bg-black/60 hover:bg-white/10 border border-white/10 hover:border-white/30 rounded-lg font-mono text-[10px] text-gray-400 hover:text-white tracking-[0.2em] transition-all duration-300 backdrop-blur-xl uppercase cursor-pointer min-h-[44px] min-w-[44px] group"
         >
-          &larr; ARCHIVE SELECTOR
+          <span className="group-hover:-translate-x-0.5 inline-block transition-transform duration-200">&larr;</span> ARCHIVE SELECTOR
         </button>
         <Dashboard data={ANIME_LIST[activeUniverse]} />
       </div>
@@ -45,23 +45,24 @@ export default function App() {
         className="w-full relative py-24 px-6 border-b border-white/5 flex flex-col items-center justify-center text-center z-10"
         style={{ background: 'radial-gradient(ellipse at center, #0d0d1f 0%, #050508 100%)' }}
       >
-        <div className="absolute top-6 left-6 inline-block px-3 py-1 border border-white/20 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/60 bg-white/5 backdrop-blur-md">
-          SYSTEM ROOT ACCESS
+        <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/50 bg-white/5 backdrop-blur-xl">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)]" />
+          SYSTEM ONLINE
         </div>
 
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-3 bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
           Anime Architecture Archive
         </h1>
-        <p className="text-sm md:text-base text-cyan-400/70 tracking-widest uppercase mt-2">
-          Fictional Universe Intelligence System V1.0
+        <p className="text-sm md:text-base text-cyan-400/60 tracking-[0.3em] uppercase mt-1 font-bold">
+          Fictional Universe Intelligence System
         </p>
 
-        <div className="mt-8 font-mono text-[10px] md:text-xs text-white/40 tracking-widest uppercase flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-4">
-          <span>[{ANIME_LIST.length}] UNIVERSES CLASSIFIED</span>
-          <span className="hidden sm:inline">|</span>
-          <span>[{totalEntities}] ENTITIES ARCHIVED</span>
-          <span className="hidden sm:inline">|</span>
-          <span>[{totalPowers}] POWER SYSTEMS MAPPED</span>
+        <div className="mt-10 font-mono text-[10px] md:text-xs text-white/30 tracking-widest uppercase flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6">
+          <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-cyan-400/50" />[{ANIME_LIST.length}] UNIVERSES</span>
+          <span className="hidden sm:inline text-white/10">|</span>
+          <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-cyan-400/50" />[{totalEntities}] ENTITIES</span>
+          <span className="hidden sm:inline text-white/10">|</span>
+          <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-cyan-400/50" />[{totalPowers}] POWER SYSTEMS</span>
         </div>
       </header>
 
@@ -139,8 +140,24 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="mt-20 pb-8 text-center font-mono text-xs text-white/20 uppercase tracking-widest">
-        Unofficial fan-made interactive analysis. All characters, names, and lore belong to their respective creators and studios.
+      <footer className="mt-20 pb-10 flex flex-col items-center gap-4 font-mono relative z-10">
+        <a
+          href="https://www.tiktok.com/@kenshipeak"
+          target="_blank"
+          rel="noreferrer"
+          className="group flex items-center gap-2.5 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/30 rounded-full backdrop-blur-xl transition-all duration-300"
+        >
+          <svg viewBox="0 0 24 24" className="w-4 h-4 text-cyan-400 group-hover:text-white transition-colors" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.63a8.23 8.23 0 004.79 1.53V6.71a4.85 4.85 0 01-1.03-.02z"/>
+          </svg>
+          <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 group-hover:text-white transition-colors uppercase">
+            @KENSHIPEAK
+          </span>
+          <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-cyan-400 transition-colors" />
+        </a>
+        <p className="text-[10px] text-white/15 tracking-[0.2em] uppercase max-w-md text-center px-6">
+          Unofficial fan-made interactive analysis. All characters, names, and lore belong to their respective creators and studios.
+        </p>
       </footer>
     </div>
   )
