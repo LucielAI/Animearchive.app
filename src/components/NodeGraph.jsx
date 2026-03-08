@@ -17,8 +17,32 @@ export default function NodeGraph({ relationships = [], characters = [] }) {
   const [nodes, setNodes] = useState([])
   const [selected, setSelected] = useState(null)
   const [dragging, setDragging] = useState(null)
+  const [hasPulsed, setHasPulsed] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const reqRef = useRef()
+
+  // Wow Graph Moment (Pulse central node on load)
+  useEffect(() => {
+    if (hasPulsed || characters.length === 0 || relationships.length === 0) return
+    const timer = setTimeout(() => {
+      if (!selected) {
+        const degrees = {}
+        relationships.forEach(r => {
+          degrees[r.source] = (degrees[r.source] || 0) + 1
+          degrees[r.target] = (degrees[r.target] || 0) + 1
+        })
+        const maxNode = Object.keys(degrees).reduce((a, b) => (degrees[a] || 0) > (degrees[b] || 0) ? a : b, characters[0].name)
+        setSelected(maxNode)
+        
+        setTimeout(() => {
+          setSelected(prev => prev === maxNode ? null : prev)
+        }, 1200)
+        
+        setHasPulsed(true)
+      }
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [characters, relationships, hasPulsed, selected])
 
   useEffect(() => {
     const cx = 300

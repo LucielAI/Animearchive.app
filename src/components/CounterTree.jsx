@@ -14,7 +14,12 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
           c.mechanic.includes('Domain') ||
           c.mechanic.includes('Infinity')
         )
-        setSelectedEdge(index !== -1 ? index : 0)
+        const targetIndex = index !== -1 ? index : 0
+        setSelectedEdge(targetIndex)
+        
+        setTimeout(() => {
+          setSelectedEdge(prev => prev === targetIndex ? null : prev)
+        }, 1500)
       }
     }, 600)
     return () => clearTimeout(timer)

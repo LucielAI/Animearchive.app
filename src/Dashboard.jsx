@@ -27,6 +27,31 @@ const DEFAULT_THEME = {
   heroGradient: 'rgba(5,5,20,0.95)',
 }
 
+const getBackgroundMotif = (anime) => {
+  switch (anime) {
+    case 'Attack on Titan':
+      return `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l20 30-10 40 30-20 40 30-20-40 30-20-40 10z' stroke='rgba(255,255,255,1)' fill='none' stroke-width='0.5'/%3E%3C/svg%3E")`
+    case 'Jujutsu Kaisen':
+      return `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`
+    case 'Hunter x Hunter':
+      return `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' stroke='rgba(255,255,255,1)' fill='none' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='60' stroke='rgba(255,255,255,1)' fill='none' stroke-width='0.5'/%3E%3C/svg%3E")`
+    case 'Vinland Saga':
+      return `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E")`
+    default:
+      return 'none'
+  }
+}
+
+const getClassificationLabel = (hint) => {
+  switch (hint) {
+    case 'timeline': return 'TIMELINE SYSTEM'
+    case 'counter-tree': return 'COUNTERPLAY SYSTEM'
+    case 'node-graph': return 'RELATIONAL SYSTEM'
+    case 'affinity-matrix': return 'AFFINITY SYSTEM'
+    default: return 'CLASSIFIED SYSTEM'
+  }
+}
+
 export default function Dashboard({ data }) {
   const [activeTab, setActiveTab] = useState(0)
   const [isSystemMode, setIsSystemMode] = useState(false)
@@ -48,6 +73,13 @@ export default function Dashboard({ data }) {
         backgroundSize: '50px 50px'
       }}
     >
+      <div 
+        className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay" 
+        style={{ 
+          backgroundImage: getBackgroundMotif(data?.anime),
+          opacity: 0.03 
+        }} 
+      />
       <div className={`sys-mode-overlay ${isSystemMode ? 'active' : ''}`} />
       {/* Header */}
       <header
@@ -57,19 +89,37 @@ export default function Dashboard({ data }) {
         <div className="absolute inset-0 bg-linear-to-b from-[#050508]/20 to-transparent pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-4 md:flex-row md:justify-between">
           <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/50 bg-white/5 backdrop-blur-xl">
-              <span className={`w-1.5 h-1.5 rounded-full ${isSystemMode ? 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)]' : 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]'}`} />
-              ARCHIVE ACTIVE <span className="text-white/20 mx-1">|</span> ID: {data?.malId}
+            <div className="flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/50 bg-white/5 backdrop-blur-xl">
+                <span className={`w-1.5 h-1.5 rounded-full ${isSystemMode ? 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)]' : 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]'}`} />
+                ARCHIVE ACTIVE <span className="text-white/20 mx-1">|</span> ID: {data?.malId}
+              </div>
+              <div 
+                className="px-2 py-1 rounded text-[9px] font-bold tracking-[0.25em] border backdrop-blur-md" 
+                style={{ color: theme.primary, borderColor: `${theme.primary}40`, backgroundColor: `${theme.primary}10` }}
+              >
+                {getClassificationLabel(data?.visualizationHint)}
+              </div>
             </div>
-            <h1 
-              key={isSystemMode ? 'sys' : 'lore'} 
-              className={`text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent`}
-            >
-              {animeName}
-            </h1>
-            <p className="text-xs md:text-sm text-gray-500 tracking-[0.2em] uppercase font-bold">
-              {data?.tagline}
+            
+            {data?.logoUrl && (
+              <img src={data.logoUrl} alt={`${animeName} Logo`} className="h-16 md:h-20 object-contain mt-2 mb-1 drop-shadow-lg" />
+            )}
+
+            {!data?.logoUrl && (
+              <h1 
+                key={isSystemMode ? 'sys' : 'lore'} 
+                className={`text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent mt-2`}
+              >
+                {animeName}
+              </h1>
+            )}
+
+            {/* Casual Discovery Hook */}
+            <p className="text-xs md:text-md text-gray-300 tracking-[0.1em] italic max-w-xl font-sans mt-1 border-l-2 pl-3" style={{ borderLeftColor: theme.secondary }}>
+              "{data?.tagline}"
             </p>
+
             {isAoT && isSystemMode && (
               <div className="flex items-center gap-2 text-[10px] text-red-400/70 tracking-widest mt-2 rounded bg-red-900/10 px-3 py-1.5 border border-red-500/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse box-shadow-glow-red" />

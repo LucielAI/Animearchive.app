@@ -1,5 +1,16 @@
 import { useMemo } from 'react'
-import { Terminal } from 'lucide-react'
+import { Terminal, Zap, Scale, AlertTriangle, Clock, Shield } from 'lucide-react'
+
+const getCategoryIcon = (category) => {
+  switch (category) {
+    case 'ENGINE': return <Zap className="w-2.5 h-2.5" />
+    case 'LAW': return <Scale className="w-2.5 h-2.5" />
+    case 'EXCEPTION': return <AlertTriangle className="w-2.5 h-2.5" />
+    case 'CAUSALITY BOUND': return <Clock className="w-2.5 h-2.5" />
+    case 'HIERARCHY': return <Shield className="w-2.5 h-2.5" />
+    default: return null
+  }
+}
 
 // Extract best 5 bullets dynamically from payload depending on availability
 function deriveBullets(data) {
@@ -112,9 +123,10 @@ export default function SystemSummary({ data, isSystemMode, theme }) {
                 />
                 <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-200 transition-colors leading-relaxed">
                   <span 
-                    className="font-bold text-[10px] tracking-wider uppercase mr-2 px-1.5 py-0.5 rounded opacity-70 border border-white/10"
+                    className="inline-flex items-center gap-1 font-bold text-[10px] tracking-wider uppercase mr-2 px-1.5 py-0.5 rounded opacity-70 border border-white/10"
                     style={{ color: accentColor, backgroundColor: `${accentColor}10` }}
                   >
+                    {getCategoryIcon(bullet.category)}
                     {bullet.category}
                   </span>
                   {textContent}

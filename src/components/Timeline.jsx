@@ -216,16 +216,33 @@ function RelationshipWeb({ characters, relationships, theme, isSystemMode }) {
 }
 
 const Timeline = ({ characters, causalEvents, relationships = [], isSystemMode, theme }) => {
+  const [isSweeping, setIsSweeping] = useState(false);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setIsSweeping(true), 300);
+    const timer2 = setTimeout(() => setIsSweeping(false), 2200);
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
+  }, []);
+
   return (
     <div className="w-full relative py-8 px-4 flex flex-col gap-12">
       {/* Central Timeline Line */}
       <div
-        className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px transition-colors duration-500 z-0"
+        className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px transition-colors duration-500 z-0 overflow-hidden"
         style={{
           background: `linear-gradient(to bottom, transparent, ${isSystemMode ? theme.secondary : theme.primary}80, transparent)`,
           boxShadow: `0 0 15px ${isSystemMode ? theme.modeGlow : theme.glow}`
         }}
-      />
+      >
+        <div 
+          className="w-full h-1/3 transition-transform duration-[1800ms] ease-in-out"
+          style={{ 
+            background: `linear-gradient(to bottom, transparent, #fff, transparent)`,
+            boxShadow: `0 0 20px 2px ${isSystemMode ? theme.secondary : theme.primary}`,
+            transform: isSweeping ? 'translateY(300%)' : 'translateY(-100%)' 
+          }}
+        />
+      </div>
 
       <div
         className="text-center font-bold tracking-[0.2em] mb-8 z-10 transition-colors duration-500"
