@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Dashboard from './Dashboard';
 import { aot } from './data';
+import { Lock } from 'lucide-react';
 
 const UNIVERSES = {
   aot
@@ -23,53 +24,137 @@ function App() {
     );
   }
 
+  const ANIME_LIST = Object.values(UNIVERSES);
+  const totalEntities = ANIME_LIST.reduce((sum, a) => sum + (a.characters?.length || 0), 0);
+  const totalPowers = ANIME_LIST.reduce((sum, a) => sum + (a.powerSystem?.length || 0), 0);
+  
+  const placeholdersCount = Math.max(0, 6 - ANIME_LIST.length);
+  const placeholders = Array(placeholdersCount).fill(0);
+
   return (
-    <div className="min-h-screen bg-[#050508] text-white font-mono p-6 md:p-12 selection:bg-cyan-500/30">
-      <div className="max-w-6xl mx-auto">
-        <header className="mb-16 border-b border-white/10 pb-8 mt-12 md:mt-0">
-          <div className="inline-block px-3 py-1 border border-white/20 rounded-full text-[10px] tracking-[0.3em] font-bold text-gray-400 bg-white/5 backdrop-blur-md mb-6">
-            SYSTEM ROOT ACCESS
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter uppercase mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-            Anime Architecture Archive
-          </h1>
-          <p className="text-gray-400 tracking-widest text-sm md:text-base uppercase">
-            Fictional Universe Intelligence System v1.0
-          </p>
-        </header>
+    <div 
+      className="min-h-screen bg-[#050508] text-white font-mono selection:bg-cyan-500/30 overflow-x-hidden relative"
+      style={{
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+        `,
+        backgroundSize: '50px 50px'
+      }}
+    >
+      {/* Animated scan-line */}
+      <div className="absolute top-0 left-0 w-full h-px bg-white/5 z-0 animate-[scan_8s_linear_infinite]" />
+
+      {/* Hero Section */}
+      <header 
+        className="w-full relative py-24 px-6 border-b border-white/5 flex flex-col items-center justify-center text-center z-10"
+        style={{ background: 'radial-gradient(ellipse at center, #0d0d1f 0%, #050508 100%)' }}
+      >
+        <div className="absolute top-6 left-6 inline-block px-3 py-1 border border-white/20 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/60 bg-white/5 backdrop-blur-md">
+          SYSTEM ROOT ACCESS
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {Object.entries(UNIVERSES).map(([key, data]) => (
-            <div 
-              key={key} 
-              onClick={() => setActiveUniverse(key)}
-              className="group cursor-pointer bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden hover:ring-1 hover:ring-cyan-500/50 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="aspect-video relative overflow-hidden">
-                {data.animeImageUrl ? (
-                  <img src={data.animeImageUrl} alt={data.anime} className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-                ) : (
-                  <div className="w-full h-full bg-slate-900 border-b border-white/10 flex items-center justify-center text-xs tracking-widest text-gray-600">NO IMAGE ASSET</div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050508] to-transparent pointer-events-none" />
-                <div className="absolute top-4 right-4 px-2 py-1 bg-black/60 backdrop-blur border border-white/20 text-[10px] font-bold tracking-[0.2em] text-cyan-400 rounded">
-                  {data.visualizationHint.toUpperCase()}
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+          Anime Architecture Archive
+        </h1>
+        <p className="text-sm md:text-base text-cyan-400/70 tracking-widest uppercase mt-2">
+          Fictional Universe Intelligence System V1.0
+        </p>
+
+        <div className="mt-8 font-mono text-[10px] md:text-xs text-white/40 tracking-widest uppercase flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-4">
+          <span>[{ANIME_LIST.length}] UNIVERSES CLASSIFIED</span>
+          <span className="hidden sm:inline">|</span>
+          <span>[{totalEntities}] ENTITIES ARCHIVED</span>
+          <span className="hidden sm:inline">|</span>
+          <span>[{totalPowers}] POWER SYSTEMS MAPPED</span>
+        </div>
+      </header>
+      
+      {/* Main Content Area */}
+      <main className="max-w-6xl mx-auto px-6 py-16 z-10 relative">
+        <div className="text-sm text-cyan-400 font-mono tracking-widest mb-8 uppercase flex items-center gap-2">
+          <span>// CLASSIFIED ARCHIVES</span>
+          <div className="h-px bg-cyan-400/20 grow ml-4"></div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Real Archives */}
+          {Object.entries(UNIVERSES).map(([key, data]) => {
+            const theme = data.themeColors || { primary: '#374151', glow: 'rgba(255,255,255,0.1)' };
+            
+            return (
+              <div 
+                key={key} 
+                onClick={() => setActiveUniverse(key)}
+                className="group cursor-pointer bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden hover:-translate-y-2 transition-all duration-300 relative flex flex-col aspect-3/4"
+                style={{ 
+                  border: `1px solid ${theme.primary}`
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 30px ${theme.glow}`; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
+              >
+                <div className="h-[70%] relative w-full overflow-hidden shrink-0">
+                  {data.animeImageUrl ? (
+                    <img 
+                      src={data.animeImageUrl} 
+                      alt={data.anime} 
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-900 border-b border-white/10 flex items-center justify-center text-xs tracking-widest text-gray-600">NO IMAGE ASSET</div>
+                  )}
+                  {/* Dark gradient overlay on bottom half of image */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050508] to-transparent pointer-events-none" />
+                  
+                  {/* visualizationHint badge */}
+                  <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur-sm border border-white/20 text-[10px] font-bold tracking-[0.2em] text-white rounded uppercase">
+                    {data.visualizationHint}
+                  </div>
+                </div>
+                
+                <div className="p-5 grow flex flex-col justify-end relative">
+                  <div className="text-[10px] text-white/50 font-bold tracking-[0.2em] mb-1 uppercase flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
+                    INDEX: {data.malId}
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-bold uppercase mb-1 text-white transition-colors truncate w-full" style={{ textShadow: `0 0 8px ${theme.glow}80` }}>{data.anime}</h2>
+                  <p className="text-[10px] text-white/50 tracking-widest uppercase truncate w-full mb-4 md:mb-6">
+                    {data.tagline}
+                  </p>
+                  
+                  <div className="text-xs font-bold tracking-widest opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 md:translate-y-2 md:group-hover:translate-y-0 uppercase md:absolute md:bottom-5 pointer-events-none" style={{ color: theme.primary }}>
+                    [ENTER ARCHIVE →]
+                  </div>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="text-[10px] text-gray-500 font-bold tracking-[0.2em] mb-2 uppercase flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                  INDEX: {data.malId}
-                </div>
-                <h2 className="text-2xl font-bold uppercase mb-2 group-hover:text-cyan-400 transition-colors drop-shadow-[0_0_8px_rgba(6,182,212,0)] group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]">{data.anime}</h2>
-                <p className="text-[10px] text-gray-400 tracking-widest leading-relaxed line-clamp-2 uppercase">
-                  {data.tagline}
-                </p>
+            );
+          })}
+          
+          {/* Placeholder Archives */}
+          {placeholders.map((_, idx) => (
+            <div 
+              key={`placeholder-${idx}`}
+              className="rounded-xl overflow-hidden relative flex flex-col items-center justify-center aspect-3/4"
+              style={{
+                border: '1px solid rgba(255,255,255,0.05)',
+                background: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 10px)'
+              }}
+            >
+              <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+              <Lock className="w-8 h-8 text-white/20 mb-4" />
+              <div className="text-xl md:text-2xl font-bold tracking-widest text-white/20 uppercase mb-2">CLASSIFIED</div>
+              <div className="text-[8px] md:text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase max-w-[80%] text-center">
+                ARCHIVE PENDING CLASSIFICATION
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </main>
+
+      <footer className="mt-20 pb-8 text-center font-mono text-xs text-white/20 uppercase tracking-widest">
+        Unofficial fan-made interactive analysis. All characters, names, and lore belong to their respective creators and studios.
+      </footer>
     </div>
   );
 }

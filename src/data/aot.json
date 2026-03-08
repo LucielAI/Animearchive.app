@@ -2,6 +2,17 @@
   "anime": "Attack on Titan",
   "tagline": "A brutal deterministic closed-loop temporal matrix",
   "malId": 16498,
+  "themeColors": {
+    "primary": "#6b7280",
+    "secondary": "#10b981",
+    "accent": "#ef4444",
+    "glow": "rgba(107,114,128,0.35)",
+    "tabActive": "#6b7280",
+    "badgeBg": "rgba(239,68,68,0.12)",
+    "badgeText": "#ef4444",
+    "modeGlow": "rgba(16,185,129,0.25)",
+    "heroGradient": "rgba(13,20,13,0.95)"
+  },
   "animeImageUrl": "https://myanimelist.net/images/anime/10/47347l.jpg",
   "visualizationHint": "timeline",
   "visualizationReason": "Causality itself functions as the supreme power system; the timeline is a malleable battlespace.",
