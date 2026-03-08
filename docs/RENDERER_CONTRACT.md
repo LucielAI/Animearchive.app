@@ -13,8 +13,9 @@ Examples:
 
 Requirements:
 - causalEvents array
-- chronological ordering
+- chronological or attractor-field ordering
 - event dependencies
+- renderer-worthy causality
 
 ### CounterTreeExplorer
 Used for rule-based combat or counterplay systems.
@@ -27,41 +28,36 @@ Requirements:
 - counterplay nodes
 - power interactions
 - escalation chains
+- system-vs-anti-system dynamics
 
 ### NodeGraphExplorer
 Used for relational ecosystems.
 
 Examples:
 - Hunter x Hunter
+- Vinland Saga
 - Code Geass
 
 Requirements:
 - characters
 - relationships
 - faction dynamics
+- strong strategic or ideological network value
 
 ### StandardCardsExplorer
-Fallback renderer when no specific visualization fits.
+Fallback renderer when no specific visualization fits or when a specialized renderer fails safely.
 
-## Entity Image Contract
-
-All renderers are designed to handle missing images elegantly.
-
-For any character or entity where an image asset is unavailable from allowed hosts:
-- Ensure `imageUrl` is `null`.
-- Add the `"_fetchFailed": true` flag to the object.
-
-Every renderer automatically defaults to a `<ImageWithFallback />` component that will read this flag and provide a graceful UI degradation, ensuring the layout does not break with 404 image errors.
-
-## Visualization Hint
-
+## visualizationHint
 Payloads may include:
-
-visualizationHint
-
-Possible values:
 
 - timeline
 - counter-tree
 - node-graph
 - cards
+
+## Image Handling Contract
+If a character image cannot be reliably fetched:
+- imageUrl may be null
+- _fetchFailed: true must be set
+
+Future agents must not fabricate image URLs to satisfy schema shape.

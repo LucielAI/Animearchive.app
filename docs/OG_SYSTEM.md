@@ -2,23 +2,25 @@
 
 The archive uses dynamic Open Graph image generation.
 
-## File
-
-api/og.jsx
+## Files
+- api/og.jsx
+- middleware.js
 
 ## Features
-
 - 1200x630 OG images
 - universe-specific styling
-- Roboto Mono typography
+- mono typography
 - dark brutalist design
+- social preview support
 
-## Middleware
+## Purpose
+This system exists to increase:
+- shareability
+- TikTok / social clickthrough
+- portfolio polish
 
-middleware.js intercepts /universe/:slug routes and injects OG metadata dynamically.
-
-This enables:
-
-- Twitter embeds
-- Discord previews
-- shareable archive cards
+## Verification
+Universe routes should produce valid previews for:
+- Discord
+- Twitter / X
+- other OG consumers

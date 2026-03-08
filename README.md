@@ -2,19 +2,17 @@
 
 **Live:** https://animearchive.app/
 
-A dark cyberpunk-styled interactive archive that deconstructs anime universes through two interpretive lenses: **LORE** (narrative) and **SYS** (strategic/systemic). Each universe is a dense, hand-curated payload rendered through a visualization mode chosen to match the series' structural identity.
+A dark cyberpunk-styled interactive archive that deconstructs fictional universes through two interpretive lenses: **LORE** (narrative) and **SYS** (strategic/systemic). 
 
-## Current Archives
+This is not intended to be an encyclopedic wiki. It is a structural intelligence platform designed to reveal the hidden mechanics of fictional worlds—energy economies, permission hierarchies, counterplay graphs, and causal chains. 
 
-| Universe | Visualization | Characters | SYS Voice |
-|---|---|---|---|
-| Attack on Titan | Timeline | 6 | Military intelligence briefing |
-| Jujutsu Kaisen | Counter Tree | 6 | Technical systems analysis |
-| Hunter x Hunter | Node Graph | 6 | Contract law / game theory |
+Every universe is treated as a deterministic system. The archive renders these systems via specialized visualization engines rather than static text pages.
 
-Each payload contains 6 characters, 4 power systems, 3 rules, factions, relationships, counterplay, anomalies, and causal events — all with separate LORE and SYS descriptions.
+The platform is engineered to simultaneously serve two primary goals:
+1. **Elite Frontend Portfolio:** A meticulously crafted React/Tailwind codebase showcasing complex state management, data visualization (D3/custom SVGs), and premium "Classified Government Archive" glassmorphism aesthetics.
+2. **Social Viral Engine:** Designed to generate highly engaging, visually striking "wow moments" (such as dynamic node graphs or combat counter-trees) optimized closely for TikTok and short-form video content reach.
 
-## Architecture
+## Architecture & Visualizers
 
 ```
 src/
@@ -22,24 +20,18 @@ src/
 ├── Dashboard.jsx              # Universe detail view with tabs
 ├── data/
 │   ├── index.js               # Import, validate, export all payloads
-│   ├── aot.json               # Attack on Titan
-│   ├── jjk.json               # Jujutsu Kaisen
-│   └── hxh.json               # Hunter x Hunter
+│   └── *.json                 # Hand-curated JSON intelligence schemas
 ├── components/
 │   ├── ImageWithFallback.jsx  # Portrait with gradient fallback
 │   ├── DangerBar.jsx          # Animated threat level bar
 │   ├── SeverityBadge.jsx      # Rule severity indicator
 │   ├── Toggle.jsx             # LORE / SYS mode switch
-│   ├── Timeline.jsx           # Timeline visualization
+│   ├── Timeline.jsx           # Causality tree visualization
 │   ├── NodeGraph.jsx          # Relationship graph (SVG)
-│   ├── AffinityMatrix.jsx     # Character affinity grid
-│   ├── CounterTree.jsx        # Counterplay tree
+│   ├── AffinityMatrix.jsx     # Faction/Character chemistry grid
+│   ├── CounterTree.jsx        # Sub-system matchup/counterplay tree
 │   ├── TabContent.jsx         # Tab router
-│   └── tabs/
-│       ├── PowerEngineTab.jsx
-│       ├── EntityDatabaseTab.jsx
-│       ├── FactionsTab.jsx
-│       └── CoreLawsTab.jsx
+│   └── tabs/                  # Logical tab sections
 ├── visualizations/
 │   ├── registry.js            # Maps visualizationHint → explorer
 │   ├── TimelineExplorer.jsx
@@ -48,58 +40,66 @@ src/
 │   ├── AffinityMatrixExplorer.jsx
 │   └── StandardCardsExplorer.jsx
 └── utils/
-    ├── validateSchema.js      # Runtime payload validation
+    ├── validateSchema.js      # Strict runtime payload validation
     └── resolveColor.js        # Tailwind color name → hex
 ```
 
-## Data Schema
+## Data Schema & Engine Contract
 
-Every anime payload is validated on import. Required structure:
+Every universe payload is built via a two-stage workflow: broad system research followed by strict schema validation. The engine strictly enforces structural density over completeness.
 
 - **Top-level:** `anime`, `tagline`, `malId`, `themeColors` (9 fields), `visualizationHint`, `visualizationReason`
-- **Characters (6):** `name`, `title`, `rank`, `dangerLevel`, `loreBio`, `systemBio`, `gradientFrom`, `gradientTo`, `accentColor`, `icon`, `signatureMoment`, `imageUrl`
-- **Power Systems (4):** `name`, `subtitle`, `loreDesc`, `systemDesc`, `icon`, `color`, `signatureMoment`
-- **Rules (3):** `name`, `subtitle`, `loreConsequence`, `systemEquivalent`, `severity`
-- **Factions:** `name`, `role`, `loreDesc`, `systemDesc`, `icon`, `color`
-- **Relationships:** `source`, `target`, `type`, `weight`, `loreDesc`, `systemDesc`
-- **Rankings:** `systemName`, `loreName`, `topTierName`, `tiers[]`
+- **Characters:** Strategically selected "hub" actors.
+- **Power Systems:** Raw energy architectures and hardware/software analogies.
+- **Rules:** The unyielding constraints governing the system.
+- **Factions:** Organizations competing for system control.
+- **Relationships:** Directed edges defining alliances, dependency, or betrayal.
+- **Anomalies:** Instances where the system breaks or is hacked.
+- **Counterplay:** Exact mechanical breakdowns of how abilities nullify or exploit each other.
+
+### The LORE / SYS Dual Narrative
+A core differentiator of the project. Every description field within a universe JSON supports two framings:
+- **LORE Mode:** Human-readable, narrative-focused.
+- **SYS Mode:** Root-access system-level analogy (e.g. treating a spell as "Proprietary Software" or an assassin as a "System Exploit").
 
 ## Visualization Modes
 
-| Mode | Hint | Best For |
+| Mode | Hint Parameter | Structural Use Case |
 |---|---|---|
-| Timeline | `timeline` | Linear causality, escalating stakes |
-| Node Graph | `node-graph` | Conditional alliances, betrayal webs |
-| Counter Tree | `counter-tree` | Technical matchups, ability interactions |
-| Affinity Matrix | `affinity-matrix` | Faction alignment, character chemistry |
-| Standard Cards | `standard-cards` | Fallback grid layout |
+| Timeline | `timeline` | Linear causality, escalating stakes, event cascades |
+| Node Graph | `node-graph` | Conditional alliances, betrayal webs, shifting strategic interdependence |
+| Counter Tree | `counter-tree` | Technical combat matchups, counter-abilities, and power mechanics |
+| Affinity Matrix | `affinity-matrix` | Faction alignment, character chemistry, compatibility scores |
+| Standard Cards | `standard-cards` | Fallback component architecture |
 
-Each payload declares its preferred mode via `visualizationHint`.
+Each payload declares its required rendering engine via `visualizationHint`.
 
 ## Tech Stack
 
 - **React 19** + **Vite 7**
-- **Tailwind CSS 4** (PostCSS)
-- **Lucide React** for icons
-- No router — state-driven navigation
-- Deployed on **Vercel**
+- **Tailwind CSS 4** (PostCSS, strictly utility classes)
+- **Lucide React** for UI iconography
+- **D3** (for SVG layouts)
+- Pure state-driven architecture within the Dashboards (No internal complex sub-routers)
+- Deployed on **Vercel** with Edge-function dynamic Open Graph imagery.
 
 ## Development
 
 ```bash
 npm install
-npm run dev      # Dev server
-npm run build    # Production build
-npm run preview  # Preview production build
-npm run lint     # ESLint
+npm run dev               # Dev server
+npm run build             # Production build
+npm run preview           # Preview production build
+npm run validate:payload  # Custom CLI tool for JSON structure checking
 ```
 
 ## Adding a New Universe
 
-1. Create `src/data/<slug>.json` following the schema above
-2. Import and add to `ANIME_LIST` in `src/data/index.js`
-3. Set `visualizationHint` to match the series' structural identity
-4. Validation runs automatically on import — check console for warnings
+Integrating a new system safely involves:
+1. Running research utilizing `docs/MASTER_RESEARCH_PROMPT.md` to identify the structural thesis.
+2. Generating a strict JSON schema conforming to `validateSchema.js`.
+3. Using the custom CLI ingest command: `npm run add:universe <path-to-payload> <slug>`
+4. The pipeline automatically wires the schema, tests fallbacks, and assigns the correct routing endpoints.
 
 ## License
 
