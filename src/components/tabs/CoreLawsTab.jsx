@@ -11,7 +11,7 @@ const TIMELINE_BADGE_COLORS = {
 }
 
 export default function CoreLawsTab({ data, isSystemMode, theme }) {
-  const [expandedCausal, setExpandedCausal] = useState(false)
+  const [expandedCausal, setExpandedCausal] = useState(true)
   const rules = data?.rules || []
   const causalEvents = data?.causalEvents || []
   const anomalies = data?.anomalies || []

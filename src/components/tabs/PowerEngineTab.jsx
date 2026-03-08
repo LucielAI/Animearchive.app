@@ -24,7 +24,7 @@ function getIcon(iconName) {
 }
 
 export default function PowerEngineTab({ data, isSystemMode, theme }) {
-  const [expandedCounterplay, setExpandedCounterplay] = useState(false)
+  const [expandedCounterplay, setExpandedCounterplay] = useState(true)
   const powerSystem = data?.powerSystem || []
   const counterplay = data?.counterplay || []
   const rankings = data?.rankings
@@ -63,7 +63,7 @@ export default function PowerEngineTab({ data, isSystemMode, theme }) {
               </p>
 
               {power.signatureMoment && (
-                <div className="pt-4 border-t border-white/10 mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="pt-4 border-t border-white/10 mt-auto opacity-100 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 transition-opacity duration-300">
                   <span className="text-[8px] md:text-[10px] text-white/50 uppercase tracking-widest block mb-1">SIGNATURE MOMENT</span>
                   <p className="text-[10px] md:text-xs text-gray-400 italic">&ldquo;{power.signatureMoment}&rdquo;</p>
                 </div>

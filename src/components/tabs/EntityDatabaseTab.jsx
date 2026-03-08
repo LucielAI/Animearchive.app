@@ -14,7 +14,7 @@ const TYPE_BADGE_COLORS = {
 }
 
 export default function EntityDatabaseTab({ data, isSystemMode, theme }) {
-  const [showRelationships, setShowRelationships] = useState(false)
+  const [showRelationships, setShowRelationships] = useState(true)
 
   const characters = data?.characters || []
   const relationships = data?.relationships || []

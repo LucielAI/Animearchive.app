@@ -16,7 +16,8 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
             onClick={() => setSelectedEdge(isSelected ? null : i)}
             className="cursor-pointer"
           >
-            <div className="flex items-center gap-2 p-3 bg-[#0a0a14] rounded-lg border border-white/10 hover:border-white/20 transition-colors">
+            {/* Desktop: horizontal layout */}
+            <div className="hidden sm:flex items-center gap-2 p-3 bg-[#0a0a14] rounded-lg border border-white/10 hover:border-white/20 transition-colors">
               <div className="flex-shrink-0 border-2 border-green-500 rounded-lg px-3 py-1.5">
                 <span className="text-green-400 text-xs font-bold">{cp.attacker}</span>
               </div>
@@ -37,8 +38,24 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
               </div>
             </div>
 
+            {/* Mobile: stacked layout */}
+            <div className="sm:hidden p-3 bg-[#0a0a14] rounded-lg border border-white/10 hover:border-white/20 transition-colors space-y-2">
+              <div className="flex items-center gap-3">
+                <div className="border-2 border-green-500 rounded-lg px-3 py-1.5 flex-1 min-w-0">
+                  <span className="text-green-400 text-xs font-bold truncate block">{cp.attacker}</span>
+                </div>
+                <span className="text-white/40 text-xs shrink-0">▶</span>
+                <div className="border-2 border-red-500 rounded-lg px-3 py-1.5 flex-1 min-w-0">
+                  <span className="text-red-400 text-xs font-bold truncate block">{cp.defender}</span>
+                </div>
+              </div>
+              <div className="text-[10px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded px-2 py-1 text-center">
+                {cp.mechanic}
+              </div>
+            </div>
+
             {isSelected && cp.loreDesc && (
-              <div className="mt-1 ml-4 mr-4 bg-black/60 border border-cyan-900 rounded px-3 py-2 text-xs text-cyan-300">
+              <div className="mt-1 mx-1 sm:mx-4 bg-black/60 border border-cyan-900 rounded px-3 py-2 text-xs text-cyan-300">
                 {cp.loreDesc}
               </div>
             )}

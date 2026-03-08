@@ -5,6 +5,13 @@ import TabContent from './components/TabContent'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
+const TAB_DESCRIPTIONS = {
+  0: 'Abilities, techniques, and the mechanics that define combat.',
+  1: 'Key figures, their threat levels, and how they connect.',
+  2: 'Organizations, alliances, and the groups that shape the world.',
+  3: 'The unbreakable rules that govern this universe.',
+}
+
 const DEFAULT_THEME = {
   primary: '#22d3ee',
   secondary: '#8b5cf6',
@@ -38,12 +45,12 @@ export default function Dashboard({ data }) {
     >
       {/* Header */}
       <header
-        className="pt-12 pb-6 px-6 relative"
+        className="pt-14 pb-6 px-6 relative"
         style={{ background: `radial-gradient(ellipse at center, ${theme.heroGradient} 0%, transparent 100%)` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/20 to-transparent pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-4 md:flex-row md:justify-between">
-          <div className="flex flex-col items-center md:items-start gap-4">
+          <div className="flex flex-col items-center md:items-start gap-3">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/50 bg-white/5 backdrop-blur-xl">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]" />
               ARCHIVE ACTIVE <span className="text-white/20 mx-1">|</span> ID: {data?.malId}
@@ -68,14 +75,14 @@ export default function Dashboard({ data }) {
             )}
           </div>
 
-          <div className="w-full md:w-auto mt-4 md:mt-0 relative z-20 shrink-0">
+          <div className="w-full md:w-auto mt-2 md:mt-0 relative z-20 shrink-0">
             <Toggle isSystemMode={isSystemMode} setIsSystemMode={setIsSystemMode} theme={theme} />
           </div>
         </div>
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="max-w-6xl mx-auto px-6 mb-8 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
+      <nav className="max-w-6xl mx-auto px-6 mb-2 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
         {TABS.map((tab, idx) => {
           const isActive = activeTab === idx
           const activeColor = isSystemMode ? theme.secondary : theme.primary
@@ -103,6 +110,11 @@ export default function Dashboard({ data }) {
           )
         })}
       </nav>
+
+      {/* Tab Description */}
+      <div className="max-w-6xl mx-auto px-6 mb-8">
+        <p className="text-[10px] md:text-xs text-gray-600 tracking-wider">{TAB_DESCRIPTIONS[activeTab]}</p>
+      </div>
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 pb-24">

@@ -32,7 +32,7 @@ const Toggle = ({ isSystemMode, setIsSystemMode, theme }) => {
         >
           <Lock className="w-3.5 h-3.5 shrink-0" />
           <span className="text-[10px] font-bold tracking-[0.2em]">LORE</span>
-          <span className="text-[10px] font-bold tracking-[0.15em] hidden md:inline">CLASSIFIED</span>
+          <span className="text-[10px] font-bold tracking-[0.15em] hidden sm:inline">MODE</span>
         </div>
 
         <div
@@ -44,7 +44,7 @@ const Toggle = ({ isSystemMode, setIsSystemMode, theme }) => {
         >
           <Shield className="w-3.5 h-3.5 shrink-0" />
           <span className="text-[10px] font-bold tracking-[0.2em]">SYS</span>
-          <span className="text-[10px] font-bold tracking-[0.15em] hidden md:inline">ROOT ACCESS</span>
+          <span className="text-[10px] font-bold tracking-[0.15em] hidden sm:inline">MODE</span>
         </div>
       </div>
     </div>
