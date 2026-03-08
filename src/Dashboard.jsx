@@ -5,6 +5,7 @@ import TabContent from './components/TabContent'
 import SystemSummary from './components/SystemSummary'
 import ExploreAnotherUniverse from './components/ExploreAnotherUniverse'
 import WhyThisRenderer from './components/WhyThisRenderer'
+import AIInsightPanel from './components/AIInsightPanel'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
@@ -169,6 +170,9 @@ export default function Dashboard({ data }) {
 
       {/* Why This Lens? */}
       <WhyThisRenderer data={data} isSystemMode={isSystemMode} theme={theme} />
+
+      {/* AI Insight Panel */}
+      <AIInsightPanel aiInsights={data?.aiInsights} theme={theme} isSystemMode={isSystemMode} />
 
       {/* Navigation Tabs */}
       <nav className="max-w-6xl mx-auto px-6 mb-2 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">

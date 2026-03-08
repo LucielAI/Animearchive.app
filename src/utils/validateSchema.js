@@ -258,6 +258,23 @@ export function validateAnimePayload(data) {
     })
   }
 
+  // ── 12. AI Insights Validation (Optional for legacy, strict if present) ──
+  
+  if (data.aiInsights !== undefined) {
+    if (typeof data.aiInsights !== 'object' || data.aiInsights === null) {
+      errors.push(`aiInsights must be an object.`)
+    } else {
+      if (typeof data.aiInsights.casual !== 'string' || data.aiInsights.casual.trim() === '') {
+        errors.push(`aiInsights.casual must be a non-empty string.`)
+      }
+      if (typeof data.aiInsights.deep !== 'string' || data.aiInsights.deep.trim() === '') {
+        errors.push(`aiInsights.deep must be a non-empty string.`)
+      }
+    }
+  } else {
+    warnings.push(`aiInsights is missing. This will be required for all future universe payloads to support the AI Insight System.`)
+  }
+
   // ── Output ──
 
   const hasErrors = errors.length > 0
