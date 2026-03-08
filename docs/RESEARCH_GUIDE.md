@@ -1,22 +1,25 @@
-# RESEARCH GUIDE
+# Research Guide
 
-This document outlines the workflow for expanding the Anime Architecture Archive with a brand new universe.
+Research should focus on extracting system mechanics rather than plot summaries.
 
-## 1. The Research AI Pass
-Before touching the codebase, an external AI context window (e.g., Claude 3.5 Sonnet / GPT-4) must be utilized to scrape and synthesize the chosen universe. 
+## What to Identify
 
-*The AI is not tasked with writing UI code.* It is tasked with generating highly compressed structural text mappings.
-- **Identify the structural thesis** (Is it a timeline causality trap? Is it a counterplay economy?).
-- **Map factions** strictly to systemic roles (Protag, Antag, Systemic, Chaotic, Neutral).
-- **Extract rules** separating Lore vs. System logic.
+1. Power systems
+2. System rules
+3. Factions
+4. Counterplay logic
+5. Causal events
+6. Structural anomalies
 
-## 2. Payload Generation Pipeline
-Supply the output text or JSON from Step 1 directly into `src/generation/generateUniversePayload.js`.
+## What to Avoid
 
-The generator acts as a **Transformer**, mapping the semi-structured insights into the rigid `validateSchema.js` bounds. It will autonomously select the optimal `visualizationHint` based on the thesis (not just node counts).
+Avoid:
 
-## 3. Terminal Verification
-Run:
-`npm run validate:payload scripts/targetFile.json`
+- episode summaries
+- character trivia
+- fan speculation
+- minor worldbuilding details
 
-If the payload hits soft limits or validation failures, adjust the JSON manually using strict constraints, or let the `ErrorBoundary` trigger a `standard-cards` fallback gracefully on deployment.
+## Goal
+
+Produce research that can be translated into a structured payload for the archive system.

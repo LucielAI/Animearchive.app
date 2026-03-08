@@ -1,25 +1,57 @@
-# RENDERER CONTRACT
+# Renderer Contract
 
-This document defines the strict requirements for the Anime Architecture Archive visualization engines.
+The archive uses specialized visualizers depending on the universe system structure.
 
-## Available Renderers
-- `timeline`: Requires `causalEvents` [4-10 nodes optimal]
-- `node-graph`: Requires `relationships` [8-25 edges optimal]
-- `counter-tree`: Requires `counterplay` [5-12 matchups optimal]
-- `standard-cards`: The universal fallback.
+## Supported Renderers
 
-## Universal Contract
-Every renderer MUST accept the following props:
-```javascript
-export default function RendererExplorer({ 
-  characters = [], 
-  pipelines = [], // counterplay, causalEvents, or relationships
-  isSystemMode = false, 
-  theme = {} 
-}) 
-```
+### TimelineExplorer
+Used for causal systems.
 
-## Error Boundaries
-If a renderer receives an invalid payload shape or experiences a runtime DOM crash (e.g. D3 simulation bounds failure), the global `<ErrorBoundary>` will catch the exception and immediately gracefully flush the screen, injecting `<StandardCardsExplorer />` wrapped in a warning banner.
+Examples:
+- Attack on Titan
+- Steins;Gate
 
-*No dashboard is allowed to hard-crash the user session under any circumstance.*
+Requirements:
+- causalEvents array
+- chronological ordering
+- event dependencies
+
+### CounterTreeExplorer
+Used for rule-based combat or counterplay systems.
+
+Examples:
+- Jujutsu Kaisen
+- Death Note
+
+Requirements:
+- counterplay nodes
+- power interactions
+- escalation chains
+
+### NodeGraphExplorer
+Used for relational ecosystems.
+
+Examples:
+- Hunter x Hunter
+- Code Geass
+
+Requirements:
+- characters
+- relationships
+- faction dynamics
+
+### StandardCardsExplorer
+Fallback renderer when no specific visualization fits.
+
+## Visualization Hint
+
+Payloads may include:
+
+visualizationHint
+
+Possible values:
+
+- timeline
+- counter-tree
+- node-graph
+- cards
