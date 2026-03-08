@@ -24,7 +24,9 @@
       "systemDesc": "A virtual machine instantiation where a local user requests immense cloud computing resources to temporarily spin up an overpowered localized instance.",
       "icon": "Hexagon",
       "color": "amber-400",
-      "signatureMoment": "Reiner and Bertholdt reveal their true identities atop the wall, triggering a dual transformation that shatters the fragile peace of humanity."
+      "signatureMoment": "Reiner and Bertholdt reveal their true identities atop the wall, triggering a dual transformation that shatters the fragile peace of humanity.",
+      "systemSubtitle": "Biological Mech Piloting",
+      "loreSubtitle": "Ancient Shape-Shifting Power"
     },
     {
       "name": "ODM Gear",
@@ -33,7 +35,9 @@
       "systemDesc": "A highly optimized, low-level execution script that maximizes hardware efficiency, allowing standard nodes to bypass heavy firewalls through sheer velocity.",
       "icon": "Swords",
       "color": "slate-400",
-      "signatureMoment": "Levi executes a dizzying, high-speed evasion and subsequent brutal vivisection of the Beast Titan amidst a forest of giant trees."
+      "signatureMoment": "Levi executes a dizzying, high-speed evasion and subsequent brutal vivisection of the Beast Titan amidst a forest of giant trees.",
+      "systemSubtitle": "Kinetic Physics Exploitation",
+      "loreSubtitle": "Aerial Combat System"
     },
     {
       "name": "The Paths",
@@ -42,7 +46,9 @@
       "systemDesc": "A ubiquitous, hard-coded intranet utilizing quantum entanglement to ensure zero-latency data transfer between a master server and all client nodes simultaneously.",
       "icon": "Globe",
       "color": "cyan-400",
-      "signatureMoment": "Eren addresses all Subjects of Ymir simultaneously within their own minds, declaring the initiation of the apocalyptic global Rumbling."
+      "signatureMoment": "Eren addresses all Subjects of Ymir simultaneously within their own minds, declaring the initiation of the apocalyptic global Rumbling.",
+      "systemSubtitle": "Quantum Entanglement Protocol",
+      "loreSubtitle": "Invisible Realm of Connection"
     },
     {
       "name": "Titan Hardening",
@@ -51,7 +57,9 @@
       "systemDesc": "A dynamic encryption sequence that solidifies vulnerable code blocks into immutable, read-only data structures that cannot be easily parsed, modified, or destroyed.",
       "icon": "Shield",
       "color": "emerald-400",
-      "signatureMoment": "The War Hammer Titan materializes a massive, intricately crystallized broadsword directly from the ground to impale the Attack Titan."
+      "signatureMoment": "The War Hammer Titan materializes a massive, intricately crystallized broadsword directly from the ground to impale the Attack Titan.",
+      "systemSubtitle": "Structural Material Engineering",
+      "loreSubtitle": "Crystallized Titan Armor"
     }
   ],
   "rankings": {
@@ -85,7 +93,8 @@
         "loreDesc": "The base-level recruits, cadets, and foot soldiers who form the vast bulk of the military force.",
         "systemDesc": "Standard, low-level computational nodes performing repetitive, high-mortality execution tasks."
       }
-    ]
+    ],
+    "loreName": "Paradis Military Hierarchy"
   },
   "characters": [
     {
@@ -279,21 +288,27 @@
       "subtitle": "Biological Obsolescence",
       "loreConsequence": "Any human who inherits the power of the Nine Titans will suffer rapid cellular degradation and die exactly 13 years after acquiring the power.",
       "systemEquivalent": "A hard-coded, unalterable cache expiration protocol; after an exact timestamp is reached, the memory block is wiped and automatically reallocated.",
-      "severity": "fatal"
+      "severity": "fatal",
+      "systemSubtitle": "Biological Obsolescence",
+      "loreSubtitle": "The 13-Year Death Sentence"
     },
     {
       "name": "Vow Renouncing War",
       "subtitle": "Ideological Firmware Lock",
       "loreConsequence": "Any royal inheriting the Founding Titan is instantly brainwashed by pacifist ideology, rendering the ultimate weapon completely useless in combat.",
       "systemEquivalent": "A non-overridable firmware lock placed directly onto the root administrative account, permanently blocking the execution of any offensive command lines.",
-      "severity": "high"
+      "severity": "high",
+      "systemSubtitle": "Ideological Firmware Lock",
+      "loreSubtitle": "The King's Unbreakable Oath"
     },
     {
       "name": "Subject of Ymir Connectivity",
       "subtitle": "Mandatory Intranet Hub",
       "loreConsequence": "All individuals bearing Eldian blood are perpetually connected to the Founding Titan via the interdimensional Paths, unable to break the connection.",
       "systemEquivalent": "A mandatory, persistent peer-to-peer network connection that lacks an opt-out mechanism or local firewall, allowing forced over-the-air registry updates.",
-      "severity": "high"
+      "severity": "high",
+      "systemSubtitle": "Mandatory Intranet Hub",
+      "loreSubtitle": "The Blood of Ymir"
     }
   ],
   "counterplay": [

@@ -34,7 +34,7 @@ export default function CoreLawsTab({ data, isSystemMode, theme }) {
               <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-6 pb-6 border-b border-white/10">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white mb-2">{rule.name}</h2>
-                  {rule.subtitle && <span className="text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase">{rule.subtitle}</span>}
+                  {rule.subtitle && <span className="text-[10px] md:text-xs font-bold tracking-widest text-gray-400 uppercase">{isSystemMode ? (rule.systemSubtitle || rule.subtitle) : (rule.loreSubtitle || rule.name)}</span>}
                 </div>
                 {rule.severity && <SeverityBadge severity={rule.severity} />}
               </div>
@@ -60,7 +60,7 @@ export default function CoreLawsTab({ data, isSystemMode, theme }) {
         <div className="mt-16 pt-8 border-t border-dashed" style={{ borderColor: `${theme?.accent || '#f59e0b'}50` }}>
           <div className="flex items-center gap-2 mb-8 justify-center">
             <AlertTriangle className="w-5 h-5 animate-pulse" style={{ color: theme?.accent }} />
-            <span className="font-bold tracking-[0.2em] text-xs md:text-sm uppercase" style={{ color: theme?.accent }}>Known System Anomalies</span>
+            <span className="font-bold tracking-[0.2em] text-xs md:text-sm uppercase" style={{ color: theme?.accent }}>{isSystemMode ? 'Known System Anomalies' : 'Known Rule Breakers'}</span>
             <AlertTriangle className="w-5 h-5 animate-pulse" style={{ color: theme?.accent }} />
           </div>
 
@@ -85,7 +85,7 @@ export default function CoreLawsTab({ data, isSystemMode, theme }) {
             onClick={() => setExpandedCausal(!expandedCausal)}
             className="text-xs tracking-widest text-gray-500 hover:text-gray-300 transition-colors mb-3 flex items-center gap-2"
           >
-            <span>// CAUSAL EVENT MATRIX</span>
+            <span>{isSystemMode ? '// CAUSAL EVENT MATRIX' : '// KEY EVENTS TIMELINE'}</span>
             <span className="text-[10px]">{expandedCausal ? '▼' : '▶'}</span>
           </button>
           {expandedCausal && (

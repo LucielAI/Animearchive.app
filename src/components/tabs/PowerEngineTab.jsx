@@ -54,7 +54,7 @@ export default function PowerEngineTab({ data, isSystemMode, theme }) {
                 </div>
                 <div>
                   <h2 className="text-xl md:text-2xl font-bold uppercase tracking-wider truncate">{power.name}</h2>
-                  <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase" style={{ color: isSystemMode ? theme.secondary : theme.primary }}>{power.subtitle}</span>
+                  <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase" style={{ color: isSystemMode ? theme.secondary : theme.primary }}>{isSystemMode ? (power.systemSubtitle || power.subtitle) : (power.loreSubtitle || power.name)}</span>
                 </div>
               </div>
 
@@ -77,14 +77,14 @@ export default function PowerEngineTab({ data, isSystemMode, theme }) {
       {rankings && (
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 md:p-8" style={{ background: `radial-gradient(ellipse at top left, ${theme.glow} 0%, transparent 60%)` }}>
           <h2 className="text-lg md:text-xl font-bold mb-8 text-center tracking-[0.2em] text-gray-400 uppercase">
-            {rankings.systemName}
+            {isSystemMode ? rankings.systemName : (rankings.loreName || rankings.systemName)}
           </h2>
 
           <div className="flex flex-col gap-4">
             <div className="p-6 border rounded-lg" style={{ backgroundColor: theme.badgeBg, borderColor: theme.badgeBg }}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                 <h3 className="text-xl md:text-2xl font-bold uppercase" style={{ color: theme.badgeText }}>{rankings.topTierName}</h3>
-                <div className="px-3 py-1 text-[10px] font-bold tracking-widest rounded" style={{ backgroundColor: theme.badgeBg, color: theme.badgeText, boxShadow: `0 0 10px ${theme.badgeBg}` }}>ABSOLUTE AUTHORITY</div>
+                <div className="px-3 py-1 text-[10px] font-bold tracking-widest rounded" style={{ backgroundColor: theme.badgeBg, color: theme.badgeText, boxShadow: `0 0 10px ${theme.badgeBg}` }}>{isSystemMode ? 'ABSOLUTE AUTHORITY' : 'HIGHEST RANK'}</div>
               </div>
               <p className="text-xs md:text-sm" style={{ color: theme.badgeText, opacity: 0.8 }}>
                 {isSystemMode ? rankings.topTierSystem : rankings.topTierLore}
@@ -110,7 +110,7 @@ export default function PowerEngineTab({ data, isSystemMode, theme }) {
             onClick={() => setExpandedCounterplay(!expandedCounterplay)}
             className="text-xs tracking-widest text-gray-500 hover:text-gray-300 transition-colors mb-3 flex items-center gap-2"
           >
-            <span>// TACTICAL COUNTERPLAY LOG</span>
+            <span>{isSystemMode ? '// TACTICAL COUNTERPLAY LOG' : '// COMBAT MATCHUPS'}</span>
             <span className="text-[10px]">{expandedCounterplay ? '▼' : '▶'}</span>
           </button>
           {expandedCounterplay && (

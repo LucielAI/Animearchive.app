@@ -39,7 +39,7 @@ export default function EntityDatabaseTab({ data, isSystemMode, theme }) {
       {/* Anomalies section */}
       {anomalies.length > 0 && (
         <div>
-          <h3 className="text-xs tracking-widest text-gray-500 mb-3">// SYSTEM ANOMALIES</h3>
+          <h3 className="text-xs tracking-widest text-gray-500 mb-3">{isSystemMode ? '// SYSTEM ANOMALIES' : '// RULE BREAKERS'}</h3>
           <p className="text-[10px] text-gray-600 mb-2">Characters who break the rules of their own universe.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {anomalies.map((a, i) => (
@@ -96,7 +96,7 @@ export default function EntityDatabaseTab({ data, isSystemMode, theme }) {
                             <div className="h-full rounded-full" style={{ width: `${(rel.weight || 1) * 10}%`, backgroundColor: accent }} />
                           </div>
                         </td>
-                        <td className="py-2 px-3 text-gray-500 hidden sm:table-cell max-w-[200px] truncate">{rel.loreDesc}</td>
+                        <td className="py-2 px-3 text-gray-500 hidden sm:table-cell max-w-[200px] truncate">{isSystemMode ? (rel.systemDesc || rel.loreDesc) : rel.loreDesc}</td>
                       </tr>
                     )
                   })}

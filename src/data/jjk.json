@@ -24,7 +24,9 @@
       "systemDesc": "The foundational raw processing power. Behaving similarly to anti-matter, it is destructive to biological tissue.",
       "icon": "Zap",
       "color": "indigo-400",
-      "signatureMoment": "Yuji Itadori learning to perfectly sync his physical strikes with explosive bursts of raw Cursed Energy."
+      "signatureMoment": "Yuji Itadori learning to perfectly sync his physical strikes with explosive bursts of raw Cursed Energy.",
+      "systemSubtitle": "Raw Negative Output",
+      "loreSubtitle": "Negative Spiritual Force"
     },
     {
       "name": "Cursed Technique",
@@ -33,7 +35,9 @@
       "systemDesc": "Proprietary software hardcoded into biological hardware (the right prefrontal cortex). Cannot be learned or downloaded.",
       "icon": "Cpu",
       "color": "blue-400",
-      "signatureMoment": "Gojo explaining the Limitless technique using the convergence and divergence of an infinite series."
+      "signatureMoment": "Gojo explaining the Limitless technique using the convergence and divergence of an infinite series.",
+      "systemSubtitle": "Genetic Proprietary Firmware",
+      "loreSubtitle": "Innate Sorcerer Ability"
     },
     {
       "name": "Reverse Cursed Technique",
@@ -42,7 +46,9 @@
       "systemDesc": "A mathematical compilation process triggering a restorative protocol by synthesizing positive energy to cure flesh and poisons.",
       "icon": "Activity",
       "color": "green-400",
-      "signatureMoment": "Satoru Gojo ascending and resurrecting himself from the brink of death after being gutted by Toji Fushiguro."
+      "signatureMoment": "Satoru Gojo ascending and resurrecting himself from the brink of death after being gutted by Toji Fushiguro.",
+      "systemSubtitle": "Positron Healing Protocol",
+      "loreSubtitle": "Positive Energy Healing"
     },
     {
       "name": "Domain Expansion",
@@ -51,7 +57,9 @@
       "systemDesc": "The creation of an isolated, sandboxed virtual environment granting the creator total root access with a guaranteed-hit function.",
       "icon": "Box",
       "color": "purple-400",
-      "signatureMoment": "Gojo deploying Unlimited Void to instantly paralyze the disaster curses by flooding their brains with infinite data."
+      "signatureMoment": "Gojo deploying Unlimited Void to instantly paralyze the disaster curses by flooding their brains with infinite data.",
+      "systemSubtitle": "Isolated Virtual Sandbox",
+      "loreSubtitle": "Ultimate Territory Attack"
     }
   ],
   "rankings": {
@@ -80,7 +88,8 @@
         "loreDesc": "Inexperienced learners and entry-level sorcerers deployed only against the weakest of curses.",
         "systemDesc": "Low-priority, localized scripts with limited permissions handling minor background noise."
       }
-    ]
+    ],
+    "loreName": "Sorcerer Grade Rankings"
   },
   "characters": [
     {
@@ -221,21 +230,27 @@
       "subtitle": "Hardware-Bound Firmware",
       "loreConsequence": "A sorcerer's technique is etched into their brain at birth. Overheating it causes a temporary loss of access.",
       "systemEquivalent": "Firmware hardcoded onto a motherboard. Cannot be rewritten without physically destroying and recreating the sector.",
-      "severity": "fatal"
+      "severity": "fatal",
+      "systemSubtitle": "Hardware-Bound Firmware",
+      "loreSubtitle": "Inherited Cursed Bloodlines"
     },
     {
       "name": "The Absolute Law of Vows",
       "subtitle": "Lethal Smart Contracts",
       "loreConsequence": "Mutual Binding Vows are bound by reality. Breaking one results in an undefined, catastrophic backlash that destroys the violator.",
       "systemEquivalent": "A cryptographic smart contract. Deviation from the executable code triggers a localized system crash, bricking the offending node.",
-      "severity": "fatal"
+      "severity": "fatal",
+      "systemSubtitle": "Lethal Smart Contracts",
+      "loreSubtitle": "Binding Vows of Sacrifice"
     },
     {
       "name": "Culling Game Compliance",
       "subtitle": "Mandatory OS Update",
       "loreConsequence": "Participants must abide by the tournament rules. Violations result in Cursed Technique Removal and instant death.",
       "systemEquivalent": "An unyielding OS firmware update. Applications failing compliance are force-quit and permanently uninstalled.",
-      "severity": "fatal"
+      "severity": "fatal",
+      "systemSubtitle": "Mandatory OS Update",
+      "loreSubtitle": "The Forced Death Tournament"
     }
   ],
   "anomalies": [
