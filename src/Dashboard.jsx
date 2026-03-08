@@ -4,6 +4,7 @@ import Toggle from './components/Toggle'
 import TabContent from './components/TabContent'
 import SystemSummary from './components/SystemSummary'
 import ExploreAnotherUniverse from './components/ExploreAnotherUniverse'
+import WhyThisRenderer from './components/WhyThisRenderer'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
@@ -115,6 +116,9 @@ export default function Dashboard({ data }) {
 
       {/* 5-Bullet System Summary */}
       <SystemSummary data={data} isSystemMode={isSystemMode} theme={theme} />
+
+      {/* Why This Lens? */}
+      <WhyThisRenderer data={data} isSystemMode={isSystemMode} theme={theme} />
 
       {/* Navigation Tabs */}
       <nav className="max-w-6xl mx-auto px-6 mb-2 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
