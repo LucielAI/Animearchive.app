@@ -2,21 +2,13 @@ import { Link } from 'react-router-dom'
 import { ANIME_LIST } from '../data/index'
 import { Database, Lock, ArrowRight } from 'lucide-react'
 
-const PENDING_UNIVERSES = [
-  { name: 'Steins;Gate', id: 'steinsgate' },
-  { name: 'One Piece', id: 'op' },
-  { name: 'Code Geass', id: 'geass' },
-  { name: 'Monster', id: 'monster' }
-]
+
 
 export default function ExploreAnotherUniverse({ currentId, isSystemMode, theme }) {
   const accentColor = isSystemMode ? (theme?.modeGlow || '#22d3ee') : (theme?.primary || '#8b5cf6')
   
   // Filter out the current universe
   const liveUniverses = ANIME_LIST.filter(a => a.id !== currentId)
-  
-  // Pick a couple stubs randomly or just slice
-  const pendingStubs = PENDING_UNIVERSES.slice(0, 3)
 
   return (
     <div className="w-full max-w-4xl mx-auto px-6 py-16 mt-8 font-mono border-t border-white/5">
@@ -79,20 +71,6 @@ export default function ExploreAnotherUniverse({ currentId, isSystemMode, theme 
             )
           })}
 
-          {/* Pending Stubs */}
-          {pendingStubs.map(stub => (
-            <div 
-              key={stub.id}
-              className="flex flex-col items-start px-5 py-4 bg-transparent border border-white/5 border-dashed rounded-xl w-full md:w-[260px] opacity-60 grayscale relative cursor-not-allowed text-left"
-            >
-              <span className="text-xs font-bold tracking-widest mb-1 flex items-center gap-1.5 text-gray-600">
-                <Lock className="w-3 h-3" /> ARCHIVE PENDING
-              </span>
-              <span className="text-sm text-gray-500 font-bold uppercase truncate w-full">
-                {stub.name}
-              </span>
-            </div>
-          ))}
         </div>
       </div>
     </div>
