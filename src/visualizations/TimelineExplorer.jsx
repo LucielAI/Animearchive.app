@@ -10,6 +10,7 @@ export default function TimelineExplorer({ characters = [], causalEvents = [], r
     <Timeline
       characters={characters}
       causalEvents={causalEvents}
+      relationships={relationships}
       isSystemMode={isSystemMode}
       theme={theme}
     />
