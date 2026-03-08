@@ -2,8 +2,8 @@
   "anime": "Jujutsu Kaisen",
   "tagline": "Negative Energy Economy & Algorithmic Combat",
   "malId": 40748,
-  "visualizationHint": "timeline",
-  "visualizationReason": "Characters operate as discrete functions within a rigid logic system; a timeline effectively graphs their runtime.",
+  "visualizationHint": "counter-tree",
+  "visualizationReason": "JJK is defined by technique counters and power hierarchies \u2014 the counter-tree maps how abilities nullify, exploit, and amplify each other.",
   "animeImageUrl": "https://myanimelist.net/images/anime/1171/109222l.jpg",
   "themeColors": {
     "primary": "#4f46e5",

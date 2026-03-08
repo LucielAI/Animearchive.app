@@ -1,12 +1,14 @@
 import TimelineExplorer from './TimelineExplorer'
 import NodeGraphExplorer from './NodeGraphExplorer'
 import CounterTreeExplorer from './CounterTreeExplorer'
+import AffinityMatrixExplorer from './AffinityMatrixExplorer'
 import StandardCardsExplorer from './StandardCardsExplorer'
 
 export const VISUALIZATION_REGISTRY = {
   'timeline': TimelineExplorer,
   'node-graph': NodeGraphExplorer,
   'counter-tree': CounterTreeExplorer,
+  'affinity-matrix': AffinityMatrixExplorer,
   'standard-cards': StandardCardsExplorer,
 }
 
