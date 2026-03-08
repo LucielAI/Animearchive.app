@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 
-export default function CounterTree({ counterplay = [], characters = [] }) {
+export default memo(function CounterTree({ counterplay = [], characters = [] }) {
   const [selectedEdge, setSelectedEdge] = useState(null)
   const [hasInteracted, setHasInteracted] = useState(false)
 
@@ -80,7 +80,7 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
             </div>
 
             {isSelected && cp.loreDesc && (
-              <div className="mt-1 mx-1 sm:mx-4 bg-black/60 border border-cyan-900 rounded px-3 py-2 text-xs text-cyan-300">
+              <div className="mt-2 mx-2 sm:mx-4 bg-[#050508]/90 backdrop-blur-md border border-cyan-500/30 rounded-lg px-4 py-3 text-xs text-cyan-100 shadow-lg leading-relaxed">
                 {cp.loreDesc}
               </div>
             )}
@@ -95,4 +95,4 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
       )}
     </div>
   )
-}
+})

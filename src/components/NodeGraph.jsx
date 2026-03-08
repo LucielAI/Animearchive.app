@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, useMemo } from 'react'
+import { useState, useCallback, useRef, useEffect, useMemo, memo } from 'react'
 import { resolveColor } from '../utils/resolveColor'
 
 const EDGE_COLORS = {
@@ -12,7 +12,7 @@ const EDGE_COLORS = {
   mirror: '#8b5cf6',
 }
 
-export default function NodeGraph({ relationships = [], characters = [] }) {
+export default memo(function NodeGraph({ relationships = [], characters = [] }) {
   const svgRef = useRef(null)
   const [nodes, setNodes] = useState([])
   const [selected, setSelected] = useState(null)
@@ -190,10 +190,10 @@ export default function NodeGraph({ relationships = [], characters = [] }) {
       </svg>
 
       {tooltip && (
-        <div className="absolute bottom-2 left-2 right-2 bg-black/80 border border-cyan-800 rounded px-3 py-2 text-xs text-cyan-300 font-mono">
+        <div className="absolute bottom-3 left-3 right-3 bg-black/90 backdrop-blur-md border border-cyan-800/60 rounded-lg px-4 py-3 text-xs text-cyan-300 font-mono shadow-xl pointer-events-none transition-all duration-300">
           {tooltip}
         </div>
       )}
     </div>
   )
-}
+})

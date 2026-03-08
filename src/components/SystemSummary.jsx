@@ -95,12 +95,12 @@ export default function SystemSummary({ data, isSystemMode, theme }) {
   if (!bullets || bullets.length === 0) return null
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-6 mb-8 mt-2">
+    <div className="w-full max-w-6xl mx-auto px-6 mb-8 mt-6">
       <div className={`p-5 md:p-6 rounded-xl border border-white/5 bg-[#0a0a10] relative overflow-hidden transition-all duration-300 ${isSystemMode ? 'sys-mode-container' : ''}`}>
         
         {/* Subtle decorative background piece */}
         <div 
-          className="absolute right-0 top-0 w-64 h-64 opacity-[0.03] pointer-events-none rounded-full blur-3xl transition-colors duration-500"
+          className="absolute right-0 top-0 w-64 h-64 opacity-[0.04] pointer-events-none rounded-full blur-3xl transition-colors duration-500"
           style={{ backgroundColor: accentColor }}
         />
 

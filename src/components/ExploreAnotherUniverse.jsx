@@ -46,7 +46,7 @@ export default function ExploreAnotherUniverse({ currentId, isSystemMode, theme 
                 {/* Dynamic Background Image (Subtle Grayscale) */}
                 {anime.animeImageUrl && (
                   <div 
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5 grayscale group-hover:opacity-20 transition-opacity duration-500"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5 grayscale group-hover:opacity-20 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                     style={{ backgroundImage: `url(${anime.animeImageUrl})` }}
                   />
                 )}
@@ -61,8 +61,8 @@ export default function ExploreAnotherUniverse({ currentId, isSystemMode, theme 
                 />
                 
                 {/* Content */}
-                <div className="relative z-10 w-full flex flex-col gap-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-[10px] text-gray-500 font-bold tracking-[0.2em] group-hover:text-white/80 transition-colors">STATUS: ONLINE</span>
+                <div className="relative z-10 w-full flex flex-col gap-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  <span className="text-[10px] text-gray-500 font-bold tracking-[0.2em] group-hover:text-white/80 group-hover:scale-105 origin-left transition-all duration-500">STATUS: ONLINE</span>
                   <span className="text-sm font-bold uppercase truncate w-full flex items-center justify-between text-gray-200 group-hover:text-white drop-shadow-md">
                     {anime.anime}
                     <ArrowRight className="w-4 h-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" style={{ color: cardAccent }} />

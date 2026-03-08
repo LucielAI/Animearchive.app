@@ -34,7 +34,7 @@ function Home() {
           SYSTEM ONLINE
         </div>
 
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-3 bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-3 bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
           Anime Architecture Archive
         </h1>
         <p className="text-sm md:text-base text-cyan-400/60 tracking-[0.3em] uppercase mt-1 font-bold">
@@ -87,7 +87,7 @@ function Home() {
                       src={data.animeImageUrl}
                       alt={data.anime}
                       loading="lazy"
-                      className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-all duration-700 ease-out group-hover:scale-110"
                     />
                   ) : (
                     <div className="w-full h-full bg-slate-900 border-b border-white/10 flex items-center justify-center text-xs tracking-widest text-gray-600">NO IMAGE ASSET</div>
@@ -135,7 +135,7 @@ function Home() {
               <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
               <Lock className="w-8 h-8 text-white/20 mb-4" />
               <div className="text-xl md:text-2xl font-bold tracking-widest text-white/20 uppercase mb-2">CLASSIFIED</div>
-              <div className="text-[8px] md:text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase max-w-[80%] text-center">
+              <div className="text-[8px] md:text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase max-w-[80%] text-center border border-white/10 px-3 py-1.5 rounded bg-black/50">
                 ARCHIVE PENDING
               </div>
             </div>

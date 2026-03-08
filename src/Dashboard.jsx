@@ -31,13 +31,13 @@ const DEFAULT_THEME = {
 const getBackgroundMotif = (anime) => {
   switch (anime) {
     case 'Attack on Titan':
-      return `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l20 30-10 40 30-20 40 30-20-40 30-20-40 10z' stroke='rgba(255,255,255,1)' fill='none' stroke-width='0.5'/%3E%3C/svg%3E")`
+      return `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10l20 30-10 40 30-20 40 30-20-40 30-20-40 10z' stroke='rgba(255,255,255,0.7)' fill='none' stroke-width='0.75'/%3E%3C/svg%3E")`
     case 'Jujutsu Kaisen':
-      return `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`
+      return `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`
     case 'Hunter x Hunter':
-      return `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='40' stroke='rgba(255,255,255,1)' fill='none' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='60' stroke='rgba(255,255,255,1)' fill='none' stroke-width='0.5'/%3E%3C/svg%3E")`
+      return `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='35' stroke='rgba(255,255,255,0.8)' fill='none' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='55' stroke='rgba(255,255,255,0.4)' fill='none' stroke-width='0.5' stroke-dasharray='4 4'/%3E%3C/svg%3E")`
     case 'Vinland Saga':
-      return `url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E")`
+      return `url("data:image/svg+xml,%3Csvg width='250' height='250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.8 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E")`
     default:
       return 'none'
   }
@@ -75,10 +75,10 @@ export default function Dashboard({ data }) {
       }}
     >
       <div 
-        className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay" 
+        className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay transition-opacity duration-1000" 
         style={{ 
           backgroundImage: getBackgroundMotif(data?.anime),
-          opacity: 0.03 
+          opacity: 0.04 
         }} 
       />
       <div className={`sys-mode-overlay ${isSystemMode ? 'active' : ''}`} />
@@ -117,7 +117,7 @@ export default function Dashboard({ data }) {
             )}
 
             {/* Casual Discovery Hook */}
-            <p className="text-xs md:text-md text-gray-300 tracking-[0.1em] italic max-w-xl font-sans mt-1 border-l-2 pl-3" style={{ borderLeftColor: theme.secondary }}>
+            <p className="text-xs md:text-md text-gray-300 tracking-widest italic max-w-xl font-sans mt-1 border-l-2 pl-3" style={{ borderLeftColor: theme.secondary }}>
               "{data?.tagline}"
             </p>
 
@@ -175,7 +175,7 @@ export default function Dashboard({ data }) {
       <AIInsightPanel aiInsights={data?.aiInsights} theme={theme} isSystemMode={isSystemMode} />
 
       {/* Navigation Tabs */}
-      <nav className="max-w-6xl mx-auto px-6 mb-2 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
+      <nav className="max-w-6xl mx-auto px-6 mb-3 mt-6 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
         {TABS.map((tab, idx) => {
           const isActive = activeTab === idx
           const activeColor = isSystemMode ? theme.secondary : theme.primary
@@ -205,7 +205,7 @@ export default function Dashboard({ data }) {
       </nav>
 
       {/* Tab Description */}
-      <div className="max-w-6xl mx-auto px-6 mb-8">
+      <div className="max-w-6xl mx-auto px-6 mb-10">
         <p className="text-[10px] md:text-xs text-gray-600 tracking-wider">{TAB_DESCRIPTIONS[activeTab]}</p>
       </div>
 

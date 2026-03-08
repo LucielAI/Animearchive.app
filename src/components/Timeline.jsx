@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import ImageWithFallback from './ImageWithFallback';
 import DangerBar from './DangerBar';
 import { resolveColor } from '../utils/resolveColor';
@@ -215,7 +215,7 @@ function RelationshipWeb({ characters, relationships, theme, isSystemMode }) {
   );
 }
 
-const Timeline = ({ characters, causalEvents, relationships = [], isSystemMode, theme }) => {
+const Timeline = memo(({ characters, causalEvents, relationships = [], isSystemMode, theme }) => {
   const [isSweeping, setIsSweeping] = useState(false);
 
   useEffect(() => {
@@ -235,10 +235,10 @@ const Timeline = ({ characters, causalEvents, relationships = [], isSystemMode, 
         }}
       >
         <div 
-          className="w-full h-1/3 transition-transform duration-[1800ms] ease-in-out"
+          className="w-full h-1/3 transition-transform duration-1000 ease-in-out"
           style={{ 
             background: `linear-gradient(to bottom, transparent, #fff, transparent)`,
-            boxShadow: `0 0 20px 2px ${isSystemMode ? theme.secondary : theme.primary}`,
+            boxShadow: `0 0 25px 4px ${isSystemMode ? theme.secondary : theme.primary}`,
             transform: isSweeping ? 'translateY(300%)' : 'translateY(-100%)' 
           }}
         />
@@ -265,8 +265,10 @@ const Timeline = ({ characters, causalEvents, relationships = [], isSystemMode, 
 
           {/* Content Card */}
           <div
-            className={`ml-16 md:ml-0 w-full md:w-[45%] bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 transition-all duration-300 ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
-            style={{ borderColor: 'rgba(255,255,255,0.1)' }}
+            className={`ml-16 md:ml-0 w-full md:w-[45%] bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1 hover:border-white/20 ${idx % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}
+            style={{ 
+              boxShadow: `0 4px 20px -5px ${isSystemMode ? theme.secondary : theme.primary}10`
+            }}
           >
             <div
               className="text-xs font-bold mb-2 transition-colors duration-500"
@@ -384,6 +386,6 @@ const Timeline = ({ characters, causalEvents, relationships = [], isSystemMode, 
       </div>
     </div>
   );
-};
+});
 
 export default Timeline;
