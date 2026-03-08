@@ -1,7 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function CounterTree({ counterplay = [], characters = [] }) {
   const [selectedEdge, setSelectedEdge] = useState(null)
+  const [hasInteracted, setHasInteracted] = useState(false)
+
+  // Wow Graph Moment (JJK Counterplay Chain)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasInteracted && selectedEdge === null && counterplay.length > 0) {
+        const index = counterplay.findIndex(c => 
+          (c.attacker === 'Satoru Gojo' && c.defender === 'Ryomen Sukuna') ||
+          (c.attacker === 'Ryomen Sukuna' && c.defender === 'Satoru Gojo') ||
+          c.mechanic.includes('Domain') ||
+          c.mechanic.includes('Infinity')
+        )
+        setSelectedEdge(index !== -1 ? index : 0)
+      }
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [counterplay, hasInteracted, selectedEdge])
 
   const charMap = {}
   characters.forEach((c) => { charMap[c.name] = c })
@@ -13,12 +30,15 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
         return (
           <div
             key={i}
-            onClick={() => setSelectedEdge(isSelected ? null : i)}
+            onClick={() => {
+              setHasInteracted(true)
+              setSelectedEdge(isSelected ? null : i)
+            }}
             className="cursor-pointer"
           >
             {/* Desktop: horizontal layout */}
             <div className="hidden sm:flex items-center gap-2 p-3 bg-[#0a0a14] rounded-lg border border-white/10 hover:border-white/20 transition-colors">
-              <div className="flex-shrink-0 border-2 border-green-500 rounded-lg px-3 py-1.5">
+              <div className="shrink-0 border-2 border-green-500 rounded-lg px-3 py-1.5">
                 <span className="text-green-400 text-xs font-bold">{cp.attacker}</span>
               </div>
 
@@ -33,7 +53,7 @@ export default function CounterTree({ counterplay = [], characters = [] }) {
                 </div>
               </div>
 
-              <div className="flex-shrink-0 border-2 border-red-500 rounded-lg px-3 py-1.5">
+              <div className="shrink-0 border-2 border-red-500 rounded-lg px-3 py-1.5">
                 <span className="text-red-400 text-xs font-bold">{cp.defender}</span>
               </div>
             </div>

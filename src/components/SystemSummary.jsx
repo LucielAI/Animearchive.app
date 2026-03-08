@@ -1,0 +1,129 @@
+import { useMemo } from 'react'
+import { Terminal } from 'lucide-react'
+
+// Extract best 5 bullets dynamically from payload depending on availability
+function deriveBullets(data) {
+  const pool = []
+
+  if (data.powerSystem) {
+    data.powerSystem.forEach(ps => {
+      pool.push({
+        id: `ps-${ps.name}`,
+        category: 'ENGINE',
+        lore: ps.loreDesc || ps.subtitle,
+        sys: ps.systemDesc || ps.systemSubtitle || ps.subtitle
+      })
+    })
+  }
+
+  if (data.rules) {
+    data.rules.forEach(rule => {
+      pool.push({
+        id: `rule-${rule.name}`,
+        category: 'LAW',
+        lore: rule.loreDesc || rule.description,
+        sys: rule.systemDesc || rule.description
+      })
+    })
+  }
+
+  if (data.anomalies) {
+    data.anomalies.forEach(ano => {
+      pool.push({
+        id: `ano-${ano.name}`,
+        category: 'EXCEPTION',
+        lore: ano.loreDesc || ano.description,
+        sys: ano.systemDesc || ano.description
+      })
+    })
+  }
+
+  if (data.causalEvents && data.visualizationHint === 'timeline') {
+    const rootEvent = data.causalEvents[0]
+    if (rootEvent) {
+      pool.push({
+        id: `event-${rootEvent.name}`,
+        category: 'CAUSALITY BOUND',
+        lore: rootEvent.loreDesc || rootEvent.description,
+        sys: rootEvent.systemDesc || rootEvent.description
+      })
+    }
+  }
+
+  if (data.factions && data.factions.length > 0) {
+    const mainFaction = data.factions[0]
+    pool.push({
+      id: `faction-${mainFaction.name}`,
+      category: 'HIERARCHY',
+      lore: mainFaction.loreDesc || mainFaction.description,
+      sys: mainFaction.systemDesc || mainFaction.description
+    })
+  }
+
+  // Shuffle or slice intelligently? The prompt asks for highest value.
+  // Power Systems and Rules are usually the most structural.
+  
+  // Sort pool arbitrarily to prioritize Engine, Law, Exception over others, up to 5 elements.
+  const priorityMap = {
+    'ENGINE': 1,
+    'LAW': 2,
+    'CAUSALITY BOUND': 3,
+    'EXCEPTION': 4,
+    'HIERARCHY': 5
+  }
+
+  pool.sort((a, b) => priorityMap[a.category] - priorityMap[b.category])
+
+  return pool.slice(0, 5)
+}
+
+export default function SystemSummary({ data, isSystemMode, theme }) {
+  const bullets = useMemo(() => deriveBullets(data), [data])
+  const accentColor = isSystemMode ? (theme?.modeGlow || '#22d3ee') : (theme?.primary || '#8b5cf6')
+
+  if (!bullets || bullets.length === 0) return null
+
+  return (
+    <div className="w-full max-w-6xl mx-auto px-6 mb-8 mt-2">
+      <div className={`p-5 md:p-6 rounded-xl border border-white/5 bg-[#0a0a10] relative overflow-hidden transition-all duration-300 ${isSystemMode ? 'sys-mode-container' : ''}`}>
+        
+        {/* Subtle decorative background piece */}
+        <div 
+          className="absolute right-0 top-0 w-64 h-64 opacity-[0.03] pointer-events-none rounded-full blur-3xl transition-colors duration-500"
+          style={{ backgroundColor: accentColor }}
+        />
+
+        <div className="flex items-center gap-2 mb-4">
+          <Terminal className="w-4 h-4 text-gray-500" style={{ color: accentColor }} />
+          <h2 className="text-[11px] uppercase tracking-[0.25em] font-bold text-gray-300">
+            {isSystemMode ? '// SYSTEM ARCHITECTURE' : 'THE CORE SYSTEM'}
+          </h2>
+        </div>
+
+        <ul className="space-y-3 relative z-10">
+          {bullets.map((bullet) => {
+            const textContent = isSystemMode ? bullet.sys : bullet.lore
+
+            return (
+              <li key={bullet.id} className="flex items-start gap-3 group">
+                <span 
+                  className="mt-1.5 w-1.5 h-1.5 shrink-0 rounded-sm opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ backgroundColor: accentColor }}
+                />
+                <p className="text-xs md:text-sm text-gray-400 group-hover:text-gray-200 transition-colors leading-relaxed">
+                  <span 
+                    className="font-bold text-[10px] tracking-wider uppercase mr-2 px-1.5 py-0.5 rounded opacity-70 border border-white/10"
+                    style={{ color: accentColor, backgroundColor: `${accentColor}10` }}
+                  >
+                    {bullet.category}
+                  </span>
+                  {textContent}
+                </p>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </div>
+  )
+}

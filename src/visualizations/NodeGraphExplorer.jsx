@@ -83,8 +83,42 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
   const [dragging, setDragging] = useState(null)
   const [hoveredEdge, setHoveredEdge] = useState(null)
   const [imgFailed, setImgFailed] = useState({})
+  const [hasInteracted, setHasInteracted] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const rafRef = useRef(null)
+
+  // Wow Graph Moment (HxH Contract/Strategic Edge Target)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasInteracted && !selected && nodes.length > 0) {
+        let target = null
+        // Thesis override
+        if (characters.some(c => c.name === 'Kurapika')) {
+          target = 'Kurapika'
+        } else if (characters.some(c => c.name === 'Satoru Gojo')) {
+          target = 'Satoru Gojo'
+        } else if (characters.some(c => c.name === 'Eren Yeager')) {
+          target = 'Eren Yeager'
+        }
+        
+        // Fallback: Highest degree node
+        if (!target || !nodes.find(n => n.name === target)) {
+          const degrees = {}
+          links.forEach(l => {
+            const sName = typeof l.source === 'object' ? l.source.name : l.source
+            const tName = typeof l.target === 'object' ? l.target.name : l.target
+            degrees[sName] = (degrees[sName] || 0) + 1
+            degrees[tName] = (degrees[tName] || 0) + 1
+          })
+          const maxNode = Object.keys(degrees).reduce((a, b) => degrees[a] > degrees[b] ? a : b, null)
+          if (maxNode) target = maxNode
+        }
+
+        if (target) setSelected(target)
+      }
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [nodes, hasInteracted, selected, links, characters])
 
   const resetLayout = useCallback(() => {
     if (simulationRef.current) simulationRef.current.stop()
@@ -152,6 +186,7 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
   }
 
   const handleStart = (e, name) => {
+    setHasInteracted(true)
     e.stopPropagation()
     if (e.cancelable) e.preventDefault()
     if (!simulationRef.current) return
@@ -317,7 +352,10 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
               <g key={node.name}
                 onMouseDown={e => handleStart(e, node.name)}
                 onTouchStart={e => handleStart(e, node.name)}
-                onClick={() => setSelected(prev => prev === node.name ? null : node.name)}
+                onClick={() => {
+                  setHasInteracted(true)
+                  setSelected(prev => prev === node.name ? null : node.name)
+                }}
                 className="cursor-pointer"
                 opacity={isFaded ? 0.35 : 1}
               >

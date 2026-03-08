@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import Toggle from './components/Toggle'
 import TabContent from './components/TabContent'
+import SystemSummary from './components/SystemSummary'
+import ExploreAnotherUniverse from './components/ExploreAnotherUniverse'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
@@ -111,6 +113,9 @@ export default function Dashboard({ data }) {
         </div>
       </header>
 
+      {/* 5-Bullet System Summary */}
+      <SystemSummary data={data} isSystemMode={isSystemMode} theme={theme} />
+
       {/* Navigation Tabs */}
       <nav className="max-w-6xl mx-auto px-6 mb-2 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide">
         {TABS.map((tab, idx) => {
@@ -155,6 +160,8 @@ export default function Dashboard({ data }) {
           theme={theme}
         />
       </main>
+
+      <ExploreAnotherUniverse currentId={data?.id || data?.malId} isSystemMode={isSystemMode} theme={theme} />
 
       {/* Footer */}
       <footer className="py-10 border-t border-white/5 relative z-10 flex flex-col items-center gap-4">

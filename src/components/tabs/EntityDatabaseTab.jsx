@@ -34,6 +34,7 @@ export default function EntityDatabaseTab({ data, isSystemMode, theme }) {
           relationships={relationships}
           counterplay={data?.counterplay || []}
           powerSystem={data?.powerSystem || []}
+          data={data}
           isSystemMode={isSystemMode}
           theme={theme}
         />

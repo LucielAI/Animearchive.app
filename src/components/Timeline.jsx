@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ImageWithFallback from './ImageWithFallback';
 import DangerBar from './DangerBar';
 import { resolveColor } from '../utils/resolveColor';
@@ -85,9 +85,34 @@ function BootstrapParadoxBanner({ events, theme, isSystemMode }) {
 }
 
 function RelationshipWeb({ characters, relationships, theme, isSystemMode }) {
-  if (!relationships || relationships.length === 0) return null;
-
   const [hovered, setHovered] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Wow Graph Moment (AoT Causal Loop Focus)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasInteracted && !hovered && characters && characters.length > 0) {
+        const eren = characters.find(c => c.name === 'Eren Yeager');
+        if (eren) {
+          setHovered(eren.name);
+        } else {
+          // Fallback: Highest degree node
+          const degrees = {};
+          if (relationships) {
+            relationships.forEach(r => {
+              degrees[r.source] = (degrees[r.source] || 0) + 1;
+              degrees[r.target] = (degrees[r.target] || 0) + 1;
+            });
+          }
+          const maxNode = Object.keys(degrees).reduce((a, b) => degrees[a] > degrees[b] ? a : b, null);
+          if (maxNode) setHovered(maxNode);
+        }
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [characters, relationships, hasInteracted, hovered]);
+
+  if (!relationships || relationships.length === 0) return null;
   const cx = 200, cy = 120, radius = 85;
   const width = 400, height = 260;
 
@@ -143,7 +168,10 @@ function RelationshipWeb({ characters, relationships, theme, isSystemMode }) {
           {nodes.map(node => (
             <g
               key={node.name}
-              onMouseEnter={() => setHovered(node.name)}
+              onMouseEnter={() => {
+                setHasInteracted(true);
+                setHovered(node.name);
+              }}
               onMouseLeave={() => setHovered(null)}
               className="cursor-pointer"
             >
