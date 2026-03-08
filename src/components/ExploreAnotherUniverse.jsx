@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom'
 import { ANIME_LIST } from '../data/index'
 import { Database, Lock, ArrowRight } from 'lucide-react'
 
-// Hardcode upcoming stubs that don't have datasets yet
 const PENDING_UNIVERSES = [
-  { name: 'Vinland Saga', id: 'vinland' },
   { name: 'Steins;Gate', id: 'steinsgate' },
   { name: 'One Piece', id: 'op' },
   { name: 'Code Geass', id: 'geass' },
