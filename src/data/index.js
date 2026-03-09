@@ -21,12 +21,10 @@ const groupedBySlug = Object.entries(dataFiles).reduce((acc, [filePath, mod]) =>
   const slug = extractSlug(filePath)
 
   if (!acc[slug]) {
-    acc[slug] = { slug, legacy: null, core: null, extended: null }
+    acc[slug] = { slug, legacy: null, core: null }
   }
 
-  if (filePath.endsWith('.extended.json')) {
-    acc[slug].extended = payload
-  } else if (filePath.endsWith('.core.json')) {
+  if (filePath.endsWith('.core.json')) {
     acc[slug].core = payload
   } else {
     acc[slug].legacy = payload
@@ -54,7 +52,6 @@ export const UNIVERSE_DATA_REGISTRY = slugs.reduce((acc, slug) => {
   acc[slug] = {
     slug,
     core: corePayload,
-    extended: entry.extended || null,
     source: entry.core ? 'core' : 'legacy'
   }
 
