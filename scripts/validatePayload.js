@@ -1,3 +1,4 @@
+/* global process */
 import fs from 'fs'
 import path from 'path'
 import { validateCorePayload, validateExtendedDataset } from '../src/utils/validateSchema.js'

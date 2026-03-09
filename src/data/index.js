@@ -42,11 +42,11 @@ const slugs = [
 
 export const UNIVERSE_DATA_REGISTRY = slugs.reduce((acc, slug) => {
   const entry = groupedBySlug[slug]
-  const corePayload = entry.core || entry.legacy
+  const rawCorePayload = entry.core || entry.legacy
 
-  if (!corePayload) return acc
+  if (!rawCorePayload) return acc
 
-  corePayload.id = slug
+  const corePayload = { ...rawCorePayload, id: slug }
 
   acc[slug] = {
     slug,

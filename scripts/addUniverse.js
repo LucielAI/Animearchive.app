@@ -1,3 +1,4 @@
+/* global process */
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -14,6 +15,12 @@ if (args.length === 0) {
 
 const positionalArgs = args.filter(arg => !arg.startsWith('--'))
 const flags = new Set(args.filter(arg => arg.startsWith('--')))
+
+if (!positionalArgs[0]) {
+  console.log('\n[ERROR] Missing payload path after parsing flags.')
+  console.log('Usage: npm run add:universe <core-or-legacy-json> [slug] [extended-json] [--layered]\n')
+  process.exit(1)
+}
 
 const sourceCorePath = path.resolve(process.cwd(), positionalArgs[0])
 let slug = positionalArgs[1]
