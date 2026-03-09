@@ -45,3 +45,12 @@ Research agents should return sections that map directly to the `validateSchema.
 - **Key Relationships**: Edges for the relational web.
 
 This makes payload generation dramatically easier and more reliable.
+
+## Layered Workflow (Recommended)
+
+Use this flow for future universes:
+
+Research -> `slug.extended.json` -> core selection -> `slug.core.json` -> validate core -> add universe.
+
+The first foundation selector is deterministic and lightweight (not AI-scored): it prioritizes sections based on system type (timeline, node-graph, counter-tree, etc.).
+

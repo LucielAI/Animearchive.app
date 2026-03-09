@@ -96,7 +96,7 @@ const STRUCTURAL_PROFILES = {
 
 // ─── VALIDATOR ───────────────────────────────────────────────────────────────
 
-export function validateAnimePayload(data) {
+export function validateCorePayload(data) {
   const errors = []
   const warnings = []
   const anime = data?.anime || 'Unknown'
@@ -292,3 +292,39 @@ export function validateAnimePayload(data) {
 
   return { errors, warnings }
 }
+
+export function validateAnimePayload(data) {
+  return validateCorePayload(data)
+}
+
+export function validateExtendedDataset(data) {
+  const errors = []
+  const warnings = []
+
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    errors.push('Extended dataset must be a JSON object.')
+    return { errors, warnings }
+  }
+
+  if (!data.anime || typeof data.anime !== 'string') {
+    errors.push('Extended dataset missing required string field: anime')
+  }
+
+  const knownCollections = [
+    'characters', 'relationships', 'factions', 'rules',
+    'anomalies', 'counterplay', 'causalEvents', 'powerSystem'
+  ]
+
+  knownCollections.forEach((key) => {
+    if (data[key] !== undefined && !Array.isArray(data[key])) {
+      errors.push(`Extended field "${key}" must be an array when present.`)
+    }
+  })
+
+  if (!data.structuralThesis && !data.visualizationHint) {
+    warnings.push('Extended dataset should include structuralThesis or visualizationHint for core selection.')
+  }
+
+  return { errors, warnings }
+}
+

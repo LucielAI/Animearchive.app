@@ -101,3 +101,13 @@ If an image cannot be reliably fetched or is missing from Mal, the payload must 
 - `_fetchFailed`: Set to `true`.
 
 The UI component `ImageWithFallback.jsx` will detect this state and render a theme-appropriate gradient with a character icon. Do NOT fabricate image URLs.
+
+## Layered Universe Data (Foundation)
+
+The archive now supports two safe layers per universe:
+
+- **Core layer** (`slug.json` or `slug.core.json`): renderer-ready payload used by UI routes.
+- **Extended layer** (`slug.extended.json`): larger research dataset used for future compression and analysis.
+
+Extended datasets are optional and are not rendered directly by default. This keeps UI behavior stable while allowing much deeper research retention.
+

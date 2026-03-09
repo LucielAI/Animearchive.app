@@ -92,3 +92,14 @@ The archive serves multiple simultaneous goals:
 
 ## Long-Term Direction
 The project should grow by adding new universes through a stable ingestion pipeline, not by constantly rebuilding the engine.
+
+## Layered Universe Data Foundation
+
+To scale the archive safely, universes can now carry:
+
+- `slug.json` (legacy core, still supported)
+- `slug.core.json` (preferred explicit core)
+- `slug.extended.json` (optional deep dataset)
+
+The runtime always resolves a universe's **core payload** for rendering. If both legacy and `.core` exist, `.core` takes precedence.
+
