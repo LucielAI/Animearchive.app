@@ -68,6 +68,7 @@ A dynamic navigation system that encourages cross-archive discovery.
 - Jujutsu Kaisen
 - Hunter x Hunter
 - Vinland Saga
+- Steins;Gate
 
 ## Product Goals
 The archive serves multiple simultaneous goals:
