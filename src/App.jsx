@@ -1,11 +1,11 @@
 import { useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
-import Dashboard from './Dashboard'
 import { ANIME_LIST } from './data/index.js'
 import { Lock, ExternalLink } from 'lucide-react'
 import { deriveBullets } from './utils/deriveBullets'
 import { getClassificationLabel } from './utils/getClassificationLabel'
 
+const Dashboard = lazy(() => import('./Dashboard'))
 const SpeedInsights = lazy(() => import('@vercel/speed-insights/react').then(m => ({ default: m.SpeedInsights })))
 const Analytics = lazy(() => import('@vercel/analytics/react').then(m => ({ default: m.Analytics })))
 
@@ -324,7 +324,9 @@ function UniverseRoute() {
         <span className="group-hover:-translate-x-1 inline-block transition-transform duration-200 mr-2">&larr;</span> 
         <span>INDEX</span>
       </Link>
-      <Dashboard data={data} />
+      <Suspense fallback={<div className="min-h-screen bg-[#050508]" />}>
+        <Dashboard data={data} />
+      </Suspense>
     </div>
   )
 }

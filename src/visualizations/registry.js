@@ -1,8 +1,10 @@
-import TimelineExplorer from './TimelineExplorer'
-import NodeGraphExplorer from './NodeGraphExplorer'
-import CounterTreeExplorer from './CounterTreeExplorer'
-import AffinityMatrixExplorer from './AffinityMatrixExplorer'
-import StandardCardsExplorer from './StandardCardsExplorer'
+import { lazy } from 'react'
+
+const TimelineExplorer = lazy(() => import('./TimelineExplorer'))
+const NodeGraphExplorer = lazy(() => import('./NodeGraphExplorer'))
+const CounterTreeExplorer = lazy(() => import('./CounterTreeExplorer'))
+const AffinityMatrixExplorer = lazy(() => import('./AffinityMatrixExplorer'))
+const StandardCardsExplorer = lazy(() => import('./StandardCardsExplorer'))
 
 export const VISUALIZATION_REGISTRY = {
   'timeline': TimelineExplorer,
