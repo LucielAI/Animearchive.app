@@ -27,7 +27,7 @@ export default async function handler(req, res) {
   const SUPABASE_URL = process.env.SUPABASE_URL
   const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!SUPABASE_URL || !SUPABASE_KEY) {
-    return res.status(500).json({ error: 'Server misconfigured' })
+    return res.status(503).json({ error: 'Feedback system offline' })
   }
 
   try {

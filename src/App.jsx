@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react'
-import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import { ANIME_LIST } from './data/index.js'
 import { Lock, ExternalLink } from 'lucide-react'
@@ -296,8 +296,22 @@ function UniverseRoute() {
 }
 
 export default function App() {
-  useEffect(() => { document.title = 'Anime Architecture Archive' }, [])
-  
+  const location = useLocation()
+
+  useEffect(() => {
+    document.title = 'Anime Architecture Archive'
+  }, [])
+
+  // GoatCounter SPA tracking
+  useEffect(() => {
+    if (window.goatcounter) {
+      window.goatcounter.count({
+        path: location.pathname,
+        title: document.title
+      })
+    }
+  }, [location.pathname])
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

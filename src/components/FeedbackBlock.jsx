@@ -6,6 +6,7 @@ export default function FeedbackBlock({ slug, theme }) {
   const [suggestion, setSuggestion] = useState('')
   const [suggestionSent, setSuggestionSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [errorStatus, setErrorStatus] = useState(null) // 'feedback-error' | 'suggest-error' | null
   const lastActionTime = useRef(0)
 
   const accentColor = theme?.primary || '#22d3ee'
@@ -28,7 +29,7 @@ export default function FeedbackBlock({ slug, theme }) {
       })
       setVoteStatus(vote)
     } catch {
-      // Silent fail
+      setErrorStatus('feedback-error')
     } finally {
       setLoading(false)
     }
@@ -48,7 +49,7 @@ export default function FeedbackBlock({ slug, theme }) {
       setSuggestionSent(true)
       setSuggestion('')
     } catch {
-      // Silent fail
+      setErrorStatus('suggest-error')
     } finally {
       setLoading(false)
     }
@@ -95,6 +96,9 @@ export default function FeedbackBlock({ slug, theme }) {
                 </button>
               </div>
             )}
+            {errorStatus === 'feedback-error' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback temporarily unavailable.</p>
+            )}
           </div>
 
           {/* Suggest an Anime */}
@@ -121,6 +125,9 @@ export default function FeedbackBlock({ slug, theme }) {
                   <Send className="w-3 h-3" /> Submit
                 </button>
               </form>
+            )}
+            {errorStatus === 'suggest-error' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Suggestion system temporarily unavailable.</p>
             )}
           </div>
         </div>
