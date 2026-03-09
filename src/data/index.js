@@ -4,7 +4,7 @@ import { validateCorePayload } from '../utils/validateSchema'
 // Non-breaking resolution order per slug: .core.json -> legacy .json.
 // Keep the runtime bundle scoped to renderer-facing payloads only.
 // Extended research datasets stay out of eager client imports.
-const dataFiles = import.meta.glob(['./*.core.json', './*.json', '!./*.extended.json'], {
+const dataFiles = import.meta.glob(['./*.json', '!./*.extended.json'], {
   eager: true
 })
 
