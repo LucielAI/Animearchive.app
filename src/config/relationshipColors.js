@@ -8,5 +8,5 @@ export const RELATIONSHIP_COLORS = {
   dependent: '#6b7280',
   counter: '#10b981',
   mirror: '#8b5cf6',
-  successor: '#38bdf8',
+  successor: '#22d3ee',
 }

@@ -189,7 +189,7 @@ export default function Dashboard({ data }) {
               const colors = getSysWarningColors(headerFlavor.sysWarningColor)
               return (
                 <div className={`flex items-center gap-2 text-[10px] ${colors.text} tracking-widest mt-2 rounded ${colors.bg} px-3 py-1.5 border ${colors.border}`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} animate-pulse`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} animate-pulse ${colors.dotGlow}`} />
                   <span>{headerFlavor.sysWarning}</span>
                 </div>
               )

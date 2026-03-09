@@ -58,7 +58,7 @@ describe('config completeness', () => {
 
   it('has all expected overlay keys', () => {
     expect(Object.keys(REVEAL_OVERLAYS)).toEqual(
-      expect.arrayContaining(['hatch-red', 'pulse-purple', 'glow-border', 'gradient-top'])
+      expect.arrayContaining(['hatch-red', 'pulse-purple', 'glow-border', 'glow-border-soft', 'gradient-top'])
     )
   })
 

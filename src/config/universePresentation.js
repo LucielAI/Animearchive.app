@@ -26,6 +26,10 @@ export const REVEAL_OVERLAYS = {
     className: 'absolute inset-0 opacity-30 shadow-[inset_0_0_80px_rgba(34,211,238,0.3)] border-2 border-[#22d3ee]/20 rounded-xl m-1 transition-all duration-1000',
     style: {},
   },
+  'glow-border-soft': {
+    className: 'absolute inset-0 opacity-20 shadow-[inset_0_0_100px_rgba(34,211,238,0.3)] border border-cyan-400/10 rounded-xl m-1 transition-all duration-1000',
+    style: {},
+  },
   'gradient-top': {
     className: 'absolute inset-x-0 top-0 h-96 bg-linear-to-b from-amber-700/10 to-transparent animate-pulse',
     style: {},
@@ -34,12 +38,12 @@ export const REVEAL_OVERLAYS = {
 
 // SYS warning color classes keyed by the `sysWarningColor` in headerFlavor.
 export const SYS_WARNING_COLORS = {
-  red: { text: 'text-red-400/70', bg: 'bg-red-900/10', border: 'border-red-500/20', dot: 'bg-red-500' },
-  blue: { text: 'text-blue-400/70', bg: 'bg-blue-900/10', border: 'border-blue-500/20', dot: 'bg-blue-500' },
-  green: { text: 'text-green-400/70', bg: 'bg-green-900/10', border: 'border-green-500/20', dot: 'bg-green-500' },
-  amber: { text: 'text-amber-400/70', bg: 'bg-amber-900/10', border: 'border-amber-500/20', dot: 'bg-amber-500' },
-  cyan: { text: 'text-cyan-400/70', bg: 'bg-cyan-900/10', border: 'border-cyan-500/20', dot: 'bg-cyan-500' },
-  purple: { text: 'text-purple-400/70', bg: 'bg-purple-900/10', border: 'border-purple-500/20', dot: 'bg-purple-500' },
+  red: { text: 'text-red-400/70', bg: 'bg-red-900/10', border: 'border-red-500/20', dot: 'bg-red-500', dotGlow: 'shadow-[0_0_6px_rgba(239,68,68,0.7)]' },
+  blue: { text: 'text-blue-400/70', bg: 'bg-blue-900/10', border: 'border-blue-500/20', dot: 'bg-blue-500', dotGlow: 'shadow-[0_0_6px_rgba(59,130,246,0.7)]' },
+  green: { text: 'text-green-400/70', bg: 'bg-green-900/10', border: 'border-green-500/20', dot: 'bg-green-500', dotGlow: 'shadow-[0_0_6px_rgba(34,197,94,0.7)]' },
+  amber: { text: 'text-amber-400/70', bg: 'bg-amber-900/10', border: 'border-amber-500/20', dot: 'bg-amber-500', dotGlow: '' },
+  cyan: { text: 'text-cyan-400/70', bg: 'bg-cyan-900/10', border: 'border-cyan-500/20', dot: 'bg-cyan-500', dotGlow: '' },
+  purple: { text: 'text-purple-400/70', bg: 'bg-purple-900/10', border: 'border-purple-500/20', dot: 'bg-purple-500', dotGlow: '' },
 }
 
 export function getBackgroundMotif(motifKey) {
