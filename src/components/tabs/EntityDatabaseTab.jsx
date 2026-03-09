@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { getVisualization } from '../../visualizations/registry'
 import ErrorBoundary from '../ErrorBoundary'
 
 function renderVisualization(hint, props) {
   const Comp = getVisualization(hint)
-  return <Comp {...props} />
+  return (
+    <Suspense fallback={<div className="w-full h-64 bg-white/5 rounded-xl animate-pulse" />}>
+      <Comp {...props} />
+    </Suspense>
+  )
 }
 
 const TYPE_BADGE_COLORS = {
