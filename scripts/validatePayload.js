@@ -1,25 +1,31 @@
+/* global process */
 import fs from 'fs'
 import path from 'path'
-import { validateAnimePayload } from '../src/utils/validateSchema.js'
+import { validateCorePayload, validateExtendedDataset } from '../src/utils/validateSchema.js'
 
 const args = process.argv.slice(2)
 if (args.length === 0) {
   console.error('\n[ERROR] Provide a path to a payload JSON file.')
-  console.log('Usage: npm run validate:payload <path-to-json>\n')
+  console.log('Usage: npm run validate:payload <path-to-json> [--extended]\n')
   process.exit(1)
 }
 
 const targetPath = path.resolve(process.cwd(), args[0])
+const forceExtended = args.includes('--extended')
+const inferExtended = targetPath.endsWith('.extended.json')
+const mode = forceExtended || inferExtended ? 'extended' : 'core'
 
 try {
   const fileContent = fs.readFileSync(targetPath, 'utf-8')
   const payload = JSON.parse(fileContent)
 
   console.log(`\n======================================================`)
-  console.log(`[PAYLOAD VALIDATOR] Scraping: ${path.basename(targetPath)}`)
+  console.log(`[PAYLOAD VALIDATOR] Scraping: ${path.basename(targetPath)} (${mode})`)
   console.log(`======================================================\n`)
 
-  const { errors, warnings } = validateAnimePayload(payload)
+  const { errors, warnings } = mode === 'extended'
+    ? validateExtendedDataset(payload)
+    : validateCorePayload(payload)
 
   console.log('\n--- VERDICT ---')
   if (errors.length > 0) {
@@ -29,7 +35,7 @@ try {
     console.warn(`Status: PASSED WITH WARNINGS (${warnings.length} Soft Boundary Hits)`)
     process.exit(0)
   } else {
-    console.log(`Status: CLEAN PASS`)
+    console.log('Status: CLEAN PASS')
     process.exit(0)
   }
 

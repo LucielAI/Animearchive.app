@@ -2,6 +2,16 @@
 
 The archive includes a structured pipeline for adding new universes.
 
+## Layered Universe Data (Non-Breaking)
+
+A universe may now use any of these files in `src/data/`:
+
+- `slug.json` (legacy core payload, still supported)
+- `slug.core.json` (preferred explicit core payload)
+- `slug.extended.json` (optional extended research dataset)
+
+Runtime behavior is unchanged: UI/renderers always use the core layer.
+
 ## Actual Workflow
 
 ### Stage 1 — Research
@@ -13,42 +23,63 @@ Input:
 Output:
 - structured research file
 
-### Stage 2 — Payload Generation
-Input:
-- full docs zip
-- research file
+### Stage 2 — Extended Dataset (optional but recommended)
+Output:
+- `slug.extended.json` with deep collections for retention and future analysis
+
+### Stage 3 — Core Generation
+Flow:
+- extended dataset
+- deterministic core selector (`src/generation/selectCoreFromExtended.js`)
+- renderer-ready core payload
 
 Output:
-- archive-compatible JSON payload
+- `slug.core.json` (or legacy `slug.json`)
 
-### Stage 3 — Validation
+### Stage 4 — Validation
 Run:
 ```bash
-npm run validate:payload path/to/payload.json
+npm run validate:payload path/to/slug.core.json
 ```
-This step ensures the payload meets all structural and security requirements before integration.
 
-### Stage 4 — Integration
+For extended datasets:
+```bash
+npm run validate:payload path/to/slug.extended.json
+```
+(or add `--extended`)
+
+### Stage 5 — Integration
 Run:
 ```bash
-npm run add:universe path/to/payload.json
+npm run add:universe path/to/payload.json [slug] [path/to/slug.extended.json]
+# default: writes slug.json (legacy mode)
+# add --layered or pass a .core.json input to write slug.core.json
 ```
 
-### Stage 5 — Registry Update & Deployment
-The `add:universe` script automatically registers the new universe in `src/data/index.js`. Once committed and pushed:
-1. **GitHub PR**: Review the generated JSON and registration.
-2. **Vercel Deployment**: `git push` triggers an automatic build and live deployment.
+### Stage 6 — Deployment
+Once committed and pushed:
+1. **GitHub PR**: Review payloads and docs.
+2. **Vercel Deployment**: `git push` triggers automatic build/deploy.
 
-## What the validation script enforces
-`src/utils/validateSchema.js` is the source of truth for payload integrity. It enforces:
-- **Required Fields**: Baseline data needed for every universe.
-- **Image Security**: Host allowlist (`cdn.myanimelist.net`, `images.myanimelist.net`).
-- **Structural Density**: Renderer-specific "Profiles" that flag if an archive is too thin or bloated for its chosen visualization.
-- **Enum Integrity**: Validates relationship types, faction roles, and rule severities.
-- **AI Schema**: Ensures `aiInsights` (casual + deep) is present and correctly formatted.
+## Validation split
+`src/utils/validateSchema.js` now exposes:
+- `validateCorePayload` (strict renderer-safe validation)
+- `validateExtendedDataset` (light structural validation)
 
-## Important Distinction
-Do NOT confuse research with payload generation.
+Current `validateAnimePayload` remains as a compatibility alias.
 
-Research should be broad and system-aware.
-Payload generation should be schema-aware and renderer-aware.
+## What core validation enforces
+`validateCorePayload` protects renderer and archive quality by enforcing:
+- required fields for renderer-safe payloads,
+- image host allowlist safety constraints,
+- renderer-specific structural profile warnings (thin vs bloated),
+- enum integrity for relationships/factions/rules,
+- graph-level sanity checks and AI insight field quality.
+
+## Important Distinctions
+Do NOT confuse research with core payload generation.
+
+- Research should be broad and system-aware.
+- Core payload generation should be schema-aware and renderer-aware.
+- Renderer choice should follow the **system thesis**, not just volume of entities.
+- Layered support exists to scale depth safely, not to force complexity on every universe.

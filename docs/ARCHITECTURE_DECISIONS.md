@@ -95,3 +95,14 @@ A CSS-driven layout toggle that optimizes the universe page for screenshots. No 
 
 Why:
 Enables TikTok/social sharing without infrastructure. Users screenshot the optimized layout directly.
+
+## ADR-013 — Layered Universe Data (Core + Extended)
+Decision:
+Introduce non-breaking support for optional `*.extended.json` datasets and explicit `*.core.json` payloads while preserving legacy `*.json` universes.
+
+Why:
+Enables much larger research inputs without forcing renderer complexity or immediate migration.
+
+Tradeoff:
+Data management gains a second layer, but runtime stays stable by always rendering from core.
+

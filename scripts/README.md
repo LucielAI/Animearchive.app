@@ -1,16 +1,55 @@
 # Anime Architecture Archive - Utilities Hub
 
-This directory contains standalone Python intelligence scripts designed to automate and rigorously enforce the structural data requirements of the V5 Architecture. 
+This directory contains standalone utilities for **data generation, validation, and ingestion**.
 
-These scripts are explicitly separated from the React codebase as they are strictly **Data Generation** tools, primarily used by the AI or the maintainer during the extraction phase of a new fictional universe.
+These utilities are intentionally separated from the React app runtime:
+- app/runtime code should stay focused on rendering and interaction,
+- scripts should handle archive ingestion operations,
+- AI-assisted generation workflows should be explicit, reviewable, and deterministic.
 
-### 1. `patch_jikan_images.py` (The Jikan Image Enforcer)
+This split is part of the project architecture, not just folder organization.
 
-**Reason for Existence:** 
-The Jikan v4 API's generic `/characters/{id}` endpoint is highly vulnerable to malicious or spoiler-heavy caching by MyAnimeList users (e.g., manga panels replacing official anime portraits, such as with Toji Fushiguro or Zeke Yeager).
+## Core CLI Workflows
+
+### Validate a core payload
+```bash
+npm run validate:payload path/to/slug.json
+```
+Use this for legacy payloads (`slug.json`) and explicit core payloads (`slug.core.json`).
+
+### Validate an extended dataset
+```bash
+npm run validate:payload path/to/slug.extended.json
+# or
+npm run validate:payload path/to/any.json --extended
+```
+Extended validation is intentionally lighter than core validation.
+
+### Add a universe (backward-compatible default)
+```bash
+npm run add:universe path/to/payload.json [slug]
+```
+Default mode writes `src/data/slug.json` (legacy behavior).
+
+### Add a layered universe (core + optional extended)
+```bash
+npm run add:universe path/to/slug.core.json [slug] [path/to/slug.extended.json]
+# or force layered output with
+npm run add:universe path/to/payload.json [slug] [path/to/slug.extended.json] --layered
+```
+Layered mode writes `src/data/slug.core.json` and optionally `src/data/slug.extended.json`.
+
+> `slug.extended.json` is optional. Do not treat it as mandatory for archive integration.
+
+---
+
+## `patch_jikan_images.py` (The Jikan Image Enforcer)
+
+**Reason for existence:**
+The Jikan v4 API generic `/characters/{id}` endpoint can return incorrect or spoiler-heavy MAL image records.
 
 **What it does:**
-This script entirely bypasses the generic character endpoint. It queries the *animated cast list endpoint* (`/anime/{id}/characters`), correlates the characters strictly by name, extracts their `mal_id` and `image_url` from the animated season explicitly, and safely injects them back into the local `.json` payload without overwriting the hand-crafted lore bio fields.
+Uses the anime cast endpoint (`/anime/{id}/characters`), correlates characters by name, and injects clean MAL image URLs into a local payload without overwriting handcrafted lore/system fields.
 
 **Usage:**
 ```bash

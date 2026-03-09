@@ -1,109 +1,106 @@
+/* global process */
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { validateAnimePayload } from '../src/utils/validateSchema.js'
+import { validateCorePayload, validateExtendedDataset } from '../src/utils/validateSchema.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const args = process.argv.slice(2)
 
 if (args.length === 0) {
   console.log('\n[ERROR] Missing payload path.')
-  console.log('Usage: npm run add:universe <path-to-json> [slug]\n')
+  console.log('Usage: npm run add:universe <core-or-legacy-json> [slug] [extended-json] [--layered]\n')
   process.exit(1)
 }
 
-const sourcePath = path.resolve(process.cwd(), args[0])
-let slug = args[1]
+const positionalArgs = args.filter(arg => !arg.startsWith('--'))
+const flags = new Set(args.filter(arg => arg.startsWith('--')))
+
+if (!positionalArgs[0]) {
+  console.log('\n[ERROR] Missing payload path after parsing flags.')
+  console.log('Usage: npm run add:universe <core-or-legacy-json> [slug] [extended-json] [--layered]\n')
+  process.exit(1)
+}
+
+const sourceCorePath = path.resolve(process.cwd(), positionalArgs[0])
+let slug = positionalArgs[1]
+const sourceExtendedPath = positionalArgs[2] ? path.resolve(process.cwd(), positionalArgs[2]) : null
+
+const forceLayeredOutput = flags.has('--layered')
+const inferLayeredOutput = sourceCorePath.endsWith('.core.json')
+const outputMode = forceLayeredOutput || inferLayeredOutput ? 'layered' : 'legacy'
 
 try {
-  const fileContent = fs.readFileSync(sourcePath, 'utf-8')
-  const payload = JSON.parse(fileContent)
+  const corePayload = JSON.parse(fs.readFileSync(sourceCorePath, 'utf-8'))
 
   if (!slug) {
-    const words = payload.anime.split(' ')
-    if (words.length >= 3) {
-      slug = words.map(w => w[0]).join('').toLowerCase()
-    } else {
-      slug = payload.anime.toLowerCase().replace(/[^a-z0-9]/g, '')
-    }
+    const words = corePayload.anime.split(' ')
+    slug = words.length >= 3
+      ? words.map(w => w[0]).join('').toLowerCase()
+      : corePayload.anime.toLowerCase().replace(/[^a-z0-9]/g, '')
   }
 
   console.log(`\n======================================================`)
-  console.log(`[INTEGRATION PIPELINE] Ingesting: ${payload.anime}`)
+  console.log(`[INTEGRATION PIPELINE] Ingesting: ${corePayload.anime}`)
+  console.log(`[MODE] ${outputMode.toUpperCase()} (${outputMode === 'legacy' ? 'writes slug.json' : 'writes slug.core.json'})`)
   console.log(`======================================================\n`)
 
-  // 1. Strict Validation Check
-  const { errors, warnings } = validateAnimePayload(payload)
-  if (errors.length > 0) {
-    console.error('\n[FATAL] Payload failed validation. Integration aborted.')
+  const coreValidation = validateCorePayload(corePayload)
+  if (coreValidation.errors.length > 0) {
+    console.error('\n[FATAL] Core payload failed validation. Integration aborted.')
     process.exit(1)
   }
 
-  console.log(`✓ Schema Validation Passed (Warnings: ${warnings.length})`)
+  console.log(`✓ Core schema validation passed (Warnings: ${coreValidation.warnings.length})`)
 
-  // 2. Copy Payload to src/data
-  const targetPath = path.resolve(__dirname, `../src/data/${slug}.json`)
-  fs.writeFileSync(targetPath, JSON.stringify(payload, null, 2))
-  console.log(`✓ Copied payload to src/data/${slug}.json`)
+  const legacyTargetPath = path.resolve(__dirname, `../src/data/${slug}.json`)
+  const coreTargetPath = path.resolve(__dirname, `../src/data/${slug}.core.json`)
 
-  // 3. Auto-Wire dependencies in index.js
-  const indexPath = path.resolve(__dirname, '../src/data/index.js')
-  let indexContent = fs.readFileSync(indexPath, 'utf-8')
-
-  // Check if it already exists to prevent duplicate wiring
-  if (indexContent.includes(`import ${slug} from './${slug}.json'`)) {
-    console.log(`[WARN] ${slug} is already wired into index.js`)
+  if (outputMode === 'legacy') {
+    fs.writeFileSync(legacyTargetPath, JSON.stringify(corePayload, null, 2))
+    console.log(`✓ Copied payload to src/data/${slug}.json (legacy-compatible mode)`)
   } else {
-    // Insert import at the top
-    const lastImportIndex = indexContent.lastIndexOf('import ')
-    const insertImportPos = indexContent.indexOf('\n', lastImportIndex) + 1
-    const newImport = `import ${slug} from './${slug}.json'\n`
-    indexContent = indexContent.slice(0, insertImportPos) + newImport + indexContent.slice(insertImportPos)
-
-    // Insert ID assignment before exporting
-    const exportPos = indexContent.indexOf('export const ANIME_LIST')
-    const newAssign = `${slug}.id = '${slug}'\n\n`
-    indexContent = indexContent.slice(0, exportPos) + newAssign + indexContent.slice(exportPos)
-
-    // Inject into the array
-    indexContent = indexContent.replace(/export const ANIME_LIST = \[([\s\S]*?)\]/, (match, group) => {
-      const parts = group.split(',').map(s => s.trim()).filter(s => s)
-      if (!parts.includes(slug)) {
-        parts.push(slug)
-      }
-      return `export const ANIME_LIST = [\n  ${parts.join(',\n  ')}\n]`
-    })
-
-    fs.writeFileSync(indexPath, indexContent)
-    console.log(`✓ Wired ${slug} deeply into src/data/index.js (Routing + Global Access Enabled)`)
-  }
-
-  // 4. Auto-Remove from PENDING_UNIVERSES stubs
-  const explorePath = path.resolve(__dirname, '../src/components/ExploreAnotherUniverse.jsx')
-  if (fs.existsSync(explorePath)) {
-    let exploreContent = fs.readFileSync(explorePath, 'utf-8')
-    const startLength = exploreContent.length
-    
-    // Regex matches: { name: 'Anime Name', id: 'slug' }, or without comma
-    // Escaping payload.anime might be needed if it has special characters, but usually it doesn't.
-    // We'll safely replace by name string
-    const escapedName = payload.anime.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const pendingRegex = new RegExp(`\\s*\\{[^}]*name:\\s*['"]${escapedName}['"][^}]*\\},?`, 'g')
-    exploreContent = exploreContent.replace(pendingRegex, '')
-    
-    // Fix any trailing commas in the array
-    exploreContent = exploreContent.replace(/,\s*(?=\])/g, '\n')
-    
-    if (exploreContent.length !== startLength) {
-      fs.writeFileSync(explorePath, exploreContent)
-      console.log(`✓ Automatically removed '${payload.anime}' from PENDING_UNIVERSES stubs`)
+    fs.writeFileSync(coreTargetPath, JSON.stringify(corePayload, null, 2))
+    console.log(`✓ Copied core payload to src/data/${slug}.core.json`)
+    if (fs.existsSync(legacyTargetPath)) {
+      console.log(`✓ Preserved existing legacy file src/data/${slug}.json (core file takes precedence in runtime registry)`)
     }
   }
 
-  console.log(`\n[SUCCESS] ${payload.anime} is now live in the Universe Archive! Route: /universe/${slug}\n`)
+  if (sourceExtendedPath) {
+    const extendedPayload = JSON.parse(fs.readFileSync(sourceExtendedPath, 'utf-8'))
+    const extendedValidation = validateExtendedDataset(extendedPayload)
+
+    if (extendedValidation.errors.length > 0) {
+      console.error('\n[FATAL] Extended dataset failed validation. Integration aborted.')
+      process.exit(1)
+    }
+
+    const extendedTargetPath = path.resolve(__dirname, `../src/data/${slug}.extended.json`)
+    fs.writeFileSync(extendedTargetPath, JSON.stringify(extendedPayload, null, 2))
+    console.log(`✓ Copied extended dataset to src/data/${slug}.extended.json`)
+    console.log(`✓ Extended validation passed (Warnings: ${extendedValidation.warnings.length})`)
+  }
+
+  const explorePath = path.resolve(__dirname, '../src/components/ExploreAnotherUniverse.jsx')
+  if (fs.existsSync(explorePath)) {
+    const exploreContent = fs.readFileSync(explorePath, 'utf-8')
+    const escapedName = corePayload.anime.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const pendingRegex = new RegExp(`\\s*\\{[^}]*name:\\s*['"]${escapedName}['"][^}]*\\},?`, 'g')
+    const updatedContent = exploreContent
+      .replace(pendingRegex, '')
+      .replace(/,\s*(?=\])/g, '\n')
+
+    if (updatedContent !== exploreContent) {
+      fs.writeFileSync(explorePath, updatedContent)
+      console.log(`✓ Automatically removed '${corePayload.anime}' from PENDING_UNIVERSES stubs`)
+    }
+  }
+
+  console.log(`\n[SUCCESS] ${corePayload.anime} is now live in the Universe Archive! Route: /universe/${slug}\n`)
 
 } catch (err) {
-  console.error(`\n[FATAL] Pipeline threw hard error:`)
+  console.error('\n[FATAL] Pipeline threw hard error:')
   console.error(err.message)
   process.exit(1)
 }
