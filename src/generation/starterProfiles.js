@@ -1,3 +1,9 @@
+/**
+ * Starter profiles express which sections matter most by system type.
+ *
+ * These are intentionally lightweight editorial defaults for foundation pass.
+ * They are not hard schema limits and can evolve with real archive learnings.
+ */
 export const STARTER_PROFILES = {
   timeline: {
     prioritize: ['causalEvents', 'anomalies', 'rules'],

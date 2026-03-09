@@ -1,5 +1,13 @@
 import { detectSystemType, STARTER_PROFILES } from './starterProfiles'
 
+/**
+ * Deterministic core selector (foundation pass).
+ *
+ * This is intentionally simple and predictable:
+ * - no AI scoring,
+ * - no schema mutation outside expected core sections,
+ * - no renderer coupling.
+ */
 function rankBySignal(items = [], scoreFn) {
   return [...items]
     .map((item) => ({ item, score: scoreFn(item) }))
@@ -15,12 +23,14 @@ export function selectCoreFromExtended(extended = {}) {
   const systemType = detectSystemType(extended)
   const profile = STARTER_PROFILES[systemType] || STARTER_PROFILES['standard-cards']
 
+  // Signal examples: relationship density + explicit system importance.
   const rankedRelationships = rankBySignal(extended.relationships || [], (rel) => {
     const weight = Number(rel.weight) || 0
     const systemImportance = rel.systemImportance ? 3 : 0
     return weight + systemImportance
   })
 
+  // Signal examples: danger, faction relevance, system-level relevance.
   const rankedCharacters = rankBySignal(extended.characters || [], (char) => {
     const danger = Number(char.dangerLevel) || 0
     const factionRelevance = char.factionRelevance ? 2 : 0
@@ -28,18 +38,21 @@ export function selectCoreFromExtended(extended = {}) {
     return danger + factionRelevance + systemImportance
   })
 
+  // Signal examples: anomaly severity + explicit significance.
   const rankedAnomalies = rankBySignal(extended.anomalies || [], (a) => {
     const severity = ['low', 'medium', 'high', 'fatal'].indexOf((a.severity || '').toLowerCase())
     const anomalySignificance = a.significance ? 2 : 0
     return Math.max(severity, 0) + anomalySignificance
   })
 
+  // Signal examples: causal importance + stakes.
   const rankedEvents = rankBySignal(extended.causalEvents || [], (event) => {
     const causalImportance = Number(event.causalImportance) || 0
     const stakes = Number(event.stakes) || 0
     return causalImportance + stakes
   })
 
+  // Signal examples: counterplay centrality + explicit counters.
   const rankedCounterplay = rankBySignal(extended.counterplay || [], (entry) => {
     const centrality = Number(entry.counterplayCentrality) || 0
     const explicit = entry.explicitCounter ? 2 : 0

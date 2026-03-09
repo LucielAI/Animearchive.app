@@ -68,8 +68,18 @@ Once committed and pushed:
 
 Current `validateAnimePayload` remains as a compatibility alias.
 
-## Important Distinction
+## What core validation enforces
+`validateCorePayload` protects renderer and archive quality by enforcing:
+- required fields for renderer-safe payloads,
+- image host allowlist safety constraints,
+- renderer-specific structural profile warnings (thin vs bloated),
+- enum integrity for relationships/factions/rules,
+- graph-level sanity checks and AI insight field quality.
+
+## Important Distinctions
 Do NOT confuse research with core payload generation.
 
-Research should be broad and system-aware.
-Core payload generation should be schema-aware and renderer-aware.
+- Research should be broad and system-aware.
+- Core payload generation should be schema-aware and renderer-aware.
+- Renderer choice should follow the **system thesis**, not just volume of entities.
+- Layered support exists to scale depth safely, not to force complexity on every universe.

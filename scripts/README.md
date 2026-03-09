@@ -1,6 +1,13 @@
 # Anime Architecture Archive - Utilities Hub
 
-This directory contains standalone utilities for data generation and ingestion.
+This directory contains standalone utilities for **data generation, validation, and ingestion**.
+
+These utilities are intentionally separated from the React app runtime:
+- app/runtime code should stay focused on rendering and interaction,
+- scripts should handle archive ingestion operations,
+- AI-assisted generation workflows should be explicit, reviewable, and deterministic.
+
+This split is part of the project architecture, not just folder organization.
 
 ## Core CLI Workflows
 
@@ -8,6 +15,7 @@ This directory contains standalone utilities for data generation and ingestion.
 ```bash
 npm run validate:payload path/to/slug.json
 ```
+Use this for legacy payloads (`slug.json`) and explicit core payloads (`slug.core.json`).
 
 ### Validate an extended dataset
 ```bash
@@ -15,6 +23,7 @@ npm run validate:payload path/to/slug.extended.json
 # or
 npm run validate:payload path/to/any.json --extended
 ```
+Extended validation is intentionally lighter than core validation.
 
 ### Add a universe (backward-compatible default)
 ```bash
@@ -30,15 +39,17 @@ npm run add:universe path/to/payload.json [slug] [path/to/slug.extended.json] --
 ```
 Layered mode writes `src/data/slug.core.json` and optionally `src/data/slug.extended.json`.
 
+> `slug.extended.json` is optional. Do not treat it as mandatory for archive integration.
+
 ---
 
 ## `patch_jikan_images.py` (The Jikan Image Enforcer)
 
-**Reason for Existence:**
-The Jikan v4 API's generic `/characters/{id}` endpoint is vulnerable to incorrect or spoiler-heavy MAL image records.
+**Reason for existence:**
+The Jikan v4 API generic `/characters/{id}` endpoint can return incorrect or spoiler-heavy MAL image records.
 
 **What it does:**
-Uses the anime cast endpoint (`/anime/{id}/characters`), correlates characters by name, and injects clean MAL image URLs into a local payload without overwriting lore fields.
+Uses the anime cast endpoint (`/anime/{id}/characters`), correlates characters by name, and injects clean MAL image URLs into a local payload without overwriting handcrafted lore/system fields.
 
 **Usage:**
 ```bash

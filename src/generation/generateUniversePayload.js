@@ -3,15 +3,22 @@ import { selectCoreFromExtended } from './selectCoreFromExtended'
 /**
  * RESEARCH-TO-PAYLOAD TRANSFORMER
  *
- * Supports both direct core generation and a layered flow:
- * extended dataset -> core selection -> renderer-ready payload.
+ * This module turns structured research into a renderer-ready core payload.
+ *
+ * Operational intent:
+ * 1) Thesis-first renderer mapping (not raw volume-first).
+ * 2) Non-breaking defaults for missing fields.
+ * 3) Layered support: extended -> deterministic core selection -> core payload.
  */
 export function generateUniversePayload(animeName, structuredResearch, options = {}) {
   const sourceLayer = options.sourceLayer || 'core'
+
+  // If research is extended, compress it deterministically before formatting.
   const baseResearch = sourceLayer === 'extended'
     ? selectCoreFromExtended(structuredResearch)
     : structuredResearch
 
+  // The system thesis should drive visualization strategy.
   const thesis = baseResearch.structuralThesis || 'Unknown Mechanism'
   const themeColors = baseResearch.themeColors || {
     primary: '#22d3ee', secondary: '#8b5cf6', accent: '#f59e0b',
@@ -20,6 +27,7 @@ export function generateUniversePayload(animeName, structuredResearch, options =
     modeGlow: 'rgba(34,211,238,0.2)', heroGradient: 'rgba(5,5,20,0.9)'
   }
 
+  // Renderer hint selection priority: causality -> counter economy -> relationship web.
   let hint = 'standard-cards'
   let hintReason = 'Default fallback renderer.'
 
@@ -38,6 +46,7 @@ export function generateUniversePayload(animeName, structuredResearch, options =
     hintReason = 'Universe relies on strategic exposure and deep interpersonal webs.'
   }
 
+  // Keep formatting robust to partial research outputs.
   const processCharacters = (chars = []) => chars.map(c => ({
     name: c.name || 'Unknown Entity',
     title: c.title || 'The Anomaly',

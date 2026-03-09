@@ -1,5 +1,8 @@
 import { validateCorePayload } from '../utils/validateSchema'
 
+// Runtime registry loader for layered universe data.
+// Non-breaking resolution order per slug: .core.json -> legacy .json.
+// .extended.json is loaded for tooling/reference but not rendered by default.
 const dataFiles = import.meta.glob('./*.json', { eager: true })
 
 function extractSlug(filePath) {
@@ -29,6 +32,7 @@ const groupedBySlug = Object.entries(dataFiles).reduce((acc, [filePath, mod]) =>
   return acc
 }, {})
 
+// Preserve familiar homepage ordering for current live universes.
 const preferredOrder = ['aot', 'jjk', 'hxh', 'vinlandsaga']
 const discoveredSlugs = Object.keys(groupedBySlug)
 const slugs = [
@@ -54,6 +58,7 @@ export const UNIVERSE_DATA_REGISTRY = slugs.reduce((acc, slug) => {
   return acc
 }, {})
 
+// UI always renders from core payloads to keep renderer contract stable.
 export const ANIME_LIST = slugs
   .map(slug => UNIVERSE_DATA_REGISTRY[slug]?.core)
   .filter(Boolean)
