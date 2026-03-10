@@ -55,6 +55,7 @@ Payloads live in `src/data/`. UI renders from JSON only — no universe logic in
 ```bash
 npm run validate:payload path/to/slug.core.json                       # validate core payload
 npm run validate:payload path/to/slug.extended.json -- --extended     # validate extended dataset
-npm run add:universe path/to/slug.core.json [slug]                    # integrate universe
+npm run add:universe path/to/slug.core.json [slug]                    # integrate universe (auto-regenerates sitemap)
+npm run generate:sitemap                                               # regenerate public/sitemap.xml manually
 python scripts/patch_jikan_images.py --file path/to/slug.json         # inject MAL images
 ```
