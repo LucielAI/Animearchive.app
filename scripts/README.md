@@ -41,6 +41,12 @@ Layered mode writes `src/data/slug.core.json` and optionally `src/data/slug.exte
 
 > `slug.extended.json` is optional. Do not treat it as mandatory for archive integration.
 
+### Generate sitemap
+```bash
+npm run generate:sitemap
+```
+Regenerates `public/sitemap.xml` from the universe slugs currently in `src/data/`. Runs automatically before every `vite build` and after every `add:universe`. Run manually if you edit `src/data/` directly without using `add:universe`.
+
 ---
 
 ## `patch_jikan_images.py` (The Jikan Image Enforcer)

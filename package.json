@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/generateSitemap.js && vite build",
+    "generate:sitemap": "node scripts/generateSitemap.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "validate:payload": "node scripts/validatePayload.js",
-    "add:universe": "node scripts/addUniverse.js",
+    "add:universe": "node scripts/addUniverse.js && node scripts/generateSitemap.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },

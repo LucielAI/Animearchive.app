@@ -55,11 +55,13 @@ npm run add:universe path/to/payload.json [slug] [path/to/slug.extended.json]
 # default: writes slug.json (legacy mode)
 # add --layered or pass a .core.json input to write slug.core.json
 ```
+`add:universe` automatically regenerates `public/sitemap.xml` after integration. No manual sitemap update needed.
 
 ### Stage 6 — Deployment
 Once committed and pushed:
-1. **GitHub PR**: Review payloads and docs.
-2. **Vercel Deployment**: `git push` triggers automatic build/deploy.
+1. **Docs sync**: Update `docs/BLUEPRINT.md` and `docs/REPO_AUDIT_SUMMARY.md` universe lists. See `playbooks/05-docs-sync.md`.
+2. **GitHub PR**: Review payloads and docs.
+3. **Vercel Deployment**: `git push` triggers automatic build/deploy. The build step regenerates the sitemap from `src/data/` before bundling.
 
 ## Validation split
 `src/utils/validateSchema.js` now exposes:
