@@ -8,7 +8,9 @@ How to transform raw research into a valid archive JSON payload.
 - `docs/RESEARCH_GUIDE.md` — what sections to produce and why
 - `docs/RENDERER_CONTRACT.md` — how to pick a renderer from research output
 - `docs/DATA_PRINCIPLES.md` — schema rules, image policy, aiInsights spec
-- `src/generation/selectCoreFromExtended.js` — how core selection works
+- `src/generation/selectCoreFromExtended.js` — deterministic core selection
+- `src/generation/generateUniversePayload.js` — higher-level research → payload transformer
+- `playbooks/06-payload-field-reference.md` — complete field schema with required keys and enums
 
 ## Inputs Required
 
@@ -30,7 +32,10 @@ Before touching JSON, identify the structural thesis from research:
 - Is the system defined by **causality** (A leads to B)? → `timeline`
 - Is the system defined by **who knows/controls whom** (networks)? → `node-graph`
 - Is the system defined by **how X defeats Y** (combat economy)? → `counter-tree`
-- None fit cleanly? → `cards`
+- Is the system defined by **affinity/compatibility structures**? → `affinity-matrix`
+- None fit cleanly? → `standard-cards`
+
+`generateUniversePayload.js` auto-detects thesis from keywords (`time`/`causal` → timeline, `counter`/`economy` → counter-tree, `network`/`alliance` → node-graph). Review and override its choice if the auto-detection misses the actual system thesis.
 
 This determines `visualizationHint` and drives all structural profile targets.
 
@@ -53,51 +58,48 @@ Extended validation is lighter than core validation. A few warnings here are acc
 
 The core payload is what the archive renders. Every field must serve a renderer.
 
-**Option A — Mechanical selection (recommended for large extended datasets):**
+**Option A — Use the generation pipeline (recommended):**
 
-Use `src/generation/selectCoreFromExtended.js`:
+`src/generation/generateUniversePayload.js` takes structured research and returns a formatted core payload:
 ```js
-import { selectCoreFromExtended } from './src/generation/selectCoreFromExtended.js'
-const core = selectCoreFromExtended(extended)
+import { generateUniversePayload } from './src/generation/generateUniversePayload.js'
+
+// From extended dataset (recommended):
+const core = generateUniversePayload(animeName, extendedResearch, { sourceLayer: 'extended' })
+
+// From structured research directly:
+const core = generateUniversePayload(animeName, structuredResearch)
 ```
 
-This ranks and caps each section using signal scores (dangerLevel, weight, severity, causalImportance, etc.) and applies per-renderer caps from `STARTER_PROFILES`.
+When `sourceLayer: 'extended'`, it calls `selectCoreFromExtended` first, then formats the result. Non-breaking defaults fill in missing fields (gradients, icons, etc.) but you should populate them explicitly for quality.
 
-**Option B — Manual construction (for small or simple datasets):**
+**Option B — Manual construction:**
 
-Write the core payload directly, following the structural profile targets in `docs/RENDERER_CONTRACT.md`.
+Write the core payload directly. Follow the structural profile targets in `docs/RENDERER_CONTRACT.md` and use `playbooks/06-payload-field-reference.md` for the exact field schema.
 
-### Required Fields Checklist
+### Required Fields (hard validation errors if missing)
 
 ```json
 {
   "anime": "Anime Title",
-  "malId": 123,
-  "slug": "animeslug",
-  "visualizationHint": "timeline|node-graph|counter-tree|cards",
+  "tagline": "Short thematic hook — one punchy sentence.",
+  "malId": 9253,
+  "themeColors": { "primary": "...", "secondary": "...", ... },
+  "visualizationHint": "timeline|node-graph|counter-tree|affinity-matrix|standard-cards",
   "visualizationReason": "One sentence: why this renderer fits this system.",
-  "aiInsights": {
-    "casual": "Fan-friendly system summary.",
-    "deep": "Analytical system readout referencing mechanics and constraints."
-  },
-  "headerFlavor": {
-    "loreQuote": "...",
-    "sysWarning": "...",
-    "sysWarningColor": "red|orange|purple|..."
-  },
-  "backgroundMotif": "jagged|noise|temporal|...",
-  "revealOverlay": "hatch-red|pulse-purple|glow-border|...",
-  "animeImageUrl": null,
+  "powerSystem": [...],
   "characters": [...],
-  "relationships": [...],
   "factions": [...],
   "rules": [...],
-  "counterplay": [...],
-  "causalEvents": [...],
-  "anomalies": [...],
-  "powerSystem": [...]
+  "rankings": { ... },
+  "aiInsights": {
+    "casual": "Fan-friendly summary.",
+    "deep": "Analytical readout referencing mechanics and constraints."
+  }
 }
 ```
+
+**See `playbooks/06-payload-field-reference.md` for all required sub-fields**, including the 9 `themeColors` keys, 12 character fields, enum constraints, and `rankings` structure.
 
 For `sysWarningColor`, `backgroundMotif`, and `revealOverlay` valid keys, check `src/config/universePresentation.js`.
 
@@ -127,12 +129,18 @@ Do NOT fabricate MAL URLs. See [03-image-patch.md](./03-image-patch.md).
 
 ## Common Mistakes
 
+**Missing `tagline`, `themeColors`, or `rankings`.** All three are in `REQUIRED_TOP_LEVEL`. They cause hard errors. They are the most commonly omitted fields by agents building payloads from scratch.
+
 **Using research sections as array items directly.** Research is prose. Payload arrays need structured objects with specific keys (`name`, `description`, `weight`, `type`, etc.). Transform, don't paste.
 
-**Skipping `aiInsights`.** This is a hard schema requirement for new universes. Both `casual` and `deep` must be non-empty strings.
+**Incomplete character objects.** Every character requires 12 specific fields. Missing any causes a hard error per character. See `playbooks/06-payload-field-reference.md` for the full list.
 
-**Oversizing the core payload.** The core is capped for renderer performance. If you have more data, put it in extended. The `selectCoreFromExtended` function handles capping automatically.
+**Wrong enum values.** Relationship `type`, faction `role`, and rule `severity` must match exact enum strings. Using `"conflict"` instead of `"enemy"` causes a hard error. See the field reference.
 
-**Choosing the renderer by character count.** The renderer decision is about system thesis, not data volume. A 6-character universe can be a node graph if relationships are its structural core.
+**Relationship source/target doesn't match character names.** The validator checks that every `source` and `target` in `relationships` exactly matches a character `name`. Off-graph edges produce warnings. Make relationship names identical to character names.
 
-**Writing `aiInsights.deep` as a plot summary.** It must read like a system analysis, not a synopsis. Reference rules, constraints, and causal mechanics.
+**Skipping `aiInsights`.** Hard schema requirement for new universes. Both `casual` and `deep` must be non-empty strings.
+
+**Oversizing the core payload.** Core is capped for renderer performance. Put extra data in extended. `selectCoreFromExtended` handles capping automatically.
+
+**Writing `aiInsights.deep` as a plot summary.** Must read like a system analysis. Reference rules, constraints, and causal mechanics — not episode events.

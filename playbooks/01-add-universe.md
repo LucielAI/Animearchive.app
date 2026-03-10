@@ -47,14 +47,19 @@ npm run validate:payload path/to/{slug}.extended.json --extended
 
 Generate `{slug}.core.json` (preferred) or `{slug}.json` (legacy).
 
-Required fields (enforced by `validateCorePayload`):
-- `anime`, `malId`, `slug`
-- `visualizationHint` — one of: `timeline`, `node-graph`, `counter-tree`, `cards`
+Required fields (enforced by `validateCorePayload` as **hard errors**):
+- `anime` — display title
+- `tagline` — short thematic hook (one sentence)
+- `malId` — MyAnimeList numeric ID
+- `themeColors` — object with 9 required keys (see `playbooks/06-payload-field-reference.md`)
+- `visualizationHint` — one of: `timeline`, `node-graph`, `counter-tree`, `affinity-matrix`, `standard-cards`
 - `visualizationReason` — one sentence explaining the renderer choice
-- `aiInsights.casual` and `aiInsights.deep`
-- `headerFlavor` — `{ loreQuote, sysWarning, sysWarningColor }`
-- `backgroundMotif`, `revealOverlay`
-- `characters`, `relationships`, `factions`, `rules`, `counterplay`, `causalEvents`, `anomalies`, `powerSystem`
+- `powerSystem`, `characters`, `factions`, `rules`, `rankings` — all required arrays/objects
+- `aiInsights` — `{ casual: string, deep: string }` — required for all new universes
+- `headerFlavor` — `{ loreQuote, sysWarning, sysWarningColor }` — optional but expected
+- `backgroundMotif`, `revealOverlay` — optional presentation keys
+
+For the full field schema (all required character fields, enum values, themeColors structure, rankings shape), see **`playbooks/06-payload-field-reference.md`**.
 
 For renderer selection logic, see `docs/RENDERER_CONTRACT.md`. Choose by **system thesis**, not data volume.
 
@@ -121,6 +126,10 @@ The script:
 
 **Missing `visualizationReason`.** Every payload must explain its renderer choice. This displays in the `WhyThisRenderer` component.
 
+**Missing `tagline`, `themeColors`, or `rankings`.** All three are required top-level fields that cause hard validation failures. Agents frequently omit them. See `playbooks/06-payload-field-reference.md`.
+
 **Confusing extended and core payloads.** Extended is for research retention. Core is what the UI renders. Do not pass an extended dataset to `add:universe` as the first argument.
 
 **Not running image patch before validation.** Image validation will flag missing hosts. Run the patcher first.
+
+**Incomplete character objects.** Every character requires 12 specific fields. Missing any one causes hard errors per character. See `playbooks/06-payload-field-reference.md`.

@@ -13,6 +13,7 @@ These are not a framework. They are practical checklists written for agents (Cla
 | Patch missing or broken character/anime images | [03-image-patch.md](./03-image-patch.md) |
 | Validate and QA a universe before integration | [04-verify-universe.md](./04-verify-universe.md) |
 | Keep docs aligned after adding a universe | [05-docs-sync.md](./05-docs-sync.md) |
+| Look up required fields, enums, themeColors, character schema | [06-payload-field-reference.md](./06-payload-field-reference.md) |
 
 ## How These Were Written
 
