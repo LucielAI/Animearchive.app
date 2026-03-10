@@ -25,7 +25,8 @@ const VALID_FACTION_ROLES = ['protagonist', 'antagonist', 'neutral', 'chaotic', 
 // ─── SAFE IMAGE HOST ALLOWLIST ───────────────────────────────────────────────
 const ALLOWED_IMAGE_HOSTS = [
   'cdn.myanimelist.net',
-  'images.myanimelist.net'
+  'images.myanimelist.net',
+  'myanimelist.net'
 ]
 
 // ─── RENDERER-AWARE STRUCTURAL PROFILES ──────────────────────────────────────

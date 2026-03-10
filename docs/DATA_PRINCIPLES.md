@@ -104,6 +104,7 @@ This data is stored minimally via serverless endpoints and does not influence th
 To ensure performance and security, the archive enforces an `ALLOWED_IMAGE_HOSTS` policy in `validateSchema.js`. All images must be hosted on:
 - `cdn.myanimelist.net`
 - `images.myanimelist.net`
+- `myanimelist.net`
 
 ### Image Fallback Contract
 If an image cannot be reliably fetched or is missing from Mal, the payload must follow the fallback contract to prevent UI breakage:

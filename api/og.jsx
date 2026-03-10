@@ -34,6 +34,11 @@ export default async function handler(request) {
       subtitle = 'SOCIAL MECHANICS & VIOLENCE ECONOMY';
       themeColor = '#dc2626'; // red
       typeLab = 'NODE GRAPH ARCHIVE';
+    } else if (id === 'steinsgate') {
+      title = 'STEINS;GATE';
+      subtitle = 'ATTRACTOR FIELDS & CONVERGENCE';
+      themeColor = '#22d3ee'; // cyan
+      typeLab = 'TIMELINE ARCHIVE';
     }
 
     const fontData = await fetch(new URL('./assets/RobotoMono-Bold.ttf', import.meta.url)).then((res) => res.arrayBuffer());
