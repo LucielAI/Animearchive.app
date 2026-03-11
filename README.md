@@ -99,6 +99,8 @@ Every universe payload is built via a two-stage workflow: broad system research 
 - Hunter x Hunter
 - Vinland Saga
 - Steins;Gate
+- Death Note
+- Fullmetal Alchemist: Brotherhood
 
 ## Tech Stack
 
