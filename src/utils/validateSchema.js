@@ -224,6 +224,9 @@ export function validateCorePayload(data) {
       if (f.role && !VALID_FACTION_ROLES.includes(f.role)) {
         errors.push(`factions[${i}] invalid role: "${f.role}"`)
       }
+      if (!f.name) warnings.push(`factions[${i}] missing name (Faction card heading may render blank)`)
+      if (!f.loreDesc) warnings.push(`factions[${i}] missing loreDesc`)
+      if (!f.systemDesc) warnings.push(`factions[${i}] missing systemDesc`)
     })
   }
 
@@ -231,6 +234,9 @@ export function validateCorePayload(data) {
 
   if (Array.isArray(data.powerSystem)) {
     data.powerSystem.forEach((p, i) => {
+      if (!p.name) warnings.push(`powerSystem[${i}] missing name (Power Engine card heading may render blank)`)
+      if (!p.loreDesc) warnings.push(`powerSystem[${i}] missing loreDesc`)
+      if (!p.systemDesc) warnings.push(`powerSystem[${i}] missing systemDesc`)
       if (!p.loreSubtitle) warnings.push(`powerSystem[${i}] missing loreSubtitle`)
       if (!p.systemSubtitle) warnings.push(`powerSystem[${i}] missing systemSubtitle`)
     })

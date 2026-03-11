@@ -120,6 +120,7 @@ npm run build             # Production build
 npm run preview           # Preview production build
 npm run test              # Run test suite (Vitest)
 npm run validate:payload  # Custom CLI tool for JSON structure checking
+npm run validate:all      # Audit all integrated universe payloads in src/data/
 ```
 
 ## Adding a New Universe
@@ -128,6 +129,8 @@ npm run validate:payload  # Custom CLI tool for JSON structure checking
 2. Generate a strict JSON schema conforming to `validateSchema.js`.
 3. Ingest via: `npm run add:universe <path-to-payload> <slug>`
 4. The pipeline automatically wires the schema, tests fallbacks, and assigns routing.
+
+For Codex/agent execution hygiene, see `docs/CODEX_QUICKSTART.md` (wrapper checklist that points to the same shared scripts/playbooks).
 
 ## License
 

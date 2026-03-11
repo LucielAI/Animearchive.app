@@ -22,6 +22,11 @@ How to QA a universe payload before or after integration.
 npm run validate:payload path/to/{slug}.core.json
 ```
 
+**Archive-wide integrated payload audit (recommended before PR):**
+```bash
+npm run validate:all
+```
+
 **Extended dataset:**
 ```bash
 npm run validate:payload path/to/{slug}.extended.json --extended
