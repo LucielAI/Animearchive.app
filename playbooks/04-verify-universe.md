@@ -59,7 +59,7 @@ Warnings are not blockers but indicate structural thinness or missing recommende
 
 Common warnings:
 - Renderer structural profile mismatch (e.g., too few `counterplay` entries for `counter-tree`)
-- Missing optional but recommended fields
+- Missing fields that can reduce content quality even if schema passes
 - Array lengths outside the soft target range for the chosen renderer
 
 Check the structural profile table in `docs/RENDERER_CONTRACT.md` for per-renderer targets.
@@ -74,7 +74,7 @@ After the validator passes, do a quick manual review:
 - [ ] `visualizationHint` matches the intended renderer (`timeline`, `node-graph`, `counter-tree`, `affinity-matrix`, `standard-cards`)
 - [ ] `visualizationReason` is present and explains the renderer choice (not a plot summary)
 - [ ] `aiInsights.casual` and `aiInsights.deep` are present and non-empty
-- [ ] `headerFlavor`, `backgroundMotif`, `revealOverlay` are set
+- [ ] `headerFlavor`, `backgroundMotif`, `revealOverlay` keys are valid if set
 
 **Image policy:**
 - [ ] All `imageUrl` values are either from `cdn.myanimelist.net` / `images.myanimelist.net` or are `null`

@@ -18,9 +18,10 @@ function makePayload(overrides = {}) {
     powerSystem: [{ name: 'Nen', loreDesc: 'Life energy', systemDesc: 'Energy API', loreSubtitle: 'sub', systemSubtitle: 'sub' }],
     characters: [makeCharacter('Hero'), makeCharacter('Villain')],
     factions: [{ name: 'Heroes', role: 'protagonist', loreDesc: 'Good guys', systemDesc: 'Main process' }],
-    rules: [{ name: 'Rule 1', severity: 'high', loreSubtitle: 'sub', systemSubtitle: 'sub', loreDesc: 'desc', description: 'desc' }],
+    rules: [{ name: 'Rule 1', severity: 'high', loreSubtitle: 'sub', systemSubtitle: 'sub', loreConsequence: 'desc', systemEquivalent: 'desc' }],
     rankings: [],
     relationships: [{ source: 'Hero', target: 'Villain', type: 'enemy', loreDesc: 'They fight' }],
+    aiInsights: { casual: 'Fun take', deep: 'Mechanics-focused take' },
     ...overrides,
   }
 }
@@ -91,6 +92,23 @@ describe('validateCorePayload', () => {
     expect(errors.some(e => e.includes('invalid severity'))).toBe(true)
   })
 
+
+  it('errors on missing rule runtime body fields', () => {
+    const { errors } = validateCorePayload(makePayload({
+      rules: [{ name: 'Rule', severity: 'high', loreSubtitle: 's', systemSubtitle: 's' }]
+    }))
+    expect(errors.some(e => e.includes('loreConsequence'))).toBe(true)
+    expect(errors.some(e => e.includes('systemEquivalent'))).toBe(true)
+  })
+
+  it('errors on missing counterplay runtime fields', () => {
+    const { errors } = validateCorePayload(makePayload({
+      visualizationHint: 'counter-tree',
+      counterplay: [{ attacker: 'A' }]
+    }))
+    expect(errors.some(e => e.includes('counterplay'))).toBe(true)
+  })
+
   it('validates faction roles', () => {
     const { errors } = validateCorePayload(makePayload({
       factions: [{ name: 'F', role: 'anti-hero' }]
@@ -98,9 +116,11 @@ describe('validateCorePayload', () => {
     expect(errors.some(e => e.includes('invalid role'))).toBe(true)
   })
 
-  it('warns about missing aiInsights', () => {
-    const { warnings } = validateCorePayload(makePayload())
-    expect(warnings.some(w => w.includes('aiInsights'))).toBe(true)
+  it('errors when aiInsights is missing', () => {
+    const payload = makePayload()
+    delete payload.aiInsights
+    const { errors } = validateCorePayload(payload)
+    expect(errors.some(e => e.includes('aiInsights'))).toBe(true)
   })
 
   it('validates aiInsights structure when present', () => {

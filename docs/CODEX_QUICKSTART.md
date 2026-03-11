@@ -5,7 +5,8 @@ This guide helps Codex (or any agent) execute the existing archive workflow reli
 ## 1) Read order
 1. `AGENTS.md`
 2. `CLAUDE.md`
-3. Task playbook(s) from `playbooks/`
+3. `docs/MASTER_UNIVERSE_BUILD_PROMPT.md` (if implementing a new universe)
+4. Task playbook(s) from `playbooks/`
 
 ## 2) Preflight commands (no custom pipeline)
 ```bash

@@ -68,7 +68,7 @@ For renderer selection logic, see `docs/RENDERER_CONTRACT.md`. Choose by **syste
 
 Before validating images, run the Jikan patcher to inject real MAL images:
 ```bash
-python scripts/patch_jikan_images.py --file path/to/{slug}.json
+python scripts/patch_jikan_images.py --file path/to/{slug}.core.json
 ```
 
 The script reads `malId` from the payload and fetches the official cast list. Do not fabricate image URLs. See [03-image-patch.md](./03-image-patch.md).

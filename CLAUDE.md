@@ -17,6 +17,8 @@ Payloads live in `src/data/`. UI renders from JSON only — no universe logic in
 | Field schema, enums, themeColors shape | `playbooks/06-payload-field-reference.md` |
 | Renderer selection logic | `docs/RENDERER_CONTRACT.md` |
 | Pipeline stages reference | `docs/UNIVERSE_PIPELINE.md` |
+| Repo-native universe build prompt | `docs/MASTER_UNIVERSE_BUILD_PROMPT.md` |
+| External research prompt | `docs/MASTER_RESEARCH_PROMPT.md` |
 | Image policy, aiInsights rules | `docs/DATA_PRINCIPLES.md` |
 | All CLI commands | `scripts/README.md` |
 

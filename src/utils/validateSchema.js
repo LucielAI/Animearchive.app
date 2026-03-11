@@ -2,7 +2,7 @@
 
 const REQUIRED_TOP_LEVEL = [
   'anime', 'tagline', 'malId', 'themeColors', 'visualizationHint',
-  'visualizationReason', 'powerSystem', 'characters', 'factions', 'rules', 'rankings'
+  'visualizationReason', 'powerSystem', 'characters', 'factions', 'rules', 'rankings', 'aiInsights'
 ]
 
 const REQUIRED_CHARACTER_FIELDS = [
@@ -180,10 +180,14 @@ export function validateCorePayload(data) {
         errors.push(`rules[${i}] invalid severity: "${r.severity}"`)
       }
       if (!r.name) errors.push(`rules[${i}] missing required UI field: name`)
-      if (!r.loreConsequence) warnings.push(`rules[${i}] missing loreConsequence (Core Laws body may render blank in LORE mode)`)
-      if (!r.systemEquivalent) warnings.push(`rules[${i}] missing systemEquivalent (Core Laws body may render blank in SYS mode)`)
+      if (!r.loreConsequence) errors.push(`rules[${i}] missing required UI field: loreConsequence (Core Laws body renders blank in LORE mode)`)
+      if (!r.systemEquivalent) errors.push(`rules[${i}] missing required UI field: systemEquivalent (Core Laws body renders blank in SYS mode)`)
       if (!r.loreSubtitle) warnings.push(`rules[${i}] missing loreSubtitle`)
       if (!r.systemSubtitle) warnings.push(`rules[${i}] missing systemSubtitle`)
+
+      if (!r.name && r.ruleName) warnings.push(`rules[${i}] uses non-canonical key "ruleName"; expected "name"`)
+      if (!r.loreConsequence && r.loreDesc) warnings.push(`rules[${i}] uses non-canonical key "loreDesc"; expected "loreConsequence"`)
+      if (!r.systemEquivalent && r.systemDesc) warnings.push(`rules[${i}] uses non-canonical key "systemDesc"; expected "systemEquivalent"`)
     })
   }
 
@@ -193,27 +197,27 @@ export function validateCorePayload(data) {
 
   if (Array.isArray(data.counterplay)) {
     data.counterplay.forEach((cp, i) => {
-      if (!cp.attacker) warnings.push(`counterplay[${i}] missing attacker (Power Engine renders [ATTACK] placeholder)`)
-      if (!cp.defender) warnings.push(`counterplay[${i}] missing defender (Power Engine renders [COUNTER] placeholder)`)
-      if (!cp.mechanic) warnings.push(`counterplay[${i}] missing mechanic`)
+      if (!cp.attacker) errors.push(`counterplay[${i}] missing required UI field: attacker (Power Engine renders [ATTACK] placeholder)`)
+      if (!cp.defender) errors.push(`counterplay[${i}] missing required UI field: defender (Power Engine renders [COUNTER] placeholder)`)
+      if (!cp.mechanic) errors.push(`counterplay[${i}] missing required UI field: mechanic`)
     })
   }
 
   if (Array.isArray(data.anomalies)) {
     data.anomalies.forEach((a, i) => {
-      if (!a.name) warnings.push(`anomalies[${i}] missing name (Rule Breakers heading may render blank)`)
-      if (!a.ruleViolated) warnings.push(`anomalies[${i}] missing ruleViolated`)
-      if (!a.loreDesc) warnings.push(`anomalies[${i}] missing loreDesc`)
-      if (!a.systemDesc) warnings.push(`anomalies[${i}] missing systemDesc`)
+      if (!a.name) errors.push(`anomalies[${i}] missing required UI field: name (Rule Breakers heading renders blank)`)
+      if (!a.ruleViolated) errors.push(`anomalies[${i}] missing required UI field: ruleViolated`)
+      if (!a.loreDesc) errors.push(`anomalies[${i}] missing required LORE field: loreDesc`)
+      if (!a.systemDesc) errors.push(`anomalies[${i}] missing required SYS field: systemDesc`)
     })
   }
 
   if (Array.isArray(data.causalEvents)) {
     data.causalEvents.forEach((evt, i) => {
-      if (!evt.name) warnings.push(`causalEvents[${i}] missing name`)
-      if (!evt.trigger) warnings.push(`causalEvents[${i}] missing trigger`)
-      if (!evt.consequence) warnings.push(`causalEvents[${i}] missing consequence`)
-      if (!evt.timelinePosition) warnings.push(`causalEvents[${i}] missing timelinePosition`)
+      if (!evt.name) errors.push(`causalEvents[${i}] missing required UI field: name`)
+      if (!evt.trigger) errors.push(`causalEvents[${i}] missing required UI field: trigger`)
+      if (!evt.consequence) errors.push(`causalEvents[${i}] missing required UI field: consequence`)
+      if (!evt.timelinePosition) errors.push(`causalEvents[${i}] missing required UI field: timelinePosition`)
     })
   }
 
@@ -258,13 +262,13 @@ export function validateCorePayload(data) {
 
   // ── 10. Renderer-specific field requirements ──
   if (hint === 'timeline' && (!data.causalEvents || data.causalEvents.length === 0)) {
-    warnings.push(`Renderer "${hint}" requires 'causalEvents' to properly layout.`)
+    errors.push(`Renderer "${hint}" requires non-empty 'causalEvents' for runtime rendering.`)
   }
   if (hint === 'node-graph' && (!data.relationships || data.relationships.length === 0)) {
-    warnings.push(`Renderer "${hint}" requires 'relationships' to wire the D3 graph.`)
+    errors.push(`Renderer "${hint}" requires non-empty 'relationships' to wire the D3 graph.`)
   }
   if (hint === 'counter-tree' && (!data.counterplay || data.counterplay.length === 0)) {
-    warnings.push(`Renderer "${hint}" requires 'counterplay' for the combat economy tree.`)
+    errors.push(`Renderer "${hint}" requires non-empty 'counterplay' for the combat economy tree.`)
   }
 
   // ── 11. Renderer-aware structural density checks (Soft Guidance) ──
@@ -298,21 +302,17 @@ export function validateCorePayload(data) {
     })
   }
 
-  // ── 12. AI Insights Validation (Optional for legacy, strict if present) ──
-  
-  if (data.aiInsights !== undefined) {
-    if (typeof data.aiInsights !== 'object' || data.aiInsights === null) {
-      errors.push(`aiInsights must be an object.`)
-    } else {
-      if (typeof data.aiInsights.casual !== 'string' || data.aiInsights.casual.trim() === '') {
-        errors.push(`aiInsights.casual must be a non-empty string.`)
-      }
-      if (typeof data.aiInsights.deep !== 'string' || data.aiInsights.deep.trim() === '') {
-        errors.push(`aiInsights.deep must be a non-empty string.`)
-      }
-    }
+  // ── 12. AI Insights Validation (Hard requirement) ──
+
+  if (typeof data.aiInsights !== 'object' || data.aiInsights === null) {
+    errors.push(`aiInsights must be an object.`)
   } else {
-    warnings.push(`aiInsights is missing. This will be required for all future universe payloads to support the AI Insight System.`)
+    if (typeof data.aiInsights.casual !== 'string' || data.aiInsights.casual.trim() === '') {
+      errors.push(`aiInsights.casual must be a non-empty string.`)
+    }
+    if (typeof data.aiInsights.deep !== 'string' || data.aiInsights.deep.trim() === '') {
+      errors.push(`aiInsights.deep must be a non-empty string.`)
+    }
   }
 
   // ── Output ──

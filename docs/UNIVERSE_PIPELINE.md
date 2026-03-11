@@ -17,7 +17,8 @@ Runtime behavior is unchanged: UI/renderers always use the core layer.
 ### Stage 1 — Research
 Input:
 - anime name
-- MASTER_RESEARCH_PROMPT.md
+- `docs/MASTER_RESEARCH_PROMPT.md` (external research generation)
+- `docs/MASTER_UNIVERSE_BUILD_PROMPT.md` (repo implementation)
 - optionally RESEARCH_GUIDE.md
 
 Output:
@@ -49,11 +50,13 @@ npm run validate:payload path/to/slug.extended.json
 (or add `--extended`)
 
 ### Stage 5 — Integration
-Run:
+Run (preferred core mode):
+```bash
+npm run add:universe path/to/slug.core.json [slug] [path/to/slug.extended.json]
+```
+Legacy compatibility mode still exists:
 ```bash
 npm run add:universe path/to/payload.json [slug] [path/to/slug.extended.json]
-# default: writes slug.json (legacy mode)
-# add --layered or pass a .core.json input to write slug.core.json
 ```
 `add:universe` automatically regenerates `public/sitemap.xml` after integration. No manual sitemap update needed.
 
