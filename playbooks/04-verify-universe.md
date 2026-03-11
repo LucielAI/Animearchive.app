@@ -83,6 +83,7 @@ After the validator passes, do a quick manual review:
 - [ ] **Combat Matchups render real labels**: no `[ATTACK]`/`[COUNTER]` placeholders (`attacker`, `defender`, `mechanic` present)
 - [ ] **Rule Breakers anomalies render titles**: anomaly cards show `name` + `ruleViolated`
 - [ ] **Causal matrix rows render all columns**: each event has `name`, `trigger`, `consequence`, `timelinePosition`
+- [ ] **Mobile typography sanity** (≈390–430px width): primary card headings (Power Engine/Factions/Core Laws) are readable and not forced into `...` truncation
 - [ ] Relationships represent meaningful structural edges (alliances, conflicts, dependencies) — not filler
 - [ ] `causalEvents` have ordering logic (required for `timeline` renderer)
 - [ ] `counterplay` entries exist and form a combat economy (required for `counter-tree`)
