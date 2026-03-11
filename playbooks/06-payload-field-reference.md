@@ -111,7 +111,7 @@ Missing `loreSubtitle` or `systemSubtitle` on powerSystem/rules generates **warn
 
 ## UI-Critical Collection Shapes (Prevents Blank Runtime Cards)
 
-These fields are required by current tab components. If you rename keys (e.g. `law` instead of `name`), cards may render as blanks/placeholders even if schema validation mostly passes.
+These fields are required by current tab components and are enforced by core validation. If you rename keys (e.g. `law` instead of `name`), validation will fail and cards otherwise render as blanks/placeholders.
 
 ### `rules[]`
 ```json
@@ -265,3 +265,17 @@ Do not fabricate URLs. Run `scripts/patch_jikan_images.py` to fill real images. 
 - [ ] `anomalies[]` use `name/ruleViolated`?
 - [ ] `causalEvents[]` use `name/trigger/consequence/timelinePosition`?
 - [ ] `aiInsights.casual` and `aiInsights.deep` both non-empty?
+
+
+## aiInsights — Required Object
+
+`aiInsights` is a required top-level field. Both values must be non-empty strings:
+
+```json
+"aiInsights": {
+  "casual": "Accessible high-level interpretation.",
+  "deep": "Mechanics/constraints/causality-focused systems analysis."
+}
+```
+
+Do not write `aiInsights.deep` as plot recap text.

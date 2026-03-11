@@ -33,11 +33,17 @@ Runs `validateCorePayload` across every `src/data/*.json` (excluding `*.extended
 Use this for archive-wide hardening before PRs.
 
 
-### Add a universe (backward-compatible default)
+### Add a universe (preferred core format)
+```bash
+npm run add:universe path/to/slug.core.json [slug]
+```
+Preferred mode writes `src/data/slug.core.json`.
+
+### Add a universe (legacy-compatible mode)
 ```bash
 npm run add:universe path/to/payload.json [slug]
 ```
-Default mode writes `src/data/slug.json` (legacy behavior).
+Legacy mode writes `src/data/slug.json`.
 
 ### Add a layered universe (core + optional extended)
 ```bash
@@ -69,3 +75,16 @@ Uses the anime cast endpoint (`/anime/{id}/characters`), correlates characters b
 ```bash
 python scripts/patch_jikan_images.py --file src/data/new_anime.json
 ```
+
+
+## Merge Gate Baseline
+
+Before opening/merging a PR, run:
+
+```bash
+npm run validate:all
+npm run test
+npm run build
+```
+
+These commands are mirrored in CI for early failure on schema/runtime drift.

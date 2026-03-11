@@ -28,5 +28,6 @@ Before touching anything significant, read these:
 - `docs/UNIVERSE_PIPELINE.md` — the authoritative 6-stage pipeline
 - `docs/DATA_PRINCIPLES.md` — image policy, schema rules, aiInsights requirements
 - `docs/RENDERER_CONTRACT.md` — how to choose and justify a renderer
-- `docs/MASTER_RESEARCH_PROMPT.md` — how to generate research correctly
+- `docs/MASTER_RESEARCH_PROMPT.md` — external research-agent prompt
+- `docs/MASTER_UNIVERSE_BUILD_PROMPT.md` — repo-native universe implementation prompt
 - `scripts/README.md` — CLI commands reference

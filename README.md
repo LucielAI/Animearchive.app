@@ -125,12 +125,17 @@ npm run validate:all      # Audit all integrated universe payloads in src/data/
 
 ## Adding a New Universe
 
-1. Run research using `docs/MASTER_RESEARCH_PROMPT.md` to identify the structural thesis.
-2. Generate a strict JSON schema conforming to `validateSchema.js`.
-3. Ingest via: `npm run add:universe <path-to-payload> <slug>`
-4. The pipeline automatically wires the schema, tests fallbacks, and assigns routing.
+1. Produce/obtain upstream research using `docs/MASTER_RESEARCH_PROMPT.md` (research-only artifact).
+2. Implement in-repo using `docs/MASTER_UNIVERSE_BUILD_PROMPT.md` + playbooks `01`→`06`.
+3. Build a core payload (`src/data/<slug>.core.json` preferred) and run image patch first.
+4. Validate payload and archive:
+   - `npm run validate:payload src/data/<slug>.core.json`
+   - `npm run validate:all`
+5. Integrate via `npm run add:universe <path-to-core-payload> <slug>` (or manual placement in `src/data/` after validation).
+6. Run merge-gate checks: `npm run test` and `npm run build`.
+7. Sync required docs: `README.md`, `docs/BLUEPRINT.md`, `docs/REPO_AUDIT_SUMMARY.md`, and `src/data/index.js` (`preferredOrder`).
 
-For Codex/agent execution hygiene, see `docs/CODEX_QUICKSTART.md` (wrapper checklist that points to the same shared scripts/playbooks).
+For agent execution hygiene, see `docs/CODEX_QUICKSTART.md` and `CLAUDE.md`.
 
 ## License
 
