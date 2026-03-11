@@ -9,6 +9,7 @@
 - Death Note
 - Fullmetal Alchemist: Brotherhood
 - Code Geass
+- My Hero Academia
 
 ## Current Renderers
 - TimelineExplorer
