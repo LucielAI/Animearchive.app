@@ -570,57 +570,73 @@
       "attacker": "Satoru Gojo (Infinity)",
       "defender": "Toji Fushiguro (Inverted Spear)",
       "mechanic": "The Inverted Spear of Heaven nullifies all cursed techniques on contact, bypassing Infinity entirely.",
-      "type": "nullifies"
+      "type": "nullifies",
+      "loreDesc": "A cursed tool with technique nullification pierces Infinity and forces Gojo into a normal close-quarters exchange.",
+      "systemDesc": "Protocol-level bypass: external nullification artifact disables a passive defense layer by invalidating its underlying technique flag."
     },
     {
       "attacker": "Ryomen Sukuna (Malevolent Shrine)",
       "defender": "Satoru Gojo (Unlimited Void)",
       "mechanic": "Both domains clash — Malevolent Shrine's guaranteed-hit slashes versus Unlimited Void's infinite information flood.",
-      "type": "counters"
+      "type": "counters",
+      "loreDesc": "Sukuna and Gojo crash supreme domains until structural differences and adaptation windows decide the outcome.",
+      "systemDesc": "Competing high-cost sandbox engines collide; victory depends on barrier resilience, expansion cadence, and failure recovery loops."
     },
     {
       "attacker": "Kenjaku (Idle Transfiguration)",
       "defender": "Yuta Okkotsu (Copy)",
       "mechanic": "Yuta's ability to copy any cursed technique makes him adaptable to counter any single strategy.",
-      "type": "exploits"
+      "type": "exploits",
+      "loreDesc": "Yuta can mirror hostile techniques and narrow Kenjaku’s advantage in transfiguration-based manipulation.",
+      "systemDesc": "Copy introduces capability parity, reducing asymmetry by importing adversary functions into the defender stack."
     },
     {
       "attacker": "Simple Domain",
       "defender": "Domain Expansion (Sure-Hit)",
       "mechanic": "A taught anti-domain barrier that neutralizes the guaranteed-hit function within a small radius, giving non-domain users a survival window inside hostile territory.",
-      "type": "nullifies"
+      "type": "nullifies",
+      "loreDesc": "Simple Domain gives weaker users a brief survival shell against guaranteed-hit spaces.",
+      "systemDesc": "A lightweight anti-domain wrapper suppresses auto-hit resolution long enough to restore tactical agency."
     },
     {
       "attacker": "Mahoraga (Ten Shadows)",
       "defender": "Satoru Gojo (Infinity)",
       "mechanic": "The adaptation wheel rotates upon taking damage, eventually generating a counter to any phenomenon — including Infinity's conceptual barrier against physical contact.",
-      "type": "counters"
+      "type": "counters",
+      "loreDesc": "Mahoraga adapts to repeated effects and eventually finds an answer to Infinity.",
+      "systemDesc": "Iterative adaptation model learns recurring constraints and outputs a counter-signature that invalidates previous defense assumptions."
     },
     {
       "attacker": "Domain Amplification",
       "defender": "Cursed Technique (Any)",
       "mechanic": "Wraps the user in a domain-like shell that neutralizes all cursed techniques on contact — trading offensive technique access for the ability to punch through any technique-based defense.",
-      "type": "nullifies"
+      "type": "nullifies",
+      "loreDesc": "Amplification lets attackers touch users protected by innate techniques by sheathing their own.",
+      "systemDesc": "Technique-neutral coating trades offensive expression for contact permission against otherwise untouchable targets."
     },
     {
       "attacker": "Binding Vow (Revealing One's Hand)",
       "defender": "Any Opponent",
       "mechanic": "Voluntarily disclosing your technique's mechanics to the enemy in exchange for a significant amplification in output — trading information security for raw power within the cursed energy economy.",
-      "type": "exploits"
+      "type": "exploits",
+      "loreDesc": "Sorcerers disclose parts of their technique to sharpen output and pressure opponents psychologically.",
+      "systemDesc": "Information trade contract: self-disclosure increases efficiency/strength by binding user behavior to stricter execution conditions."
     },
     {
       "attacker": "Black Flash",
       "defender": "Standard Output",
       "mechanic": "By applying cursed energy within 0.000001 seconds of a physical hit, the spatial distortion raises the impact not to the power of two, but to the exponent of 2.5.",
       "type": "exploits",
-      "loreDesc": "A critical hit mechanic that relies on temporal precision rather than raw force, exponentiating the energy economy and instantly placing the sorcerer in 'the zone'."
+      "loreDesc": "A critical hit mechanic that relies on temporal precision rather than raw force, exponentiating the energy economy and instantly placing the sorcerer in 'the zone'.",
+      "systemDesc": "Critical timing spike that multiplies output when cursed energy and impact are synchronized within a narrow temporal threshold."
     },
     {
       "attacker": "Domain Expansion",
       "defender": "Anti-Domain Techniques (Simple Domain / Falling Blossom)",
       "mechanic": "While anti-domain techniques strip the primary domain of its guaranteed hit function for survival, they are ultimately temporary stopgaps. The Domain Expansion's environmental control will eventually strip away the defense.",
       "type": "counters",
-      "loreDesc": "The ultimate expression of system dominance out-scaling the patchwork defense subroutines. You cannot win inside another's domain using a Simple Domain; you can only delay your execution."
+      "loreDesc": "The ultimate expression of system dominance out-scaling the patchwork defense subroutines. You cannot win inside another's domain using a Simple Domain; you can only delay your execution.",
+      "systemDesc": "High-dominance domain deployment pressures anti-domain defenses by exhausting their duration and forcing repeated stability checks."
     }
   ]
 }
