@@ -7,6 +7,7 @@
 - Vinland Saga
 - Steins;Gate
 - Death Note
+- Fullmetal Alchemist: Brotherhood
 
 ## Current Renderers
 - TimelineExplorer

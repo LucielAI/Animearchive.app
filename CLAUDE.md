@@ -43,9 +43,11 @@ Payloads live in `src/data/`. UI renders from JSON only — no universe logic in
 - `themeColors` requires all 9 sub-keys. Missing any one is a hard validation error.
 - Every character requires exactly 12 fields. `gradientFrom/To/accentColor` are Tailwind class names, not hex.
 - Relationship `type` must be one of: `ally enemy rival mentor betrayal mirror dependent successor counter`
+- Faction `role` must be one of: `protagonist antagonist neutral chaotic systemic`
+- Rule `severity` must be one of: `low medium high fatal`
 - Fallback renderer hint is `standard-cards`, not `cards`.
 - Extended datasets (`slug.extended.json`) are NOT the primary arg to `add:universe`.
-- After integration, update **both** `docs/BLUEPRINT.md` and `docs/REPO_AUDIT_SUMMARY.md` — each has its own universe list.
+- After integration, update **both** `docs/BLUEPRINT.md` and `docs/REPO_AUDIT_SUMMARY.md` — each has its own universe list. Also update the `README.md` Current Universes list.
 - Every entity needs both lore and system voice fields. Missing one silently breaks the LORE/SYS toggle.
 
 ---
@@ -57,5 +59,11 @@ npm run validate:payload path/to/slug.core.json                       # validate
 npm run validate:payload path/to/slug.extended.json -- --extended     # validate extended dataset
 npm run add:universe path/to/slug.core.json [slug]                    # integrate universe (auto-regenerates sitemap)
 npm run generate:sitemap                                               # regenerate public/sitemap.xml manually
+npm run build                                                          # production build (also regenerates sitemap)
+npm run test                                                           # run Vitest test suite
 python scripts/patch_jikan_images.py --file path/to/slug.json         # inject MAL images
 ```
+
+### Manual Integration (alternative to `add:universe`)
+
+Placing a `slug.core.json` file directly in `src/data/` is sufficient for registration — `index.js` auto-globs all JSON files. The `add:universe` script adds validation + cleanup but is not strictly required if you validate and place the file yourself.
