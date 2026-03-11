@@ -130,7 +130,6 @@ npm run validate:all      # Audit all integrated universe payloads in src/data/
 3. Ingest via: `npm run add:universe <path-to-payload> <slug>`
 4. The pipeline automatically wires the schema, tests fallbacks, and assigns routing.
 
-For Codex/agent execution hygiene, see `docs/CODEX_QUICKSTART.md` and `docs/PROMPT_TEMPLATES.md` (wrapper/checklist + short trigger templates that point to shared scripts/playbooks).
 
 ## License
 
