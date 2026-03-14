@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { SITE_NAME } from '../utils/seo'
 
 function ensureMeta(selector, attrs) {
   let node = document.head.querySelector(selector)
@@ -10,8 +11,6 @@ function ensureMeta(selector, attrs) {
   Object.entries(attrs).forEach(([key, value]) => {
     node.setAttribute(key, value)
   })
-
-  return node
 }
 
 function ensureLink(selector, attrs) {
@@ -24,8 +23,6 @@ function ensureLink(selector, attrs) {
   Object.entries(attrs).forEach(([key, value]) => {
     node.setAttribute(key, value)
   })
-
-  return node
 }
 
 export default function SeoHead({ title, description, canonicalUrl, image, type = 'website', structuredData = [] }) {
@@ -42,6 +39,7 @@ export default function SeoHead({ title, description, canonicalUrl, image, type 
     ensureMeta('meta[property="og:type"]', { property: 'og:type', content: type })
     ensureMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl || '' })
     ensureMeta('meta[property="og:image"]', { property: 'og:image', content: image || '' })
+    ensureMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: SITE_NAME })
 
     ensureMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     ensureMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: title })
@@ -54,10 +52,11 @@ export default function SeoHead({ title, description, canonicalUrl, image, type 
 
     document.head.querySelectorAll('script[data-seo-jsonld="true"]').forEach((node) => node.remove())
 
-    structuredData.forEach((schema) => {
+    structuredData.forEach((schema, index) => {
       const script = document.createElement('script')
       script.type = 'application/ld+json'
       script.setAttribute('data-seo-jsonld', 'true')
+      script.setAttribute('data-seo-schema-index', String(index))
       script.textContent = JSON.stringify(schema)
       document.head.appendChild(script)
     })

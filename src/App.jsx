@@ -315,9 +315,10 @@ function Home() {
 function UniverseRoute() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const normalizedId = (id || '').trim().toLowerCase()
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const preview = id ? UNIVERSE_CATALOG_MAP[id] : null
+  const preview = normalizedId ? UNIVERSE_CATALOG_MAP[normalizedId] : null
   const seo = buildUniverseSeo(preview)
   const structuredData = buildUniverseStructuredData(preview)
 
@@ -325,17 +326,22 @@ function UniverseRoute() {
     let cancelled = false
 
     async function resolveUniverse() {
-      if (!id || !UNIVERSE_CATALOG_MAP[id]) {
+      if (!normalizedId || !UNIVERSE_CATALOG_MAP[normalizedId]) {
         navigate('/', { replace: true })
         return
       }
 
+      if (id !== normalizedId) {
+        navigate(`/universe/${normalizedId}`, { replace: true })
+        return
+      }
+
       try {
-        const payload = await loadUniverseBySlug(id)
+        const payload = await loadUniverseBySlug(normalizedId)
         if (!payload || cancelled) return
         setData(payload)
       } catch (error) {
-        console.error('[universe-load]', { id, error: error instanceof Error ? error.message : error })
+        console.error('[universe-load]', { id: normalizedId, error: error instanceof Error ? error.message : error })
         if (!cancelled) navigate('/', { replace: true })
       } finally {
         if (!cancelled) setIsLoading(false)
@@ -347,7 +353,7 @@ function UniverseRoute() {
     return () => {
       cancelled = true
     }
-  }, [id, navigate])
+  }, [id, navigate, normalizedId])
 
   if (isLoading) {
     return (
@@ -367,7 +373,7 @@ function UniverseRoute() {
   return (
     <div className="relative">
       <SeoHead {...seo} structuredData={structuredData} />
-      <nav aria-label="Breadcrumb" className="fixed top-20 left-6 z-50 bg-black/60 border border-white/10 rounded-lg px-3 py-2 text-[10px] tracking-[0.15em] uppercase text-gray-400 backdrop-blur-xl">
+      <nav aria-label="Breadcrumb" className="sr-only">
         <ol className="flex items-center gap-2">
           <li><Link to="/" className="hover:text-white transition-colors">Archive</Link></li>
           <li className="text-white/30">/</li>

@@ -38,7 +38,7 @@ Use this for archive-wide hardening before PRs.
 ```bash
 npm run validate:indexing
 ```
-Confirms sitemap coverage for every catalog universe route, robots sitemap directive, and SEO head wiring for universe pages.
+Confirms sitemap coverage for every catalog universe route, robots sitemap directive, homepage canonical fallback tags, and route-level SEO wiring. Also checks that per-universe metadata defaults are present and non-trivial.
 
 ### Add a universe (preferred core format)
 ```bash
