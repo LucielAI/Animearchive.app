@@ -197,6 +197,21 @@ describe('validateCorePayload', () => {
     const { warnings } = validateCorePayload(makePayload())
     expect(warnings.some(w => w.includes('thin'))).toBe(true)
   })
+
+
+  it('does not throw when systemQuestions contains malformed entries', () => {
+    expect(() => validateCorePayload(makePayload({
+      systemQuestions: [null, 'bad', [], { question: '', answer: '' }]
+    }))).not.toThrow()
+
+    const { warnings } = validateCorePayload(makePayload({
+      systemQuestions: [null, 'bad', [], { question: '', answer: '' }]
+    }))
+
+    expect(warnings.some(w => w.includes('must be an object'))).toBe(true)
+    expect(warnings.some(w => w.includes('missing non-empty question'))).toBe(true)
+    expect(warnings.some(w => w.includes('missing non-empty answer'))).toBe(true)
+  })
 })
 
 describe('validateExtendedDataset', () => {
