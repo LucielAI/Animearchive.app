@@ -26,6 +26,9 @@ function Home() {
   const placeholders = Array(placeholdersCount).fill(0)
   const seo = buildHomeSeo(UNIVERSE_CATALOG)
   const structuredData = buildHomeStructuredData(UNIVERSE_CATALOG)
+  const newestUniverses = [...UNIVERSE_CATALOG].slice(-3).reverse()
+  const timelineUniverses = UNIVERSE_CATALOG.filter(u => u.visualizationHint === 'timeline').slice(0, 3)
+  const networkUniverses = UNIVERSE_CATALOG.filter(u => u.visualizationHint === 'node-graph').slice(0, 3)
 
   return (
     <div
@@ -176,6 +179,48 @@ function Home() {
           </section>
         )
       })()}
+
+      <section className="max-w-6xl mx-auto px-6 mb-10 relative z-20" aria-labelledby="archive-concept-heading">
+        <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 md:p-8">
+          <h2 id="archive-concept-heading" className="text-sm md:text-base font-bold tracking-[0.2em] uppercase text-white mb-3">What This Archive Does</h2>
+          <p className="text-xs md:text-sm text-gray-400 leading-relaxed max-w-4xl">
+            Anime Architecture Archive is a system analysis archive of fictional worlds. Each universe page is built as a standalone reference landing page with power mechanics, governing rules, faction structures, and causal logic that can be compared across titles through crawlable internal links.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div>
+              <h3 className="text-[10px] text-cyan-400/80 tracking-[0.2em] uppercase mb-2">Newest Universes</h3>
+              <ul className="space-y-1.5">
+                {newestUniverses.map((entry) => (
+                  <li key={`new-${entry.id}`}>
+                    <Link to={`/universe/${entry.id}`} className="text-xs text-gray-300 hover:text-white transition-colors">{entry.anime}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-[10px] text-cyan-400/80 tracking-[0.2em] uppercase mb-2">Timeline Systems</h3>
+              <ul className="space-y-1.5">
+                {timelineUniverses.map((entry) => (
+                  <li key={`timeline-${entry.id}`}>
+                    <Link to={`/universe/${entry.id}`} className="text-xs text-gray-300 hover:text-white transition-colors">{entry.anime}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-[10px] text-cyan-400/80 tracking-[0.2em] uppercase mb-2">Network Systems</h3>
+              <ul className="space-y-1.5">
+                {networkUniverses.map((entry) => (
+                  <li key={`network-${entry.id}`}>
+                    <Link to={`/universe/${entry.id}`} className="text-xs text-gray-300 hover:text-white transition-colors">{entry.anime}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content Area */}
       <main className="max-w-6xl mx-auto px-6 py-16 z-10 relative">

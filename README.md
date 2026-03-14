@@ -2,11 +2,13 @@
 
 **Live:** https://animearchive.app/
 
-A dark, cyberpunk-styled interactive archive that deconstructs fictional universes through two interpretive lenses: **LORE** (narrative) and **SYS** (strategic/systemic).
+A dark, cyberpunk-styled interactive archive that deconstructs fictional universes through two interpretive lenses: **LORE** (narrative) and **SYS** (strategic/systemic). Each universe page is intended to function as a standalone reference landing page, not just a visual dashboard.
 
 This is not an encyclopedic wiki. It is a structural analysis tool designed to reveal the hidden mechanics of fictional worlds — energy economies, permission hierarchies, counterplay graphs, and causal chains.
 
 Every universe is treated as a deterministic system. The archive renders these systems via specialized visualization engines rather than static text pages.
+
+The archive itself is a connected content graph: universes are linked by shared structural thesis (causality, control networks, counter-economies, affinity systems), and discovery components surface related + newest entries through curated sets instead of full-list dumps.
 
 ## Core Experience
 

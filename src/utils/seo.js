@@ -19,13 +19,14 @@ function buildUniverseDescription(preview) {
     stats.rules ? `${stats.rules} governing rules` : null,
   ].filter(Boolean).join(' • ')
 
-  const sentence = `${preview.anime}: ${preview.tagline} Structured ${lens.toLowerCase()} analysis covering factions, causal logic, and strategic constraints${statsSummary ? ` (${statsSummary})` : ''}.`
+  const intro = preview.introductionSummary ? `${preview.introductionSummary} ` : ''
+  const sentence = `${preview.anime}: ${intro}${preview.tagline} Structured ${lens.toLowerCase()} analysis covering factions, causal logic, and strategic constraints${statsSummary ? ` (${statsSummary})` : ''}.`
   return truncate(sentence)
 }
 
 export function buildHomeSeo(catalog = []) {
   const description = truncate(
-    `Structured archive of anime universe system analyses. Explore ${catalog.length}+ machine-readable breakdowns of power economies, causal chains, factions, and governing rules.`
+    `Anime Architecture Archive is a structured reference system for fictional worlds. Explore ${catalog.length}+ universe landing pages with power-system briefs, causal models, faction structures, and cross-universe comparison paths.`
   )
 
   return {
@@ -56,7 +57,7 @@ export function buildHomeStructuredData(catalog = []) {
       '@type': 'WebSite',
       name: SITE_NAME,
       url: `${SITE_URL}/`,
-      description: 'A structured archive of fictional universe system analyses.',
+      description: 'A structured archive and reference graph for fictional universe system analyses.',
       inLanguage: 'en',
     },
     {
