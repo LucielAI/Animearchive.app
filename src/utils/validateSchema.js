@@ -413,6 +413,11 @@ export function validateCorePayload(data) {
     }
 
     data.systemQuestions.forEach((q, i) => {
+      if (!q || typeof q !== 'object' || Array.isArray(q)) {
+        warnings.push(`systemQuestions[${i}] must be an object with question/answer fields`)
+        return
+      }
+
       if (!isNonEmptyString(q.question)) warnings.push(`systemQuestions[${i}] missing non-empty question`)
       if (!isNonEmptyString(q.answer)) warnings.push(`systemQuestions[${i}] missing non-empty answer`)
       if (q.tabIndex !== undefined && (!Number.isInteger(q.tabIndex) || q.tabIndex < 0 || q.tabIndex > 3)) {
