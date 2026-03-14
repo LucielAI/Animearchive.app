@@ -1,9 +1,8 @@
 import { useEffect, lazy, Suspense, useMemo, useState } from 'react'
 import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
-import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug } from './data/index.js'
+import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug, warmUniverseBySlug } from './data/index.js'
 import { ExternalLink, ArrowRight, Star, ListFilter, Search } from 'lucide-react'
 import { getClassificationLabel } from './utils/getClassificationLabel'
-import CommunityPulse from './components/CommunityPulse'
 import SeoHead from './components/SeoHead'
 import {
   buildHomeSeo,
@@ -17,12 +16,11 @@ import {
 import { getFeaturedUniverses, sortCatalogUniverses, filterCatalogUniverses, incrementUniverseLocalView } from './utils/discovery'
 
 const Dashboard = lazy(() => import('./Dashboard'))
-const SpeedInsights = lazy(() => import('@vercel/speed-insights/react').then(m => ({ default: m.SpeedInsights })))
-const Analytics = lazy(() => import('@vercel/analytics/react').then(m => ({ default: m.Analytics })))
+const CommunityPulse = lazy(() => import('./components/CommunityPulse'))
 
 const SUPPORT_URL = 'https://buymeacoffee.com/hashiai'
 
-function UniverseLinkCard({ data, compact = false, density = 'default' }) {
+function UniverseLinkCard({ data, compact = false, density = 'default', priorityImage = false }) {
   const theme = data.themeColors || { primary: '#374151', glow: 'rgba(255,255,255,0.1)' }
   const classLabel = getClassificationLabel(data.visualizationHint)
   const isCatalogDense = density === 'catalog'
@@ -41,8 +39,10 @@ function UniverseLinkCard({ data, compact = false, density = 'default' }) {
             alt={`${data.anime} universe cover art`}
             width={400}
             height={250}
-            loading="lazy"
+            loading={priorityImage ? 'eager' : 'lazy'}
+            fetchPriority={priorityImage ? 'high' : 'auto'}
             decoding="async"
+            sizes={isCatalogDense ? '(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 32vw' : '(max-width: 1024px) 88vw, 31vw'}
             onError={() => setImageFailed(true)}
             className="w-full h-full object-cover object-center opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
           />
@@ -120,6 +120,17 @@ function Home() {
   const [sortMode, setSortMode] = useState('latest')
   const seo = buildHomeSeo(UNIVERSE_CATALOG)
   const structuredData = buildHomeStructuredData(UNIVERSE_CATALOG)
+  const [deferSecondary, setDeferSecondary] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+
+    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
+    const cancel = window.cancelIdleCallback || clearTimeout
+
+    const token = schedule(() => setDeferSecondary(true), { timeout: 1200 })
+    return () => cancel(token)
+  }, [])
 
   const sortedUniverses = useMemo(() => sortCatalogUniverses(UNIVERSE_CATALOG, sortMode), [sortMode])
   const previewUniverses = sortedUniverses.slice(0, 6)
@@ -160,16 +171,16 @@ function Home() {
             <div className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-4">
               <FeaturedPrimaryCard entry={primaryFeatured} className="lg:col-span-2" priority />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                {secondaryFeatured.map(entry => <UniverseLinkCard key={entry.id} data={entry} compact />)}
+                {secondaryFeatured.map((entry, index) => <UniverseLinkCard key={entry.id} data={entry} compact priorityImage={index === 0} />)}
               </div>
             </div>
 
             <div className="lg:hidden -mx-1 px-1 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <div className="flex gap-3 w-max pr-1">
                 <FeaturedPrimaryCard entry={primaryFeatured} priority className="snap-start w-[88vw] max-w-[460px] shrink-0" />
-                {secondaryFeatured.map(entry => (
+                {secondaryFeatured.map((entry, index) => (
                   <div key={entry.id} className="snap-start w-[78vw] max-w-[360px] shrink-0">
-                    <UniverseLinkCard data={entry} compact />
+                    <UniverseLinkCard data={entry} compact priorityImage={index === 0} />
                   </div>
                 ))}
               </div>
@@ -210,7 +221,11 @@ function Home() {
         </div>
       </section>
 
-      <CommunityPulse />
+      {deferSecondary && (
+        <Suspense fallback={null}>
+          <CommunityPulse />
+        </Suspense>
+      )}
 
       <footer className="mt-12 pb-10 flex flex-col items-center gap-4 font-mono relative z-10">
         <div className="flex flex-wrap justify-center gap-3">
@@ -275,7 +290,7 @@ function UniversesCatalogRoute() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {visible.map(entry => <UniverseLinkCard key={entry.id} data={entry} density="catalog" />)}
+          {visible.map((entry, index) => <UniverseLinkCard key={entry.id} data={entry} density="catalog" priorityImage={index < 3} />)}
         </div>
 
         {canLoadMore && (
@@ -299,6 +314,16 @@ function UniverseRoute() {
   const preview = normalizedId ? UNIVERSE_CATALOG_MAP[normalizedId] : null
   const seo = buildUniverseSeo(preview)
   const structuredData = buildUniverseStructuredData(preview)
+
+  useEffect(() => {
+    if (!normalizedId) return
+
+    const siblings = UNIVERSE_CATALOG
+      .filter((entry) => entry.id !== normalizedId)
+      .slice(0, 2)
+
+    siblings.forEach((entry) => warmUniverseBySlug(entry.id))
+  }, [normalizedId])
 
   useEffect(() => {
     let cancelled = false
@@ -363,6 +388,33 @@ function UniverseRoute() {
 
 export default function App() {
   const location = useLocation()
+  const [telemetry, setTelemetry] = useState({ SpeedInsights: null, Analytics: null })
+
+  useEffect(() => {
+    let mounted = true
+    if (typeof window === 'undefined') return undefined
+
+    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
+    const cancel = window.cancelIdleCallback || clearTimeout
+
+    const token = schedule(async () => {
+      const [speedModule, analyticsModule] = await Promise.all([
+        import('@vercel/speed-insights/react'),
+        import('@vercel/analytics/react')
+      ])
+
+      if (!mounted) return
+      setTelemetry({
+        SpeedInsights: speedModule.SpeedInsights,
+        Analytics: analyticsModule.Analytics
+      })
+    }, { timeout: 2500 })
+
+    return () => {
+      mounted = false
+      cancel(token)
+    }
+  }, [])
 
   useEffect(() => {
     if (window.goatcounter) {
@@ -380,10 +432,8 @@ export default function App() {
         <Route path="/universes" element={<UniversesCatalogRoute />} />
         <Route path="/universe/:id" element={<UniverseRoute />} />
       </Routes>
-      <Suspense fallback={null}>
-        <SpeedInsights />
-        <Analytics />
-      </Suspense>
+      {telemetry.SpeedInsights && <telemetry.SpeedInsights />}
+      {telemetry.Analytics && <telemetry.Analytics />}
     </>
   )
 }

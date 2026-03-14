@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
-import StandardCardsExplorer from './StandardCardsExplorer'
+import { useState, useCallback, useRef, useEffect, lazy, Suspense } from 'react'
+import * as d3 from 'd3-force'
 import DangerBar from '../components/DangerBar'
 import { resolveColor } from '../utils/resolveColor'
 import { RELATIONSHIP_COLORS } from '../config/relationshipColors'
@@ -24,7 +24,6 @@ const LABEL_OFFSET = 48
 const TITLE_OFFSET = 60
 const BOUNDS_PAD = 80
 
-import * as d3 from 'd3-force'
 
 const MIN_NODE_DIST = 130
 
@@ -62,6 +61,8 @@ function getEdgeLabelPos(sx, sy, tx, ty) {
   const perpY = dx / dist * 12
   return { x: mx + perpX, y: my + perpY }
 }
+
+const StandardCardsExplorer = lazy(() => import('./StandardCardsExplorer'))
 
 export default function NodeGraphExplorer({ characters = [], relationships = [], isSystemMode, theme, data }) {
   const svgRef = useRef(null)
@@ -140,7 +141,11 @@ export default function NodeGraphExplorer({ characters = [], relationships = [],
   }, [resetLayout])
 
   if (characters.length === 0) {
-    return <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+    return (
+      <Suspense fallback={<div className="w-full h-64 bg-white/5 rounded-xl animate-pulse" />}>
+        <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+      </Suspense>
+    )
   }
 
   const nodeMap = {}

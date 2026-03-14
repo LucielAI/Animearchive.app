@@ -35,6 +35,17 @@ export async function loadUniverseBySlug(slug) {
   return null
 }
 
+export function warmUniverseBySlug(slug) {
+  if (!slug || cache.has(slug)) return
+
+  for (const filePath of getCandidatePaths(slug)) {
+    const loader = dataLoaders[filePath]
+    if (!loader) continue
+    loader()
+    break
+  }
+}
+
 export const UNIVERSE_SLUGS = [
   ...preferredOrder.filter(slug => UNIVERSE_CATALOG_MAP[slug]),
   ...UNIVERSE_CATALOG.map(entry => entry.id).filter(slug => !preferredOrder.includes(slug)).sort()
