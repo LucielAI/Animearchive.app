@@ -1,6 +1,10 @@
 import { useState, useCallback, useRef } from 'react'
 import { ThumbsUp, ThumbsDown, AlertTriangle, Send, Wrench } from 'lucide-react'
 
+const FEEDBACK_ERROR_STATUSES = ['feedback-error', 'feedback-config', 'feedback-schema', 'feedback-policy', 'feedback-network']
+const SUGGESTION_ERROR_STATUSES = ['suggest-error', 'suggest-config']
+const CORRECTION_ERROR_STATUSES = ['correction-error', 'correction-config']
+
 export default function FeedbackBlock({ slug, theme, animeName }) {
   const [voteStatus, setVoteStatus] = useState(null)
   const [suggestion, setSuggestion] = useState('')
@@ -17,6 +21,11 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
     if (code === 'rls_denied' || code === 'auth_failed') return 'feedback-policy'
     if (code === 'network_failure' || code === 'supabase_unavailable' || code === 'rate_limited') return 'feedback-network'
     return 'feedback-error'
+  }, [])
+
+  const normalizeErrorStatus = useCallback((error, allowedStatuses, fallbackStatus) => {
+    const candidate = typeof error?.message === 'string' ? error.message : ''
+    return allowedStatuses.includes(candidate) ? candidate : fallbackStatus
   }, [])
 
   const accentColor = theme?.primary || '#22d3ee'
@@ -44,11 +53,11 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
       }
       setVoteStatus(vote)
     } catch (error) {
-      setErrorStatus(error.message || 'feedback-error')
+      setErrorStatus(normalizeErrorStatus(error, FEEDBACK_ERROR_STATUSES, 'feedback-error'))
     } finally {
       setLoading(false)
     }
-  }, [slug, canAct, voteStatus, classifyClientError])
+  }, [slug, canAct, voteStatus, classifyClientError, normalizeErrorStatus])
 
   const submitSuggestion = useCallback(async (e) => {
     e.preventDefault()
@@ -69,11 +78,11 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
       setSuggestionSent(true)
       setSuggestion('')
     } catch (error) {
-      setErrorStatus(error.message || 'suggest-error')
+      setErrorStatus(normalizeErrorStatus(error, SUGGESTION_ERROR_STATUSES, 'suggest-error'))
     } finally {
       setLoading(false)
     }
-  }, [suggestion, canAct, suggestionSent])
+  }, [suggestion, canAct, suggestionSent, normalizeErrorStatus])
 
   const submitCorrection = useCallback(async (e) => {
     e.preventDefault()
@@ -99,11 +108,11 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
       setCorrectionSent(true)
       setCorrection('')
     } catch (error) {
-      setErrorStatus(error.message || 'correction-error')
+      setErrorStatus(normalizeErrorStatus(error, CORRECTION_ERROR_STATUSES, 'correction-error'))
     } finally {
       setLoading(false)
     }
-  }, [animeName, correction, canAct, correctionSent, slug])
+  }, [animeName, correction, canAct, correctionSent, slug, normalizeErrorStatus])
 
   return (
     <div className="max-w-6xl mx-auto px-6 mt-12 mb-8">
