@@ -75,6 +75,7 @@ A dynamic navigation system that encourages cross-archive discovery.
 - Code Geass
 - My Hero Academia
 - Sousou no Frieren
+- Solo Leveling
 
 ## Product Goals
 The archive serves multiple simultaneous goals:
