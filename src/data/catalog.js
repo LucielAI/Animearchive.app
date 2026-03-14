@@ -1,4 +1,4 @@
-export const preferredOrder = ['aot', 'jjk', 'demonslayer', 'hxh', 'vinlandsaga', 'steinsgate', 'deathnote', 'fmab', 'codegeass', 'mha', 'frieren']
+export const preferredOrder = ['aot', 'jjk', 'demonslayer', 'hxh', 'vinlandsaga', 'steinsgate', 'deathnote', 'fmab', 'codegeass', 'mha', 'frieren', 'sololeveling']
 
 export const UNIVERSE_CATALOG = [
   {
@@ -60,6 +60,11 @@ export const UNIVERSE_CATALOG = [
   {
     id: 'frieren', anime: 'Sousou no Frieren', tagline: 'A post-war fantasy where mana deception, lifespan asymmetry, and visualization limits decide who survives.', malId: 52991, visualizationHint: 'timeline', visualizationReason: 'Frieren\'s core thesis is causal and longitudinal: Flamme\'s anti-demon doctrine, millennium-scale mana training, the Demon King\'s defeat, and current-era mage institutions all form a delayed-consequence chain that the timeline renderer explains best.', animeImageUrl: 'https://myanimelist.net/images/anime/1015/138006l.jpg',
     themeColors: { primary: '#0f766e', secondary: '#1e3a8a', accent: '#22d3ee', glow: 'rgba(34,211,238,0.3)', tabActive: '#14b8a6', badgeBg: 'rgba(15,118,110,0.18)', badgeText: '#67e8f9', modeGlow: 'rgba(20,184,166,0.26)', heroGradient: 'rgba(3,12,28,0.92)' },
+    stats: { characters: 8, powerSystem: 4, rules: 5 }
+  },
+  {
+    id: 'sololeveling', anime: 'Solo Leveling', tagline: 'A fixed-rank hunter economy is broken by one player running an infinite growth protocol.', malId: 52299, visualizationHint: 'node-graph', visualizationReason: 'Solo Leveling is defined by control links between cosmic factions, vessel inheritance, and gate-driven dependencies; the node graph best exposes who grants power, who exploits it, and how Jinwoo rewires the network.', animeImageUrl: 'https://myanimelist.net/images/anime/1801/142390l.jpg',
+    themeColors: { primary: '#1d4ed8', secondary: '#0f172a', accent: '#a855f7', glow: 'rgba(59,130,246,0.35)', tabActive: '#3b82f6', badgeBg: 'rgba(15,23,42,0.55)', badgeText: '#bfdbfe', modeGlow: 'rgba(168,85,247,0.3)', heroGradient: 'rgba(2,6,23,0.94)' },
     stats: { characters: 8, powerSystem: 4, rules: 5 }
   }
 ]

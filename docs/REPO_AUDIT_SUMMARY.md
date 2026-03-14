@@ -12,6 +12,7 @@
 - Code Geass
 - My Hero Academia
 - Sousou no Frieren
+- Solo Leveling
 
 ## Current Renderers
 - TimelineExplorer

@@ -111,6 +111,7 @@ Every universe payload is built via a two-stage workflow: broad system research 
 - Code Geass
 - My Hero Academia
 - Sousou no Frieren
+- Solo Leveling
 
 ## Tech Stack
 

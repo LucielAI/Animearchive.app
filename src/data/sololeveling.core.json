@@ -1,0 +1,503 @@
+{
+  "anime": "Solo Leveling",
+  "tagline": "A fixed-rank hunter economy is broken by one player running an infinite growth protocol.",
+  "malId": 52299,
+  "themeColors": {
+    "primary": "#1d4ed8",
+    "secondary": "#0f172a",
+    "accent": "#a855f7",
+    "glow": "rgba(59,130,246,0.35)",
+    "tabActive": "#3b82f6",
+    "badgeBg": "rgba(15,23,42,0.55)",
+    "badgeText": "#bfdbfe",
+    "modeGlow": "rgba(168,85,247,0.3)",
+    "heroGradient": "rgba(2,6,23,0.94)"
+  },
+  "visualizationHint": "node-graph",
+  "visualizationReason": "Solo Leveling is structurally a control network: gates route crises, institutions allocate scarce S-rank capacity, and Jinwoo's shadow authority rewires dependency edges faster than legacy power blocs can adapt.",
+  "headerFlavor": {
+    "loreQuote": "If the world is a dungeon, I'll clear every floor.",
+    "sysWarning": "// [SYS_WARN]: STATIC-RANK UNIVERSE BREACHED — SINGLE NODE SCALING WITHOUT CAP",
+    "sysWarningColor": "purple"
+  },
+  "backgroundMotif": "noise",
+  "revealOverlay": "glow-border-soft",
+  "introductionSummary": "Solo Leveling begins in a world where hunter rank is mostly permanent and failure inside gates spills catastrophe into civilian space. Sung Jinwoo's System breaks that fixed-cap law by introducing continuous stat growth, forced quests, and post-battle unit conversion. As Jinwoo transitions from fragile raider to sovereign commander, the core question shifts from personal survival to total network control over planetary threat flow.",
+  "aiInsights": {
+    "casual": "Most hunters in Solo Leveling are stuck with the power they awaken with, but Jinwoo gets a game-like System that lets him keep leveling forever. That one exception lets him leap past normal S-rank limits and eventually command an army built from defeated enemies.",
+    "deep": "Solo Leveling runs a static-cap labor market until the System introduces a single adaptive node with compounding throughput. Jinwoo's loop combines XP scaling, deterministic penalty enforcement, and recursive shadow conversion, producing a positive feedback architecture that outcompetes guild, state, and monarch pressure. Once authority migrates from interface-mediated 'player' state to native Shadow Monarch permissions, the prior equilibrium becomes mathematically unstable."
+  },
+  "powerSystem": [
+    {
+      "name": "Awakening Rank Lock",
+      "subtitle": "Static Mana Ceiling",
+      "loreDesc": "Hunters typically awaken once and remain trapped near that rank for life, making power distribution brutally unequal.",
+      "systemDesc": "A near-immutable class-assignment model with minimal vertical progression after initialization.",
+      "icon": "Lock",
+      "color": "slate-400",
+      "signatureMoment": "Early gate teams treat E-rank Jinwoo as expendable because rank ceilings are assumed permanent.",
+      "loreSubtitle": "The world before mutation",
+      "systemSubtitle": "Hard-cap baseline assignment"
+    },
+    {
+      "name": "The System",
+      "subtitle": "Adaptive Growth Interface",
+      "loreDesc": "A hidden quest UI forces Jinwoo through lethal milestones, grants rewards, and rewrites his limits as if reality were an RPG.",
+      "systemDesc": "A supervised progression kernel that enforces tasks, grants XP, and performs controlled host scaling under strict failure penalties.",
+      "icon": "Zap",
+      "color": "blue-400",
+      "signatureMoment": "The Double Dungeon contract initializes Jinwoo as the only active player in a non-leveling universe.",
+      "loreSubtitle": "The coercive training protocol",
+      "systemSubtitle": "Deterministic adaptation loop"
+    },
+    {
+      "name": "Shadow Extraction",
+      "subtitle": "Post-Combat Unit Conversion",
+      "loreDesc": "Defeated enemies can be raised as loyal shadows, turning each victory into permanent force growth.",
+      "systemDesc": "A recursive conversion pipeline that transforms hostile losses into retained deployable assets.",
+      "icon": "Crown",
+      "color": "violet-400",
+      "signatureMoment": "Elite enemies like Igris and Beru become command units instead of one-time raid clears.",
+      "loreSubtitle": "Death becomes recruitment",
+      "systemSubtitle": "Compounding roster expansion"
+    },
+    {
+      "name": "Monarch/Ruler Sovereignty",
+      "subtitle": "Cross-Dimensional Authority",
+      "loreDesc": "Higher beings wage war through vessels, gates, and planetary-scale interventions that dwarf ordinary hunter politics.",
+      "systemDesc": "Top-layer permission architecture where sovereignty transfer and vessel compatibility dictate strategic dominance.",
+      "icon": "Globe",
+      "color": "amber-400",
+      "signatureMoment": "Jinwoo's inheritance of Shadow Monarch authority replaces temporary interface scaffolding with native control.",
+      "loreSubtitle": "War above humanity",
+      "systemSubtitle": "Root-permission conflict"
+    }
+  ],
+  "rankings": {
+    "systemName": "Hunter Threat & Authority Ladder",
+    "loreName": "Global Hunter and Sovereign Hierarchy",
+    "topTierName": "Monarch / Ruler Sovereign",
+    "topTierLore": "Cosmic authorities whose conflict determines civilization-scale survival outcomes.",
+    "topTierSystem": "Root-level actors with cross-dimensional privileges and strategic override capability.",
+    "tiers": [
+      {
+        "name": "National Level / Vessel-Class Hunter",
+        "loreDesc": "Rare hunters or vessels who can swing international war scenarios.",
+        "systemDesc": "Highest human-adjacent throughput nodes with exceptional deterrence value."
+      },
+      {
+        "name": "S-Rank Hunter",
+        "loreDesc": "Top conventional combat specialists and guild anchors.",
+        "systemDesc": "Upper-bound standard class before sovereign layers activate."
+      },
+      {
+        "name": "A-E Rank Hunters",
+        "loreDesc": "Main hunter labor pool with steep survivability gaps by rank.",
+        "systemDesc": "Fixed-cap operational workforce with limited progression elasticity."
+      }
+    ]
+  },
+  "characters": [
+    {
+      "name": "Sung Jin-Woo",
+      "title": "The Player / Shadow Monarch",
+      "rank": "Sovereign-Class",
+      "dangerLevel": 10,
+      "loreBio": "Formerly the weakest E-rank, Jinwoo survives the Double Dungeon and becomes the sole hunter with limitless growth before inheriting monarch authority.",
+      "systemBio": "Primary mutable node in a static-cap ecosystem, compounding stats, skills, and converted units until systemic dominance.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "blue-900",
+      "accentColor": "blue-400",
+      "icon": "Crown",
+      "signatureMoment": "Transitioning from System player to sovereign commander and deploying shadow legions at scale.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/540692.jpg?s=84ef54c5990bd67985d24060a9ff3e84",
+      "malId": 174185
+    },
+    {
+      "name": "Cha Hae-In",
+      "title": "The S-Rank Blade",
+      "rank": "S-Rank Hunter",
+      "dangerLevel": 8,
+      "loreBio": "An elite swordswoman whose acute mana sensitivity makes Jinwoo's abnormal profile impossible to ignore.",
+      "systemBio": "High-precision strike node and anomaly detector validating Jinwoo's deviation from legacy hunter baselines.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "rose-900",
+      "accentColor": "rose-400",
+      "icon": "Sword",
+      "signatureMoment": "Recognizing Jinwoo as a category-breaker while top guilds still model him as a conventional outlier.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/536361.jpg?s=92ad759f97826f201fd29f3919263aa2",
+      "malId": 173979
+    },
+    {
+      "name": "Yoo Jin-Ho",
+      "title": "The Logistics Anchor",
+      "rank": "D-Rank Hunter",
+      "dangerLevel": 4,
+      "loreBio": "Jinwoo's first major ally, providing loyalty, funding, and operational continuity during rapid escalation.",
+      "systemBio": "Support node converting capital and coordination into sustained uptime for Jinwoo's progression loop.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "amber-900",
+      "accentColor": "amber-400",
+      "icon": "Shield",
+      "signatureMoment": "Backing Jinwoo's independent path when established guild systems hesitate.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/531271.jpg?s=65f9c9adeb8a4cd68225408b6bcbf56a",
+      "malId": 173987
+    },
+    {
+      "name": "Go Gun-Hee",
+      "title": "The Institutional Gatekeeper",
+      "rank": "Association Chairman",
+      "dangerLevel": 6,
+      "loreBio": "Head of the Korean Hunters Association who understands that Jinwoo is becoming a strategic necessity, not a normal asset.",
+      "systemBio": "Policy-layer stabilizer managing classification, national risk, and escalation around a rapidly mutating combat node.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "emerald-900",
+      "accentColor": "emerald-400",
+      "icon": "Star",
+      "signatureMoment": "Choosing cooperation over containment as Jinwoo's capabilities exceed institutional playbooks.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/3/531270.jpg?s=d6b4d3ca914d70105618a5127f0040c9",
+      "malId": 173983
+    },
+    {
+      "name": "Baek Yoon-Ho",
+      "title": "The Beast Guild Commander",
+      "rank": "S-Rank Hunter",
+      "dangerLevel": 7,
+      "loreBio": "A veteran S-rank guild master who quickly realizes Jinwoo is destabilizing accepted power assumptions.",
+      "systemBio": "Experienced benchmark node for pre-System S-rank ceilings and coalition response behavior.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "orange-900",
+      "accentColor": "orange-400",
+      "icon": "Target",
+      "signatureMoment": "Recalibrating guild-level risk models after Jinwoo's solo performance data.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/4/531273.jpg?s=3ce567baf6938a539f6cf49c6a4a4c9b",
+      "malId": 173981
+    },
+    {
+      "name": "Choi Jong-In",
+      "title": "The Ultimate Soldier",
+      "rank": "S-Rank Hunter",
+      "dangerLevel": 8,
+      "loreBio": "Hunters Guild's top fire mage and one of Korea's major raid strategists.",
+      "systemBio": "High-output ranged damage node representing conventional top-tier raid doctrine.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "red-900",
+      "accentColor": "red-400",
+      "icon": "Flame",
+      "signatureMoment": "Serving as a baseline for how far standard S-rank specialization can go without System-style mutation.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/531272.jpg?s=309b174b84779d1c3105c7777c1524b2",
+      "malId": 173980
+    },
+    {
+      "name": "Woo Jin-Chul",
+      "title": "The Operations Enforcer",
+      "rank": "A-Rank Hunter",
+      "dangerLevel": 6,
+      "loreBio": "A disciplined association officer who executes crisis response and verification tasks across Korea's gate emergencies.",
+      "systemBio": "Execution-layer command node translating policy into rapid field deployment under uncertainty.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "cyan-900",
+      "accentColor": "cyan-400",
+      "icon": "Shield",
+      "signatureMoment": "Coordinating emergency response when gate incidents outrun normal staffing assumptions.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/531274.jpg?s=d1cc0e1ef0e2f88ca994b14a594888af",
+      "malId": 199349
+    },
+    {
+      "name": "Lee Joo-Hee",
+      "title": "The Trauma-Bound Healer",
+      "rank": "B-Rank Hunter",
+      "dangerLevel": 3,
+      "loreBio": "A healer marked by repeated raid trauma whose early partnership with Jinwoo frames the human cost of the gate economy.",
+      "systemBio": "Support-recovery node illustrating attrition pressure and psychological failure risk in frontline operations.",
+      "gradientFrom": "slate-900",
+      "gradientTo": "pink-900",
+      "accentColor": "pink-400",
+      "icon": "Heart",
+      "signatureMoment": "Withdrawing from frontline operations after cumulative shock, highlighting non-power bottlenecks in hunter sustainability.",
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/4/540694.jpg?s=b1d8998cd3b8c1409c0dc98ea7b18177",
+      "malId": 173986
+    }
+  ],
+  "relationships": [
+    {
+      "source": "Sung Jin-Woo",
+      "target": "Cha Hae-In",
+      "type": "ally",
+      "weight": 8,
+      "loreDesc": "Their alliance strengthens as Jinwoo moves from unknown hunter to critical defender.",
+      "systemDesc": "High-trust combat edge linking sovereign-scale growth with elite strike precision."
+    },
+    {
+      "source": "Sung Jin-Woo",
+      "target": "Yoo Jin-Ho",
+      "type": "dependent",
+      "weight": 7,
+      "loreDesc": "Jin-Ho supports Jinwoo before the world understands his trajectory.",
+      "systemDesc": "Logistics dependency edge that sustains early growth throughput."
+    },
+    {
+      "source": "Go Gun-Hee",
+      "target": "Sung Jin-Woo",
+      "type": "mentor",
+      "weight": 6,
+      "loreDesc": "Go Gun-Hee offers institutional guidance as Jinwoo enters national-level conflict zones.",
+      "systemDesc": "Governance-to-asset advisory edge reducing policy friction around an unstable high-value node."
+    },
+    {
+      "source": "Baek Yoon-Ho",
+      "target": "Sung Jin-Woo",
+      "type": "rival",
+      "weight": 6,
+      "loreDesc": "Baek initially measures himself against Jinwoo before shifting toward strategic respect.",
+      "systemDesc": "Comparative performance edge between established S-rank ceilings and accelerated scaling."
+    },
+    {
+      "source": "Choi Jong-In",
+      "target": "Sung Jin-Woo",
+      "type": "counter",
+      "weight": 6,
+      "loreDesc": "Choi's elite firepower highlights what conventional raid doctrine can and cannot solve.",
+      "systemDesc": "Doctrine edge contrasting static specialization against adaptive multiphase growth."
+    },
+    {
+      "source": "Woo Jin-Chul",
+      "target": "Go Gun-Hee",
+      "type": "ally",
+      "weight": 5,
+      "loreDesc": "Woo executes association strategy under Gun-Hee's leadership.",
+      "systemDesc": "Command edge linking policy authority to tactical implementation."
+    },
+    {
+      "source": "Sung Jin-Woo",
+      "target": "Lee Joo-Hee",
+      "type": "ally",
+      "weight": 4,
+      "loreDesc": "Their early partnership shows Jinwoo's pre-sovereign vulnerability and human stakes.",
+      "systemDesc": "Legacy support edge from low-tier survival phase before scaling breakaway."
+    },
+    {
+      "source": "Cha Hae-In",
+      "target": "Sung Jin-Woo",
+      "type": "successor",
+      "weight": 4,
+      "loreDesc": "Cha increasingly aligns with Jinwoo's methods as older systems prove insufficient.",
+      "systemDesc": "Adoption edge where elite institutional talent migrates toward the emergent dominant node."
+    }
+  ],
+  "factions": [
+    {
+      "name": "Korean Hunters Association",
+      "role": "systemic",
+      "loreDesc": "The regulatory body that certifies hunters, allocates gate responses, and triages national risk.",
+      "systemDesc": "Governance layer coordinating classification, deployment, and incident escalation."
+    },
+    {
+      "name": "Major Korean Guilds",
+      "role": "protagonist",
+      "loreDesc": "Top guild organizations that carry most frontline raid burden.",
+      "systemDesc": "Distributed combat cluster with strong elites but limited adaptation speed."
+    },
+    {
+      "name": "Dungeon Monster Forces",
+      "role": "antagonist",
+      "loreDesc": "Gate-spawned enemies that threaten civilian collapse when containment fails.",
+      "systemDesc": "Continuous hostile event stream generated by unresolved dimensional instances."
+    },
+    {
+      "name": "Rulers",
+      "role": "neutral",
+      "loreDesc": "Higher-order defenders intervening indirectly through vessels and strategic timing.",
+      "systemDesc": "External supervisory layer using selective empowerment rather than constant direct control."
+    },
+    {
+      "name": "Shadow Army",
+      "role": "chaotic",
+      "loreDesc": "Jinwoo's expanding force of converted shadows that changes battle math every time it deploys.",
+      "systemDesc": "Recursive force-multiplication network with centralized command authority."
+    }
+  ],
+  "rules": [
+    {
+      "name": "Awakening Sets Baseline Capacity",
+      "subtitle": "Most hunters cannot truly level",
+      "loreConsequence": "A weak awakening can become a lifelong death sentence in high-rank gates.",
+      "systemEquivalent": "Near-immutable class initialization creates rigid power stratification.",
+      "severity": "high",
+      "loreSubtitle": "Birth of inequality",
+      "systemSubtitle": "Static-cap constraint"
+    },
+    {
+      "name": "Gate Timeout Equals Civilian Disaster",
+      "subtitle": "Uncleared dungeons break containment",
+      "loreConsequence": "Failed raids let monsters spill into cities, causing mass casualties.",
+      "systemEquivalent": "Instance timeout triggers uncontrolled external spawn events.",
+      "severity": "fatal",
+      "loreSubtitle": "Containment clock",
+      "systemSubtitle": "Breach-on-timeout"
+    },
+    {
+      "name": "System Tasks Are Non-Optional",
+      "subtitle": "Failure invokes punishment",
+      "loreConsequence": "Jinwoo cannot safely ignore quests without risking immediate lethal penalties.",
+      "systemEquivalent": "Mandatory scheduler with hard fail-state enforcement to maintain adaptation velocity.",
+      "severity": "high",
+      "loreSubtitle": "Compliance by force",
+      "systemSubtitle": "Penalty-gated progression"
+    },
+    {
+      "name": "Shadow Recruitment Requires Defeat",
+      "subtitle": "Command is earned in combat",
+      "loreConsequence": "Jinwoo only expands his army by surviving and winning dangerous fights.",
+      "systemEquivalent": "Unit conversion locked behind successful combat resolution and authority checks.",
+      "severity": "medium",
+      "loreSubtitle": "Victory as prerequisite",
+      "systemSubtitle": "Post-fight conversion gate"
+    },
+    {
+      "name": "Rollback Resources Are Finite",
+      "subtitle": "Time reset is not infinite",
+      "loreConsequence": "Using cosmic reset tools can save the world once more, but each use permanently drains the option.",
+      "systemEquivalent": "Global rollback utility with limited charges and irreversible depletion.",
+      "severity": "fatal",
+      "loreSubtitle": "No endless retries",
+      "systemSubtitle": "Finite checkpoint budget"
+    }
+  ],
+  "counterplay": [
+    {
+      "attacker": "Gate Breakout Pressure",
+      "defender": "Rapid Raid Deployment",
+      "mechanic": "Guilds and association teams must clear instances before timeout thresholds.",
+      "loreDesc": "Every operation is a race against catastrophe.",
+      "systemDesc": "Response orchestration interrupts hostile spillover pipeline."
+    },
+    {
+      "attacker": "Static Rank Ceiling",
+      "defender": "System Leveling",
+      "mechanic": "Jinwoo accumulates repeatable growth that bypasses ordinary awakening limits.",
+      "loreDesc": "The old rule that power cannot grow is forcibly invalidated.",
+      "systemDesc": "Adaptive progression subroutine defeats hard-cap class model."
+    },
+    {
+      "attacker": "Numerical Enemy Attrition",
+      "defender": "Shadow Extraction",
+      "mechanic": "Defeated enemies become Jinwoo's reusable units.",
+      "loreDesc": "Losses stop being losses when the fallen can be re-commanded.",
+      "systemDesc": "Combat outputs recursively expand force inventory."
+    },
+    {
+      "attacker": "Conventional S-Rank Doctrine",
+      "defender": "Sovereign-Scale Command",
+      "mechanic": "Jinwoo coordinates multi-unit shadow tactics beyond normal hunter specialization.",
+      "loreDesc": "Standard elite hunters cannot mirror monarch-level command bandwidth.",
+      "systemDesc": "Authority-layer upgrade outperforms static specialist templates."
+    },
+    {
+      "attacker": "Endgame Collapse Scenario",
+      "defender": "Finite Rollback Intervention",
+      "mechanic": "A final timeline reset creates a cleaner branch for decisive threat neutralization.",
+      "loreDesc": "When direct victory fails, time itself is used as emergency counterplay.",
+      "systemDesc": "Checkpoint restore reopens execution path under better strategic state."
+    }
+  ],
+  "anomalies": [
+    {
+      "name": "Second Awakening Mutation",
+      "ruleViolated": "Awakening rank should be immutable",
+      "loreDesc": "Jinwoo's growth directly contradicts the foundational assumption of hunter society.",
+      "systemDesc": "Exclusive mutable-host protocol breaches static-cap universe constraints."
+    },
+    {
+      "name": "Persistent Authority After UI Dissolution",
+      "ruleViolated": "System interface should be required for command access",
+      "loreDesc": "Jinwoo retains functional command even after the visible System layer fades.",
+      "systemDesc": "Core authority kernel persists after presentation layer decommission."
+    },
+    {
+      "name": "Selective Memory Across Rollback",
+      "ruleViolated": "Global reset should erase prior-state awareness",
+      "loreDesc": "High-tier actors can retain traces that ordinary timeline participants lose.",
+      "systemDesc": "Rollback process exhibits partial immunity at elevated ontological layers."
+    }
+  ],
+  "causalEvents": [
+    {
+      "name": "Double Dungeon Contract",
+      "trigger": "Jinwoo survives a hidden sacrificial trial",
+      "consequence": "The System initializes and designates him as the sole leveling player.",
+      "timelinePosition": "Pre-Narrative",
+      "loreDesc": "The weakest hunter is forcibly converted into the world's lone growth exception.",
+      "systemDesc": "Bootstrap event creating mutable-node insertion in static-cap architecture."
+    },
+    {
+      "name": "High-Risk Gate Escalation",
+      "trigger": "System quests drive Jinwoo into successively harder dungeon environments",
+      "consequence": "He rapidly surpasses ordinary S-rank output and compounds shadow inventory.",
+      "timelinePosition": "Mid-Narrative",
+      "loreDesc": "Repeated lethal clears transform Jinwoo from anomaly to apex field actor.",
+      "systemDesc": "Accelerated XP + conversion loop yields nonlinear throughput growth."
+    },
+    {
+      "name": "Monarch Authority Inheritance",
+      "trigger": "Jinwoo passes final compatibility threshold",
+      "consequence": "Temporary System scaffolding gives way to native sovereign command privileges.",
+      "timelinePosition": "Mid-Narrative",
+      "loreDesc": "The player phase ends and sovereign phase begins.",
+      "systemDesc": "Control transfer from mediated interface to root authority runtime."
+    },
+    {
+      "name": "Final Rollback Branch",
+      "trigger": "Global losses approach collapse in late war state",
+      "consequence": "A finite reset produces a final route for decisive threat neutralization.",
+      "timelinePosition": "Final Arc",
+      "loreDesc": "Humanity receives one last chance to avoid terminal defeat.",
+      "systemDesc": "Limited checkpoint restore generates improved endgame execution branch."
+    }
+  ],
+  "animeImageUrl": "https://myanimelist.net/images/anime/1801/142390l.jpg",
+  "systemQuestions": [
+    {
+      "question": "Why is Jinwoo's growth a systemic anomaly instead of just being talented?",
+      "answer": "Because ordinary awakenings are fixed-cap while Jinwoo alone runs a repeatable stat-and-skill progression loop.",
+      "tabIndex": 0,
+      "sectionId": "power-system-heading",
+      "tabLabel": "Power Engine"
+    },
+    {
+      "question": "What is the practical function of the System?",
+      "answer": "It is a coercive adaptation framework that conditions Jinwoo for sovereign authority while preventing early self-destruction.",
+      "tabIndex": 0,
+      "sectionId": "power-system-heading",
+      "tabLabel": "Power Engine"
+    },
+    {
+      "question": "Why do gates create constant strategic instability?",
+      "answer": "Any uncleared gate can breach into civilian space, so institutions must continuously triage finite elite response capacity.",
+      "tabIndex": 3,
+      "sectionId": "core-laws-heading",
+      "tabLabel": "Core Laws"
+    },
+    {
+      "question": "Why is node-graph the best renderer for Solo Leveling?",
+      "answer": "The key dynamics are dependency and control edges between hunters, institutions, and emergent sovereign authority, not a single duel ladder.",
+      "tabIndex": 1,
+      "sectionId": "character-database-heading",
+      "tabLabel": "Entity Database"
+    },
+    {
+      "question": "What makes shadow extraction strategically overpowered?",
+      "answer": "It converts defeated enemies into permanent assets, so each win grows future force capacity instead of only preserving current state.",
+      "tabIndex": 0,
+      "sectionId": "counterplay-heading",
+      "tabLabel": "Power Engine"
+    },
+    {
+      "question": "Why does finite rollback matter in the endgame?",
+      "answer": "It is a limited-use recovery mechanism that can reopen a lost war state once, but cannot be relied on indefinitely.",
+      "tabIndex": 3,
+      "sectionId": "core-laws-heading",
+      "tabLabel": "Core Laws"
+    }
+  ]
+}
