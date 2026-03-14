@@ -20,6 +20,33 @@ const CommunityPulse = lazy(() => import('./components/CommunityPulse'))
 
 const SUPPORT_URL = 'https://buymeacoffee.com/hashiai'
 
+
+function scheduleIdleTask(callback, timeout = 1000) {
+  if (typeof window === 'undefined') return null
+
+  if (typeof window.requestIdleCallback === 'function') {
+    return window.requestIdleCallback(callback, { timeout })
+  }
+
+  return window.setTimeout(() => {
+    callback({
+      didTimeout: true,
+      timeRemaining: () => 0,
+    })
+  }, timeout)
+}
+
+function cancelIdleTask(handle) {
+  if (handle == null || typeof window === 'undefined') return
+
+  if (typeof window.cancelIdleCallback === 'function') {
+    window.cancelIdleCallback(handle)
+    return
+  }
+
+  clearTimeout(handle)
+}
+
 function UniverseLinkCard({ data, compact = false, density = 'default', priorityImage = false }) {
   const theme = data.themeColors || { primary: '#374151', glow: 'rgba(255,255,255,0.1)' }
   const classLabel = getClassificationLabel(data.visualizationHint)
@@ -125,11 +152,8 @@ function Home() {
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
 
-    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
-    const cancel = window.cancelIdleCallback || clearTimeout
-
-    const token = schedule(() => setDeferSecondary(true), { timeout: 1200 })
-    return () => cancel(token)
+    const token = scheduleIdleTask(() => setDeferSecondary(true), 1200)
+    return () => cancelIdleTask(token)
   }, [])
 
   const sortedUniverses = useMemo(() => sortCatalogUniverses(UNIVERSE_CATALOG, sortMode), [sortMode])
@@ -394,10 +418,7 @@ export default function App() {
     let mounted = true
     if (typeof window === 'undefined') return undefined
 
-    const schedule = window.requestIdleCallback || ((cb) => setTimeout(cb, 1))
-    const cancel = window.cancelIdleCallback || clearTimeout
-
-    const token = schedule(async () => {
+    const token = scheduleIdleTask(async () => {
       const [speedModule, analyticsModule] = await Promise.all([
         import('@vercel/speed-insights/react'),
         import('@vercel/analytics/react')
@@ -408,11 +429,11 @@ export default function App() {
         SpeedInsights: speedModule.SpeedInsights,
         Analytics: analyticsModule.Analytics
       })
-    }, { timeout: 2500 })
+    }, 2500)
 
     return () => {
       mounted = false
-      cancel(token)
+      cancelIdleTask(token)
     }
   }, [])
 

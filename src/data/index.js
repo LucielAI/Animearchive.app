@@ -41,7 +41,9 @@ export function warmUniverseBySlug(slug) {
   for (const filePath of getCandidatePaths(slug)) {
     const loader = dataLoaders[filePath]
     if (!loader) continue
-    loader()
+    void loader().catch((error) => {
+      console.warn(`[universe-prewarm] failed to warm ${slug}`, error)
+    })
     break
   }
 }
