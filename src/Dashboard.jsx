@@ -75,7 +75,11 @@ export default function Dashboard({ data }) {
   const revealOverlay = getRevealOverlay(data?.revealOverlay)
 
   const handleJumpToSection = (tabIndex, sectionId) => {
-    setActiveTab(tabIndex)
+    const normalizedTabIndex = Number.isInteger(tabIndex)
+      ? Math.min(3, Math.max(0, tabIndex))
+      : 0
+
+    setActiveTab(normalizedTabIndex)
     if (!sectionId || typeof window === 'undefined') return
 
     requestAnimationFrame(() => {

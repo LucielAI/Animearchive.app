@@ -18,7 +18,7 @@ export default function SystemQuestionsPanel({ data, onJumpToSection }) {
             <article key={`${entry.question}-${index}`} className="rounded-lg border border-white/10 bg-[#090b14] px-4 py-3">
               <h3 className="text-xs md:text-sm text-white font-semibold leading-relaxed">{entry.question}</h3>
               <p className="text-[11px] md:text-xs text-gray-300 leading-relaxed mt-1.5">{entry.answer}</p>
-              {typeof entry.tabIndex === 'number' && (
+              {Number.isInteger(entry.tabIndex) && (
                 <button
                   onClick={() => onJumpToSection(entry.tabIndex, entry.sectionId)}
                   className="mt-2 text-[10px] uppercase tracking-[0.15em] text-cyan-300 hover:text-cyan-200"
