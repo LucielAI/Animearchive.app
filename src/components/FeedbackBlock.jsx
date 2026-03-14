@@ -11,6 +11,14 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
   const [errorStatus, setErrorStatus] = useState(null)
   const lastActionTime = useRef(0)
 
+  const classifyClientError = useCallback((code) => {
+    if (code === 'config_missing') return 'feedback-config'
+    if (code === 'table_missing' || code === 'schema_mismatch') return 'feedback-schema'
+    if (code === 'rls_denied' || code === 'auth_failed') return 'feedback-policy'
+    if (code === 'network_failure' || code === 'supabase_unavailable' || code === 'rate_limited') return 'feedback-network'
+    return 'feedback-error'
+  }, [])
+
   const accentColor = theme?.primary || '#22d3ee'
 
   const canAct = useCallback(() => {
@@ -30,14 +38,17 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, vote })
       })
-      if (!response.ok) throw new Error('feedback_failed')
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        throw new Error(classifyClientError(payload?.code))
+      }
       setVoteStatus(vote)
-    } catch {
-      setErrorStatus('feedback-error')
+    } catch (error) {
+      setErrorStatus(error.message || 'feedback-error')
     } finally {
       setLoading(false)
     }
-  }, [slug, canAct, voteStatus])
+  }, [slug, canAct, voteStatus, classifyClientError])
 
   const submitSuggestion = useCallback(async (e) => {
     e.preventDefault()
@@ -51,11 +62,14 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ animeName: name, source: 'universe-page' })
       })
-      if (!response.ok) throw new Error('suggest_failed')
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        throw new Error(payload?.code === 'config_missing' ? 'suggest-config' : 'suggest-error')
+      }
       setSuggestionSent(true)
       setSuggestion('')
-    } catch {
-      setErrorStatus('suggest-error')
+    } catch (error) {
+      setErrorStatus(error.message || 'suggest-error')
     } finally {
       setLoading(false)
     }
@@ -78,11 +92,14 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
           context: animeName || slug
         })
       })
-      if (!response.ok) throw new Error('correction_failed')
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        throw new Error(payload?.code === 'config_missing' ? 'correction-config' : 'correction-error')
+      }
       setCorrectionSent(true)
       setCorrection('')
-    } catch {
-      setErrorStatus('correction-error')
+    } catch (error) {
+      setErrorStatus(error.message || 'correction-error')
     } finally {
       setLoading(false)
     }
@@ -119,6 +136,18 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
             {errorStatus === 'feedback-error' && (
               <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback temporarily unavailable.</p>
             )}
+            {errorStatus === 'feedback-config' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback offline: missing Supabase configuration.</p>
+            )}
+            {errorStatus === 'feedback-schema' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback storage schema mismatch detected.</p>
+            )}
+            {errorStatus === 'feedback-policy' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback blocked by Supabase policy permissions.</p>
+            )}
+            {errorStatus === 'feedback-network' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Feedback endpoint unavailable due to network or capacity issues.</p>
+            )}
           </div>
 
           <div className="border-t border-white/5 pt-4">
@@ -135,6 +164,9 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
             )}
             {errorStatus === 'suggest-error' && (
               <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Suggestion system temporarily unavailable.</p>
+            )}
+            {errorStatus === 'suggest-config' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Suggestion system offline: missing Supabase configuration.</p>
             )}
           </div>
 
@@ -163,6 +195,9 @@ export default function FeedbackBlock({ slug, theme, animeName }) {
             )}
             {errorStatus === 'correction-error' && (
               <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Correction endpoint temporarily unavailable.</p>
+            )}
+            {errorStatus === 'correction-config' && (
+              <p className="text-[10px] text-red-400 mt-2 uppercase tracking-tighter">Correction endpoint offline: missing Supabase configuration.</p>
             )}
           </div>
         </div>

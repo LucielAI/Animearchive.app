@@ -1,4 +1,5 @@
-/* eslint-env node */
+import { randomUUID } from 'node:crypto'
+import { classifySupabaseFailure, mapFailureToHttpStatus, parseSupabaseError, resolveSupabaseConfig } from './_supabase.js'
 
 function safeBody(req) {
   if (!req.body) return {}
@@ -42,47 +43,55 @@ async function insertFeedback({ supabaseUrl, supabaseKey, payload }) {
 }
 
 export default async function handler(req, res) {
+  const requestId = randomUUID()
+  res.setHeader('x-request-id', requestId)
+
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
+    return res.status(405).json({ error: 'Method not allowed', requestId })
   }
 
   const contentLength = parseInt(req.headers['content-length'] || '0', 10)
   if (contentLength > 4096) {
-    return res.status(413).json({ error: 'Too large' })
+    return res.status(413).json({ error: 'Too large', requestId })
   }
 
   const body = safeBody(req)
   const { slug, vote, note, context } = body
 
   if (!slug || typeof slug !== 'string' || slug.length > 50) {
-    return res.status(400).json({ error: 'Invalid slug' })
+    return res.status(400).json({ error: 'Invalid slug', requestId })
   }
   if (!/^[a-z0-9-]+$/.test(slug)) {
-    return res.status(400).json({ error: 'Malformed slug' })
+    return res.status(400).json({ error: 'Malformed slug', requestId })
   }
 
   if (!['helpful', 'unhelpful', 'needs_data'].includes(vote)) {
-    return res.status(400).json({ error: 'Invalid vote' })
+    return res.status(400).json({ error: 'Invalid vote', requestId })
   }
 
   const sanitizedNote = typeof note === 'string' ? note.trim().slice(0, 280) : null
   const sanitizedContext = typeof context === 'string' ? context.trim().slice(0, 80) : null
 
   if ((sanitizedNote && /<|>|script/i.test(sanitizedNote)) || (sanitizedContext && /<|>|script/i.test(sanitizedContext))) {
-    return res.status(400).json({ error: 'Invalid characters' })
+    return res.status(400).json({ error: 'Invalid characters', requestId })
   }
 
-  const SUPABASE_URL = process.env.SUPABASE_URL
-  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.error('[api/feedback] missing Supabase env vars')
-    return res.status(503).json({ error: 'Feedback system offline' })
+  const supabase = resolveSupabaseConfig()
+  if (!supabase.url || !supabase.key) {
+    console.error('[api/feedback] missing Supabase env vars', {
+      requestId,
+      missingUrl: supabase.missing.url,
+      missingKey: supabase.missing.key,
+      acceptedUrlVars: ['SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_URL'],
+      acceptedKeyVars: ['SUPABASE_PUBLISHABLE_KEY', 'SUPABASE_ANON_KEY', 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY', 'NEXT_PUBLIC_SUPABASE_ANON_KEY']
+    })
+    return res.status(503).json({ error: 'Feedback system offline', code: 'config_missing', requestId })
   }
 
   try {
     const response = await insertFeedback({
-      supabaseUrl: SUPABASE_URL,
-      supabaseKey: SUPABASE_KEY,
+      supabaseUrl: supabase.url.value,
+      supabaseKey: supabase.key.value,
       payload: {
         page_slug: slug,
         vote_type: vote,
@@ -93,14 +102,34 @@ export default async function handler(req, res) {
     })
 
     if (!response.ok) {
-      const details = await response.text()
-      console.error('[api/feedback] storage failed', { status: response.status, details })
-      return res.status(500).json({ error: 'Storage failed' })
+      const { parsed, raw } = await parseSupabaseError(response)
+      const category = classifySupabaseFailure({
+        status: response.status,
+        parsedError: parsed,
+        rawError: raw
+      })
+
+      console.error('[api/feedback] storage failed', {
+        requestId,
+        status: response.status,
+        category,
+        error: parsed || raw
+      })
+
+      return res.status(mapFailureToHttpStatus(category)).json({
+        error: 'Storage failed',
+        code: category,
+        requestId
+      })
     }
 
-    return res.status(200).json({ ok: true })
+    return res.status(200).json({ ok: true, requestId })
   } catch (error) {
-    console.error('[api/feedback] unexpected failure', error)
-    return res.status(500).json({ error: 'Storage failed' })
+    console.error('[api/feedback] unexpected failure', {
+      requestId,
+      name: error?.name,
+      message: error?.message
+    })
+    return res.status(503).json({ error: 'Storage failed', code: 'network_failure', requestId })
   }
 }

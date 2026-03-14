@@ -34,13 +34,15 @@ export default function CommunityPulse() {
       })
 
       if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        if (payload?.code === 'config_missing') throw new Error('config_missing')
         throw new Error('submission_failed')
       }
 
       setStatus(`Signal logged for ${sanitized}.`)
       setCustomSuggestion('')
-    } catch {
-      setStatus('Signal endpoint is temporarily unavailable.')
+    } catch (error) {
+      setStatus(error?.message === 'config_missing' ? 'Signal endpoint offline: missing Supabase configuration.' : 'Signal endpoint is temporarily unavailable.')
     } finally {
       setLoadingChoice('')
     }
