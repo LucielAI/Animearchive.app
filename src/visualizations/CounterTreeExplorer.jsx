@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import CounterTree from '../components/CounterTree'
-import StandardCardsExplorer from './StandardCardsExplorer'
 import { resolveColor } from '../utils/resolveColor'
+
+const StandardCardsExplorer = lazy(() => import('./StandardCardsExplorer'))
 
 export default function CounterTreeExplorer({ characters = [], counterplay = [], powerSystem = [], isSystemMode, theme }) {
   const [selectedPower, setSelectedPower] = useState(null)
@@ -72,7 +73,9 @@ export default function CounterTreeExplorer({ characters = [], counterplay = [],
       {/* Character cards */}
       <div>
         <h3 className="text-xs tracking-widest text-gray-500 mb-3">// ENTITY ROSTER</h3>
-        <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+        <Suspense fallback={<div className="w-full h-64 bg-white/5 rounded-xl animate-pulse" />}>
+          <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+        </Suspense>
       </div>
     </div>
   )

@@ -1,6 +1,5 @@
-import { useMemo } from 'react'
+import { useMemo, lazy, Suspense } from 'react'
 import AffinityMatrix from '../components/AffinityMatrix'
-import StandardCardsExplorer from './StandardCardsExplorer'
 
 // Deterministic hash from two name strings — replaces Math.random() to prevent
 // matrix values from flickering on every render.
@@ -12,6 +11,8 @@ function nameHash(a, b) {
   }
   return Math.abs(h) % 15
 }
+
+const StandardCardsExplorer = lazy(() => import('./StandardCardsExplorer'))
 
 export default function AffinityMatrixExplorer({ characters = [], isSystemMode, theme }) {
   const types = useMemo(() => characters.map(c => c.name), [characters])
@@ -29,7 +30,11 @@ export default function AffinityMatrixExplorer({ characters = [], isSystemMode, 
   )
 
   if (types.length === 0) {
-    return <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+    return (
+      <Suspense fallback={<div className="w-full h-64 bg-white/5 rounded-xl animate-pulse" />}>
+        <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+      </Suspense>
+    )
   }
 
   return (
@@ -39,7 +44,9 @@ export default function AffinityMatrixExplorer({ characters = [], isSystemMode, 
       </h3>
       <AffinityMatrix types={types} matrix={matrix} />
       <div className="mt-6">
-        <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+        <Suspense fallback={<div className="w-full h-64 bg-white/5 rounded-xl animate-pulse" />}>
+          <StandardCardsExplorer characters={characters} isSystemMode={isSystemMode} theme={theme} />
+        </Suspense>
       </div>
     </div>
   )
