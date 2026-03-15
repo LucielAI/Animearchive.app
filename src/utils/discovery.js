@@ -197,7 +197,7 @@ function getRelatedScore(currentEntry, candidateEntry) {
   const sharedAppeal = overlapCount(currentProfile.appealTags, candidateProfile.appealTags)
   if (sharedAppeal > 0) {
     score += sharedAppeal * 1.5
-    reasons.push('Similar reader appeal')
+    reasons.push('Similar thematic focus')
   }
 
   if (currentProfile.powerStructure === candidateProfile.powerStructure) {
