@@ -53,7 +53,7 @@ function buildUniverseIntroduction(data) {
   const relationshipCount = data.relationships?.length || 0
   const architectureLine = data.visualizationReason || data.tagline || 'This universe rewards structural analysis over surface-level plot recall.'
 
-  return `${data.anime} is modeled here as a constrained system where abilities, institutions, and consequences create predictable strategic pressure. This archive profile maps ${powerCount} core mechanics, ${rulesCount} governing constraints, and ${factionCount} major power blocs so readers can quickly understand the operating logic of the world. ${architectureLine} Relationship and causality layers (${relationshipCount} mapped edges) make this page useful as a standalone reference for comparative universe analysis.`
+  return `${data.anime} is presented here as a structured universe where abilities, institutions, and consequences shape every major outcome. This archive profile maps ${powerCount} core mechanics, ${rulesCount} governing constraints, and ${factionCount} major power blocs so fans can quickly understand how the world works. ${architectureLine} Relationship and causality layers (${relationshipCount} mapped edges) make this page useful as a standalone reference for comparative universe analysis.`
 }
 
 export default function Dashboard({ data }) {

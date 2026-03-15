@@ -8,7 +8,7 @@ This is not an encyclopedic wiki. It is a structural analysis tool designed to r
 
 Every universe is treated as a deterministic system. The archive renders these systems via specialized visualization engines rather than static text pages.
 
-The archive itself is a connected analysis graph: universes are linked by shared structural thesis (causality, control networks, counter-economies, affinity systems), lightweight system clusters (combat/causal/faction/hierarchy/inheritance/anomaly), and related-universe sections that surface comparable entries through deterministic metadata-driven curation.
+The archive itself is a connected analysis graph: universes are linked by shared structural thesis (causality, control networks, counter-economies, affinity systems), lightweight system clusters (combat/causal/faction/hierarchy/inheritance/anomaly), and related-universe sections that surface comparable entries through consistent metadata rules.
 
 ## Core Experience
 
@@ -47,7 +47,7 @@ src/
 ├── Dashboard.jsx              # Universe detail view with tabs
 ├── data/
 │   ├── index.js               # Import, validate, export all payloads
-│   └── *.json                 # Hand-curated JSON intelligence schemas
+│   └── *.json                 # Hand-curated JSON universe schemas
 ├── config/
 │   ├── universePresentation.js # Background motifs, reveal overlays, SYS warning colors
 │   └── relationshipColors.js  # Canonical edge colors shared across renderers
@@ -123,8 +123,8 @@ Every universe payload is built via a two-stage workflow: broad system research 
 
 ## Discovery & Scale Defaults
 
-- Homepage shows curated slices (not full-list rendering) to stay fast as the archive grows.
-- Universe pages show a small curated suggestion set + clear path to `/universes`.
+- Homepage shows selected universe slices (not full-list rendering) to stay fast as the archive grows.
+- Universe pages show a small related-universe set + clear path to `/universes`.
 - Catalog browsing uses metadata-only sorting/search; full payload JSON remains route-lazy.
 
 ## Development

@@ -321,6 +321,6 @@ export function getBestEntryConfig(universeId, visualizationHint) {
   return {
     tabKey,
     tabIndex,
-    label: metadata.startLabel || 'Start here for the fastest strategic orientation.',
+    label: metadata.startLabel || 'Start here for a quick overview of this universe.',
   }
 }
