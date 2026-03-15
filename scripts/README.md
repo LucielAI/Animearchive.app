@@ -81,6 +81,17 @@ Uses the anime cast endpoint (`/anime/{id}/characters`), correlates characters b
 **Usage:**
 ```bash
 python scripts/patch_jikan_images.py --file src/data/new_anime.json
+# strict mode for integration checks / CI hardening
+python scripts/patch_jikan_images.py --file src/data/new_anime.json --fail-on-unmatched
+```
+
+Supports optional per-character aliases for deterministic matching:
+
+```json
+{
+  "name": "Priestess",
+  "jikanAliases": ["Onna Shinkan"]
+}
 ```
 
 

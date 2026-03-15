@@ -1,4 +1,4 @@
-export const preferredOrder = ['aot', 'jjk', 'demonslayer', 'hxh', 'vinlandsaga', 'steinsgate', 'deathnote', 'fmab', 'codegeass', 'mha', 'frieren', 'sololeveling']
+export const preferredOrder = ['aot', 'jjk', 'demonslayer', 'hxh', 'vinlandsaga', 'steinsgate', 'deathnote', 'fmab', 'codegeass', 'mha', 'frieren', 'sololeveling', 'goblinslayer']
 
 export const UNIVERSE_CATALOG = [
   {
@@ -65,6 +65,11 @@ export const UNIVERSE_CATALOG = [
   {
     id: 'sololeveling', anime: 'Solo Leveling', tagline: 'A fixed-rank hunter economy is broken by one player running an infinite growth protocol.', malId: 52299, visualizationHint: 'node-graph', visualizationReason: 'Solo Leveling is defined by control links between cosmic factions, vessel inheritance, and gate-driven dependencies; the node graph best exposes who grants power, who exploits it, and how Jinwoo rewires the network.', animeImageUrl: 'https://myanimelist.net/images/anime/1801/142390l.jpg',
     themeColors: { primary: '#1d4ed8', secondary: '#0f172a', accent: '#a855f7', glow: 'rgba(59,130,246,0.35)', tabActive: '#3b82f6', badgeBg: 'rgba(15,23,42,0.55)', badgeText: '#bfdbfe', modeGlow: 'rgba(168,85,247,0.3)', heroGradient: 'rgba(2,6,23,0.94)' },
+    stats: { characters: 8, powerSystem: 4, rules: 5 }
+  },
+  {
+    id: 'goblinslayer', anime: 'Goblin Slayer', tagline: 'A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing.', malId: 37349, visualizationHint: 'node-graph', visualizationReason: 'Goblin Slayer is driven by dependency edges between frontier villages, guild bureaucracy, faith-casters, and specialist operators; the node graph best shows who supplies protection, who absorbs risk, and how trust links stabilize the system.', animeImageUrl: 'https://myanimelist.net/images/anime/1719/95621l.jpg',
+    themeColors: { primary: '#065f46', secondary: '#111827', accent: '#b45309', glow: 'rgba(6,95,70,0.32)', tabActive: '#10b981', badgeBg: 'rgba(17,24,39,0.58)', badgeText: '#a7f3d0', modeGlow: 'rgba(180,83,9,0.3)', heroGradient: 'rgba(8,12,15,0.94)' },
     stats: { characters: 8, powerSystem: 4, rules: 5 }
   }
 ]

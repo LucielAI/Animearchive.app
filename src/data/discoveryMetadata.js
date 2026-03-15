@@ -103,5 +103,11 @@ export const DISCOVERY_METADATA = {
     clusterTags: ['hierarchy-heavy', 'combat-systems', 'faction-heavy'],
     appealTags: ['power-scaling', 'high-stakes-escalation'],
     systemProfile: { factionComplexity: 2, causalDensity: 1, powerStructure: 'growth-loop' }
+  },
+  goblinslayer: {
+    addedAt: '2024-07-16', popularityBaseline: 82, classification: 'network', startTab: 'entity-database', startLabel: 'Start with ENTITY DATABASE to trace guild dispatch, specialist execution, and civilian resilience links.',
+    clusterTags: ['combat-systems', 'faction-heavy', 'hierarchy-heavy'],
+    appealTags: ['technical-counterplay', 'strategy-network'],
+    systemProfile: { factionComplexity: 3, causalDensity: 2, powerStructure: 'specialization' }
   }
 }
