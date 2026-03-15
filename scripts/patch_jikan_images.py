@@ -23,10 +23,10 @@ def tokenize(name):
     return set(normalize_name(name).split())
 
 
-def choose_best_match(char_name, cast_list):
+def choose_best_match(candidate_name, cast_list):
     """Select the highest-confidence cast match for a payload character name."""
-    normalized = normalize_name(char_name)
-    tokens = tokenize(char_name)
+    normalized = normalize_name(candidate_name)
+    tokens = tokenize(candidate_name)
 
     # 1) Exact normalized name match first.
     exact = [c for c in cast_list if c["normalized_name"] == normalized]
@@ -56,12 +56,46 @@ def choose_best_match(char_name, cast_list):
     return None, "none"
 
 
-def patch_images(filepath):
+def suggest_cast_names(char_name, cast_list, limit=4):
+    """Return top cast suggestions by token overlap for unresolved names."""
+    tokens = tokenize(char_name)
+    ranked = []
+
+    for c in cast_list:
+        overlap = len(tokens & c["name_set"])
+        if overlap == 0:
+            continue
+        ranked.append((overlap, len(c["name_set"]), c["raw_name"]))
+
+    ranked.sort(key=lambda item: (item[0], -item[1]), reverse=True)
+    return [name for _, _, name in ranked[:limit]]
+
+
+def resolve_with_aliases(char_obj, cast_list):
+    """Try primary name then optional jikanAliases list."""
+    char_name = char_obj.get("name", "")
+    aliases = char_obj.get("jikanAliases", []) or []
+
+    # Primary name first.
+    match, reason = choose_best_match(char_name, cast_list)
+    if match:
+        return match, reason, char_name
+
+    # Then deterministic aliases if provided.
+    for alias in aliases:
+        match, reason = choose_best_match(alias, cast_list)
+        if match:
+            return match, f"alias:{reason}", alias
+
+    return None, "none", char_name
+
+
+def patch_images(filepath, fail_on_unmatched=False):
     print(f"// ARCHIVE INITIATED: Patching Jikan images for {filepath}")
 
     if not os.path.exists(filepath):
         print(f"Error: File {filepath} not found.")
-        return
+        return 1
 
     with open(filepath, "r", encoding="utf-8") as f:
         payload = json.load(f)
@@ -71,12 +105,12 @@ def patch_images(filepath):
 
     if not anime_id:
         print(f"Error: No malId found in {filepath}. Cannot fetch cast.")
-        return
+        return 1
 
     print(f"// Fetching official anime info for {anime_name} (ID: {anime_id})")
     try:
         url = f"https://api.jikan.moe/v4/anime/{anime_id}"
-        res = requests.get(url)
+        res = requests.get(url, timeout=20)
         res.raise_for_status()
         anime_data = res.json().get("data", {})
 
@@ -90,20 +124,20 @@ def patch_images(filepath):
             print("// Warning: Could not find primary image in Jikan response.")
     except Exception as e:
         print(f"// API Failure for Anime Info: {e}")
-        return
+        return 1
 
     time.sleep(0.5)
 
     print(f"// Fetching official cast list for {anime_name} (ID: {anime_id})")
     try:
         url = f"https://api.jikan.moe/v4/anime/{anime_id}/characters"
-        res = requests.get(url)
+        res = requests.get(url, timeout=20)
         res.raise_for_status()
         cast_data = res.json().get("data", [])
         print(f"// Success: Retrieved {len(cast_data)} cast members.")
     except Exception as e:
         print(f"// API Failure for Cast List: {e}")
-        return
+        return 1
 
     cast_list = []
     for member in cast_data:
@@ -125,14 +159,15 @@ def patch_images(filepath):
 
     characters = payload.get("characters", [])
     patched_count = 0
+    unresolved = []
 
     for char in characters:
         char_name = char.get("name", "")
-        match, reason = choose_best_match(char_name, cast_list)
+        match, reason, matched_from = resolve_with_aliases(char, cast_list)
 
         if match:
             print(
-                f"  [+] Match found ({reason}) for '{char_name}' -> '{match['raw_name']}': ID {match['id']}"
+                f"  [+] Match found ({reason}) for '{char_name}' via '{matched_from}' -> '{match['raw_name']}': ID {match['id']}"
             )
             char["malId"] = match["id"]
             char["imageUrl"] = match["image"]
@@ -140,7 +175,14 @@ def patch_images(filepath):
                 del char["_fetchFailed"]
             patched_count += 1
         else:
-            print(f"  [-] No high-confidence match found for '{char_name}'. Left intact.")
+            suggestions = suggest_cast_names(char_name, cast_list)
+            unresolved.append(char_name)
+            if suggestions:
+                print(
+                    f"  [-] No high-confidence match for '{char_name}'. Suggested aliases: {', '.join(suggestions)}"
+                )
+            else:
+                print(f"  [-] No high-confidence match found for '{char_name}'. Left intact.")
 
     print(f"// Patched {patched_count} out of {len(characters)} characters.")
 
@@ -149,11 +191,25 @@ def patch_images(filepath):
 
     print("// PATCH COMPLETE. Payload saved.")
 
+    if fail_on_unmatched and unresolved:
+        print(
+            "// FAIL-ON-UNMATCHED TRIGGERED: unresolved character images remain -> "
+            + ", ".join(unresolved)
+        )
+        return 2
+
+    return 0
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Patch Jikan character/anime images directly from the official Anime cast lists to bypass caching bugs."
+        description="Patch Jikan character/anime images directly from official anime cast lists. Supports optional per-character `jikanAliases` arrays in payloads."
     )
     parser.add_argument("--file", required=True, help="Path to the Universe JSON file (e.g. src/data/aot.json)")
+    parser.add_argument(
+        "--fail-on-unmatched",
+        action="store_true",
+        help="Exit non-zero if any character remains unmatched after patching (helps enforce image completeness in CI/workflow).",
+    )
     args = parser.parse_args()
-    patch_images(args.file)
+    raise SystemExit(patch_images(args.file, fail_on_unmatched=args.fail_on_unmatched))

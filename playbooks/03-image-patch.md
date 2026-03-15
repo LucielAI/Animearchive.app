@@ -34,6 +34,8 @@ Name matching uses confidence tiers (exact normalized name â†’ exact token set â
 
 ```bash
 python scripts/patch_jikan_images.py --file path/to/payload.json
+# optional hard gate for CI/local: fail if any character remains unmatched
+python scripts/patch_jikan_images.py --file path/to/payload.json --fail-on-unmatched
 ```
 
 The script reads from and writes to the same file in place.
@@ -43,6 +45,28 @@ The script reads from and writes to the same file in place.
 python scripts/patch_jikan_images.py --file src/data/deathnote.json
 python scripts/patch_jikan_images.py --file staging/codegeass.core.json
 ```
+
+---
+
+
+## Resolving Name Mismatches (recommended)
+
+Some franchises expose role-label names on MAL/Jikan (e.g., `Onna Shinkan`) while payloads use localized labels (e.g., `Priestess`).
+
+To make matching deterministic, add `jikanAliases` to a character object:
+
+```json
+{
+  "name": "Priestess",
+  "jikanAliases": ["Onna Shinkan"],
+  "imageUrl": null,
+  "_fetchFailed": true
+}
+```
+
+The patcher now tries `name` first, then each alias in order.
+
+If a character still cannot be matched, the script prints suggested cast names. Use one of those as an alias and re-run with `--fail-on-unmatched` to enforce complete coverage before integration.
 
 ---
 
