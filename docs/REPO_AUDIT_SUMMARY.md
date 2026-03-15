@@ -13,6 +13,7 @@
 - My Hero Academia
 - Sousou no Frieren
 - Solo Leveling
+- Goblin Slayer
 
 ## Current Renderers
 - TimelineExplorer
