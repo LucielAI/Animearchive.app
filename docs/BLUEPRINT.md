@@ -117,3 +117,8 @@ The runtime always resolves a universe's **core payload** for rendering. If both
 ### Discoverability defaults
 
 All universes should ship with a visible `systemQuestions` layer (4-8 concise entries) to improve answerability, AI-crawler readability, and section-level navigation.
+
+
+## Scope-Fit Density
+
+The archive now uses scope-fit density guidance so universes are modeled proportionally instead of to one fixed template. See `docs/SCOPE_FIT_DENSITY.md` for the audit baseline, classification model (`tight|medium|broad|hybrid`), and anti-bloat inclusion rule.

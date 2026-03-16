@@ -146,3 +146,17 @@ Before merge, verify the new universe is surfaced naturally in archive navigatio
 - Appears in at least one `/universes?cluster=...` route.
 - Shows up as a related suggestion on at least one other universe page.
 - Bottom-of-page related universe cards render with crawlable links (`/universe/:slug`).
+
+
+## Scope-Fit QA Checks (Required)
+
+Before integration, run a quick scope-fit pass:
+
+- Does cast size match system centrality, not template habit?
+- For broad/network universes, are obvious institutional nodes missing?
+- For causal universes, are key trigger→consequence pivots modeled in `causalEvents`?
+- For combat-economy universes, are decisive counter paths present in `counterplay`?
+- Are extra entries justified by system leverage (not trivia/fan-service padding)?
+
+If any answer is "no", revise payload before integration.
+
