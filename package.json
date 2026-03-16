@@ -13,8 +13,9 @@
     "add:universe": "node scripts/addUniverseWithSitemap.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:all": "node scripts/auditPayloads.js && node scripts/validateIndexing.js",
-    "validate:indexing": "node scripts/validateIndexing.js"
+    "validate:all": "node scripts/auditPayloads.js && node scripts/validateCatalogCoverage.js && node scripts/validateIndexing.js",
+    "validate:indexing": "node scripts/validateIndexing.js",
+    "validate:catalog": "node scripts/validateCatalogCoverage.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.98.0",

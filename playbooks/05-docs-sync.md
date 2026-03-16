@@ -109,3 +109,13 @@ After SEO/discoverability changes, verify these are still true:
 - [ ] Homepage is documented as curated (not full-list)
 - [ ] Sort modes (Latest / Most Viewed / Alphabetical) are documented if changed
 - [ ] Sitemap generation still includes root, `/universes`, and all `/universe/:slug` routes
+## Final Guardrail Check
+
+After docs updates, run:
+
+```bash
+npm run validate:catalog
+```
+
+This fails if any universe payload (for example `chainsawman.core.json`) exists in `src/data/` but is missing from `UNIVERSE_CATALOG` or `preferredOrder`.
+

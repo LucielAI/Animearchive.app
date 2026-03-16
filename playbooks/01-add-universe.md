@@ -104,8 +104,13 @@ The script:
 ### Stage 6 — Deployment
 
 1. Update docs (see [05-docs-sync.md](./05-docs-sync.md))
-2. Commit all changes
-3. Push to branch → Vercel auto-deploys on merge
+2. Run archive-level guards:
+```bash
+npm run validate:catalog
+npm run validate:all
+```
+3. Commit all changes
+4. Push to branch → Vercel auto-deploys on merge
 
 ---
 
