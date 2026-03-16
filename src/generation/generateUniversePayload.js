@@ -55,6 +55,9 @@ export function generateUniversePayload(animeName, structuredResearch, options =
     hintReason = 'Universe behavior is primarily relational control; node-graph surfaces dependencies and betrayals.'
   }
 
+
+  const inferredScopeFitDensity = baseResearch.__selectionProfile?.scopeLevel || baseResearch.scopeFitDensity || 'medium'
+
   const processCharacters = (chars = []) => chars.map(c => {
     const imageUrl = c.imageUrl || null
 
@@ -128,6 +131,7 @@ export function generateUniversePayload(animeName, structuredResearch, options =
     themeColors,
     visualizationHint: hint,
     visualizationReason: baseResearch.visualizationReason || hintReason,
+    scopeFitDensity: inferredScopeFitDensity,
     powerSystem: baseResearch.powerSystem || [],
     characters: processCharacters(baseResearch.characters),
     relationships: processRelationships(baseResearch.relationships),

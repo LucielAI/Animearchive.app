@@ -89,6 +89,8 @@ src/
 
 Every universe payload is built via a two-stage workflow: broad system research followed by strict schema validation. The engine enforces structural density over completeness.
 
+Payloads should follow **scope-fit density**: tight universes remain compact, while broad/hybrid systems carry proportionally more core nodes (characters, factions, relationships, causal pivots) where structurally necessary.
+
 - **Top-level:** `anime`, `tagline`, `malId`, `themeColors` (9 fields), `visualizationHint`, `visualizationReason`, `rankings`, `aiInsights`
 - **Characters:** Strategically selected "hub" actors.
 - **Power Systems:** Raw energy architectures and hardware/software analogies.

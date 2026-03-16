@@ -38,6 +38,22 @@ function canonicalCharacterName(name) {
     .trim()
 }
 
+
+
+function deriveScopeFitClass(data = {}) {
+  const profile = data?.discoveryMetadata?.systemProfile || data?.systemProfile || {}
+  const factionComplexity = Number(profile.factionComplexity) || 0
+  const causalDensity = Number(profile.causalDensity) || 0
+
+  if (factionComplexity >= 3 && causalDensity >= 3) return 'hybrid'
+  if (factionComplexity >= 3) return 'broad'
+  if (causalDensity >= 3) return 'tight'
+  return 'medium'
+}
+
+function countOf(value) {
+  return Array.isArray(value) ? value.length : 0
+}
 // ─── SAFE IMAGE HOST ALLOWLIST ───────────────────────────────────────────────
 const ALLOWED_IMAGE_HOSTS = [
   'cdn.myanimelist.net',
@@ -391,6 +407,45 @@ export function validateCorePayload(data) {
         )
       }
     })
+  }
+
+
+  // ── 11b. Scope-fit density heuristic checks (Soft Guidance) ──
+
+  const scopeFitClass = deriveScopeFitClass(data)
+  const counts = {
+    characters: countOf(data.characters),
+    factions: countOf(data.factions),
+    relationships: countOf(data.relationships),
+    rules: countOf(data.rules),
+    counterplay: countOf(data.counterplay),
+    anomalies: countOf(data.anomalies),
+    causalEvents: countOf(data.causalEvents)
+  }
+
+  if (scopeFitClass === 'broad') {
+    if (counts.characters < 9) warnings.push(`Scope-fit warning: broad systems usually need >=9 core characters; found ${counts.characters}.`)
+    if (counts.factions < 5) warnings.push(`Scope-fit warning: broad systems usually need >=5 factions; found ${counts.factions}.`)
+    if (hint === 'node-graph' && counts.relationships < 12) warnings.push(`Scope-fit warning: broad node-graph systems usually need >=12 relationships; found ${counts.relationships}.`)
+  }
+
+  if (scopeFitClass === 'tight') {
+    if (counts.causalEvents < 5 && hint === 'timeline') warnings.push(`Scope-fit warning: tight causal systems still need dense causal chain coverage; recommend >=5 causalEvents (found ${counts.causalEvents}).`)
+    if (counts.rules < 4) warnings.push(`Scope-fit warning: tight systems should still expose >=4 governing rules (found ${counts.rules}).`)
+  }
+
+  if (scopeFitClass === 'hybrid') {
+    if (counts.factions < 5 || counts.causalEvents < 5) {
+      warnings.push(`Scope-fit warning: hybrid systems should cover both institutional breadth and causal depth (factions=${counts.factions}, causalEvents=${counts.causalEvents}).`)
+    }
+  }
+
+  if (hint === 'counter-tree' && counts.counterplay < 6) {
+    warnings.push(`Scope-fit warning: counter-tree universes are usually under-modeled below 6 counterplay paths (found ${counts.counterplay}).`)
+  }
+
+  if (hint === 'node-graph' && counts.relationships >= 14 && counts.characters < 8) {
+    warnings.push(`Scope-fit warning: relationship-heavy node graph with thin cast (relationships=${counts.relationships}, characters=${counts.characters}) may hide core actors.`)
   }
 
   // ── 12. AI Insights Validation (Hard requirement) ──

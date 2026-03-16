@@ -323,3 +323,20 @@ Guidelines:
 - Prefer mechanism questions (rules, causality, counterplay, faction control).
 - `tabIndex` maps to tabs (`0` Power Engine, `1` Entity Database, `2` Factions, `3` Core Laws).
 - `sectionId` should reference visible heading IDs so users can jump directly.
+
+---
+
+## Scope-Fit Density Guidance (Authoring)
+
+Schema validity is required, but payload density should also match universe scope.
+
+### Scope classes (heuristic)
+
+- **tight**: compact cast, concentrated causal/rule control
+- **medium**: balanced cast + faction + rule spread
+- **broad**: distributed institutional topology requiring wider node coverage
+- **hybrid**: broad institutional spread plus deep causal/rule modeling
+
+### Inclusion rule
+
+Include entries when they are structurally necessary (control node, rule enforcer/breaker, causal hinge, or counterplay gatekeeper). Omit trivia-level or redundant nodes.

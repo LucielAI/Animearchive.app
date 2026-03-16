@@ -41,6 +41,27 @@ This determines `visualizationHint` and drives all structural profile targets.
 
 See `docs/RENDERER_CONTRACT.md` — Structural Profiles table for the expected array lengths per renderer.
 
+
+## Scope-Fit Density Standard (Required)
+
+Do not model every universe to the same payload shape. Pick a scope-fit class and size sections proportionally:
+
+- **tight** — compact cast, high rule/causal centrality; keep cast lean but preserve critical mechanics
+- **medium** — balanced cast/faction/rule footprint
+- **broad** — distributed worlds with institutional breadth; include enough core actors/factions to avoid collapsed topology
+- **hybrid** — requires both breadth (institutions/network) and depth (causal/rule complexity)
+
+Use these as guidance targets (not hard caps):
+
+| Scope class | Typical targets |
+|---|---|
+| tight | 6-9 characters, 3-5 factions, 5-8 causalEvents/rules where relevant |
+| medium | 8-11 characters, 4-6 factions, 4-8 in thesis-critical arrays |
+| broad | 9-14 characters, 5-9 factions, 12-24 relationships for node-heavy systems |
+| hybrid | broad network coverage + >=5 causalEvents and >=5 rules when causality is core |
+
+Inclusion rule: add entities only if they are structurally necessary (control node, rule enforcer, causal pivot, counterplay gatekeeper).
+
 ## Step 2 — Build the Extended Dataset (recommended)
 
 Produce `{slug}.extended.json` with all collected data. No caps on array length here — retain everything useful.

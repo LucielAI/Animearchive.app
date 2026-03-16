@@ -19,9 +19,49 @@ function cap(items = [], max = 8) {
   return items.slice(0, max)
 }
 
+function resolveScopeLevel(extended = {}, profile = {}) {
+  const explicit = (extended.scopeFitDensity || '').toLowerCase()
+  if (['tight', 'medium', 'broad', 'hybrid'].includes(explicit)) return explicit
+
+  const profileComplexity = Number(extended?.systemProfile?.factionComplexity) || 0
+  const profileCausal = Number(extended?.systemProfile?.causalDensity) || 0
+  const structuralSignals = [
+    Array.isArray(extended.characters) ? extended.characters.length : 0,
+    Array.isArray(extended.relationships) ? extended.relationships.length : 0,
+    Array.isArray(extended.factions) ? extended.factions.length : 0,
+    Array.isArray(extended.causalEvents) ? extended.causalEvents.length : 0
+  ]
+
+  const maxSignal = Math.max(...structuralSignals, 0)
+  if (profile?.densityClass === 'hybrid-affinity' || (profileComplexity >= 3 && profileCausal >= 3)) return 'hybrid'
+  if (maxSignal >= 16 || profileComplexity >= 3) return 'broad'
+  if (maxSignal >= 10 || profileCausal >= 2) return 'medium'
+  return 'tight'
+}
+
+function pickCaps(profile, scopeLevel) {
+  const base = profile.baseCaps || profile.caps || {}
+  const stretch = profile.stretchCaps || base
+
+  if (scopeLevel === 'broad' || scopeLevel === 'hybrid') return stretch
+  if (scopeLevel === 'medium') {
+    const merged = {}
+    Object.keys({ ...base, ...stretch }).forEach((key) => {
+      const b = Number(base[key] || 0)
+      const s = Number(stretch[key] || b)
+      merged[key] = Math.max(b, Math.round((b + s) / 2))
+    })
+    return merged
+  }
+
+  return base
+}
+
 export function selectCoreFromExtended(extended = {}) {
   const systemType = detectSystemType(extended)
   const profile = STARTER_PROFILES[systemType] || STARTER_PROFILES['standard-cards']
+  const scopeLevel = resolveScopeLevel(extended, profile)
+  const caps = pickCaps(profile, scopeLevel)
 
   // Signal examples: relationship density + explicit system importance.
   const rankedRelationships = rankBySignal(extended.relationships || [], (rel) => {
@@ -62,17 +102,21 @@ export function selectCoreFromExtended(extended = {}) {
   return {
     ...extended,
     visualizationHint: systemType,
-    characters: cap(rankedCharacters, profile.caps.characters || 8),
-    relationships: cap(rankedRelationships, profile.caps.relationships || 12),
-    factions: cap(extended.factions || [], profile.caps.factions || 6),
-    rules: cap(extended.rules || [], profile.caps.rules || 6),
-    anomalies: cap(rankedAnomalies, profile.caps.anomalies || 6),
-    causalEvents: cap(rankedEvents, profile.caps.causalEvents || 8),
-    counterplay: cap(rankedCounterplay, profile.caps.counterplay || 8),
-    powerSystem: cap(extended.powerSystem || [], profile.caps.powerSystem || 6),
+    characters: cap(rankedCharacters, caps.characters || 8),
+    relationships: cap(rankedRelationships, caps.relationships || 12),
+    factions: cap(extended.factions || [], caps.factions || 6),
+    rules: cap(extended.rules || [], caps.rules || 6),
+    anomalies: cap(rankedAnomalies, caps.anomalies || 6),
+    causalEvents: cap(rankedEvents, caps.causalEvents || 8),
+    counterplay: cap(rankedCounterplay, caps.counterplay || 8),
+    powerSystem: cap(extended.powerSystem || [], caps.powerSystem || 6),
     __selectionProfile: {
       systemType,
-      prioritize: profile.prioritize
+      scopeLevel,
+      densityClass: profile.densityClass,
+      prioritize: profile.prioritize,
+      minTargets: profile.minTargets || {},
+      caps
     }
   }
 }

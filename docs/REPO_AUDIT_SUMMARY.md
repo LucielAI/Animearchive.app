@@ -47,3 +47,8 @@ This structure allows the archive to scale to new universes without rebuilding t
 
 ## Agent Entry Point
 - `CLAUDE.md` at repo root — universal system prompt with task routing, live sources of truth, and critical rules
+
+
+## Scope-Fit Density
+
+The archive now uses scope-fit density guidance so universes are modeled proportionally instead of to one fixed template. See `docs/SCOPE_FIT_DENSITY.md` for the audit baseline, classification model (`tight|medium|broad|hybrid`), and anti-bloat inclusion rule.
