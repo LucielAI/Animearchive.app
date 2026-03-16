@@ -40,6 +40,7 @@ npm run validate:all
 ## 5) Source of truth
 Do not fork workflow logic. Keep using:
 - `scripts/validatePayload.js`
+- `scripts/validateCatalogCoverage.js`
 - `src/utils/validateSchema.js`
 - playbooks in `playbooks/`
 

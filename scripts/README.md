@@ -29,10 +29,17 @@ Extended validation is intentionally lighter than core validation.
 ```bash
 npm run validate:all
 ```
-Runs `validateCorePayload` across every `src/data/*.json` (excluding `*.extended.json`) and prints a per-universe PASS/WARN/FAILED table. Supports `node scripts/auditPayloads.js --strict-warnings` for stricter CI/local gating when needed.
+Runs `validateCorePayload` across every `src/data/*.json` (excluding `*.extended.json`), validates catalog coverage (`src/data/` ⇄ `UNIVERSE_CATALOG` ⇄ `preferredOrder`), and then runs indexing/crawlability checks. Supports `node scripts/auditPayloads.js --strict-warnings` for stricter CI/local gating when needed.
 Use this for archive-wide hardening before PRs.
 
 
+
+
+### Validate catalog coverage
+```bash
+npm run validate:catalog
+```
+Fails if a payload slug exists in `src/data/` but is missing from `UNIVERSE_CATALOG`, missing from `preferredOrder`, duplicated, or if a catalog entry has no corresponding payload file.
 
 ### Validate indexing + crawlability guardrails
 ```bash
