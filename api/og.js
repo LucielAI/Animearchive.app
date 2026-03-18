@@ -1,8 +1,99 @@
-import { UNIVERSE_CATALOG_MAP } from '../src/data/catalog.js'
-import { getClassificationLabel } from '../src/utils/getClassificationLabel.js'
-
 export const config = {
   runtime: 'edge',
+}
+
+// Minimal self-contained mapping
+const UNIVERSE_MAP = {
+  aot: {
+    anime: 'Attack on Titan',
+    tagline: 'A brutal deterministic closed-loop temporal matrix',
+    visualizationHint: 'timeline',
+    themeColors: { primary: '#6b7280' }
+  },
+  jjk: {
+    anime: 'Jujutsu Kaisen',
+    tagline: 'Negative Energy Economy & Algorithmic Combat',
+    visualizationHint: 'counter-tree',
+    themeColors: { primary: '#4f46e5' }
+  },
+  chainsawman: {
+    anime: 'Chainsaw Man',
+    tagline: 'A fear-fed devil economy where control networks weaponize trauma, contracts, and identity erasure.',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#dc2626' }
+  },
+  demonslayer: {
+    anime: 'Demon Slayer: Kimetsu no Yaiba',
+    tagline: 'A nocturnal immortality network versus humans burning their own lifespan for solar-grade kill windows.',
+    visualizationHint: 'counter-tree',
+    themeColors: { primary: '#dc2626' }
+  },
+  hxh: {
+    anime: 'Hunter x Hunter',
+    tagline: 'Contractual Power Economy & Asymmetric Information Warfare',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#059669' }
+  },
+  vinlandsaga: {
+    anime: 'Vinland Saga',
+    tagline: 'A deterministic economy of retributive violence',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#d97706' }
+  },
+  steinsgate: {
+    anime: 'Steins;Gate',
+    tagline: 'A deterministic attractor-field prison where convergence cannot be outrun — only rewritten',
+    visualizationHint: 'timeline',
+    themeColors: { primary: '#22d3ee' }
+  },
+  deathnote: {
+    anime: 'Death Note',
+    tagline: 'An asymmetric information war where anonymous execution power collides with probabilistic deanonymization — and psychology leaks what cryptography cannot',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#dc2626' }
+  },
+  fmab: {
+    anime: 'Fullmetal Alchemist: Brotherhood',
+    tagline: 'A closed thermodynamic system where every act of creation demands an equal destruction — and a 400-year parasite has been rigging the ledger from beneath the earth',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#d97706' }
+  },
+  codegeass: {
+    anime: 'Code Geass: Hangyaku no Lelouch',
+    tagline: 'An occupied nation becomes a control-war between imperial hierarchy, masked insurgency, and a will-hacking anomaly that turns strategy into governance engineering.',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#7c3aed' }
+  },
+  mha: {
+    anime: 'My Hero Academia',
+    tagline: 'Mutating biological power collides with state-managed hero capitalism.',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#0ea5e9' }
+  },
+  frieren: {
+    anime: 'Sousou no Frieren',
+    tagline: 'A post-war fantasy where mana deception, lifespan asymmetry, and visualization limits decide who survives.',
+    visualizationHint: 'timeline',
+    themeColors: { primary: '#0f766e' }
+  },
+  sololeveling: {
+    anime: 'Solo Leveling',
+    tagline: 'A fixed-rank hunter economy is broken by one player running an infinite growth protocol.',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#1d4ed8' }
+  },
+  goblinslayer: {
+    anime: 'Goblin Slayer',
+    tagline: 'A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing.',
+    visualizationHint: 'node-graph',
+    themeColors: { primary: '#065f46' }
+  },
+  mushokutensei: {
+    anime: 'Mushoku Tensei: Jobless Reincarnation',
+    tagline: 'A reincarnation-driven fate system where mana growth, bloodline factors, and looping causality decide civilization-scale outcomes.',
+    visualizationHint: 'timeline',
+    themeColors: { primary: '#0f766e' }
+  }
 }
 
 const FALLBACK = {
@@ -12,10 +103,22 @@ const FALLBACK = {
   themeColors: { primary: '#22d3ee' },
 }
 
+function getClassificationLabel(hint) {
+  switch (hint) {
+    case 'timeline': return 'TIMELINE SYSTEM'
+    case 'counter-tree': return 'COUNTERPLAY SYSTEM'
+    case 'node-graph': return 'RELATIONAL SYSTEM'
+    case 'affinity-matrix': return 'AFFINITY SYSTEM'
+    case 'standard-cards': return 'CARD SYSTEM'
+    default: return 'CLASSIFIED SYSTEM'
+  }
+}
+
 function normalizePreview(id) {
   const normalizedId = (id || '').trim().toLowerCase()
-  return UNIVERSE_CATALOG_MAP[normalizedId] || FALLBACK
+  return UNIVERSE_MAP[normalizedId] || FALLBACK
 }
+
 
 function generateSVG(title, subtitle, typeLabel, themeColor) {
   const width = 1200
