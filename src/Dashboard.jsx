@@ -319,7 +319,8 @@ export default function Dashboard({ data }) {
             <div className="flex-1 min-w-[200px]">
               <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-1">Support the Archive</h3>
               <p className="text-[11px] text-gray-300 leading-relaxed">
-                Get the official manga volume via our affiliate link. Every purchase helps fund Anime Archive.
+                Get the official Blu‑ray via our affiliate link. Every purchase helps fund Anime Archive.<br/>
+                <span className="text-[9px] text-gray-500">We earn a commission at no extra cost to you.</span>
               </p>
             </div>
             <a
@@ -327,7 +328,11 @@ export default function Dashboard({ data }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackAffiliateClick('sololeveling-amazon', 'sololeveling', 'amazon')}
-              className="px-4 py-2.5 min-h-[44px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-[10px] tracking-[0.18em] uppercase text-white font-bold transition-colors duration-300 inline-flex items-center gap-2"
+              className="px-4 py-2.5 min-h-[44px] rounded-full border bg-white/5 hover:bg-white/10 text-[10px] tracking-[0.18em] uppercase text-white font-bold transition-all duration-300 inline-flex items-center gap-2"
+              style={{
+                borderColor: `${theme.primary}60`,
+                boxShadow: `0 0 12px ${theme.primary}20`,
+              }}
             >
               <span>Get on Amazon</span>
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
