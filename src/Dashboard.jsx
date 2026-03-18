@@ -306,6 +306,31 @@ export default function Dashboard({ data }) {
         </div>
       </div>
 
+      {/* Amazon Affiliate CTA (Solo Leveling only) */}
+      {data?.id === 'sololeveling' && (
+        <div className="max-w-6xl mx-auto px-6 mt-4 mb-6 share-frame-hide">
+          <div className="rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm p-4 flex flex-wrap items-center gap-4">
+            <div className="flex-1 min-w-[200px]">
+              <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-white mb-1">Support the Archive</h3>
+              <p className="text-[11px] text-gray-300 leading-relaxed">
+                Get the official manga volume via our affiliate link. Every purchase helps fund Anime Archive.
+              </p>
+            </div>
+            <a
+              href="https://www.amazon.com/dp/B0G3PC5LX2/ref=cm_sw_r_as_gl_apa_gl_i_4B03CWS4T2XWERHGFR58?linkCode=ml1&tag=hashiai-20&linkId=2377a03ae811e823cf9ba44a6d6df18a"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackAffiliateClick('sololeveling-amazon')}
+              className="px-4 py-2.5 min-h-[44px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-[10px] tracking-[0.18em] uppercase text-white font-bold transition-colors duration-300 inline-flex items-center gap-2"
+            >
+              <span>Get on Amazon</span>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      )}
       {/* Why This Lens? */}
       <WhyThisRenderer data={data} isSystemMode={isSystemMode} theme={theme} revealStep={revealStep} isRevealing={isRevealing} />
 
