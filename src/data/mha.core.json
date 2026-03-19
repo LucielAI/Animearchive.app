@@ -608,5 +608,11 @@
       "sectionId": "relationship-matrix-heading",
       "tabLabel": "Entity Database"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "MHA is governed by control webs: HPSC policy routing, inherited and stolen Quirk chains, and ideological splinter networks that determine w…",
+    "primarySystemType": "entity_db"
+  }
 }

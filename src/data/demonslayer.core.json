@@ -517,5 +517,11 @@
       "sectionId": "causal-events-heading",
       "tabLabel": "Core Laws"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "counterplay",
+    "microHook": "Read the matchup economy before ranking strength.",
+    "thesis": "Demon Slayer is fundamentally a kill-economy matchup system: each duel is decided by how breathing forms, blood arts, poison, sunlight cons…",
+    "primarySystemType": "power_engine"
+  }
 }

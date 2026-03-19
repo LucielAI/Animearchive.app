@@ -585,5 +585,11 @@
       "sectionId": "entity-database-heading",
       "tabLabel": "Entity Database"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "causal",
+    "microHook": "Map the causal chain before judging outcomes.",
+    "thesis": "Steins;Gate is structurally defined by worldline divergence and attractor field convergence.",
+    "primarySystemType": "entity_db"
+  }
 }

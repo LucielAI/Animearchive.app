@@ -527,5 +527,11 @@
       "tabIndex": 0,
       "sectionId": "causal-events"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "causal",
+    "microHook": "Map the causal chain before judging outcomes.",
+    "thesis": "Mushoku Tensei is fundamentally a delayed-causality system: ancient god-war fallout, Laplace-era fragmentation, and present-era choices all…",
+    "primarySystemType": "entity_db"
+  }
 }

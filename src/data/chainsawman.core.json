@@ -591,5 +591,11 @@
       "sectionId": "core-laws-heading"
     }
   ],
-  "animeImageUrl": "https://myanimelist.net/images/anime/1806/126216l.jpg"
+  "animeImageUrl": "https://myanimelist.net/images/anime/1806/126216l.jpg",
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Chainsaw Man is structurally a control web: fear flows into devils, contracts reroute agency, and Makima-centered dependency edges determin…",
+    "primarySystemType": "entity_db"
+  }
 }

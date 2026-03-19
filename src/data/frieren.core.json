@@ -495,5 +495,11 @@
       "sectionId": "core-laws-heading",
       "tabLabel": "Core Laws"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "causal",
+    "microHook": "Map the causal chain before judging outcomes.",
+    "thesis": "Frieren's core thesis is causal and longitudinal: Flamme's anti-demon doctrine, millennium-scale mana training, the Demon King's defeat, an…",
+    "primarySystemType": "entity_db"
+  }
 }

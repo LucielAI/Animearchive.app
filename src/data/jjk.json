@@ -668,5 +668,11 @@
       "sectionId": "factions-heading",
       "tabLabel": "Factions"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "counterplay",
+    "microHook": "Read the matchup economy before ranking strength.",
+    "thesis": "JJK is defined by technique counters and power hierarchies — the counter-tree maps how abilities nullify, exploit, and amplify each other.",
+    "primarySystemType": "power_engine"
+  }
 }

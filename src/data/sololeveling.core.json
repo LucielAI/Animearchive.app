@@ -590,5 +590,11 @@
       "sectionId": "faction-map-heading",
       "tabLabel": "Faction Map"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Solo Leveling is structurally a control network: gates route crises, institutions allocate scarce S-rank capacity, and Jinwoo's shadow auth…",
+    "primarySystemType": "entity_db"
+  }
 }

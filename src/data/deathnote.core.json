@@ -580,5 +580,11 @@
       "sectionId": "entity-database-heading",
       "tabLabel": "Entity Database"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Death Note is structurally defined by relational interdependence — who controls whom, who knows what about whom, and how shifting alliances…",
+    "primarySystemType": "entity_db"
+  }
 }

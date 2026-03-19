@@ -681,5 +681,11 @@
       "sectionId": "entity-database-heading",
       "tabLabel": "Entity Database"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Code Geass is a control-network story: Geass permissions, command chains, propaganda legitimacy, and betrayal edges continuously rewire who…",
+    "primarySystemType": "entity_db"
+  }
 }
