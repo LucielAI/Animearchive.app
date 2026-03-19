@@ -18,6 +18,7 @@ import { getBestEntryConfig, getRelatedUniverseSuggestions } from './utils/disco
 import { getHeroContract } from './utils/heroContract'
 import { getBackgroundMotif, getRevealOverlay } from './config/universePresentation'
 import { UNIVERSE_CATALOG } from './data/index'
+import { trackCTAClick, trackOpenSystem, trackScrollDepth, trackHeroVisibility, trackShareFrame } from './utils/analytics'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
@@ -113,6 +114,37 @@ export default function Dashboard({ data }) {
     const timeoutId = window.setTimeout(() => setShowMonetizationBar(true), 150)
     return () => window.clearTimeout(timeoutId)
   }, [isHeroVisible])
+
+  // Track hero visibility
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const startTime = Date.now()
+    trackHeroVisibility(isHeroVisible, (Date.now() - startTime) / 1000)
+    return () => trackHeroVisibility(isHeroVisible, (Date.now() - startTime) / 1000)
+  }, [isHeroVisible])
+
+  // Track scroll depth
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const scrollPercent = Math.round((scrollTop / docHeight) * 100)
+      trackScrollDepth(scrollPercent)
+    }
+    
+    let scrollTimeout
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(handleScroll, 200)
+    })
+    
+    return () => {
+      clearTimeout(scrollTimeout)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const theme = data?.themeColors || DEFAULT_THEME
   const animeName = data?.anime || 'UNKNOWN ARCHIVE'
@@ -283,7 +315,11 @@ export default function Dashboard({ data }) {
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
-                onClick={() => handleJumpToSection(heroContract.primaryTabIndex, 'analysis-start')}
+                onClick={() => {
+                  handleJumpToSection(heroContract.primaryTabIndex, 'analysis-start')
+                  const tabName = TABS[heroContract.primaryTabIndex]
+                  trackOpenSystem(heroContract.primaryTabIndex, data?.id, tabName)
+                }}
                 className="px-5 py-3 min-h-[44px] rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border transition-all duration-300"
                 style={{ borderColor: `${theme.primary}80`, color: '#020617', backgroundColor: theme.primary, boxShadow: `0 0 24px ${theme.glow}` }}
               >
@@ -350,7 +386,10 @@ export default function Dashboard({ data }) {
               href="https://www.amazon.com/dp/B0G3PC5LX2/ref=cm_sw_r_as_gl_apa_gl_i_4B03CWS4T2XWERHGFR58?linkCode=ml1&tag=hashiai-20&linkId=2377a03ae811e823cf9ba44a6d6df18a"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackAffiliateClick('sololeveling-amazon', 'sololeveling', 'amazon')}
+              onClick={() => {
+  trackAffiliateClick('sololeveling-amazon', 'sololeveling', 'amazon')
+  trackCTAClick('buy_now_hero', 'sololeveling', 'hero_cta')
+}}
               className="text-[11px] font-bold tracking-[0.18em] uppercase text-cyan-400 hover:text-cyan-300 py-2 px-3 bg-cyan-400/10 hover:bg-cyan-400/20 rounded-full transition-colors"
             >
               Buy Now
