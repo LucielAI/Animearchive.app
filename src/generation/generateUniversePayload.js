@@ -18,6 +18,31 @@ const DEFAULT_CHARACTER_COLORS = {
   accentColor: 'cyan-400'
 }
 
+const DEFAULT_HERO_SYSTEM_TYPE = {
+  timeline: 'timeline',
+  'node-graph': 'relational',
+  'counter-tree': 'counterplay',
+  'affinity-matrix': 'affinity',
+  'standard-cards': 'general'
+}
+
+const DEFAULT_PRIMARY_SYSTEM_TYPE = {
+  timeline: 'entity_db',
+  'node-graph': 'entity_db',
+  'counter-tree': 'power_engine',
+  'affinity-matrix': 'entity_db',
+  'standard-cards': 'power_engine'
+}
+
+function clampHeroText(text, limit) {
+  const clean = String(text || '').replace(/\s+/g, ' ').trim()
+  if (!clean) return ''
+  if (clean.length <= limit) return clean
+  const sentence = clean.split(/[.!?]/)[0]?.trim()
+  if (sentence && sentence.length <= limit) return `${sentence}.`
+  return `${clean.slice(0, limit - 1).trim()}…`
+}
+
 /**
  * RESEARCH-TO-PAYLOAD TRANSFORMER
  *
@@ -57,6 +82,10 @@ export function generateUniversePayload(animeName, structuredResearch, options =
 
 
   const inferredScopeFitDensity = baseResearch.__selectionProfile?.scopeLevel || baseResearch.scopeFitDensity || 'medium'
+  const heroHint = baseResearch.hero?.systemType || DEFAULT_HERO_SYSTEM_TYPE[hint] || 'general'
+  const heroPrimarySystem = baseResearch.hero?.primarySystemType || DEFAULT_PRIMARY_SYSTEM_TYPE[hint] || 'power_engine'
+  const heroMicroHook = clampHeroText(baseResearch.hero?.microHook || `Read ${animeName} as a ${heroHint} system before plot chronology.`, 95)
+  const heroThesis = clampHeroText(baseResearch.hero?.thesis || baseResearch.visualizationReason || baseResearch.tagline || thesis, 140)
 
   const processCharacters = (chars = []) => chars.map(c => {
     const imageUrl = c.imageUrl || null
@@ -132,6 +161,12 @@ export function generateUniversePayload(animeName, structuredResearch, options =
     visualizationHint: hint,
     visualizationReason: baseResearch.visualizationReason || hintReason,
     scopeFitDensity: inferredScopeFitDensity,
+    hero: {
+      systemType: heroHint,
+      microHook: heroMicroHook,
+      thesis: heroThesis,
+      primarySystemType: heroPrimarySystem
+    },
     powerSystem: baseResearch.powerSystem || [],
     characters: processCharacters(baseResearch.characters),
     relationships: processRelationships(baseResearch.relationships),

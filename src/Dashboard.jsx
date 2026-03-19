@@ -15,6 +15,7 @@ import { useShareFrame } from './hooks/useShareFrame'
 import { getClassificationLabel } from './utils/getClassificationLabel'
 import { deriveBullets } from './utils/deriveBullets'
 import { getBestEntryConfig, getRelatedUniverseSuggestions } from './utils/discovery'
+import { getHeroContract } from './utils/heroContract'
 import { getBackgroundMotif, getRevealOverlay } from './config/universePresentation'
 import { UNIVERSE_CATALOG } from './data/index'
 
@@ -92,11 +93,12 @@ export default function Dashboard({ data }) {
   const shareFrameBullets = useMemo(() => deriveBullets(data).slice(0, 3), [data])
   const universeIntro = useMemo(() => buildUniverseIntroduction(data), [data])
   const revealOverlay = getRevealOverlay(data?.revealOverlay)
+  const heroContract = useMemo(() => getHeroContract(data, bestEntry.tabIndex), [data, bestEntry.tabIndex])
   const proofStrip = useMemo(() => ([
-    `${data?.powerSystem?.length || 0} Mechanics`,
-    `${data?.relationships?.length || 0} Links`,
-    `${data?.rules?.length || 0} Laws`,
-  ]), [data?.powerSystem?.length, data?.relationships?.length, data?.rules?.length])
+    `${heroContract.mechanicsCount} Mechanics`,
+    `${heroContract.linksCount} Links`,
+    `${heroContract.lawsCount} Laws`,
+  ]), [heroContract.mechanicsCount, heroContract.linksCount, heroContract.lawsCount])
 
   const handleJumpToSection = (tabIndex, sectionId) => {
     const normalizedTabIndex = Number.isInteger(tabIndex)
@@ -223,7 +225,7 @@ export default function Dashboard({ data }) {
             <div className="flex flex-wrap items-center gap-2">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.28em] font-bold text-white/65 bg-white/5 backdrop-blur-xl uppercase">
                 <span className={`w-1.5 h-1.5 rounded-full ${isSystemMode ? 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)]' : 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]'}`} />
-                Archive Active · {classLabel}
+                Archive Active · {heroContract.systemType} system
               </div>
             </div>
 
@@ -231,29 +233,33 @@ export default function Dashboard({ data }) {
               key={isSystemMode ? 'sys' : 'lore'}
               className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase leading-[0.95] transition-colors duration-700 ${isRevealing && revealStep === 1 ? 'text-white drop-shadow-[0_0_14px_rgba(255,255,255,0.55)]' : 'text-white'}`}
             >
-              {animeName}
+              {heroContract.title}
             </h1>
 
-            <p className="text-sm md:text-base text-gray-200/95 max-w-2xl">
-              {data?.visualizationReason || data?.tagline}
+            <p className="text-[11px] md:text-xs uppercase tracking-[0.18em] text-cyan-200/85 max-w-2xl">
+              {heroContract.microHook}
             </p>
 
-            <div className="inline-flex w-fit items-center gap-2 md:gap-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-3 py-1.5">
+            <p className="text-sm md:text-base text-gray-200/95 max-w-2xl leading-relaxed">
+              {heroContract.thesis}
+            </p>
+
+            <div className="inline-flex w-fit items-center gap-2 md:gap-3 rounded-full border border-white/15 bg-white/10 backdrop-blur-md px-3 py-1.5">
               {proofStrip.map((item, index) => (
                 <div key={item} className="flex items-center gap-2">
                   {index > 0 && <span className="h-3 w-px bg-white/20" />}
-                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/75">{item}</span>
+                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/85">{item}</span>
                 </div>
               ))}
             </div>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
-                onClick={() => handleJumpToSection(bestEntry.tabIndex, 'analysis-start')}
+                onClick={() => handleJumpToSection(heroContract.primaryTabIndex, 'analysis-start')}
                 className="px-5 py-3 min-h-[44px] rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border transition-all duration-300"
                 style={{ borderColor: `${theme.primary}80`, color: '#020617', backgroundColor: theme.primary, boxShadow: `0 0 24px ${theme.glow}` }}
               >
-                Open {TABS[bestEntry.tabIndex]}
+                Open System
               </button>
               <button
                 onClick={isRevealing ? cancelReveal : startReveal}
@@ -266,6 +272,9 @@ export default function Dashboard({ data }) {
                 {isRevealing ? 'Cancel Sequence' : 'Reveal the System'}
               </button>
             </div>
+            <p className="text-[10px] text-gray-500 tracking-[0.18em] uppercase">
+              Primary path: {TABS[heroContract.primaryTabIndex]}
+            </p>
           </div>
         </div>
       </header>
@@ -280,7 +289,7 @@ export default function Dashboard({ data }) {
           </p>
           {bestParallel?.entry && (
             <p className="mt-4 text-[11px] text-gray-400">
-              If you want a close comparison point, continue with{' '}
+              If you understood this system, continue with:{' '}
               <Link to={`/universe/${bestParallel.entry.id}`} className="text-cyan-300 hover:text-cyan-200">
                 {bestParallel.entry.anime}
               </Link>

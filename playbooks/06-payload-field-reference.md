@@ -27,6 +27,30 @@ aiInsights      object   — { casual: string, deep: string }
 
 ---
 
+## Hero Contract (Required for agent-quality first viewport)
+
+Add a top-level `hero` object for stable shared-template rendering:
+
+```json
+{
+  "hero": {
+    "systemType": "counterplay|relational|timeline|affinity|general|hybrid|causal",
+    "microHook": "One short intrigue line.",
+    "thesis": "Short system thesis (1-2 lines).",
+    "primarySystemType": "power_engine|entity_db|factions|core_laws"
+  }
+}
+```
+
+Constraints:
+- `microHook`: target <=95 chars.
+- `thesis`: target <=140 chars.
+- `primarySystemType`: maps the primary hero CTA destination tab.
+
+If missing, runtime uses fallback mapping and validator emits warnings. For full guidance see `docs/universe_hero_spec.md`.
+
+---
+
 ## themeColors (9 required sub-keys, all hard errors)
 
 ```json

@@ -21,6 +21,8 @@ const VALID_HINTS = ['timeline', 'node-graph', 'counter-tree', 'affinity-matrix'
 const VALID_REL_TYPES = ['ally', 'enemy', 'rival', 'mentor', 'betrayal', 'mirror', 'dependent', 'successor', 'counter']
 const VALID_SEVERITIES = ['low', 'medium', 'high', 'fatal']
 const VALID_FACTION_ROLES = ['protagonist', 'antagonist', 'neutral', 'chaotic', 'systemic']
+const VALID_HERO_SYSTEM_TYPES = ['counterplay', 'relational', 'timeline', 'affinity', 'general', 'hybrid', 'causal']
+const VALID_PRIMARY_SYSTEM_TYPES = ['power_engine', 'entity_db', 'factions', 'core_laws']
 
 const TAILWIND_COLOR_TOKEN = /^[a-z]+-\d{2,3}$/
 
@@ -160,6 +162,36 @@ export function validateCorePayload(data) {
       errors.push(`${key} must be an array when present`)
     }
   })
+
+  // ── 1b. Hero contract quality (soft, AI-agent compatibility) ──
+  const hero = data?.hero
+  if (!hero || typeof hero !== 'object' || Array.isArray(hero)) {
+    warnings.push('hero is missing. Add hero.{systemType,microHook,thesis,primarySystemType} for stable first-viewport contract.')
+  } else {
+    if (!isNonEmptyString(hero.systemType)) {
+      warnings.push('hero.systemType is missing; expected one of: counterplay|relational|timeline|affinity|general|hybrid|causal.')
+    } else if (!VALID_HERO_SYSTEM_TYPES.includes(hero.systemType)) {
+      warnings.push(`hero.systemType "${hero.systemType}" is non-standard. Prefer: ${VALID_HERO_SYSTEM_TYPES.join('|')}.`)
+    }
+
+    if (!isNonEmptyString(hero.microHook)) {
+      warnings.push('hero.microHook is missing; add one intrigue line (system-level, not plot summary).')
+    } else if (hero.microHook.trim().length > 95) {
+      warnings.push(`hero.microHook is too long (${hero.microHook.trim().length} chars). Target <=95 chars for mobile readability.`)
+    }
+
+    if (!isNonEmptyString(hero.thesis)) {
+      warnings.push('hero.thesis is missing; add a short 1-2 line system thesis.')
+    } else if (hero.thesis.trim().length > 140) {
+      warnings.push(`hero.thesis is too long (${hero.thesis.trim().length} chars). Target <=140 chars for first viewport clarity.`)
+    }
+
+    if (!isNonEmptyString(hero.primarySystemType)) {
+      warnings.push('hero.primarySystemType is missing; expected one of: power_engine|entity_db|factions|core_laws.')
+    } else if (!VALID_PRIMARY_SYSTEM_TYPES.includes(hero.primarySystemType)) {
+      warnings.push(`hero.primarySystemType "${hero.primarySystemType}" is invalid. Use: ${VALID_PRIMARY_SYSTEM_TYPES.join('|')}.`)
+    }
+  }
 
   // ── 2. Theme color completeness ──
 

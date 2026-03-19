@@ -20,7 +20,7 @@ export default function ExploreAnotherUniverse({ currentId, isSystemMode, theme 
         </div>
 
         <p className="text-xs text-gray-500 max-w-3xl leading-relaxed">
-          Continue through the archive with one close structural match and two comparable universe profiles.
+          If you understood this system, continue with:
         </p>
 
         <ul className="w-full space-y-3" aria-label="Related universes">

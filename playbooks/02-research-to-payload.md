@@ -108,6 +108,12 @@ Write the core payload directly. Follow the structural profile targets in `docs/
   "themeColors": { "primary": "...", "secondary": "...", ... },
   "visualizationHint": "timeline|node-graph|counter-tree|affinity-matrix|standard-cards",
   "visualizationReason": "One sentence: why this renderer fits this system.",
+  "hero": {
+    "systemType": "counterplay|relational|timeline|affinity|general|hybrid|causal",
+    "microHook": "One-line intrigue hook.",
+    "thesis": "1-2 line system thesis.",
+    "primarySystemType": "power_engine|entity_db|factions|core_laws"
+  },
   "powerSystem": [...],
   "characters": [...],
   "factions": [...],
@@ -119,6 +125,12 @@ Write the core payload directly. Follow the structural profile targets in `docs/
   }
 }
 ```
+
+Hero contract constraints:
+- Keep `hero.microHook` short (target <=95 chars).
+- Keep `hero.thesis` compressed (target <=140 chars).
+- `hero.primarySystemType` drives the primary hero CTA tab destination.
+- Full spec: `docs/universe_hero_spec.md`.
 
 **See `playbooks/06-payload-field-reference.md` for all required sub-fields**, including the 9 `themeColors` keys, 12 character fields, enum constraints, and `rankings` structure.
 
