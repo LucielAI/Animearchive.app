@@ -15,7 +15,7 @@ import { useShareFrame } from './hooks/useShareFrame'
 import { getClassificationLabel } from './utils/getClassificationLabel'
 import { deriveBullets } from './utils/deriveBullets'
 import { getBestEntryConfig, getRelatedUniverseSuggestions } from './utils/discovery'
-import { getBackgroundMotif, getRevealOverlay, getSysWarningColors } from './config/universePresentation'
+import { getBackgroundMotif, getRevealOverlay } from './config/universePresentation'
 import { UNIVERSE_CATALOG } from './data/index'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
@@ -91,8 +91,12 @@ export default function Dashboard({ data }) {
   const classLabel = getClassificationLabel(data?.visualizationHint)
   const shareFrameBullets = useMemo(() => deriveBullets(data).slice(0, 3), [data])
   const universeIntro = useMemo(() => buildUniverseIntroduction(data), [data])
-  const headerFlavor = data?.headerFlavor
   const revealOverlay = getRevealOverlay(data?.revealOverlay)
+  const proofStrip = useMemo(() => ([
+    `${data?.powerSystem?.length || 0} Mechanics`,
+    `${data?.relationships?.length || 0} Links`,
+    `${data?.rules?.length || 0} Laws`,
+  ]), [data?.powerSystem?.length, data?.relationships?.length, data?.rules?.length])
 
   const handleJumpToSection = (tabIndex, sectionId) => {
     const normalizedTabIndex = Number.isInteger(tabIndex)
@@ -208,64 +212,60 @@ export default function Dashboard({ data }) {
         )}
       </div>
 
-      {/* Header */}
+      {/* Hero: first viewport reset */}
       <header
-        className="pt-14 pb-6 px-6 relative"
+        className="relative min-h-[100svh] px-6 pt-14 pb-12 flex items-center"
         style={{ background: `radial-gradient(ellipse at center, ${theme.heroGradient} 0%, transparent 100%)` }}
       >
-        <div className="absolute inset-0 bg-linear-to-b from-[#050508]/20 to-transparent pointer-events-none" />
-        <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center md:items-start text-center md:text-left gap-4 md:flex-row md:justify-between">
-          <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex flex-wrap items-center gap-2 md:gap-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.3em] font-bold text-white/50 bg-white/5 backdrop-blur-xl">
+        <div className="absolute inset-0 bg-linear-to-b from-[#050508]/10 via-[#050508]/60 to-[#050508] pointer-events-none" />
+        <div className="max-w-6xl mx-auto relative z-10 w-full">
+          <div className="max-w-3xl flex flex-col gap-6 md:gap-7">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-full text-[10px] tracking-[0.28em] font-bold text-white/65 bg-white/5 backdrop-blur-xl uppercase">
                 <span className={`w-1.5 h-1.5 rounded-full ${isSystemMode ? 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)]' : 'bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.6)]'}`} />
-                ARCHIVE ACTIVE <span className="text-white/20 mx-1">|</span> ID: {data?.malId}
-              </div>
-              <div
-                className="px-2 py-1 rounded text-[9px] font-bold tracking-[0.25em] border backdrop-blur-md"
-                style={{ color: theme.primary, borderColor: `${theme.primary}40`, backgroundColor: `${theme.primary}10` }}
-              >
-                {getClassificationLabel(data?.visualizationHint)}
+                Archive Active · {classLabel}
               </div>
             </div>
-            
-            {data?.logoUrl && (
-              <img src={data.logoUrl} alt={`${animeName} official logo artwork`} className="h-16 md:h-20 object-contain mt-2 mb-1 drop-shadow-lg" />
-            )}
 
-            {!data?.logoUrl && (
-              <h1 
-                key={isSystemMode ? 'sys' : 'lore'} 
-                className={`text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter uppercase transition-colors duration-700 ${isRevealing && revealStep === 1 ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent'} mt-2`}
-              >
-                {animeName}
-              </h1>
-            )}
+            <h1
+              key={isSystemMode ? 'sys' : 'lore'}
+              className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase leading-[0.95] transition-colors duration-700 ${isRevealing && revealStep === 1 ? 'text-white drop-shadow-[0_0_14px_rgba(255,255,255,0.55)]' : 'text-white'}`}
+            >
+              {animeName}
+            </h1>
 
-            {/* Casual Discovery Hook */}
-            <p className="text-xs md:text-md text-gray-300 tracking-widest italic max-w-xl font-sans mt-1 border-l-2 pl-3" style={{ borderLeftColor: theme.secondary }}>
-              "{data?.tagline}"
+            <p className="text-sm md:text-base text-gray-200/95 max-w-2xl">
+              {data?.visualizationReason || data?.tagline}
             </p>
 
-            {headerFlavor && isSystemMode && (() => {
-              const colors = getSysWarningColors(headerFlavor.sysWarningColor)
-              return (
-                <div className={`flex items-center gap-2 text-[10px] ${colors.text} tracking-widest mt-2 rounded ${colors.bg} px-3 py-1.5 border ${colors.border}`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} animate-pulse ${colors.dotGlow}`} />
-                  <span>{headerFlavor.sysWarning}</span>
+            <div className="inline-flex w-fit items-center gap-2 md:gap-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-3 py-1.5">
+              {proofStrip.map((item, index) => (
+                <div key={item} className="flex items-center gap-2">
+                  {index > 0 && <span className="h-3 w-px bg-white/20" />}
+                  <span className="text-[10px] md:text-[11px] font-bold tracking-[0.22em] uppercase text-white/75">{item}</span>
                 </div>
-              )
-            })()}
-            {headerFlavor && !isSystemMode && (
-              <div className="flex items-center gap-2 text-[10px] text-gray-400/70 tracking-widest mt-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
-                <span>"{headerFlavor.loreQuote}"</span>
-              </div>
-            )}
-          </div>
+              ))}
+            </div>
 
-          <div className="w-full md:w-auto mt-2 md:mt-0 relative z-20 shrink-0">
-            <Toggle isSystemMode={isSystemMode} setIsSystemMode={setIsSystemMode} theme={theme} />
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <button
+                onClick={() => handleJumpToSection(bestEntry.tabIndex, 'analysis-start')}
+                className="px-5 py-3 min-h-[44px] rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border transition-all duration-300"
+                style={{ borderColor: `${theme.primary}80`, color: '#020617', backgroundColor: theme.primary, boxShadow: `0 0 24px ${theme.glow}` }}
+              >
+                Open {TABS[bestEntry.tabIndex]}
+              </button>
+              <button
+                onClick={isRevealing ? cancelReveal : startReveal}
+                className={`px-5 py-3 min-h-[44px] rounded-full text-[10px] font-bold tracking-[0.2em] uppercase border transition-all duration-400 ${
+                  isRevealing
+                    ? 'bg-red-500/10 text-red-300 border-red-400/30 hover:bg-red-500/20'
+                    : 'bg-white/5 text-gray-200 border-white/20 hover:bg-white/10'
+                }`}
+              >
+                {isRevealing ? 'Cancel Sequence' : 'Reveal the System'}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -297,19 +297,10 @@ export default function Dashboard({ data }) {
       {/* 5-Bullet System Summary */}
       <SystemSummary data={data} isSystemMode={isSystemMode} theme={theme} revealStep={revealStep} isRevealing={isRevealing} />
 
-      {/* Start Here */}
-      <div className="max-w-6xl mx-auto px-6 mt-3 mb-4 share-frame-hide">
-        <div className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center rounded-full border border-cyan-300/30 bg-cyan-400/10 px-2.5 py-1 text-[9px] font-bold tracking-[0.2em] uppercase text-cyan-200">
-            Start Here
-          </span>
-          <p className="text-[11px] text-gray-300 leading-relaxed grow min-w-[220px]">{bestEntry.label}</p>
-          <button
-            onClick={() => setActiveTab(bestEntry.tabIndex)}
-            className="px-3 py-1.5 min-h-[44px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 text-[10px] tracking-[0.18em] uppercase text-gray-200"
-          >
-            Open {TABS[bestEntry.tabIndex]}
-          </button>
+      <div className="max-w-6xl mx-auto px-6 mt-2 mb-5 share-frame-hide flex items-start justify-between gap-4 flex-wrap">
+        <div className="text-[10px] text-gray-500 tracking-[0.18em] uppercase">{bestEntry.label}</div>
+        <div className="w-full md:w-auto">
+          <Toggle isSystemMode={isSystemMode} setIsSystemMode={setIsSystemMode} theme={theme} />
         </div>
       </div>
 
@@ -375,29 +366,6 @@ export default function Dashboard({ data }) {
           <Camera className="w-3.5 h-3.5" />
           SHARE FRAME
         </button>
-        <button
-          onClick={isRevealing ? cancelReveal : startReveal}
-          className={`group flex items-center gap-3 px-5 py-2.5 rounded-full text-xs font-bold tracking-[0.2em] transition-all duration-500 border backdrop-blur-md uppercase cursor-pointer min-h-[44px] ${
-            isRevealing
-              ? 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.2)]'
-              : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white hover:border-cyan-400/50'
-          }`}
-          style={{
-            boxShadow: !isRevealing ? `0 0 10px ${isSystemMode ? theme.secondary : theme.primary}20` : undefined
-          }}
-        >
-          {isRevealing ? (
-            <>
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-              CANCEL SEQUENCE
-            </>
-          ) : (
-            <>
-              <span className="w-0 overflow-hidden group-hover:w-auto transition-all duration-300">▶</span>
-              REVEAL THE SYSTEM
-            </>
-          )}
-        </button>
       </div>
 
       {/* AI Insight Panel */}
@@ -406,7 +374,7 @@ export default function Dashboard({ data }) {
       </div>
 
       {/* Navigation Tabs */}
-      <nav className="max-w-6xl mx-auto px-6 mb-3 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide share-frame-hide">
+      <nav id="analysis-start" className="max-w-6xl mx-auto px-6 mb-3 mt-4 flex overflow-x-auto relative flex-nowrap border-b border-white/5 scrollbar-hide share-frame-hide">
         {TABS.map((tab, idx) => {
           const isActive = activeTab === idx
           const activeColor = isSystemMode ? theme.secondary : theme.primary
