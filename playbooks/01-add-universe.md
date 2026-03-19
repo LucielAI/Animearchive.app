@@ -55,6 +55,7 @@ Required fields (enforced by `validateCorePayload` as **hard errors**):
 - `themeColors` — object with 9 required keys (see `playbooks/06-payload-field-reference.md`)
 - `visualizationHint` — one of: `timeline`, `node-graph`, `counter-tree`, `affinity-matrix`, `standard-cards`
 - `visualizationReason` — one sentence explaining the renderer choice
+- `hero` — `{ systemType, microHook, thesis, primarySystemType }` — strongly required for shared hero contract (warnings if missing; runtime fallback exists)
 - `powerSystem`, `characters`, `factions`, `rules`, `rankings` — all required arrays/objects
 - `aiInsights` — `{ casual: string, deep: string }` — required on every core payload
 - `headerFlavor` — `{ loreQuote, sysWarning, sysWarningColor }` — optional but expected

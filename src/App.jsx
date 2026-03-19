@@ -171,10 +171,11 @@ function Home() {
       <SeoHead {...seo} structuredData={structuredData} />
 
       <header className="w-full relative py-20 md:py-24 px-6 border-b border-white/5 flex flex-col items-center text-center" style={{ background: 'radial-gradient(ellipse at center, #0d0d1f 0%, #050508 100%)' }}>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter uppercase mb-3 bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent">
+        <p className="text-[10px] md:text-xs text-cyan-300/80 tracking-[0.24em] uppercase font-bold mb-3">Archive Active · System Intelligence Index</p>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase mb-3 text-white leading-[0.96]">
           Anime Architecture Archive
         </h1>
-        <p className="text-sm md:text-base text-cyan-400/60 tracking-[0.25em] uppercase font-bold">Anime Systems Analysis Archive</p>
+        <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Anime Systems Analysis Archive</p>
         <p className="mt-6 text-xs md:text-sm text-gray-300/80 max-w-2xl leading-relaxed">
           Browse a structured anime archive of universe systems. Compare power mechanics, faction structures, and causal constraints through curated archive pathways built for fans.
         </p>

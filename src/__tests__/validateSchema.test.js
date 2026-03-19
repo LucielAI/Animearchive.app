@@ -219,6 +219,24 @@ describe('validateCorePayload', () => {
     expect(warnings.some(w => w.includes('thin'))).toBe(true)
   })
 
+  it('warns when hero contract is missing', () => {
+    const { warnings } = validateCorePayload(makePayload())
+    expect(warnings.some(w => w.includes('hero is missing'))).toBe(true)
+  })
+
+  it('warns when hero hook and thesis exceed target lengths', () => {
+    const { warnings } = validateCorePayload(makePayload({
+      hero: {
+        systemType: 'relational',
+        microHook: 'x'.repeat(110),
+        thesis: 'y'.repeat(180),
+        primarySystemType: 'entity_db'
+      }
+    }))
+    expect(warnings.some(w => w.includes('hero.microHook is too long'))).toBe(true)
+    expect(warnings.some(w => w.includes('hero.thesis is too long'))).toBe(true)
+  })
+
 
   it('does not throw when systemQuestions contains malformed entries', () => {
     expect(() => validateCorePayload(makePayload({

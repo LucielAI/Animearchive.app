@@ -605,5 +605,11 @@
       "sectionId": "entity-database-heading",
       "tabLabel": "Entity Database"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "HxH is defined by conditional alliances, asymmetric information, and binding contractual power — the node-graph maps the strategic web wher…",
+    "primarySystemType": "entity_db"
+  }
 }

@@ -46,6 +46,9 @@ export default function EntityDatabaseTab({ data, isSystemMode, theme, revealSte
         <p className="text-xs text-gray-500 leading-relaxed mb-5">
           The entity graph maps key actors and their links so you can inspect control flow, dependencies, and conflict pressure without needing prior story context.
         </p>
+        <p className="text-[11px] text-cyan-200/85 tracking-[0.12em] uppercase mb-3">
+          Start here: inspect how control flows between key actors.
+        </p>
       {/* Main visualization */}
       <p className="text-[10px] text-gray-500 mb-3" id="entity-graph-caption">
         {visualizationCaption}

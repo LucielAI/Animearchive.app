@@ -434,5 +434,11 @@
       "sectionId": "causal-events-heading",
       "tabLabel": "Core Laws"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Because the universe's topology is defined by shifting strategic interdependence, profound mirror relationships, and the difficult severing…",
+    "primarySystemType": "entity_db"
+  }
 }

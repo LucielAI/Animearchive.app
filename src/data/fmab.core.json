@@ -572,5 +572,11 @@
       "sectionId": "power-system-heading",
       "tabLabel": "Power Engine"
     }
-  ]
+  ],
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "FMAB is structurally defined by parasitic control networks — Father routes energy through a hidden layer beneath Amestris, homunculi enforc…",
+    "primarySystemType": "entity_db"
+  }
 }

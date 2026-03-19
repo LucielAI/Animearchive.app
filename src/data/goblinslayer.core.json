@@ -604,5 +604,11 @@
       "tabLabel": "Power Engine"
     }
   ],
-  "animeImageUrl": "https://myanimelist.net/images/anime/1719/95621l.jpg"
+  "animeImageUrl": "https://myanimelist.net/images/anime/1719/95621l.jpg",
+  "hero": {
+    "systemType": "relational",
+    "microHook": "Track control edges before reading motives.",
+    "thesis": "Goblin Slayer is driven by dependency edges between frontier villages, guild bureaucracy, faith-casters, and specialist operators; the node…",
+    "primarySystemType": "entity_db"
+  }
 }

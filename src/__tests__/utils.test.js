@@ -3,6 +3,7 @@ import { deriveBullets } from '../utils/deriveBullets'
 import { getClassificationLabel } from '../utils/getClassificationLabel'
 import { resolveColor } from '../utils/resolveColor'
 import { computeRadialPositions } from '../utils/radialLayout'
+import { getHeroContract } from '../utils/heroContract'
 
 describe('deriveBullets', () => {
   it('returns empty array for empty data', () => {
@@ -129,5 +130,47 @@ describe('computeRadialPositions', () => {
 
   it('handles empty array', () => {
     expect(computeRadialPositions([], 0, 0, 10)).toEqual([])
+  })
+})
+
+describe('getHeroContract', () => {
+  it('builds hero metadata from explicit hero fields', () => {
+    const hero = getHeroContract({
+      id: 'sample',
+      anime: 'Sample',
+      visualizationHint: 'counter-tree',
+      hero: {
+        systemType: 'counterplay',
+        microHook: 'Counter windows define outcomes.',
+        thesis: 'Combat is resolved through explicit exploit/counter chains.',
+        primarySystemType: 'power_engine',
+      },
+      powerSystem: [{}, {}],
+      relationships: [{}],
+      rules: [{}, {}, {}],
+    }, 2)
+
+    expect(hero.title).toBe('Sample')
+    expect(hero.systemType).toBe('counterplay')
+    expect(hero.primaryTabIndex).toBe(0)
+    expect(hero.mechanicsCount).toBe(2)
+    expect(hero.linksCount).toBe(1)
+    expect(hero.lawsCount).toBe(3)
+  })
+
+  it('falls back deterministically when hero block is missing', () => {
+    const hero = getHeroContract({
+      id: 'fallback',
+      anime: 'Fallback',
+      visualizationHint: 'timeline',
+      visualizationReason: 'A long-form causal chain where each intervention shifts downstream state.',
+      powerSystem: [],
+      relationships: [],
+      rules: [],
+    }, 3)
+
+    expect(hero.systemType).toBe('causal')
+    expect(hero.primaryTabIndex).toBe(1)
+    expect(hero.thesis.length).toBeLessThanOrEqual(125)
   })
 })
