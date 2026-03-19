@@ -85,7 +85,10 @@ export function buildUniverseSeo(preview) {
   }
 }
 
-export function buildHomeStructuredData(catalog = []) {
+export function buildHomeStructuredData(catalog = [], options = {}) {
+  const featuredUniverses = options.featuredUniverses || []
+  const structureGroups = options.structureGroups || []
+
   return [
     {
       '@context': 'https://schema.org',
@@ -109,6 +112,29 @@ export function buildHomeStructuredData(catalog = []) {
         '@type': 'CreativeWork',
         name: `${entry.anime} System Analysis`,
         url: `${SITE_URL}/universe/${entry.id}`,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Top Featured Archive Systems',
+      itemListOrder: 'https://schema.org/ItemListOrderAscending',
+      numberOfItems: featuredUniverses.length,
+      itemListElement: featuredUniverses.map((entry, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${SITE_URL}/universe/${entry.id}`,
+        name: entry.anime,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Explore by System Structure',
+      itemListElement: structureGroups.map((group, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: `${group.label} (${group.count})`,
       })),
     },
     {

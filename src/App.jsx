@@ -1,7 +1,7 @@
 import { useEffect, lazy, Suspense, useMemo, useState } from 'react'
 import { Routes, Route, useNavigate, useParams, Link, useLocation, useSearchParams } from 'react-router-dom'
 import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug, warmUniverseBySlug } from './data/index.js'
-import { ExternalLink, ArrowRight, Star, ListFilter, Search } from 'lucide-react'
+import { ExternalLink, ArrowRight, Star, ListFilter, Search, Compass, Route as RouteIcon, LibraryBig } from 'lucide-react'
 import { getClassificationLabel } from './utils/getClassificationLabel'
 import SeoHead from './components/SeoHead'
 import {
@@ -13,8 +13,16 @@ import {
   buildCatalogStructuredData,
   SITE_NAME
 } from './utils/seo'
-import { getFeaturedUniverses, sortCatalogUniverses, filterCatalogUniverses, incrementUniverseLocalView, getDiscoveryClusters, getRelatedUniverseSuggestions } from './utils/discovery'
+import { sortCatalogUniverses, filterCatalogUniverses, incrementUniverseLocalView, getDiscoveryClusters, getRelatedUniverseSuggestions } from './utils/discovery'
 import { DISCOVERY_CLUSTERS } from './data/discoveryMetadata'
+import {
+  getHomepageFeaturedUniverses,
+  getHomepageRequestCandidates,
+  getSystemStructureGroups,
+  getHomepageContinuation,
+  getHomepageClusterLinks,
+  getHomepageBrowsePreview,
+} from './config/homepageContract'
 
 const Dashboard = lazy(() => import('./Dashboard'))
 const CommunityPulse = lazy(() => import('./components/CommunityPulse'))
@@ -146,8 +154,6 @@ function FeaturedPrimaryCard({ entry, className = '', priority = false }) {
 
 function Home() {
   const [sortMode, setSortMode] = useState('latest')
-  const seo = buildHomeSeo(UNIVERSE_CATALOG)
-  const structuredData = buildHomeStructuredData(UNIVERSE_CATALOG)
   const [deferSecondary, setDeferSecondary] = useState(false)
 
   useEffect(() => {
@@ -157,12 +163,17 @@ function Home() {
     return () => cancelIdleTask(token)
   }, [])
 
-  const sortedUniverses = useMemo(() => sortCatalogUniverses(UNIVERSE_CATALOG, sortMode), [sortMode])
-  const previewUniverses = sortedUniverses.slice(0, 6)
-  const featuredUniverses = useMemo(() => getFeaturedUniverses(UNIVERSE_CATALOG, 3), [])
-  const primaryFeatured = featuredUniverses[0]
-  const secondaryFeatured = featuredUniverses.slice(1)
-  const discoveryClusters = useMemo(() => getDiscoveryClusters(UNIVERSE_CATALOG).slice(0, 4), [])
+  const featuredUniverses = useMemo(() => getHomepageFeaturedUniverses(UNIVERSE_CATALOG, 3), [])
+  const structureGroups = useMemo(() => getSystemStructureGroups(UNIVERSE_CATALOG, 6), [])
+  const continuation = useMemo(() => getHomepageContinuation(UNIVERSE_CATALOG), [deferSecondary])
+  const clusterLinks = useMemo(() => getHomepageClusterLinks(UNIVERSE_CATALOG, 4), [])
+  const previewUniverses = useMemo(() => getHomepageBrowsePreview(UNIVERSE_CATALOG, sortMode, 6), [sortMode])
+  const requestCandidates = useMemo(() => getHomepageRequestCandidates(UNIVERSE_CATALOG, 6).map((row) => row.anime), [])
+  const seo = buildHomeSeo(UNIVERSE_CATALOG)
+  const structuredData = buildHomeStructuredData(UNIVERSE_CATALOG, {
+    featuredUniverses,
+    structureGroups,
+  })
 
   const totalEntities = UNIVERSE_CATALOG.reduce((sum, a) => sum + (a.stats?.characters || 0), 0)
 
@@ -177,9 +188,14 @@ function Home() {
         </h1>
         <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Anime Systems Analysis Archive</p>
         <p className="mt-6 text-xs md:text-sm text-gray-300/80 max-w-2xl leading-relaxed">
-          Browse a structured anime archive of universe systems. Compare power mechanics, faction structures, and causal constraints through curated archive pathways built for fans.
+          Enter the archive through system architecture first: compare relational control networks, counterplay engines, and timeline causality pathways before drilling into individual universes.
         </p>
-        <div className="mt-8 text-[10px] text-white/30 tracking-widest uppercase flex flex-wrap justify-center gap-4">
+        <nav aria-label="Homepage section shortcuts" className="mt-7 flex flex-wrap justify-center gap-2">
+          <a href="#explore-system-structure" className="px-3 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] tracking-[0.16em] uppercase text-gray-300 hover:text-white hover:border-cyan-300/40">Explore Structures</a>
+          <a href="#featured-archive-systems" className="px-3 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] tracking-[0.16em] uppercase text-gray-300 hover:text-white hover:border-cyan-300/40">Top Featured</a>
+          <a href="#continue-next-paths" className="px-3 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] tracking-[0.16em] uppercase text-gray-300 hover:text-white hover:border-cyan-300/40">Next Paths</a>
+        </nav>
+        <div className="mt-6 text-[10px] text-white/30 tracking-widest uppercase flex flex-wrap justify-center gap-4">
           <span>[{UNIVERSE_CATALOG.length}] Universes</span>
           <span>[{totalEntities}] Entities</span>
           <span><Link to="/universes" className="text-cyan-300 hover:text-white transition-colors">Open Universe Catalog →</Link></span>
@@ -187,46 +203,93 @@ function Home() {
       </header>
 
       <main id="main-content">
-      <section className="max-w-6xl mx-auto px-6 py-10" aria-labelledby="featured-archives-heading">
+      <section id="explore-system-structure" className="max-w-6xl mx-auto px-6 py-10" aria-labelledby="explore-structure-heading">
         <div className="flex items-center gap-2 mb-4">
-          <Star className="w-4 h-4 text-cyan-300" />
-          <h2 id="featured-archives-heading" className="text-sm font-bold tracking-[0.2em] uppercase">Featured Archive Systems</h2>
+          <Compass className="w-4 h-4 text-cyan-300" />
+          <h2 id="explore-structure-heading" className="text-sm font-bold tracking-[0.2em] uppercase">Explore by System Structure</h2>
         </div>
-
-        {primaryFeatured && (
-          <>
-            <div className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <FeaturedPrimaryCard entry={primaryFeatured} className="lg:col-span-2" priority />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                {secondaryFeatured.map((entry, index) => <UniverseLinkCard key={entry.id} data={entry} compact priorityImage={index === 0} />)}
-              </div>
-            </div>
-
-            <div className="lg:hidden -mx-1 px-1 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex gap-3 w-max pr-1">
-                <FeaturedPrimaryCard entry={primaryFeatured} priority className="snap-start w-[88vw] max-w-[460px] shrink-0" />
-                {secondaryFeatured.map((entry, index) => (
-                  <div key={entry.id} className="snap-start w-[78vw] max-w-[360px] shrink-0">
-                    <UniverseLinkCard data={entry} compact priorityImage={index === 0} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
-        )}
+        <p className="text-xs text-gray-400 mb-4 max-w-3xl">
+          Start from architecture type instead of title. Each pathway maps to live archive metadata and automatically expands as new universes are integrated.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {structureGroups.map((group) => (
+            <Link
+              key={group.key}
+              to="/universes"
+              className="rounded-xl border border-white/10 bg-white/5 p-4 hover:border-cyan-300/40 transition-colors"
+            >
+              <p className="text-[10px] tracking-[0.2em] uppercase text-cyan-200 mb-1">{group.label}</p>
+              <p className="text-[11px] text-gray-400 leading-relaxed">{group.description}</p>
+              <p className="mt-3 text-[10px] tracking-[0.16em] uppercase text-gray-300">{group.count} universes</p>
+            </Link>
+          ))}
+        </div>
       </section>
 
+      <section id="featured-archive-systems" className="max-w-6xl mx-auto px-6 pb-8" aria-labelledby="featured-archives-heading">
+        <div className="flex items-center gap-2 mb-4">
+          <Star className="w-4 h-4 text-cyan-300" />
+          <h2 id="featured-archives-heading" className="text-sm font-bold tracking-[0.2em] uppercase">Top Featured Systems</h2>
+        </div>
+        <p className="text-xs text-gray-400 mb-4">Stable top-three ranking based on discovery metadata priority with deterministic fallback ordering.</p>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {featuredUniverses.map((entry, index) => (
+            index === 0
+              ? <FeaturedPrimaryCard key={entry.id} entry={entry} priority className="md:col-span-2" />
+              : <UniverseLinkCard key={entry.id} data={entry} compact priorityImage={index === 1} />
+          ))}
+        </div>
+      </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-2" aria-labelledby="cluster-pathways-heading">
+      <section id="continue-next-paths" className="max-w-6xl mx-auto px-6 pb-8" aria-labelledby="continue-pathways-heading">
         <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 md:px-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-            <h2 id="cluster-pathways-heading" className="text-sm text-cyan-300 tracking-[0.2em] uppercase font-bold">Browse by System Structure</h2>
-            <Link to="/universes" className="text-[10px] tracking-[0.16em] uppercase text-gray-400 hover:text-white">View full catalog →</Link>
+            <h2 id="continue-pathways-heading" className="text-sm text-cyan-300 tracking-[0.2em] uppercase font-bold">Continue / Recommended Next Paths</h2>
+            <Link to="/universes" className="text-[10px] tracking-[0.16em] uppercase text-gray-400 hover:text-white">Explore full map →</Link>
           </div>
-          <p className="text-[11px] text-gray-400 mb-3">Quick paths into related anime universes without opening the full catalog.</p>
+          <p className="text-[11px] text-gray-400 mb-3">
+            {continuation.continueEntry
+              ? `Continue from your latest visited system: ${continuation.continueEntry.anime}.`
+              : 'No local continue history yet. Start with editor picks, then return for guided comparisons.'}
+          </p>
+          {continuation.continueEntry && (
+            <div className="mb-3">
+              <Link
+                to={`/universe/${continuation.continueEntry.id}`}
+                className="inline-flex items-center gap-2 min-h-[40px] px-3 py-2 rounded-full border border-cyan-300/40 bg-cyan-400/10 hover:border-cyan-300/60 text-[10px] tracking-[0.16em] uppercase text-gray-100 transition-colors"
+              >
+                <RouteIcon className="w-3.5 h-3.5" />
+                Continue {continuation.continueEntry.anime}
+              </Link>
+            </div>
+          )}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {continuation.nextComparisons.map((row) => (
+              <Link
+                key={row.entry.id}
+                to={`/universe/${row.entry.id}`}
+                className="inline-flex items-center gap-2 min-h-[40px] px-3 py-2 rounded-full border border-white/10 bg-[#090b14] hover:border-cyan-300/40 text-[10px] tracking-[0.16em] uppercase text-gray-200 transition-colors"
+              >
+                <span>{row.entry.anime}</span>
+                <span className="text-gray-500 normal-case tracking-normal">{row.reason}</span>
+              </Link>
+            ))}
+          </div>
           <div className="flex flex-wrap gap-2">
-            {discoveryClusters.map(cluster => (
+            {continuation.editorPicks.map((entry) => (
+              <Link
+                key={entry.id}
+                to={`/universe/${entry.id}`}
+                className="inline-flex items-center gap-2 min-h-[40px] px-3 py-2 rounded-full border border-emerald-300/30 bg-emerald-500/5 hover:border-emerald-300/50 text-[10px] tracking-[0.16em] uppercase text-gray-200 transition-colors"
+              >
+                <LibraryBig className="w-3.5 h-3.5 text-emerald-300" />
+                Editor pick: {entry.anime}
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {clusterLinks.map((cluster) => (
               <Link
                 key={cluster.key}
                 to={`/universes?cluster=${cluster.key}`}
@@ -274,11 +337,15 @@ function Home() {
 
       {deferSecondary && (
         <Suspense fallback={null}>
-          <CommunityPulse />
+          <CommunityPulse quickVoteCandidates={requestCandidates} />
         </Suspense>
       )}
 
       <footer className="mt-12 pb-10 flex flex-col items-center gap-4 font-mono relative z-10">
+        <div className="max-w-4xl text-center px-6">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-cyan-300/80">System Exploration Engine</p>
+          <p className="text-[11px] text-gray-400 mt-2">Use this hub to enter via structure, compare system families, and route into universe-level analysis with machine-readable paths.</p>
+        </div>
         <div className="flex flex-wrap justify-center gap-3">
           <a href="https://www.tiktok.com/@hashi.ai" target="_blank" rel="noreferrer" className="group flex items-center gap-2.5 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/30 rounded-full transition-all duration-300">
             <span className="text-[10px] font-bold tracking-[0.2em] text-gray-300 group-hover:text-white transition-colors uppercase">@HASHI.AI</span>

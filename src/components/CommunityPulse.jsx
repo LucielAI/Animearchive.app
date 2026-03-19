@@ -3,16 +3,7 @@ import { Flame, HeartHandshake, Radio, Send } from 'lucide-react'
 
 const SUPPORT_URL = 'https://buymeacoffee.com/hashiai'
 
-const NEXT_UNIVERSE_CANDIDATES = [
-  'Naruto',
-  'One Piece',
-  'Chainsaw Man',
-  'Bleach',
-  'Monster',
-  'Frieren'
-]
-
-export default function CommunityPulse() {
+export default function CommunityPulse({ quickVoteCandidates = [] }) {
   const [customSuggestion, setCustomSuggestion] = useState('')
   const [loadingChoice, setLoadingChoice] = useState('')
   const [status, setStatus] = useState(null)
@@ -49,19 +40,19 @@ export default function CommunityPulse() {
   }
 
   return (
-    <section className="max-w-6xl mx-auto px-6 mt-4 mb-12">
+    <section className="max-w-6xl mx-auto px-6 mt-4 mb-12" aria-labelledby="community-pulse-heading">
       <div className="rounded-xl border border-white/5 bg-[#0a0a10] p-5 md:p-6">
         <div className="flex items-center gap-2 mb-3">
           <Radio className="w-4 h-4 text-cyan-400" />
-          <h2 className="text-[11px] tracking-[0.25em] uppercase font-bold text-white/80">Community Pulse</h2>
+          <h2 id="community-pulse-heading" className="text-[11px] tracking-[0.25em] uppercase font-bold text-white/80">Community Pulse / Request Queue</h2>
         </div>
 
         <p className="text-xs text-gray-400 leading-relaxed mb-4">
-          Vote on which anime universe should be archived next, or send a custom request.
+          Vote on the next archive target from the current requestable queue, or send a custom universe request.
         </p>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {NEXT_UNIVERSE_CANDIDATES.map((candidate) => (
+          {quickVoteCandidates.length > 0 ? quickVoteCandidates.map((candidate) => (
             <button
               key={candidate}
               onClick={() => submitSuggestion(candidate)}
@@ -70,7 +61,9 @@ export default function CommunityPulse() {
             >
               {loadingChoice === candidate ? 'Saving...' : candidate}
             </button>
-          ))}
+          )) : (
+            <p className="text-[11px] text-gray-500">Request queue is being refreshed. Use the custom request field below.</p>
+          )}
         </div>
 
         <form
