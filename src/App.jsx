@@ -190,14 +190,14 @@ function Home() {
     <div className="min-h-screen bg-[#050508] text-white font-mono selection:bg-cyan-500/30 overflow-x-hidden relative">
       <SeoHead {...seo} structuredData={structuredData} />
 
-      <header className="w-full relative py-20 md:py-24 px-6 border-b border-white/5 flex flex-col items-center text-center" style={{ background: 'radial-gradient(ellipse at center, #0d0d1f 0%, #050508 100%)' }}>
+      <header className="w-full relative py-20 md:py-24 px-6 border-b border-white/5 flex flex-col items-center text-center" style={{ background: 'radial-gradient(ellipse at center, #101634 0%, #050508 100%)' }}>
         <p className="text-[10px] md:text-xs text-cyan-300/80 tracking-[0.24em] uppercase font-bold mb-3">Archive Active · System Intelligence Index</p>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase mb-3 text-white leading-[0.96]">
-          Anime Architecture Archive
+          Analyze Anime Power Systems
         </h1>
-        <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Anime Systems Analysis Archive</p>
+        <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Compare Anime Worlds by Strategy, Control, and Worldbuilding Logic</p>
         <p className="mt-6 text-xs md:text-sm text-gray-300/80 max-w-2xl leading-relaxed">
-          Explore anime by how their systems work, then jump straight into the universe that matches your style.
+          Find the best anime systems, compare anime power systems side-by-side, and explore the mechanics behind each world in minutes.
         </p>
         <div className="mt-7 flex flex-col items-center gap-3">
           <a
@@ -215,13 +215,19 @@ function Home() {
       </header>
 
       <main id="main-content">
+      <section className="max-w-5xl mx-auto px-6 pt-6 pb-2" aria-label="Anime analysis overview">
+        <p className="text-[11px] text-gray-500 leading-relaxed">
+          Anime Architecture Archive is an anime analysis and anime comparison platform built for fans who care about power systems, combat logic, and worldbuilding structure.
+          Instead of browsing by title alone, you can compare anime systems by relationship networks, counterplay mechanics, and timeline causality.
+        </p>
+      </section>
       <section id="explore-system-structure" className="max-w-6xl mx-auto px-6 pt-12 pb-10" aria-labelledby="explore-structure-heading">
         <div className="flex items-center gap-2 mb-4">
           <Compass className="w-4 h-4 text-cyan-300" />
           <h2 id="explore-structure-heading" className="text-sm font-bold tracking-[0.2em] uppercase">Explore by System Structure</h2>
         </div>
         <p className="text-xs text-gray-400 mb-5 max-w-2xl">
-          Choose a system style first, then open the universes built around that structure.
+          Pick a system style to start exploring.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {structureGroups.map((group) => {
@@ -231,16 +237,16 @@ function Home() {
             <Link
               key={group.key}
               to="/universes"
-              className={`rounded-xl border bg-white/5 p-4 md:p-5 min-h-[132px] transition-all ${visual.tone}`}
+              className={`group rounded-xl border bg-white/5 p-4 md:p-5 min-h-[132px] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.01] ${visual.tone}`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
-                <p className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] tracking-[0.14em] uppercase ${visual.badge}`}>
+                <h3 className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] tracking-[0.14em] uppercase ${visual.badge}`}>
                   <Icon className="w-3.5 h-3.5" />
                   {group.label}
-                </p>
+                </h3>
                 <span className="text-[10px] text-gray-300 tracking-[0.14em] uppercase">{group.count}</span>
               </div>
-              <p className="text-[11px] text-gray-300/90 leading-relaxed">{group.description}</p>
+              <p className="text-[11px] text-gray-300/90 leading-relaxed group-hover:text-gray-200">{group.description}</p>
             </Link>
             )
           })}
@@ -248,7 +254,7 @@ function Home() {
       </section>
       <div className="max-w-6xl mx-auto px-6"><div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent" /></div>
 
-      <section id="featured-archive-systems" className="max-w-6xl mx-auto px-6 pt-10 pb-9" aria-labelledby="featured-archives-heading">
+      <section id="featured-archive-systems" className="max-w-6xl mx-auto px-6 pt-9 pb-8" aria-labelledby="featured-archives-heading">
         <div className="flex items-center gap-2 mb-4">
           <Star className="w-4 h-4 text-cyan-300" />
           <h2 id="featured-archives-heading" className="text-sm font-bold tracking-[0.2em] uppercase">Featured Starting Points</h2>
@@ -265,7 +271,7 @@ function Home() {
       </section>
       <div className="max-w-6xl mx-auto px-6"><div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent" /></div>
 
-      <section id="continue-next-paths" className="max-w-6xl mx-auto px-6 pt-9 pb-8" aria-labelledby="continue-pathways-heading">
+      <section id="continue-next-paths" className="max-w-6xl mx-auto px-6 pt-8 pb-7" aria-labelledby="continue-pathways-heading">
         <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 md:px-5">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <h2 id="continue-pathways-heading" className="text-sm text-cyan-300 tracking-[0.2em] uppercase font-bold">Continue / Recommended Next Paths</h2>

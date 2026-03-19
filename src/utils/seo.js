@@ -26,12 +26,13 @@ function buildUniverseDescription(preview) {
 
 export function buildHomeSeo(catalog = []) {
   const description = truncate(
-    `Anime Architecture Archive is a curated anime analysis archive for fictional worlds. Explore ${catalog.length}+ universe pages with power system breakdowns, faction structures, hierarchy dynamics, and cross-universe comparisons.`
+    `Explore anime power systems, anime analysis, and anime comparison in one archive. Compare ${catalog.length}+ anime worlds for strategy, combat logic, and worldbuilding structure.`
   )
 
   return {
-    title: SITE_NAME,
+    title: `Anime Power Systems Analysis Archive | Compare Anime Worlds`,
     description,
+    keywords: 'anime power systems, anime analysis, anime comparison, best anime systems, anime worldbuilding',
     canonicalUrl: `${SITE_URL}/`,
     image: DEFAULT_OG_IMAGE,
     type: 'website',
