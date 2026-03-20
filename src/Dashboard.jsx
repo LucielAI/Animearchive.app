@@ -498,6 +498,53 @@ export default function Dashboard({ data }) {
           </p>
         </div>
       )}
+      {/* Mobile Sticky Footer - My Hero Academia */}
+      {data?.id === 'mha' && (
+        <div className={`fixed bottom-[max(env(safe-area-inset-bottom),0px)] left-0 right-0 p-3 bg-black/88 backdrop-blur-xl border-t border-cyan-400/30 z-50 md:hidden transition-all duration-300 ${
+          showMonetizationBar ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}>
+          <div className="max-w-6xl mx-auto flex items-center justify-between px-3">
+            <div className="flex items-center gap-3">
+              <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1z"/>
+              </svg>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-white">Own the Complete Series</span>
+                <span className="text-[9px] text-gray-400">Blu-ray • Digital • All Seasons</span>
+              </div>
+            </div>
+            <a
+              href="https://www.amazon.com/dp/B0BP8Z6C52/ref=cm_sw_r_as_gl_apa_gl_i_CWK2N3JQY2M09VFD8XA1?linkCode=ml1&tag=hashiai-20&linkId=715f5e7c6b7b543316cb761fbcbaab77"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                trackAffiliateClick('mha-amazon', 'mha', 'amazon')
+              }}
+              className="text-[11px] font-bold tracking-[0.18em] uppercase text-cyan-400 hover:text-cyan-300 py-2 px-3 bg-cyan-400/10 hover:bg-cyan-400/20 rounded-full transition-colors"
+            >
+              Buy Now
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Subtle Link - My Hero Academia */}
+      {data?.id === 'mha' && (
+        <div className="max-w-6xl mx-auto px-6 mt-8 mb-12 mb-16 md:mb-24">
+          <p className="text-center text-xs text-gray-500">
+            <span className="text-gray-500">Continue your watch:</span>
+            <a
+              href="https://www.amazon.com/dp/B0BP8Z6C52/ref=cm_sw_r_as_gl_apa_gl_i_CWK2N3JQY2M09VFD8XA1?linkCode=ml1&tag=hashiai-20&linkId=715f5e7c6b7b543316cb761fbcbaab77"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackAffiliateClick('mha-amazon', 'mha', 'amazon')}
+              className="text-cyan-400 hover:text-cyan-300 font-bold tracking-wide"
+            >
+              Get My Hero Academia on Amazon →
+            </a>
+          </p>
+        </div>
+      )}
       {/* Why This Lens? */}
       <WhyThisRenderer data={data} isSystemMode={isSystemMode} theme={theme} revealStep={revealStep} isRevealing={isRevealing} />
 
