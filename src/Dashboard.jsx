@@ -467,7 +467,7 @@ export default function Dashboard({ data }) {
               </div>
             </div>
             <a
-              href="https://www.amazon.com/dp/B09V3LK3BQ?linkCode=ml1&tag=hashiai-20"
+              href="https://amzn.to/40FGy0n?linkCode=ml1&tag=hashiai-20"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {
@@ -487,7 +487,7 @@ export default function Dashboard({ data }) {
           <p className="text-center text-xs text-gray-500">
             <span className="text-gray-500">Continue your watch:</span>
             <a
-              href="https://www.amazon.com/dp/B09V3LK3BQ?linkCode=ml1&tag=hashiai-20"
+              href="https://amzn.to/40FGy0n?linkCode=ml1&tag=hashiai-20"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackAffiliateClick('jjk-amazon', 'jujutsu-kaisen', 'amazon')}
