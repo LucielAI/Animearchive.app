@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense, useMemo, useState } from 'react'
+import { useEffect, lazy, Suspense, useMemo, useState, useRef } from 'react'
 import { Routes, Route, useNavigate, useParams, Link, useLocation, useSearchParams } from 'react-router-dom'
 import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug, warmUniverseBySlug } from './data/index.js'
 import { ExternalLink, ArrowRight, Star, ListFilter, Search, Compass, Route as RouteIcon, LibraryBig, Network, ShieldAlert, Clock3, Landmark, Repeat2, Coins } from 'lucide-react'
@@ -29,6 +29,7 @@ import {
 import NotFound from './components/NotFound'
 import About from './components/About'
 import Privacy from './components/Privacy'
+import CompareRoute from './components/CompareRoute'
 import { trackExternalLink } from './utils/analytics'
 
 const Dashboard = lazy(() => import('./Dashboard'))
@@ -81,10 +82,23 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
   const classLabel = getClassificationLabel(data.visualizationHint)
   const isCatalogDense = density === 'catalog'
   const [imageFailed, setImageFailed] = useState(false)
+  const [viewCount, setViewCount] = useState(0)
+
+  // Prefetch universe data on hover
+  const linkRef = useRef(null)
+  const handleMouseEnter = () => warmUniverseBySlug(data.id)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const stored = JSON.parse(window.localStorage.getItem('archive:views') || '{}')
+    setViewCount(Number(stored[data.id] || 0))
+  }, [data.id])
 
   return (
     <Link
+      ref={linkRef}
       to={`/universe/${data.id}`}
+      onMouseEnter={handleMouseEnter}
       className="group cursor-pointer bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 relative flex flex-col focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
       style={{ border: `1px solid ${theme.primary}` }}
     >
@@ -106,6 +120,12 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
           <div className="w-full h-full" style={{ background: `radial-gradient(ellipse at 50% 40%, ${theme.primary}15 0%, transparent 60%), linear-gradient(160deg, #0a0a14 0%, #0d0f1a 50%, ${theme.primary}0a 100%)` }} />
         )}
         <div className="absolute inset-0 bg-linear-to-t from-[#050508] to-transparent pointer-events-none" />
+        {viewCount > 0 && (
+          <div className="absolute top-2 right-2 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-black/60 backdrop-blur-sm text-[9px] text-gray-400 font-mono">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            {viewCount.toLocaleString()}
+          </div>
+        )}
       </div>
 
       <div className={`grow flex flex-col justify-end p-4 md:p-6`}>
@@ -121,8 +141,8 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
 
 
 function FeaturedPrimaryCard({ entry, className = '', priority = false }) {
-  if (!entry) return null
   const [imageFailed, setImageFailed] = useState(false)
+  if (!entry) return null
 
   return (
     <Link
@@ -185,6 +205,16 @@ function Home() {
   const [sortMode, setSortMode] = useState('latest')
   const [deferSecondary, setDeferSecondary] = useState(false)
   const [compareLeftId, setCompareLeftId] = useState(UNIVERSE_CATALOG[0]?.id || '')
+  const [lastViewed, setLastViewed] = useState(null)
+
+  // Get last viewed universe for returning visitor
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const last = String(window.localStorage.getItem('anime-archive:last-viewed:v1') || '').trim().toLowerCase()
+    if (last && UNIVERSE_CATALOG_MAP[last]) {
+      setLastViewed(UNIVERSE_CATALOG_MAP[last])
+    }
+  }, [])
   const [compareRightId, setCompareRightId] = useState(UNIVERSE_CATALOG[1]?.id || '')
 
   useEffect(() => {
@@ -248,6 +278,28 @@ function Home() {
               </svg>
               Follow @hashi.ai
             </a>
+          </div>
+
+          {/* Returning visitor: pick up where you left off */}
+          {lastViewed && (
+            <div className="mt-4 flex items-center gap-3 px-4 py-2.5 rounded-xl border border-cyan-400/20 bg-cyan-400/5 backdrop-blur-sm">
+              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <p className="text-[10px] text-gray-400">
+                <span className="text-cyan-300">Continue reading: </span>
+                <Link to={`/universe/${lastViewed.id}`} className="text-white underline underline-offset-2 hover:text-cyan-300 transition-colors">
+                  {lastViewed.anime}
+                </Link>
+              </p>
+            </div>
+          )}
+
+          {/* Archive stats bar */}
+          <div className="mt-5 flex flex-wrap justify-center gap-4 text-[10px] text-gray-500 tracking-widest uppercase">
+            <span>{UNIVERSE_CATALOG.length} Universes</span>
+            <span className="text-white/10">·</span>
+            <span>{UNIVERSE_CATALOG.reduce((s, a) => s + (a.stats?.characters || 0), 0)} Characters</span>
+            <span className="text-white/10">·</span>
+            <span>{new Set(UNIVERSE_CATALOG.map((a) => a.visualizationHint)).size} System Types</span>
           </div>
         </div>
         <div className="mt-5 text-[10px] text-white/30 tracking-widest uppercase flex flex-wrap justify-center gap-4">
@@ -351,7 +403,12 @@ function Home() {
           <div className="mb-4 rounded-xl border border-white/10 bg-[#080a12] p-3 md:p-4">
             <div className="flex items-center justify-between gap-2 mb-2">
               <p className="text-[10px] uppercase tracking-[0.18em] text-cyan-200">Compare systems</p>
-              <p className="text-[10px] text-gray-500 uppercase tracking-[0.14em]">Pick any two</p>
+              <Link
+                to={`/compare?left=${compareLeftId}&right=${compareRightId}`}
+                className="text-[9px] uppercase tracking-[0.14em] text-gray-500 hover:text-cyan-400 transition-colors"
+              >
+                Full comparison →
+              </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
               <select value={compareLeftId} onChange={(e) => setCompareLeftId(e.target.value)} className="h-10 rounded-lg border border-white/10 bg-black/30 px-2 text-xs">
@@ -510,7 +567,7 @@ function UniversesCatalogRoute() {
   const [visibleCount, setVisibleCount] = useState(12)
   const [searchParams] = useSearchParams()
   const activeCluster = searchParams.get('cluster') || ''
-  const seo = buildCatalogSeo(UNIVERSE_CATALOG)
+  const seo = buildCatalogSeo(UNIVERSE_CATALOG, { activeCluster, sortMode: sortMode !== 'latest' ? sortMode : '' })
   const structuredData = buildCatalogStructuredData(UNIVERSE_CATALOG)
   const clusterOptions = useMemo(() => getDiscoveryClusters(UNIVERSE_CATALOG), [])
   const activeClusterMeta = clusterOptions.find((cluster) => cluster.key === activeCluster) || null
@@ -609,6 +666,20 @@ function UniversesCatalogRoute() {
             </button>
           </div>
         )}
+
+        {/* Request a Universe CTA */}
+        <div className="mt-12 rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-6 text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-cyan-300 mb-2">Missing a universe?</p>
+          <p className="text-xs text-gray-400 mb-4">Know an anime that would make a great system analysis? Submit it and we'll prioritize the most-requested universes.</p>
+          <a
+            href="https://www.tiktok.com/@hashi.ai"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 text-[#020617] font-bold text-[10px] tracking-[0.2em] uppercase hover:bg-cyan-300 transition-colors"
+          >
+            Request on TikTok →
+          </a>
+        </div>
       </main>
     </div>
   )
@@ -748,6 +819,7 @@ export default function App() {
         <Route path="/universe/:id" element={<UniverseRoute />} />
         <Route path="/about" element={<About />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/compare" element={<CompareRoute />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {telemetry.SpeedInsights && <telemetry.SpeedInsights />}
