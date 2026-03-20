@@ -22,6 +22,9 @@ import {
   getHomepageContinuation,
   getHomepageClusterLinks,
   getHomepageBrowsePreview,
+  getHomepageQuickInsights,
+  buildUniverseComparison,
+  getHomepageHighlightLeaders,
 } from './config/homepageContract'
 
 const Dashboard = lazy(() => import('./Dashboard'))
@@ -164,6 +167,8 @@ const STRUCTURE_VISUALS = {
 function Home() {
   const [sortMode, setSortMode] = useState('latest')
   const [deferSecondary, setDeferSecondary] = useState(false)
+  const [compareLeftId, setCompareLeftId] = useState(UNIVERSE_CATALOG[0]?.id || '')
+  const [compareRightId, setCompareRightId] = useState(UNIVERSE_CATALOG[1]?.id || '')
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -178,6 +183,13 @@ function Home() {
   const clusterLinks = useMemo(() => getHomepageClusterLinks(UNIVERSE_CATALOG, 4), [])
   const previewUniverses = useMemo(() => getHomepageBrowsePreview(UNIVERSE_CATALOG, sortMode, 6), [sortMode])
   const requestCandidates = useMemo(() => getHomepageRequestCandidates(UNIVERSE_CATALOG, 6).map((row) => row.anime), [])
+  const quickInsights = useMemo(() => getHomepageQuickInsights(UNIVERSE_CATALOG, 3), [])
+  const highlights = useMemo(() => getHomepageHighlightLeaders(UNIVERSE_CATALOG), [])
+  const comparison = useMemo(() => {
+    const left = UNIVERSE_CATALOG.find((entry) => entry.id === compareLeftId)
+    const right = UNIVERSE_CATALOG.find((entry) => entry.id === compareRightId)
+    return buildUniverseComparison(left, right)
+  }, [compareLeftId, compareRightId])
   const seo = buildHomeSeo(UNIVERSE_CATALOG)
   const structuredData = buildHomeStructuredData(UNIVERSE_CATALOG, {
     featuredUniverses,
@@ -268,6 +280,35 @@ function Home() {
               : <UniverseLinkCard key={entry.id} data={entry} compact priorityImage={index === 1} />
           ))}
         </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {featuredUniverses.map((entry) => (
+            <span key={entry.id} className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] tracking-[0.14em] uppercase text-gray-300">
+              {entry.id === highlights.mostComplexId && 'Most Complex · '}
+              {entry.id === highlights.mostStrategicId && 'Most Strategic · '}
+              {entry.anime}
+            </span>
+          ))}
+        </div>
+      </section>
+      <div className="max-w-6xl mx-auto px-6"><div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent" /></div>
+
+      <section className="max-w-6xl mx-auto px-6 pt-8 pb-7" aria-labelledby="quick-insights-heading">
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <h2 id="quick-insights-heading" className="text-sm text-cyan-300 tracking-[0.2em] uppercase font-bold">Quick Insights</h2>
+          <span className="text-[10px] text-gray-500 uppercase tracking-[0.16em]">Easy to share</span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {quickInsights.map((item) => (
+            <Link
+              key={item.id}
+              to={`/universe/${item.id}`}
+              className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:border-cyan-300/40 transition-colors"
+            >
+              <p className="text-[10px] text-cyan-200 uppercase tracking-[0.16em] mb-2">{item.anime}</p>
+              <p className="text-xs text-gray-200 leading-relaxed">“{item.insight}”</p>
+            </Link>
+          ))}
+        </div>
       </section>
       <div className="max-w-6xl mx-auto px-6"><div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent" /></div>
 
@@ -276,6 +317,32 @@ function Home() {
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <h2 id="continue-pathways-heading" className="text-sm text-cyan-300 tracking-[0.2em] uppercase font-bold">Where to Go Next</h2>
             <Link to="/universes" className="text-[10px] tracking-[0.16em] uppercase text-gray-400 hover:text-white">See all titles →</Link>
+          </div>
+          <div className="mb-4 rounded-xl border border-white/10 bg-[#080a12] p-3">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-cyan-200">Compare systems</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
+              <select value={compareLeftId} onChange={(e) => setCompareLeftId(e.target.value)} className="h-10 rounded-lg border border-white/10 bg-black/30 px-2 text-xs">
+                {UNIVERSE_CATALOG.map((entry) => <option key={entry.id} value={entry.id}>{entry.anime}</option>)}
+              </select>
+              <select value={compareRightId} onChange={(e) => setCompareRightId(e.target.value)} className="h-10 rounded-lg border border-white/10 bg-black/30 px-2 text-xs">
+                {UNIVERSE_CATALOG.map((entry) => <option key={entry.id} value={entry.id}>{entry.anime}</option>)}
+              </select>
+            </div>
+            {comparison && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+                {[comparison.left, comparison.right].map((side) => (
+                  <div key={side.id} className="rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-cyan-200 mb-1">{side.anime}</p>
+                    <p className="text-gray-300">Power type: <span className="text-white">{side.powerSystemType}</span></p>
+                    <p className="text-gray-300">Combat: <span className="text-white">{side.combatStyle}</span></p>
+                    <p className="text-gray-300">Complexity: <span className="text-white">{side.complexity}</span></p>
+                    <p className="text-gray-300">Style: <span className="text-white">{side.strategyVsRaw}</span></p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <p className="text-[11px] text-gray-400 mb-3">
             {continuation.continueEntry

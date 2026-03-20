@@ -41,6 +41,8 @@ npm run validate:catalog
 ## Manual QA Checklist
 
 - [ ] Section order is Hero → Explore → Featured → Continue → Browse → Community → Footer
+- [ ] Quick Insights cards render short, screenshot-friendly lines
+- [ ] Compare systems entry allows selecting 2 universes and shows quick fields
 - [ ] Featured shows stable top 3 across refreshes
 - [ ] Quick-vote queue excludes already implemented universes
 - [ ] Mobile layout has no half-card/awkward featured interaction

@@ -6,6 +6,9 @@ import {
   getSystemStructureGroups,
   HOMEPAGE_SECTION_ORDER,
   REQUESTABLE_UNIVERSE_POOL,
+  getHomepageQuickInsights,
+  buildUniverseComparison,
+  getHomepageHighlightLeaders,
 } from '../config/homepageContract'
 
 describe('homepage contract', () => {
@@ -14,6 +17,7 @@ describe('homepage contract', () => {
       'hero',
       'explore-by-system-structure',
       'featured-archive-systems',
+      'quick-insights',
       'continue-next-paths',
       'browse-universes',
       'community-pulse',
@@ -43,5 +47,25 @@ describe('homepage contract', () => {
 
     const isSubsetOfPool = quickVotes.every((candidate) => REQUESTABLE_UNIVERSE_POOL.some((pool) => pool.slug === candidate.slug))
     expect(isSubsetOfPool).toBe(true)
+  })
+
+  it('builds short quick insight lines for shareable cards', () => {
+    const insights = getHomepageQuickInsights(UNIVERSE_CATALOG, 3)
+    expect(insights.length).toBe(3)
+    expect(insights[0].insight.length).toBeGreaterThan(20)
+  })
+
+  it('builds a lightweight 2-title comparison payload', () => {
+    const left = UNIVERSE_CATALOG.find((entry) => entry.id === 'jjk')
+    const right = UNIVERSE_CATALOG.find((entry) => entry.id === 'aot')
+    const comparison = buildUniverseComparison(left, right)
+    expect(comparison.left.powerSystemType.length).toBeGreaterThan(0)
+    expect(comparison.right.complexity).toBeGreaterThan(0)
+  })
+
+  it('returns engagement highlight leaders', () => {
+    const leaders = getHomepageHighlightLeaders(UNIVERSE_CATALOG)
+    expect(leaders.mostComplexId).toBeTruthy()
+    expect(leaders.mostStrategicId).toBeTruthy()
   })
 })

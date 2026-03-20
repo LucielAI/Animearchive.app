@@ -1,11 +1,13 @@
 import { DISCOVERY_CLUSTERS, DISCOVERY_METADATA } from '../data/discoveryMetadata'
 import { preferredOrder } from '../data/catalog'
 import { getFeaturedUniverses, getLastViewedUniverseId, getRelatedUniverseSuggestions, sortCatalogUniverses } from '../utils/discovery'
+import { getClassificationLabel } from '../utils/getClassificationLabel'
 
 export const HOMEPAGE_SECTION_ORDER = [
   'hero',
   'explore-by-system-structure',
   'featured-archive-systems',
+  'quick-insights',
   'continue-next-paths',
   'browse-universes',
   'community-pulse',
@@ -156,6 +158,87 @@ export function getHomepageClusterLinks(catalog, limit = 4) {
 
 export function getHomepageBrowsePreview(catalog, sortMode = 'latest', size = 6) {
   return sortCatalogUniverses(catalog, sortMode).slice(0, Math.max(1, size))
+}
+
+function complexityScore(entry) {
+  const stats = entry?.stats || {}
+  return (stats.characters || 0) + (stats.powerSystem || 0) * 2 + (stats.rules || 0) * 2
+}
+
+function strategyScore(entry) {
+  const stats = entry?.stats || {}
+  const hint = entry?.visualizationHint
+  const hintBoost = hint === 'node-graph' || hint === 'timeline' ? 3 : hint === 'counter-tree' ? 2 : 1
+  return (stats.rules || 0) * 2 + (stats.powerSystem || 0) + hintBoost
+}
+
+function combatStyleFromHint(hint) {
+  if (hint === 'counter-tree') return 'Counter-heavy, matchup-driven fights'
+  if (hint === 'node-graph') return 'Mind games, alliances, and role matchups'
+  if (hint === 'timeline') return 'Cause-and-effect battles with long payoff'
+  if (hint === 'affinity-matrix') return 'Synergy and compatibility-focused clashes'
+  return 'Balanced combat and role-based power clashes'
+}
+
+function strategyVsRawLabel(entry) {
+  const stats = entry?.stats || {}
+  const strategic = (stats.rules || 0) + (entry?.visualizationHint === 'timeline' ? 2 : 0) + (entry?.visualizationHint === 'node-graph' ? 1 : 0)
+  const raw = Math.max(1, (stats.powerSystem || 0) + (entry?.visualizationHint === 'counter-tree' ? 1 : 0))
+  if (strategic - raw >= 2) return 'Leans strategic'
+  if (raw - strategic >= 2) return 'Leans raw power'
+  return 'Balanced strategy and power'
+}
+
+export function buildUniverseComparison(left, right) {
+  if (!left || !right) return null
+
+  return {
+    left: {
+      id: left.id,
+      anime: left.anime,
+      powerSystemType: getClassificationLabel(left.visualizationHint),
+      combatStyle: combatStyleFromHint(left.visualizationHint),
+      complexity: complexityScore(left),
+      strategyVsRaw: strategyVsRawLabel(left),
+    },
+    right: {
+      id: right.id,
+      anime: right.anime,
+      powerSystemType: getClassificationLabel(right.visualizationHint),
+      combatStyle: combatStyleFromHint(right.visualizationHint),
+      complexity: complexityScore(right),
+      strategyVsRaw: strategyVsRawLabel(right),
+    },
+  }
+}
+
+export function getHomepageHighlightLeaders(catalog) {
+  if (!catalog.length) return {}
+
+  const mostComplex = [...catalog].sort((a, b) => complexityScore(b) - complexityScore(a))[0]
+  const mostStrategic = [...catalog].sort((a, b) => strategyScore(b) - strategyScore(a))[0]
+
+  return {
+    mostComplexId: mostComplex?.id || '',
+    mostStrategicId: mostStrategic?.id || '',
+  }
+}
+
+export function getHomepageQuickInsights(catalog, count = 3) {
+  const pool = getHomepageFeaturedUniverses(catalog, 3).concat(sortCatalogUniverses(catalog, 'most-viewed').slice(0, 3))
+  const unique = []
+  const seen = new Set()
+  for (const entry of pool) {
+    if (seen.has(entry.id)) continue
+    seen.add(entry.id)
+    unique.push(entry)
+  }
+
+  return unique.slice(0, Math.max(1, count)).map((entry) => ({
+    id: entry.id,
+    anime: entry.anime,
+    insight: `${entry.anime} uses a ${strategyVsRawLabel(entry).toLowerCase()} style with ${combatStyleFromHint(entry.visualizationHint).toLowerCase()}.`,
+  }))
 }
 
 export function getFeaturedSourceOfTruthSummary() {

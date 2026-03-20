@@ -36,6 +36,19 @@ Returns cluster shortcuts (`/universes?cluster=*`) with counts.
 ### `getHomepageBrowsePreview(catalog, sortMode, size)`
 Returns sorted browse preview slice for homepage grid.
 
+### `getHomepageQuickInsights(catalog, count)`
+Returns short, screenshot-friendly insight lines for featured/popular universes.
+
+### `buildUniverseComparison(left, right)`
+Builds lightweight two-title comparison fields:
+- power system type
+- combat style
+- complexity
+- strategy vs raw power
+
+### `getHomepageHighlightLeaders(catalog)`
+Returns IDs for engagement highlights (`mostComplexId`, `mostStrategicId`).
+
 ### `REQUESTABLE_UNIVERSE_POOL`
 Deterministic quick-vote candidate source. Optional `isArchived` support.
 

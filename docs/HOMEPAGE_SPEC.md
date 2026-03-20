@@ -9,10 +9,11 @@ Homepage sections must render in this exact order:
 1. Hero
 2. Explore by System Structure
 3. Top Featured Systems
-4. Continue / Recommended Next Paths
-5. Browse Universes
-6. Community Pulse / Request Queue
-7. Footer / Support / Follow
+4. Quick Insights
+5. Continue / Recommended Next Paths
+6. Browse Universes
+7. Community Pulse / Request Queue
+8. Footer / Support / Follow
 
 Source of truth: `src/config/homepageContract.js` (`HOMEPAGE_SECTION_ORDER`).
 
@@ -68,6 +69,7 @@ The continuation section must expose:
 - Continue path: last viewed universe (from local storage)
 - Next comparisons: related universes + relation reason
 - Editor picks: deterministic fallback picks from featured set
+- Compare entry: lightweight 2-title compare surface for power type, combat style, complexity, and strategy-vs-power
 
 Data sources:
 - `incrementUniverseLocalView()` writes last viewed id
@@ -96,6 +98,7 @@ Homepage should include:
 - explicit internal links to `/universes` and `/universe/:slug`,
 - structured data for website + collection + featured item list + structure item list,
 - plain-language explanatory copy for retrieval systems.
+- screenshot-friendly quick insight blocks with short factual lines.
 
 Primary implementation:
 - `src/App.jsx`
