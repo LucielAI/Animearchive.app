@@ -20,7 +20,7 @@ import { getBestEntryConfig, getRelatedUniverseSuggestions } from './utils/disco
 import { getHeroContract } from './utils/heroContract'
 import { getBackgroundMotif, getRevealOverlay } from './config/universePresentation'
 import { UNIVERSE_CATALOG } from './data/index'
-import { trackCTAClick, trackOpenSystem, trackScrollDepth, trackHeroVisibility, trackShareFrame } from './utils/analytics'
+import { trackCTAClick, trackOpenSystem, trackScrollDepth, trackHeroVisibility, trackShareFrame, trackExternalLink } from './utils/analytics'
 
 const TABS = ['POWER ENGINE', 'ENTITY DATABASE', 'FACTIONS', 'CORE LAWS']
 
@@ -84,6 +84,7 @@ export default function Dashboard({ data }) {
   const heroRef = useRef(null)
   const [isHeroVisible, setIsHeroVisible] = useState(true)
   const [showMonetizationBar, setShowMonetizationBar] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   const bestEntry = useMemo(() => getBestEntryConfig(data?.id, data?.visualizationHint), [data?.id, data?.visualizationHint])
   const relatedUniverses = useMemo(() => getRelatedUniverseSuggestions(UNIVERSE_CATALOG, data?.id, 3), [data?.id])
@@ -125,6 +126,18 @@ export default function Dashboard({ data }) {
       saveNavState(data.id, activeTab, window.scrollY);
     };
   }, [data?.id, activeTab]);
+
+  // Scroll-to-top button visibility
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > window.innerHeight)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined' || !heroRef.current) return undefined
@@ -566,6 +579,20 @@ export default function Dashboard({ data }) {
         </button>
       </div>
 
+      {/* Scroll to Top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className={`fixed right-5 bottom-[max(env(safe-area-inset-bottom),24px)] z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-xl transition-all duration-300 cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center share-frame-hide ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+        style={{ color: theme.primary }}
+        aria-label="Scroll to top"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="18 15 12 9 6 15" />
+        </svg>
+      </button>
+
       {/* AI Insight Panel */}
       <div className="share-frame-hide">
         <AIInsightPanel aiInsights={data?.aiInsights} theme={theme} isSystemMode={isSystemMode} revealStep={revealStep} isRevealing={isRevealing} />
@@ -643,6 +670,7 @@ export default function Dashboard({ data }) {
               href={`https://myanimelist.net/anime/${data.malId}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackExternalLink('myanimelist', `https://myanimelist.net/anime/${data.malId}`)}
               className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300"
               style={{ color: theme.primary }}
             >
@@ -654,6 +682,7 @@ export default function Dashboard({ data }) {
             href="https://www.tiktok.com/@hashi.ai"
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackExternalLink('tiktok', 'https://www.tiktok.com/@hashi.ai')}
             className="group flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-400/30 rounded-full transition-all duration-300"
           >
             <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-cyan-400 group-hover:text-white transition-colors" fill="currentColor">
@@ -667,6 +696,7 @@ export default function Dashboard({ data }) {
             href={SUPPORT_URL}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackExternalLink('buymeacoffee', SUPPORT_URL)}
             className="group flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-emerald-400/30 rounded-full transition-all duration-300"
           >
             <HeartHandshake className="w-3.5 h-3.5 text-emerald-400 group-hover:text-white transition-colors" />
