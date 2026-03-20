@@ -1,4 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
+import { loadNavState, saveNavState } from './utils/navState.js'
+import { throttle } from './utils/throttle.js'
 import { Link } from 'react-router-dom'
 import { ExternalLink, Camera, X, Network, HeartHandshake } from 'lucide-react'
 import Toggle from './components/Toggle'
@@ -87,9 +89,42 @@ export default function Dashboard({ data }) {
   const relatedUniverses = useMemo(() => getRelatedUniverseSuggestions(UNIVERSE_CATALOG, data?.id, 3), [data?.id])
   const bestParallel = relatedUniverses[0]
 
+  // Load nav state on mount
   useEffect(() => {
-    setActiveTab(bestEntry.tabIndex)
-  }, [bestEntry.tabIndex, data?.id])
+    if (!data?.id || typeof window === 'undefined') return;
+
+    const nav = loadNavState(data.id);
+    if (nav && Number.isInteger(nav.tabIndex)) {
+      setActiveTab(Math.max(0, Math.min(3, nav.tabIndex)));
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: nav.scrollY || 0, behavior: 'auto' });
+      });
+    } else {
+      setActiveTab(bestEntry.tabIndex);
+    }
+  }, [data?.id, bestEntry.tabIndex]);
+
+  // Save on tab change
+  useEffect(() => {
+    if (!data?.id || typeof window === 'undefined') return;
+    saveNavState(data.id, activeTab, window.scrollY);
+  }, [data?.id, activeTab]);
+
+  // Save on scroll (throttled)
+  useEffect(() => {
+    if (!data?.id || typeof window === 'undefined') return;
+
+    const handleScroll = throttle(() => {
+      saveNavState(data.id, activeTab, window.scrollY);
+    }, 500);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      saveNavState(data.id, activeTab, window.scrollY);
+    };
+  }, [data?.id, activeTab]);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !heroRef.current) return undefined

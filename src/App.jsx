@@ -64,7 +64,9 @@ function RouteScrollReset() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    window.scrollTo({ top: 0, behavior: 'auto' })
+    if (!location.pathname.startsWith('/universe/')) {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+    }
   }, [location.pathname])
 
   return null
@@ -102,7 +104,7 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
         <div className="absolute inset-0 bg-linear-to-t from-[#050508] to-transparent pointer-events-none" />
       </div>
 
-      <div className={`grow flex flex-col justify-end ${isCatalogDense ? 'p-3.5' : 'p-4'}`}>
+      <div className={`grow flex flex-col justify-end p-4 md:p-6`}>
         <div className="inline-flex items-center self-start px-2 py-0.5 rounded text-[8px] font-bold tracking-[0.2em] uppercase mb-2 border" style={{ color: theme.primary, borderColor: `${theme.primary}40`, backgroundColor: `${theme.primary}10` }}>
           {classLabel}
         </div>
@@ -352,9 +354,9 @@ function Home() {
                   { label: 'System Type', left: comparison.left.powerSystemType, right: comparison.right.powerSystemType },
                   { label: 'Combat Style', left: comparison.left.combatStyle, right: comparison.right.combatStyle },
                   { label: 'Complexity', left: String(comparison.left.complexity), right: String(comparison.right.complexity) },
-                  { label: 'Strategy vs Power', left: comparison.left.strategyVsRaw, right: comparison.right.strategyVsRaw },
+                  { label: 'Strategy | Power', left: comparison.left.strategyVsRaw, right: comparison.right.strategyVsRaw },
                 ].map((row) => (
-                  <div key={row.label} className="grid grid-cols-1 md:grid-cols-[160px_1fr_1fr] border-b border-white/10 last:border-b-0">
+                  <div key={row.label} className="grid grid-cols-1 md:grid-cols-[160px_1fr_1fr] border-b border-white/10 last:border-b-0 hover:bg-white/5">
                     <p className="px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20">{row.label}</p>
                     <p className="px-3 py-2 text-[11px] text-gray-200">{row.left}</p>
                     <p className="px-3 py-2 text-[11px] text-gray-200 border-l border-white/10">{row.right}</p>
