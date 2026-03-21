@@ -90,17 +90,15 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
   const classLabel = getClassificationLabel(data.visualizationHint)
   const isCatalogDense = density === 'catalog'
   const [imageFailed, setImageFailed] = useState(false)
-  const [viewCount, setViewCount] = useState(0)
+  const [viewCount] = useState(() => {
+    if (typeof window === 'undefined') return 0
+    const stored = JSON.parse(window.localStorage.getItem('archive:views') || '{}')
+    return Number(stored[data.id] || 0)
+  })
 
   // Prefetch universe data on hover
   const linkRef = useRef(null)
   const handleMouseEnter = () => warmUniverseBySlug(data.id)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const stored = JSON.parse(window.localStorage.getItem('archive:views') || '{}')
-    setViewCount(Number(stored[data.id] || 0))
-  }, [data.id])
 
   return (
     <Link
@@ -213,16 +211,11 @@ function Home() {
   const [sortMode, setSortMode] = useState('latest')
   const [deferSecondary, setDeferSecondary] = useState(false)
   const [compareLeftId, setCompareLeftId] = useState(UNIVERSE_CATALOG[0]?.id || '')
-  const [lastViewed, setLastViewed] = useState(null)
-
-  // Get last viewed universe for returning visitor
-  useEffect(() => {
-    if (typeof window === 'undefined') return
+  const [lastViewed] = useState(() => {
+    if (typeof window === 'undefined') return null
     const last = String(window.localStorage.getItem('anime-archive:last-viewed:v1') || '').trim().toLowerCase()
-    if (last && UNIVERSE_CATALOG_MAP[last]) {
-      setLastViewed(UNIVERSE_CATALOG_MAP[last])
-    }
-  }, [])
+    return last && UNIVERSE_CATALOG_MAP[last] ? UNIVERSE_CATALOG_MAP[last] : null
+  })
   const [compareRightId, setCompareRightId] = useState(UNIVERSE_CATALOG[1]?.id || '')
 
   useEffect(() => {
