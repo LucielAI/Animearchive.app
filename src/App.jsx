@@ -592,10 +592,6 @@ function UniversesCatalogRoute() {
   const visible = filtered.slice(0, visibleCount)
   const canLoadMore = visibleCount < filtered.length
 
-  useEffect(() => {
-    setVisibleCount(12)
-  }, [search, sortMode, activeCluster])
-
   return (
     <div className="min-h-screen bg-[#050508] text-white font-mono px-6 py-14">
       <SeoHead {...seo} structuredData={structuredData} />
