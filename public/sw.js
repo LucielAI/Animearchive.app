@@ -1,6 +1,6 @@
 const CACHE_NAME = 'anime-archive-v1'
 
-self.addEventListener('install', (_event) => {
+self.addEventListener('install', () => {
   self.skipWaiting()
 })
 
