@@ -314,10 +314,6 @@ function Home() {
             <span>{new Set(UNIVERSE_CATALOG.map((a) => a.visualizationHint)).size} System Types</span>
           </div>
         </div>
-        <div className="mt-5 text-[10px] text-white/30 tracking-widest uppercase flex flex-wrap justify-center gap-4">
-          <span>[{UNIVERSE_CATALOG.length}] Universes</span>
-          <span>[{totalEntities}] Entities</span>
-        </div>
       </header>
 
       <main id="main-content">

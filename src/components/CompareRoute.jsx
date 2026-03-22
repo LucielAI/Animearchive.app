@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP } from '../data/index.js'
+import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug } from '../data/index.js'
 import SeoHead from './SeoHead'
 import { getClassificationLabel } from '../utils/getClassificationLabel'
 import { SITE_NAME, SITE_URL } from '../utils/seo'
@@ -64,8 +64,31 @@ export default function CompareRoute() {
   const leftId = searchParams.get('left') || UNIVERSE_CATALOG[0]?.id || ''
   const rightId = searchParams.get('right') || UNIVERSE_CATALOG[1]?.id || ''
 
-  const left = leftId ? UNIVERSE_CATALOG_MAP[leftId] : null
-  const right = rightId ? UNIVERSE_CATALOG_MAP[rightId] : null
+  const [leftData, setLeftData] = useState(null)
+  const [rightData, setRightData] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  // Load actual universe core payloads (not just catalog metadata)
+  useEffect(() => {
+    if (!leftId && !rightId) return
+    setLoading(true)
+    Promise.all([
+      leftId ? loadUniverseBySlug(leftId) : Promise.resolve(null),
+      rightId ? loadUniverseBySlug(rightId) : Promise.resolve(null),
+    ]).then(([l, r]) => {
+      setLeftData(l)
+      setRightData(r)
+      setLoading(false)
+    }).catch(() => {
+      setLeftData(UNIVERSE_CATALOG_MAP[leftId] || null)
+      setRightData(UNIVERSE_CATALOG_MAP[rightId] || null)
+      setLoading(false)
+    })
+  }, [leftId, rightId])
+
+  // Merge catalog preview data with loaded payload data
+  const left = leftData ? { ...UNIVERSE_CATALOG_MAP[leftId], ...leftData } : null
+  const right = rightData ? { ...UNIVERSE_CATALOG_MAP[rightId], ...rightData } : null
 
   const comparisonStats = useMemo(() => getCompareStats(left, right), [left, right])
 
@@ -158,7 +181,11 @@ export default function CompareRoute() {
         )}
 
         {/* Comparison Tables */}
-        {left && right ? (
+        {loading ? (
+          <div className="text-center py-16 text-gray-500">
+            <p className="text-xs uppercase tracking-widest">Loading universe data...</p>
+          </div>
+        ) : left && right ? (
           <div className="space-y-6">
             {comparisonStats.map(({ category, icon, rows }) => (
               <div key={category} className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
