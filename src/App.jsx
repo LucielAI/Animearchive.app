@@ -645,7 +645,7 @@ function UniversesCatalogRoute() {
           </label>
         </div>
 
-        <div className="mb-6 flex flex-wrap md:flex-nowrap gap-2 overflow-x-auto snap-x [&>*]:shrink-0">
+        <div className="mb-6 flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto snap-x [&>*]:shrink-0">
           <Link
             to="/universes"
             className={`px-3 py-2.5 rounded-full text-[10px] uppercase tracking-[0.16em] border transition-colors ${activeCluster ? 'text-gray-400 border-white/10 bg-white/5 hover:text-white' : 'text-white border-cyan-300/60 bg-cyan-400/10'}`}
