@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP } from '../data/index.js'
+import { UNIVERSE_CATALOG, UNIVERSE_CATALOG_MAP, loadUniverseBySlug } from '../data/index.js'
 import SeoHead from './SeoHead'
 import { getClassificationLabel } from '../utils/getClassificationLabel'
 import { SITE_NAME, SITE_URL } from '../utils/seo'
@@ -47,15 +47,16 @@ function CompareRow({ label, left, right }) {
   const rightVal = String(right ?? '—')
   const same = leftVal === rightVal
   return (
-    <tr className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
-      <td className="px-3 py-2.5 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20 w-36 align-top">{label}</td>
-      <td className="px-3 py-2.5 text-[11px] text-gray-200 align-top">
+    <div className="flex flex-col sm:flex-row sm:items-center border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+      <div className="px-3 py-2.5 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20 w-full sm:w-36 shrink-0">{label}</div>
+      <div className="flex sm:hidden px-3 py-1.5 text-[10px] text-gray-400">{leftVal}</div>
+      <div className="hidden sm:block px-3 py-2.5 text-[11px] text-gray-200 flex-1">
         <span className={same ? 'text-gray-500' : 'text-cyan-200'}>{leftVal}</span>
-      </td>
-      <td className="px-3 py-2.5 text-[11px] text-gray-200 border-l border-white/10 align-top">
+      </div>
+      <div className="hidden sm:block px-3 py-2.5 text-[11px] text-gray-200 border-l border-white/10 flex-1">
         <span className={same ? 'text-gray-500' : 'text-cyan-200'}>{rightVal}</span>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
@@ -64,8 +65,31 @@ export default function CompareRoute() {
   const leftId = searchParams.get('left') || UNIVERSE_CATALOG[0]?.id || ''
   const rightId = searchParams.get('right') || UNIVERSE_CATALOG[1]?.id || ''
 
-  const left = leftId ? UNIVERSE_CATALOG_MAP[leftId] : null
-  const right = rightId ? UNIVERSE_CATALOG_MAP[rightId] : null
+  const [leftData, setLeftData] = useState(null)
+  const [rightData, setRightData] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  // Load actual universe core payloads (not just catalog metadata)
+  useEffect(() => {
+    if (!leftId && !rightId) return
+    setLoading(true)
+    Promise.all([
+      leftId ? loadUniverseBySlug(leftId) : Promise.resolve(null),
+      rightId ? loadUniverseBySlug(rightId) : Promise.resolve(null),
+    ]).then(([l, r]) => {
+      setLeftData(l)
+      setRightData(r)
+      setLoading(false)
+    }).catch(() => {
+      setLeftData(UNIVERSE_CATALOG_MAP[leftId] || null)
+      setRightData(UNIVERSE_CATALOG_MAP[rightId] || null)
+      setLoading(false)
+    })
+  }, [leftId, rightId])
+
+  // Merge catalog preview data with loaded payload data
+  const left = leftData ? { ...UNIVERSE_CATALOG_MAP[leftId], ...leftData } : null
+  const right = rightData ? { ...UNIVERSE_CATALOG_MAP[rightId], ...rightData } : null
 
   const comparisonStats = useMemo(() => getCompareStats(left, right), [left, right])
 
@@ -140,7 +164,7 @@ export default function CompareRoute() {
             >
               <div>
                 <p className="text-[10px] uppercase tracking-[0.14em] text-gray-500 mb-1">{left.anime}</p>
-                <p className="text-xs font-bold text-white">{left.tagline?.slice(0, 60)}…</p>
+                <p className="text-xs font-bold text-white line-clamp-2">{left.tagline}</p>
               </div>
               <ArrowRight className="w-4 h-4 text-gray-500" />
             </Link>
@@ -150,7 +174,7 @@ export default function CompareRoute() {
             >
               <div>
                 <p className="text-[10px] uppercase tracking-[0.14em] text-gray-500 mb-1">{right.anime}</p>
-                <p className="text-xs font-bold text-white">{right.tagline?.slice(0, 60)}…</p>
+                <p className="text-xs font-bold text-white line-clamp-2">{right.tagline}</p>
               </div>
               <ArrowRight className="w-4 h-4 text-gray-500" />
             </Link>
@@ -158,7 +182,11 @@ export default function CompareRoute() {
         )}
 
         {/* Comparison Tables */}
-        {left && right ? (
+        {loading ? (
+          <div className="text-center py-16 text-gray-500">
+            <p className="text-xs uppercase tracking-widest">Loading universe data...</p>
+          </div>
+        ) : left && right ? (
           <div className="space-y-6">
             {comparisonStats.map(({ category, icon, rows }) => (
               <div key={category} className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
@@ -166,13 +194,11 @@ export default function CompareRoute() {
                   <span className="text-cyan-400">{icon}</span>
                   <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-white">{category}</h2>
                 </div>
-                <table className="w-full">
-                  <tbody>
+                <div className="w-full divide-y divide-white/5">
                     {rows.map((row) => (
                       <CompareRow key={row.label} {...row} />
                     ))}
-                  </tbody>
-                </table>
+                  </div>
               </div>
             ))}
 

@@ -135,7 +135,7 @@ function UniverseLinkCard({ data, compact = false, density = 'default', priority
       </div>
 
       <div className={`grow flex flex-col justify-end p-4 md:p-6`}>
-        <div className="inline-flex items-center self-start px-2 py-0.5 rounded text-[8px] font-bold tracking-[0.2em] uppercase mb-2 border" style={{ color: theme.primary, borderColor: `${theme.primary}40`, backgroundColor: `${theme.primary}10` }}>
+        <div className="inline-flex items-center self-start px-2 py-0.5 rounded text-[10px] font-bold tracking-[0.15em] uppercase mb-2 border" style={{ color: theme.primary, borderColor: `${theme.primary}40`, backgroundColor: `${theme.primary}10` }}>
           {classLabel}
         </div>
         <h3 className={`font-bold uppercase text-white truncate ${isCatalogDense ? 'text-base' : 'text-lg'}`}>{data.anime}</h3>
@@ -313,10 +313,6 @@ function Home() {
             <span className="text-white/10">·</span>
             <span>{new Set(UNIVERSE_CATALOG.map((a) => a.visualizationHint)).size} System Types</span>
           </div>
-        </div>
-        <div className="mt-5 text-[10px] text-white/30 tracking-widest uppercase flex flex-wrap justify-center gap-4">
-          <span>[{UNIVERSE_CATALOG.length}] Universes</span>
-          <span>[{totalEntities}] Entities</span>
         </div>
       </header>
 
@@ -626,14 +622,14 @@ function UniversesCatalogRoute() {
       <main id="catalog-main" className="max-w-6xl mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <h1 className="text-2xl md:text-4xl font-bold uppercase tracking-tight">Universe Catalog</h1>
-          <Link to="/" className="text-[10px] tracking-[0.2em] uppercase text-gray-400 hover:text-white">← Back Home</Link>
+          <Link to="/" className="px-3 py-2 text-[10px] tracking-[0.2em] uppercase text-gray-400 hover:text-white rounded-lg border border-white/10 hover:border-white/20 transition-colors">← Back Home</Link>
         </div>
         <p className="text-xs text-gray-300/80 max-w-3xl mb-6">Search and sort the archive using lightweight catalog metadata only. Universe payloads still lazy-load when you open a route.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
           <label className="md:col-span-2 flex items-center gap-2 border border-white/10 rounded-lg px-3 bg-white/5">
             <Search className="w-4 h-4 text-gray-300/70" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search universe, thesis, or tagline..." className="w-full bg-transparent h-11 text-sm outline-none" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search universes..." className="w-full bg-transparent h-11 text-sm outline-none" />
           </label>
           <label className="flex items-center gap-2 border border-white/10 rounded-lg px-3 bg-white/5">
             <ListFilter className="w-4 h-4 text-gray-300/70" />
@@ -648,7 +644,7 @@ function UniversesCatalogRoute() {
         <div className="mb-6 flex flex-wrap gap-2">
           <Link
             to="/universes"
-            className={`px-3 py-2 rounded-full text-[10px] uppercase tracking-[0.16em] border transition-colors ${activeCluster ? 'text-gray-400 border-white/10 bg-white/5 hover:text-white' : 'text-white border-cyan-300/60 bg-cyan-400/10'}`}
+            className={`px-3 py-2.5 rounded-full text-[10px] uppercase tracking-[0.16em] border transition-colors ${activeCluster ? 'text-gray-400 border-white/10 bg-white/5 hover:text-white' : 'text-white border-cyan-300/60 bg-cyan-400/10'}`}
           >
             All Clusters
           </Link>
@@ -656,7 +652,7 @@ function UniversesCatalogRoute() {
             <Link
               key={cluster.key}
               to={`/universes?cluster=${cluster.key}`}
-              className={`px-3 py-2 rounded-full text-[10px] uppercase tracking-[0.16em] border transition-colors ${activeCluster === cluster.key ? 'text-white border-cyan-300/60 bg-cyan-400/10' : 'text-gray-400 border-white/10 bg-white/5 hover:text-white'}`}
+              className={`px-3 py-2.5 rounded-full text-[10px] uppercase tracking-[0.16em] border transition-colors ${activeCluster === cluster.key ? 'text-white border-cyan-300/60 bg-cyan-400/10' : 'text-gray-400 border-white/10 bg-white/5 hover:text-white'}`}
             >
               {cluster.shortLabel} ({cluster.count})
             </Link>
