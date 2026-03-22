@@ -47,15 +47,16 @@ function CompareRow({ label, left, right }) {
   const rightVal = String(right ?? '—')
   const same = leftVal === rightVal
   return (
-    <tr className="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
-      <td className="px-3 py-2.5 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20 w-36 align-top">{label}</td>
-      <td className="px-3 py-2.5 text-[11px] text-gray-200 align-top">
+    <div className="flex flex-col sm:flex-row sm:items-center border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+      <div className="px-3 py-2.5 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20 w-full sm:w-36 shrink-0">{label}</div>
+      <div className="flex sm:hidden px-3 py-1.5 text-[10px] text-gray-400">{leftVal}</div>
+      <div className="hidden sm:block px-3 py-2.5 text-[11px] text-gray-200 flex-1">
         <span className={same ? 'text-gray-500' : 'text-cyan-200'}>{leftVal}</span>
-      </td>
-      <td className="px-3 py-2.5 text-[11px] text-gray-200 border-l border-white/10 align-top">
+      </div>
+      <div className="hidden sm:block px-3 py-2.5 text-[11px] text-gray-200 border-l border-white/10 flex-1">
         <span className={same ? 'text-gray-500' : 'text-cyan-200'}>{rightVal}</span>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
@@ -193,13 +194,11 @@ export default function CompareRoute() {
                   <span className="text-cyan-400">{icon}</span>
                   <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-white">{category}</h2>
                 </div>
-                <table className="w-full">
-                  <tbody>
+                <div className="w-full divide-y divide-white/5">
                     {rows.map((row) => (
                       <CompareRow key={row.label} {...row} />
                     ))}
-                  </tbody>
-                </table>
+                  </div>
               </div>
             ))}
 
