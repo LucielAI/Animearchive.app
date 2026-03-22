@@ -83,8 +83,9 @@
       "accentColor": "red-400",
       "icon": "Crown",
       "signatureMoment": "Gear 5 awakening against Kaido — Luffy's rubber body becomes reality-warping, turning the entire battlefield into an extension of his will.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/310307.jpg?s=3a27ab33bee665febfba970f24f203ba",
+      "_fetchFailed": false,
+      "malId": 40
     },
     {
       "name": "Marshall D. Teach",
@@ -98,8 +99,9 @@
       "accentColor": "neutral-600",
       "icon": "Skull",
       "signatureMoment": "Killing Whitebeard in cold blood to take his Gura Gura no Mi — the ultimate mentor betrays the system's implicit trust network.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/2/109536.jpg?s=85059e538bfbb1e609787c63cdc8c31e",
+      "_fetchFailed": false,
+      "malId": 3331
     },
     {
       "name": "Red-Haired Shanks",
@@ -113,8 +115,9 @@
       "accentColor": "red-400",
       "icon": "Anchor",
       "signatureMoment": "Walking into Marineford to personally halt the war — the only person whose presence alone ends the Battle of Marineford.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/9/307639.jpg?s=175776bc9b9338bdc8f64520b1699548",
+      "_fetchFailed": false,
+      "malId": 727
     },
     {
       "name": "Silvers Rayleigh",
@@ -128,8 +131,9 @@
       "accentColor": "violet-400",
       "icon": "Eye",
       "signatureMoment": "Blocking Kizaru at Sabaody with Conqueror's Haki — proving he is still a top-tier operator despite his age.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/141861.jpg?s=6007c12796bddfe07abbfbdce1b95c46",
+      "_fetchFailed": false,
+      "malId": 17142
     },
     {
       "name": "Nico Robin",
@@ -143,8 +147,9 @@
       "accentColor": "emerald-400",
       "icon": "BookOpen",
       "signatureMoment": "Declaring to the World Government at Enies Lobby that she will read every Poneglyph in the world — turning her death sentence into a declaration of war.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/16/363700.jpg?s=3e7fa6074c0d30c8bede3905680e983c",
+      "_fetchFailed": false,
+      "malId": 61
     },
     {
       "name": "Buggy the Clown",
@@ -158,8 +163,9 @@
       "accentColor": "yellow-400",
       "icon": "Star",
       "signatureMoment": "Being named a Yonko by the World Government — accidentally becoming one of the most powerful figures in the world through misidentification.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/6/69112.jpg?s=2bb908ba252c0eaafa779c6d868f379a",
+      "_fetchFailed": false,
+      "malId": 725
     },
     {
       "name": "Dracule Mihawk",
@@ -173,8 +179,9 @@
       "accentColor": "zinc-400",
       "icon": "Sword",
       "signatureMoment": "Training Zoro for two years — transferring combat capability to the next generation's potential最强的剑士.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/69747.jpg?s=b65e6e98b004f965b7c3783b34cdccb6",
+      "_fetchFailed": false,
+      "malId": 2064
     },
     {
       "name": "Sengoku",
@@ -188,9 +195,10 @@
       "accentColor": "amber-400",
       "icon": "Crown",
       "signatureMoment": "Revealing Blackbeard's treachery to the Marines — converting historical pattern recognition into actionable intelligence.",
-      "imageUrl": null,
-      "_fetchFailed": true,
-      "systemBio": "An institutional memory node — Sengoku's value lies in his institutional knowledge of the Void Century, the Roger era, and the long-term strategic calculations of the World Government. His position bridges the current era's conflicts with the historical data that drives them."
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/7/88938.jpg?s=8cda4ed56cc7d0aad3f06d55887d95cf",
+      "_fetchFailed": false,
+      "systemBio": "An institutional memory node — Sengoku's value lies in his institutional knowledge of the Void Century, the Roger era, and the long-term strategic calculations of the World Government. His position bridges the current era's conflicts with the historical data that drives them.",
+      "malId": 13018
     },
     {
       "name": "Monkey D. Garp",
@@ -204,8 +212,9 @@
       "accentColor": "blue-400",
       "icon": "Shield",
       "signatureMoment": "Refusing to capture Dragon despite orders — choosing familial relationship over institutional loyalty at the cost of his own career.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/5/509073.jpg?s=8b287628076463de432fb5aedc5b9882",
+      "_fetchFailed": false,
+      "malId": 8064
     },
     {
       "name": "Whitebeard",
@@ -219,8 +228,9 @@
       "accentColor": "neutral-500",
       "icon": "Skull",
       "signatureMoment": "His final stand at Marineford, declaring One Piece exists — confirming the system goal that drives every other actor.",
-      "imageUrl": null,
-      "_fetchFailed": true
+      "imageUrl": "https://cdn.myanimelist.net/images/characters/3/100236.jpg?s=7d8b2cff3cdb3b4cae84ff79ddf906cf",
+      "_fetchFailed": false,
+      "malId": 2751
     }
   ],
   "factions": [
@@ -360,11 +370,11 @@
     },
     {
       "source": "Monkey D. Garp",
-      "target": "Monkey D. Garp",
-      "type": "dependent",
+      "target": "Monkey D. Luffy",
+      "type": "ally",
       "weight": 7,
-      "loreDesc": "Garp's son Dragon leads the Revolutionary Army — Garp's institutional position creates a structural dependency edge between the Marines and the anti-government movement.",
-      "systemDesc": "A family-based information routing vulnerability — Garp's personal loyalty to his son creates a potential intelligence leak in the Government's own hierarchy."
+      "loreDesc": "Grandfather-grandson bond; Garp trained Luffy and Ace together; marine hero connected to Luffy through Dragon.",
+      "systemDesc": "Cross-faction familial edge bridging Marines and Pirates."
     },
     {
       "source": "Buggy the Clown",
@@ -437,6 +447,22 @@
       "weight": 6,
       "loreDesc": "Blackbeard hunted Devil Fruit users aggressively after gaining his powers — Rayleigh was on his list of targets.",
       "systemDesc": "A predator-prey edge in the Devil Fruit acquisition network — Blackbeard's systematic hunting of strong Devil Fruit users represents a structural threat to all such operators."
+    },
+    {
+      "source": "Monkey D. Luffy",
+      "target": "Buggy the Clown",
+      "type": "ally",
+      "weight": 5,
+      "loreDesc": "Buggy saved Luffy at Marineford; became an unexpected ally through shared history and Warlord connections.",
+      "systemDesc": "Cross-faction edge connecting Government contractor to Straw Hat."
+    },
+    {
+      "source": "Dracule Mihawk",
+      "target": "Whitebeard",
+      "type": "rival",
+      "weight": 8,
+      "loreDesc": "Mihawk crossed blades with Whitebeard as the strongest swordsman vs the strongest man.",
+      "systemDesc": "Apex-tier benchmark edge."
     }
   ],
   "rankings": {
