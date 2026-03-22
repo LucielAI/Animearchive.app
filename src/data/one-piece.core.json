@@ -14,7 +14,6 @@
     "heroGradient": "rgba(10,5,5,0.95)"
   },
   "animeImageUrl": "https://cdn.myanimelist.net/images/anime/1244/138851l.jpg",
-  "_fetchFailed": false,
   "visualizationHint": "node-graph",
   "visualizationReason": "One Piece is a distributed empire/faction network where influence, alliances, territorial control, and historical debts are the primary analytical dimensions. The node-graph captures the structural thesis: who controls whom, who owes whom, and which nodes hold the secrets that can reshape the entire topology.",
   "headerFlavor": {

@@ -89,7 +89,7 @@ export const UNIVERSE_CATALOG = [
   },
   {
     id: 'one-piece', anime: 'One Piece', tagline: 'An empire-faction control network where rubber physiology, haki willpower, and devil fruit economics determine who owns the seas', malId: 21, visualizationHint: 'node-graph', visualizationReason: 'One Piece operates as an empire/faction node-graph: Yonko territories, Warlord networks, Revolutionary Army cells, and Marine hierarchy form a maritime power grid where allegiances shift constantly and pirate crews function as independent business units with their own chains of command.', animeImageUrl: 'https://cdn.myanimelist.net/images/anime/1244/138851l.jpg',
-    themeColors: { primary: '#dc2626', secondary: '#1e3a8a', accent: '#f59e0b', glow: 'rgba(220,38,38,0.30)', tabActive: '#dc2626', badgeBg: 'rgba(30,58,138,0.18)', badgeText: '#f59e0b', modeGlow: 'rgba(245,158,11,0.25)', heroGradient: 'rgba(5,10,20,0.95)' },
+    themeColors: { primary: '#dc2626', secondary: '#0f172a', accent: '#f59e0b', glow: 'rgba(220,38,38,0.35)', tabActive: '#dc2626', badgeBg: 'rgba(220,38,38,0.15)', badgeText: '#fbbf24', modeGlow: 'rgba(245,158,11,0.25)', heroGradient: 'rgba(10,5,5,0.95)' },
     stats: { characters: 10, powerSystem: 3, rules: 6 }
   }
 ]
