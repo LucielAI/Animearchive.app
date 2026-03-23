@@ -81,7 +81,10 @@ const qaPayload = (slug) => {
   if ('_fetchFailed' in p) issues.push('Spurious _fetchFailed at root')
   p.characters?.forEach(c => {
     if (c.imageUrl && !IMAGE_HOSTS.some(h => c.imageUrl.includes(h))) issues.push(`Bad image host [${c.name}]`)
-    if (!c.description || c.description.length < 5) issues.push(`Short/empty desc [${c.name}]`)
+    const loreOk = (c.loreBio?.length ?? 0) >= 5
+    const sysOk  = (c.systemBio?.length ?? 0) >= 5
+    if (!loreOk && !sysOk) issues.push(`Short/empty bio [${c.name}]`)
+    else if (!loreOk || !sysOk) issues.push(`WARN: partial bio [${c.name}] — only ${loreOk ? "loreBio" : "systemBio"} populated`)
   })
   p.relationships?.forEach(r => {
     if (!VALID_RELS.includes(r.type)) issues.push(`Bad rel type [${r.source}→${r.target}]: ${r.type}`)
@@ -140,7 +143,7 @@ const scoreContent = (p) => {
   scores.novelty = Math.min(10, scores.novelty + (relTypes.length >= 5 ? 1.5 : relTypes.length >= 3 ? 1 : 0))
   const charsWithDesc = p.characters?.filter(c => c.description && c.description.length > 10 && !/^[A-Z\s]{20,}$/.test(c.description)).length ?? 0
   scores.clarity = Math.round(((charCount > 0 ? charsWithDesc / charCount : 0) * 8 + (p.introductionSummary ? 2 : 0)) * 10) / 10
-  const hasRankings = (p.rankings?.length ?? 0) >= 3
+  const hasRankings = Object.keys(p.rankings ?? {}).length >= 3
   const hasPowerSys = (p.powerSystem?.length ?? 0) >= 2
   scores.comparisonValue = (hasRankings ? 4 : 0) + (hasPowerSys ? 3 : 0) + (charCount >= 8 ? 2 : 0) + (relTypes.length >= 4 ? 1 : 0)
   scores.overall = Math.round((scores.depth * 0.3 + scores.novelty * 0.2 + scores.clarity * 0.3 + scores.comparisonValue * 0.2) * 10) / 10
@@ -405,7 +408,7 @@ Examples:
         R.setWarn(`Auto-fixing: ${auto.join(', ')}`)
         auto.forEach(msg => {
           if (msg.includes('_fetchFailed') && p) delete p._fetchFailed
-          if (msg.includes('severity') && p) p.rankings?.forEach(r => { if (!VALID_SEVERITIES.includes(r.severity)) r.severity = 'medium' })
+          if (msg.includes("severity") && p) Object.values(p.rankings ?? {}).forEach(entry => { if (Array.isArray(entry)) entry.forEach(item => { if (item.severity && !VALID_SEVERITIES.includes(item.severity)) item.severity = "medium" }) })
         })
         writePayload(R.slug, p)
       }
