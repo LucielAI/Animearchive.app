@@ -180,9 +180,10 @@ const xml = buildSitemap(slugs)
 fs.writeFileSync(OUT_FILE, xml, 'utf8')
 
 const blogSlugs = getBlogSlugs()
-const PUBLIC_BLOG_DIR = path.join(__dirname, '../public/blog')
+const INSIGHT_SRC = path.join(__dirname, '../src/components/InsightPost.jsx')
 let insightSlugs = []
 try {
-  insightSlugs = fs.readdirSync(PUBLIC_BLOG_DIR).filter(f => f.endsWith('.json')).map(f => f.replace(/\.json$/, ''))
+  const s = fs.readFileSync(INSIGHT_SRC, 'utf8')
+  insightSlugs = [...s.matchAll(/^  '([^']+)':/gm)].map(m => m[1])
 } catch {}
 console.log(`[sitemap] ${slugs.length} universe(s), ${THEMATIC_SLUGS.length} thematic page(s), ${insightSlugs.length} insight(s), ${blogSlugs.length} blog post(s) → public/sitemap.xml`)
