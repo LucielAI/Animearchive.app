@@ -257,24 +257,31 @@ function NewsletterCTAHero() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }}
-        placeholder="your@email.com"
-        maxLength={254}
-        disabled={status === 'loading'}
-        className="flex-1 min-h-[44px] bg-white/5 border border-white/20 focus:border-cyan-400/60 rounded-full px-4 py-2.5 text-xs text-gray-200 placeholder:text-gray-500 outline-none transition-colors font-mono"
-      />
-      <button
-        type="submit"
-        disabled={status === 'loading' || !email.trim()}
-        className="min-h-[44px] px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#020617] text-[10px] font-bold tracking-[0.18em] uppercase transition-colors disabled:opacity-40 whitespace-nowrap font-mono"
-      >
-        {status === 'loading' ? '...' : 'Get Notified'}
-      </button>
-    </form>
+    <div className="flex flex-col gap-2 w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }}
+          placeholder="your@email.com"
+          maxLength={254}
+          disabled={status === 'loading'}
+          className="flex-1 min-h-[44px] bg-white/5 border border-white/20 focus:border-cyan-400/60 rounded-full px-4 py-2.5 text-xs text-gray-200 placeholder:text-gray-500 outline-none transition-colors font-mono"
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading' || !email.trim()}
+          className="min-h-[44px] px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-[#020617] text-[10px] font-bold tracking-[0.18em] uppercase transition-colors disabled:opacity-40 whitespace-nowrap font-mono"
+        >
+          {status === 'loading' ? '...' : 'Get Notified'}
+        </button>
+      </form>
+      {status === 'error' && (
+        <p className="text-[10px] text-red-400 font-mono tracking-wider px-1">
+          Signup failed — try again or email us directly
+        </p>
+      )}
+    </div>
   )
 }
 
@@ -343,13 +350,13 @@ function Home() {
       <SeoHead {...seo} structuredData={structuredData} />
 
       <header className="w-full relative py-20 md:py-24 px-6 border-b border-white/5 flex flex-col items-center text-center" style={{ background: 'radial-gradient(ellipse at center, #101634 0%, #050508 100%)' }}>
-        <p className="text-[10px] md:text-xs text-cyan-300/80 tracking-[0.24em] uppercase font-bold mb-3">For Anime Fans Who Love Deep Breakdowns</p>
+        <p className="text-[10px] md:text-xs text-cyan-300/80 tracking-[0.24em] uppercase font-bold mb-3">For Anime Fans Who Want to Understand Why Things Work</p>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight uppercase mb-3 text-white leading-[0.96]">
-          Analyze Anime Power Systems
+          Know What Makes Anime Worlds Tick
         </h1>
-        <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Compare anime worlds by power, strategy, and worldbuilding</p>
+        <p className="text-sm md:text-base text-cyan-300/85 tracking-[0.2em] uppercase font-bold">Structural analysis of power, factions, and world logic</p>
         <p className="mt-6 text-xs md:text-sm text-gray-300/80 max-w-2xl leading-relaxed">
-          Find the best anime systems, compare anime power systems side-by-side, and explore the mechanics behind each world in minutes.
+          The difference between casual fans and true appreciators is understanding the system beneath the spectacle.
         </p>
         <div className="mt-7 flex flex-col items-center gap-4">
           {/* Primary CTA: Newsletter Signup - CRO: "impossible to miss" */}
