@@ -57,14 +57,14 @@ const NL = '\n'
 const outputPath = resolve(ROOT, 'api/og-universes.js')
 
 const universeLines = Object.entries(UNIVERSE_MAP).map(([id, data]) =>
-  `  ${id}: { anime: "${esc(data.anime)}", tagline: "${esc(data.tagline)}", visualizationHint: "${data.visualizationHint}", themeColors: { primary: "${data.themeColors.primary}" } }`
+  `  ${/^-|[ -]/.test(id) ? `'${id}'` : id}: { anime: "${esc(data.anime)}", tagline: "${esc(data.tagline)}", visualizationHint: "${data.visualizationHint}", themeColors: { primary: "${data.themeColors.primary}" } }`
 )
 const universeBlock = 'export const UNIVERSE_MAP = {' + NL +
   universeLines.join(',' + NL) + NL +
   '}'
 
 const insightLines = Object.entries(INSIGHTS_MAP).map(([id, data]) =>
-  `  ${id}: { title: "${esc(data.title)}", tagline: "${esc(data.tagline)}", themeColor: "${data.themeColor}" }`
+  `  ${/^-|[ -]/.test(id) ? `'${id}'` : id}: { title: "${esc(data.title)}", tagline: "${esc(data.tagline)}", themeColor: "${data.themeColor}" }`
 )
 const insightBlock = 'export const INSIGHTS_MAP = {' + NL +
   insightLines.join(',' + NL) + NL +
