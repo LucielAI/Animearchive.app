@@ -191,6 +191,8 @@ export default function CompareRoute() {
   const [focusedSelect, setFocusedSelect] = useState(null) // 'left' | 'right' | null
   const leftSelectRef = useRef(null)
   const rightSelectRef = useRef(null)
+  const left = leftData ? { ...UNIVERSE_CATALOG_MAP[leftId], ...leftData } : null
+  const right = rightData ? { ...UNIVERSE_CATALOG_MAP[rightId], ...rightData } : null
 
   // Update page title when universes change (URL deep-linking)
   useEffect(() => {
@@ -287,8 +289,6 @@ export default function CompareRoute() {
   }, [leftId, rightId, handleSwap])
 
   // Merge catalog preview data with loaded payload data
-  const left = leftData ? { ...UNIVERSE_CATALOG_MAP[leftId], ...leftData } : null
-  const right = rightData ? { ...UNIVERSE_CATALOG_MAP[rightId], ...rightData } : null
 
   const comparisonStats = useMemo(() => getCompareStats(left, right), [left, right])
 
