@@ -140,7 +140,7 @@ export default function SearchResults() {
     : 'Search — Anime Architecture Archive'
   const seoDescription = q
     ? `${totalResults} result${totalResults !== 1 ? 's' : ''} for "${q}" across all anime universes.`
-    : 'Search across all 15 anime universes for characters, power systems, factions, and rules.'
+    : 'Search across all 30 anime universes for characters, power systems, factions, and rules.'
 
   const canonicalUrl = `https://animearchive.app/search${q ? `?q=${encodeURIComponent(q)}` : ''}`
 
@@ -189,7 +189,7 @@ export default function SearchResults() {
             ? `${totalResults} result${totalResults !== 1 ? 's' : ''} across all universes`
             : q && !hasResults && isReady
             ? 'No results found'
-            : 'Search across characters, powers, factions, and rules from all 15 universes'}
+            : 'Search across characters, powers, factions, and rules from all 30 universes'}
         </p>
 
         {/* Search form */}
