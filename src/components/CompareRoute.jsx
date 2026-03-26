@@ -497,7 +497,7 @@ export default function CompareRoute() {
         <div className="compare-divider mb-5 animate-compare-slide-up animate-compare-delay-2" />
 
         <p className="text-[10px] text-gray-600 text-center mb-8 leading-relaxed animate-compare-slide-up animate-compare-delay-2">
-          Counts reflect the full universe data — characters, factions, rules, relationships, and events mapped in the archive.
+          See full character breakdowns, faction hierarchies, and system mechanics on each universe page.
         </p>
 
         {/* Comparison Tables */}

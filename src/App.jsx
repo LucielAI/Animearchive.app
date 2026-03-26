@@ -547,9 +547,9 @@ function Home() {
                   { label: 'System Type', left: comparison.left.powerSystemType, right: comparison.right.powerSystemType },
                   { label: 'Combat Style', left: comparison.left.combatStyle, right: comparison.right.combatStyle },
                   { label: 'Complexity', left: String(comparison.left.complexity), right: String(comparison.right.complexity) },
-                  { label: 'Strategy | Power', left: comparison.left.strategyVsRaw, right: comparison.right.strategyVsRaw },
+                  { label: 'Strategy vs Power', left: comparison.left.strategyVsRaw, right: comparison.right.strategyVsRaw },
                 ].map((row) => (
-                  <div key={row.label} className="grid grid-cols-1 md:grid-cols-[160px_1fr_1fr] border-b border-white/10 last:border-b-0 hover:bg-white/5">
+                  <div key={row.label} className="comparison-card-row">
                     <p className="px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-gray-500 bg-black/20">{row.label}</p>
                     <p className="px-3 py-2 text-[11px] text-gray-200">{row.left}</p>
                     <p className="px-3 py-2 text-[11px] text-gray-200 border-l border-white/10">{row.right}</p>

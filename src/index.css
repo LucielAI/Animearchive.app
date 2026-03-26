@@ -150,3 +150,26 @@ body {
 .share-frame .share-frame-hide {
   display: none !important;
 }
+
+/* Homepage comparison card — responsive 3-col row */
+.comparison-card-row {
+  display: grid;
+  grid-template-columns: minmax(80px, 120px) 1fr 1fr;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.comparison-card-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.comparison-card-row:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 640px) {
+  .comparison-card-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .comparison-card-row > p:first-child {
+    grid-column: 1 / -1;
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
