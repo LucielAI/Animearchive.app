@@ -180,11 +180,15 @@ function CompareRow({ label, left, right, index }) {
 
 export default function CompareRoute() {
   const [searchParams, setSearchParams] = useSearchParams()
-  // useLocation is more reliable for initial URL params on mobile than useSearchParams alone
-  const location = useLocation()
+  // Use window.location directly — more reliable than useLocation() for
+  // initial URL params on mobile where React Router may not sync in time
   const getParam = (name) => {
-    const sp = new URLSearchParams(location.search)
-    return sp.get(name) || searchParams.get(name) || ''
+    if (typeof window !== 'undefined') {
+      const sp = new URLSearchParams(window.location.search)
+      const v = sp.get(name)
+      if (v) return v
+    }
+    return searchParams.get(name) || ''
   }
   // Support both ?left=slug&right=slug and ?a=slug&b=slug URL formats
   const leftId = getParam('left') || getParam('a') || ''
