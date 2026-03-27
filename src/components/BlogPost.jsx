@@ -1,10 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowRight, Calendar, ChevronLeft } from 'lucide-react'
 import SeoHead from './SeoHead'
 import { UNIVERSE_CATALOG_MAP } from '../data/index.js'
 import { getClassificationLabel } from '../utils/getClassificationLabel'
 import { SITE_URL, SITE_NAME, buildBlogPostStructuredData } from '../utils/seo'
+
+function NewsletterInline() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState('idle')
+  const lastSubmit = useRef(0)
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault()
+    const now = Date.now()
+    if (now - lastSubmit.current < 5000) return
+    lastSubmit.current = now
+    const trimmed = email.trim()
+    if (!trimmed.includes('@') || !trimmed.includes('.')) return
+    setStatus('loading')
+    try {
+      const res = await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: trimmed }) })
+      if (res.ok) { setStatus('success'); setEmail('') } else setStatus('error')
+    } catch { setStatus('error') }
+  }, [email])
+  if (status === 'success') return <p className="text-[11px] text-cyan-400 tracking-wider">You're in. Next drop is yours to know first.</p>
+  return (
+    <form onSubmit={handleSubmit} className="flex gap-2 mt-2">
+      <input type="email" value={email} onChange={e => { setEmail(e.target.value); if (status === 'error') setStatus('idle') }} placeholder="your@email.com" maxLength={254} className="flex-1 min-w-0 bg-transparent border border-white/10 focus:border-cyan-400/40 rounded-lg px-3 py-2 text-xs text-gray-300 placeholder:text-gray-600 outline-none transition-colors font-mono min-h-[38px]" />
+      <button type="submit" disabled={status === 'loading' || !email.trim()} className="flex-shrink-0 px-4 py-2 rounded-lg border border-cyan-400/30 bg-cyan-400/10 hover:bg-cyan-400/20 text-[10px] font-bold tracking-[0.15em] uppercase text-cyan-400 transition-all cursor-pointer disabled:opacity-40 min-h-[38px] font-mono">
+        {status === 'loading' ? '...' : 'Subscribe'}
+      </button>
+    </form>
+  )
+}
 
 function formatDate(dateStr) {
   try {
@@ -92,6 +120,31 @@ function ContentBlock({ block }) {
 
     case 'universe-link':
       return <UniverseLinkBlock slug={block.slug} />
+
+    case 'section-header':
+      return (
+        <h2 className="text-[10px] tracking-[0.3em] uppercase text-gray-500 mt-8 mb-3 border-b border-white/5 pb-2">
+          {block.text}
+        </h2>
+      )
+
+    case 'inline-newsletter':
+      return (
+        <div className="my-8">
+          <div className="rounded-xl border border-cyan-400/20 bg-[#0a0a10] p-5">
+            <div className="flex items-start gap-3 mb-3">
+              <div className="mt-0.5 flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-md bg-cyan-400/10 border border-cyan-400/20">
+                <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              </div>
+              <div>
+                <p className="text-sm font-bold tracking-tight text-white">Get the next analysis in your inbox</p>
+                <p className="text-[11px] text-gray-500 tracking-wide mt-0.5">No spam. Just structural intelligence on anime worlds.</p>
+              </div>
+            </div>
+            <NewsletterInline />
+          </div>
+        </div>
+      )
 
     default:
       return null

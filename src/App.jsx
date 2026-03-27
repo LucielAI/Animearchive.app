@@ -265,7 +265,7 @@ function NewsletterCTAHero({ variant = 'default' }) {
     }
   }
 
-  const displayCount = subscriberCount !== null ? subscriberCount.toLocaleString() : '2,847'
+  const displayCount = subscriberCount !== null ? subscriberCount.toLocaleString() : null
 
   if (status === 'success') {
     return (
@@ -302,7 +302,7 @@ function NewsletterCTAHero({ variant = 'default' }) {
       </form>
       {status !== 'success' && (
         <p className="text-[9px] text-gray-600 font-mono tracking-wide text-center">
-          {displayCount} researchers already exploring
+          {displayCount ? `${displayCount} already subscribed — ` : ''}Structural intelligence on anime worlds, every drop.
         </p>
       )}
       {status === 'error' && (
@@ -464,16 +464,28 @@ function Home({ onSearchOpen }) {
             </Link>
           </div>
 
-          {/* Returning visitor */}
+          {/* Returning visitor — sticky bottom bar */}
           {lastViewed && (
-            <div className="mt-5 inline-flex items-center gap-3 px-4 py-2 rounded-xl border border-cyan-400/20 bg-cyan-400/5">
-              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              <p className="text-[10px] text-gray-400">
-                <span className="text-cyan-300">Continue: </span>
-                <Link to={`/universe/${lastViewed.id}`} className="text-white underline underline-offset-2 hover:text-cyan-300 transition-colors">
-                  {lastViewed.anime}
-                </Link>
-              </p>
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-cyan-400/20 bg-[#050508]/95 backdrop-blur-md">
+              <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                  <p className="text-[11px] text-gray-400 truncate">
+                    <span className="text-cyan-400 font-bold">Continue: </span>
+                    <Link to={`/universe/${lastViewed.id}`} className="text-white hover:text-cyan-300 transition-colors font-medium">
+                      {lastViewed.anime}
+                    </Link>
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <Link
+                    to={`/universe/${lastViewed.id}`}
+                    className="px-4 py-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-black text-[10px] font-bold uppercase tracking-widest transition-colors"
+                  >
+                    Resume
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
 
@@ -507,7 +519,7 @@ function Home({ onSearchOpen }) {
         </div>
       </section>
 
-      <main id="main-content">
+      <main id="main-content" className={lastViewed ? 'pb-16' : ''}>
       <section className="max-w-5xl mx-auto px-6 pt-8 pb-2" aria-label="Anime analysis overview">
         <p className="text-[11px] text-gray-400 leading-relaxed">
           Not plot summaries. Every anime has a system underneath — power rules, faction logic, causal chains. We map what makes each world work, so you understand why the fights mean something.

@@ -29,22 +29,29 @@ function SwapButton({ onSwap, disabled }) {
 
 function ShareButton({ leftId, rightId }) {
   const [copied, setCopied] = useState(false)
-  const handleShare = async () => {
-    const url = `${window.location.origin}/compare?left=${leftId}&right=${rightId}`
+  const url = `${typeof window !== 'undefined' ? window.location.origin : ''}/compare?left=${leftId}&right=${rightId}`
+  const shareText = `Comparing ${UNIVERSE_CATALOG_MAP[leftId]?.anime || leftId} vs ${UNIVERSE_CATALOG_MAP[rightId]?.anime || rightId} — anime system analysis`
+  const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {}
   }
+  const handleTwitterShare = () => {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer,width=600,height=400')
+  }
   return (
-    <button
-      onClick={handleShare}
-      className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-400/30 transition-all text-xs uppercase tracking-widest"
-    >
-      {copied ? <Check className="w-4 h-4 text-green-400" /> : <Share2 className="w-4 h-4" />}
-      {copied ? 'Copied' : 'Share'}
-    </button>
+    <div className="flex items-center gap-2">
+      <button onClick={handleCopy} className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-400/30 transition-all text-xs uppercase tracking-widest">
+        {copied ? <Check className="w-4 h-4 text-green-400" /> : <Share2 className="w-4 h-4" />}
+        {copied ? 'Copied' : 'Copy Link'}
+      </button>
+      <button onClick={handleTwitterShare} className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-all text-xs uppercase tracking-widest">
+        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        Share on X
+      </button>
+    </div>
   )
 }
 
