@@ -1,0 +1,105 @@
+# =============================================================================
+# PUBLIC REPO DENYLIST
+# Any file matching these patterns will BLOCK the promotion.
+# Patterns use ERE (egrep) syntax, anchored to start of path with ^.
+# - For directories: use ^path/ to match the directory and all contents
+# - For files: use ^path/file$ to match exact filenames
+# - . matches any char, * matches zero or more of preceding
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Agent / internal memory
+# ---------------------------------------------------------------------------
+^MEMORY\.md$
+^memory/
+^AGENTS\.md$
+^SOUL\.md$
+^TOOLS\.md$
+^IDENTITY\.md$
+^USER\.md$
+^BOOTSTRAP\.md$
+^HEARTBEAT\.md$
+# All .md files not explicitly allowlisted (catch-all)
+\.md$
+
+# ---------------------------------------------------------------------------
+# Private collab / internal ops
+# ---------------------------------------------------------------------------
+^hashi-collab/
+# Do NOT carry GitHub Actions workflows to public
+\.github/workflows/
+\.github/ISSUE_TEMPLATE/
+\.github/PULL_REQUEST_TEMPLATE\.md$
+
+# ---------------------------------------------------------------------------
+# Pipeline internals (build scripts not needed in public)
+# ---------------------------------------------------------------------------
+^scripts/generateStaticHtml\.js
+^scripts/postbuild-copy-static\.cjs
+^scripts/generateBlogIndex\.js
+^scripts/generateFeed\.js
+^scripts/generateLlms\.js
+^scripts/generateSitemap\.js
+^scripts/generateOgMap\.js
+^scripts/generateSearchIndex\.js
+^scripts/catch-bugs\.js
+^scripts/enforce-universe-quality\.sh
+^scripts/pre-merge-check\.sh
+^scripts/runPipeline\.js
+^scripts/validateUniverse\.js
+^scripts/pipeline/
+^scripts/publishUniverse\.js
+^scripts/publishBatch\.js
+^scripts/publishBlog\.js
+
+# ---------------------------------------------------------------------------
+# Experiments / temp / debug
+# ---------------------------------------------------------------------------
+^experiments/
+^temp/
+^tmp/
+\.log$
+^debug/
+^NOTES\.md$
+^TEMP\.md$
+^DRAFT_
+
+# ---------------------------------------------------------------------------
+# Secrets and credentials
+# ---------------------------------------------------------------------------
+\.env$
+\.env\.local$
+\.env\.development
+\.env\.staging
+^supabase_token
+^auth-profiles\.json
+\.vercel/
+^vercel\.json\.local
+
+# ---------------------------------------------------------------------------
+# IDE and OS
+# ---------------------------------------------------------------------------
+^\.vscode/
+^\.idea/
+^\.DS_Store
+^Thumbs\.db
+
+# ---------------------------------------------------------------------------
+# Pre-rendered SPA HTML files (SPA owns all routing — no static HTML)
+# ---------------------------------------------------------------------------
+# These match the directories AND all files within them
+^public/universe/
+^public/blog/
+# Specifically: public/blog/index.html and any public/blog/{slug}/ subdirs
+^public/blog/index\.html$
+
+# ---------------------------------------------------------------------------
+# Docs not meant for public
+# ---------------------------------------------------------------------------
+^INTERNAL_
+^OPS_
+^PRIVATE_
+^ROADMAP\.md$
+^ARCHITECTURE\.md$
+^DECISIONS\.md$
+\.history/

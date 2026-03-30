@@ -1,0 +1,60 @@
+# =============================================================================
+# PUBLIC REPO ALLOWLIST
+# Only files/directories listed here will be promoted from private → public.
+# Format: one path per line. Lines starting with # are comments.
+# Order matters — files are copied in order.
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# App source (React SPA)
+# ---------------------------------------------------------------------------
+src/
+index.html
+
+# ---------------------------------------------------------------------------
+# Public assets + blog data (JSON fetched by SPA client-side)
+# Note: public/universe/ and public/blog/*.html were deleted (SPA owns routing)
+# ---------------------------------------------------------------------------
+public/blog/data/
+public/og-fallback.png
+public/favicon.svg
+public/robots.txt
+
+# ---------------------------------------------------------------------------
+# Build and deploy configuration
+# ---------------------------------------------------------------------------
+package.json
+package-lock.json
+vite.config.js
+vercel.json
+
+# ---------------------------------------------------------------------------
+# Environment / linting config (public-safe subset only)
+# ---------------------------------------------------------------------------
+.env.example
+.eslintrc.cjs
+.eslintrc.js
+jsconfig.json
+postcss.config.js
+tailwind.config.js
+.prettierrc
+.prettierrc.json
+.gitignore
+
+# ---------------------------------------------------------------------------
+# Content (blog posts and universe data — not pipeline cache)
+# ---------------------------------------------------------------------------
+content/blog/
+content/
+
+# ---------------------------------------------------------------------------
+# Static assets
+# ---------------------------------------------------------------------------
+assets/
+fonts/
+
+# ---------------------------------------------------------------------------
+# Public documentation
+# ---------------------------------------------------------------------------
+README.md
+CHANGELOG.md
