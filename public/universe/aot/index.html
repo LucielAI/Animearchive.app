@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attack on Titan System Analysis | Anime Architecture Archive</title>
+  <meta name="description" content="A brutal deterministic closed-loop temporal matrix" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:title" content="Attack on Titan System Analysis | Anime Architecture Archive" />
+  <meta property="og:description" content="A brutal deterministic closed-loop temporal matrix" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://animearchive.app/universe/aot" />
+  <meta property="og:image" content="https://animearchive.app/api/og?id=aot" />
+  <meta property="og:site_name" content="Anime Architecture Archive" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Attack on Titan System Analysis | Anime Architecture Archive" />
+  <meta name="twitter:description" content="A brutal deterministic closed-loop temporal matrix" />
+  <meta name="twitter:image" content="https://animearchive.app/api/og?id=aot" />
+  <link rel="canonical" href="https://animearchive.app/universe/aot" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050508;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      min-height: 100vh;
+    }
+    .ssr-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(5,5,8,0.95);
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+    .ssr-nav-brand {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .ssr-nav-links { display: flex; gap: 1.5rem; }
+    .ssr-nav-links a {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #64748b; text-decoration: none;
+    }
+    .ssr-nav-links a:hover { color: #e2e8f0; }
+    .ssr-container { max-width: 64rem; margin: 0 auto; padding: 2rem 1rem; }
+    .ssr-hero {
+      text-align: center; padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+    }
+    .ssr-hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #22d3ee; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1.1; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-desc {
+      font-size: 0.8rem; color: #94a3b8; max-width: 42rem;
+      margin: 0 auto; line-height: 1.7;
+    }
+    .ssr-badge-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .ssr-badge {
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04); color: #64748b;
+    }
+    .ssr-badge.accent { border-color: rgba(34,211,238,0.3); color: #22d3ee; background: rgba(34,211,238,0.08); }
+    .ssr-section-title {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #475569; margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ssr-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .ssr-card {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0.75rem; padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+    .ssr-card:hover { border-color: rgba(34,211,238,0.3); }
+    .ssr-card-name { font-size: 0.75rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.25rem; }
+    .ssr-card-sub { font-size: 0.6rem; color: #64748b; margin-bottom: 0.5rem; }
+    .ssr-card-bio { font-size: 0.65rem; color: #94a3b8; line-height: 1.6; }
+    .ssr-danger {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border-radius: 999px;
+    }
+    .ssr-danger.low { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .ssr-danger.moderate { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.2); }
+    .ssr-danger.high { background: rgba(249,115,22,0.1); color: #fb923c; border: 1px solid rgba(249,115,22,0.2); }
+    .ssr-danger.critical { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .ssr-footer {
+      text-align: center; padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem;
+    }
+    .ssr-footer p { font-size: 0.6rem; color: #475569; }
+    .ssr-footer a { color: #64748b; text-decoration: none; }
+    .ssr-footer a:hover { color: #22d3ee; }
+    .ssr-loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60vh; flex-direction: column; gap: 1rem;
+    }
+    .ssr-spinner {
+      width: 2rem; height: 2rem; border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: #22d3ee; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ssr-loading-text { font-size: 0.65rem; color: #475569; letter-spacing: 0.2em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <nav class="ssr-nav">
+    <span class="ssr-nav-brand">Anime Architecture Archive</span>
+    <div class="ssr-nav-links">
+      <a href="https://animearchive.app/">Archive</a>
+      <a href="https://animearchive.app/universes">Universes</a>
+      <a href="https://animearchive.app/compare">Compare</a>
+      <a href="https://animearchive.app/blog">Blog</a>
+    </div>
+  </nav>
+  
+  <main class="ssr-container">
+    <div class="ssr-hero">
+      <div class="ssr-hero-eyebrow">System Analysis</div>
+      <h1 class="ssr-hero-title">Attack on Titan</h1>
+      <p class="ssr-hero-desc">A brutal deterministic closed-loop temporal matrix</p>
+      <div class="ssr-badge-row">
+        <span class="ssr-badge accent">Temporal-Causal</span>
+        <span class="ssr-badge">10 entities</span>
+        <span class="ssr-badge">4 mechanics</span>
+        <span class="ssr-badge">4 rules</span>
+      </div>
+    </div>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Key Characters</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Eren Yeager</div>
+          <div class="ssr-card-sub">The Usurper</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">Driven by a pathological obsession with freedom and deeply scarred by the loss of his mother, he evolves from humanity&#39;…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Mikasa Ackerman</div>
+          <div class="ssr-card-sub">Humanity&#39;s Strongest Soldier</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">A descendant of a genetically engineered bloodline granting her the retained combat experience of her ancestors. She po…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Armin Arlert</div>
+          <div class="ssr-card-sub">The Strategist</div>
+        </div>
+        <span class="ssr-danger critical">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">Initially frail, his intellectual capacity and tactical genius make him the most vital asset. He eventually inherits th…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Levi Ackerman</div>
+          <div class="ssr-card-sub">Captain</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">The legendary squad captain universally recognized as humanity&#39;s strongest soldier. His masterful ODM gear movement mak…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Reiner Braun</div>
+          <div class="ssr-card-sub">The Shield Warrior</div>
+        </div>
+        <span class="ssr-danger critical">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">A Marleyan child soldier sent to infiltrate Paradis who develops a severe dissociative identity disorder from the crush…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Zeke Yeager</div>
+          <div class="ssr-card-sub">Warchief</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">Eren&#39;s highly intelligent half-brother, possessing royal blood that inadvertently unlocks the Founding Titan&#39;s true pot…</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Factions</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Survey Corps</div>
+      <div class="ssr-card-sub">protagonist</div>
+      <div class="ssr-card-bio">The elite, heavily attrited branch dedicated to external exploration and direct Titan combat. They…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Marley Warrior Unit</div>
+      <div class="ssr-card-sub">antagonist</div>
+      <div class="ssr-card-bio">Eldian child soldiers subjected to intense imperial brainwashing by the Marleyan empire, granted th…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Yeagerists</div>
+      <div class="ssr-card-sub">chaotic</div>
+      <div class="ssr-card-bio">A radical, heavily armed ultra-nationalist paramilitary faction viewing Eren Yeager as a messianic…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Anti-Marleyan Volunteers</div>
+      <div class="ssr-card-sub">neutral</div>
+      <div class="ssr-card-bio">Conscripted soldiers from conquered nations within the Marleyan military who secretly defect to ass…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Fritz / Reiss Monarchy</div>
+      <div class="ssr-card-sub">systemic</div>
+      <div class="ssr-card-bio">The hidden royal bloodline that secretly governed the Walls for a century, deliberately suppressing…</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Power Mechanics</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Titan Shifting</div>
+      <div class="ssr-card-sub">Biological Mech Piloting</div>
+      <div class="ssr-card-bio">The ability of specific human hosts to transform into giant, specialized humanoid entities by drawi…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">ODM Gear</div>
+      <div class="ssr-card-sub">Kinetic Physics Exploitation</div>
+      <div class="ssr-card-bio">A pressurized gas and grappling hook system that allows normal humans to move freely through the ai…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">The Paths</div>
+      <div class="ssr-card-sub">Quantum Entanglement Protocol</div>
+      <div class="ssr-card-bio">An invisible, timeless dimension connecting all Subjects of Ymir, serving as the universal conduit…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Titan Hardening</div>
+      <div class="ssr-card-sub">Structural Material Engineering</div>
+      <div class="ssr-card-bio">The innate ability to instantly crystallize Titan flesh into indestructible diamond-like armor, cap…</div>
+    </div></div>
+    </section>
+  </main>
+  <footer class="ssr-footer">
+    <p><a href="https://animearchive.app">Anime Architecture Archive</a> — Structured analysis of anime power systems, factions, and causal logic.</p>
+  </footer>
+  <script type="application/json" id="__ssr_data__">{"anime":"Attack on Titan","tagline":"Attack on Titan: A brutal deterministic closed-loop temporal matrix","malId":16498,"themeColors":{"primary":"#6b7280","secondary":"#10b981","accent":"#ef4444","glow":"rgba(107,114,128,0.35)","tabActive":"#6b7280","badgeBg":"rgba(239,68,68,0.12)","badgeText":"#ef4444","modeGlow":"rgba(16,185,129,0.25)","heroGradient":"rgba(13,20,13,0.95)"},"animeImageUrl":"https://myanimelist.net/images/anime/10/47347l.jpg","visualizationHint":"timeline","visualizationReason":"Causality itself functions as the supreme power system; the timeline is a malleable battlespace.","headerFlavor":{"loreQuote":"THIS WORLD IS CRUEL... AND ALSO VERY BEAUTIFUL.","sysWarning":"// [SYS_WARN]: DETERMINISTIC LOOP LOCKED — CAUSALITY INTACT","sysWarningColor":"red"},"backgroundMotif":"jagged","revealOverlay":"hatch-red","aiInsights":{"casual":"Attack on Titan is fundamentally a story about being trapped in a loop. Because characters can send memories back in time, the future has already happened. The 'Timeline' view shows how every single event was locked in place from the very beginning—there was never any escape.","deep":"AoT operates as a deterministic, closed-loop causal matrix where the 'Attack Titan' acts as a retro-causal output node. It overwrites its own past inputs to guarantee its future execution. The system is inherently inescapable because the root administrator (Eren) weaponized the timeline itself to enforce a singular, apocalyptic outcome."},"powerSystem":[{"name":"Titan Shifting","subtitle":"Biological Mech Piloting","loreDesc":"The ability of specific human hosts to transform into giant, specialized humanoid entities by drawing flesh and bone from an alternate dimension via self-inflicted injury.","systemDesc":"A virtual machine instantiation where a local user requests immense cloud computing resources to temporarily spin up an overpowered localized instance.","icon":"Hexagon","color":"amber-400","signatureMoment":"Reiner and Bertholdt reveal their true identities atop the wall, triggering a dual transformation that shatters the fragile peace of humanity.","systemSubtitle":"Biological Mech Piloting","loreSubtitle":"Ancient Shape-Shifting Power"},{"name":"ODM Gear","subtitle":"Kinetic Physics Exploitation","loreDesc":"A pressurized gas and grappling hook system that allows normal humans to move freely through the air at high velocities to sever the nape of a Titan's neck.","systemDesc":"A highly optimized, low-level execution script that maximizes hardware efficiency, allowing standard nodes to bypass heavy firewalls through sheer velocity.","icon":"Swords","color":"slate-400","signatureMoment":"Levi executes a dizzying, high-speed evasion and subsequent brutal vivisection of the Beast Titan amidst a forest of giant trees.","systemSubtitle":"Kinetic Physics Exploitation","loreSubtitle":"Aerial Combat System"},{"name":"The Paths","subtitle":"Quantum Entanglement Protocol","loreDesc":"An invisible, timeless dimension connecting all Subjects of Ymir, serving as the universal conduit for transferring memories, Titan bodies, and absolute genetic commands.","systemDesc":"A ubiquitous, hard-coded intranet utilizing quantum entanglement to ensure zero-latency data transfer between a master server and all client nodes simultaneously.","icon":"Globe","color":"cyan-400","signatureMoment":"Eren addresses all Subjects of Ymir simultaneously within their own minds, declaring the initiation of the apocalyptic global Rumbling.","systemSubtitle":"Quantum Entanglement Protocol","loreSubtitle":"Invisible Realm of Connection"},{"name":"Titan Hardening","subtitle":"Structural Material Engineering","loreDesc":"The innate ability to instantly crystallize Titan flesh into indestructible diamond-like armor, capable of forming weapons, shielding, or permanent architectural structures.","systemDesc":"A dynamic encryption sequence that solidifies vulnerable code blocks into immutable, read-only data structures that cannot be easily parsed, modified, or destroyed.","icon":"Shield","color":"emerald-400","signatureMoment":"The War Hammer Titan materializes a massive, intricately crystallized broadsword directly from the ground to impale the Attack Titan.","systemSubtitle":"Structural Material Engineering","loreSubtitle":"Crystallized Titan Armor"}],"rankings":{"systemName":"Paradis Military Command Structure","topTierName":"General / Premier (Sōtō)","topTierLore":"The ultimate commander-in-chief of all three military branches, holding absolute authority over humanity's armed forces, strategic direction, and judicial military tribunals.","topTierSystem":"The root administrator possessing read, write, and execute permissions across all system directories, user groups, and background processes.","tiers":[{"name":"Commander (Danchō)","loreDesc":"The absolute leader of a specific military branch.","systemDesc":"A lead software architect managing the deployment and lifecycle of a specific microservice environment."},{"name":"Section Commander","loreDesc":"High-ranking officers responsible for specialized detachments, intelligence gathering, or research divisions.","systemDesc":"A senior systems engineer managing a specialized functional pipeline or data ingestion routine."},{"name":"Captain (Heichō)","loreDesc":"Elite field commanders entrusted with highly sensitive tactical operations and the direct oversight of elite, hand-picked personnel.","systemDesc":"A high-priority, automated background daemon designed for rapid threat isolation and neutralization."},{"name":"Squad Leader (Hanchō)","loreDesc":"Mid-level officers responsible for managing small, cohesive fireteams of 4 to 10 soldiers during chaotic combat scenarios.","systemDesc":"Load balancers, dynamically distributing combat tasks and resource allocation among individual computational threads."},{"name":"Soldier / Private","loreDesc":"The base-level recruits, cadets, and foot soldiers who form the vast bulk of the military force.","systemDesc":"Standard, low-level computational nodes performing repetitive, high-mortality execution tasks."}],"loreName":"Paradis Military Hierarchy"},"characters":[{"name":"Eren Yeager","title":"The Usurper","rank":"Soldier","primaryAbility":"Attack Titan / Founder","loreBio":"Driven by a pathological obsession with freedom and deeply scarred by the loss of his mother, he evolves from humanity's most fervent savior into an apocalyptic global threat.","systemBio":"A standard user node that maliciously acquires root access, bypassing external firewalls to rewrite the system's core registry. Initiates an unrecoverable wipe of all external servers.","gradientFrom":"slate-900","gradientTo":"red-800","accentColor":"red-500","icon":"Skull","dangerLevel":10,"signatureMoment":"Tricking his father through sophisticated future memory manipulation to slaughter the royal family.","imageUrl":"https://cdn.myanimelist.net/images/characters/10/216895.jpg?s=ccb6539cbfc5462df97d61a48c52af93","malId":40882,"slug":"eren-yeager","description":"Eren Yeager is a Titan-shifting warmonger and the Architect of the Rumbling who commits global genocide to secure permanent freedom for Paradis Island, from Attack on Titan.","role":"Main","relationships":["Mikasa Ackerman","Armin Arlert","Reiner Braun","Zeke Yeager"]},{"name":"Mikasa Ackerman","title":"Humanity's Strongest Soldier","rank":"Soldier","primaryAbility":"Ackerman Awakening","loreBio":"A descendant of a genetically engineered bloodline granting her the retained combat experience of her ancestors. She possesses obsessive devotion to ensuring Eren's survival.","systemBio":"A hard-coded daemon process running continuously in the background, programmed with a singular, unbreakable directive to ensure the uptime of the primary host node.","gradientFrom":"slate-900","gradientTo":"rose-900","accentColor":"rose-400","icon":"Shield","dangerLevel":9,"signatureMoment":"Brutally decapitating the Jaw Titan in a high-speed, mid-air maneuver to secure Eren's safe extraction during the raid on Liberio.","imageUrl":"https://cdn.myanimelist.net/images/characters/9/215563.jpg?s=5b0650bb09a7e053afc6bad84ab48947","malId":40881,"slug":"mikasa-ackerman","description":"Mikasa Ackerman is the Ackerman clan's deadliest warrior, bound to Eren Yeager by an oath of protection that outlasts his descent into omnicide, from Attack on Titan.","role":"Main","relationships":["Eren Yeager","Levi Ackerman","Armin Arlert"]},{"name":"Armin Arlert","title":"The Strategist","rank":"Commander","primaryAbility":"Colossal Titan","loreBio":"Initially frail, his intellectual capacity and tactical genius make him the most vital asset. He eventually inherits the devastating power of the Colossal Titan.","systemBio":"A highly sophisticated predictive analytics engine capable of parsing chaotic, real-time system data to generate optimal execution paths and resource allocation under extreme constraints.","gradientFrom":"slate-900","gradientTo":"amber-700","accentColor":"amber-400","icon":"Brain","dangerLevel":8,"signatureMoment":"Formulating a suicidal strategy to distract the Colossal Titan by enduring lethal steam burns, allowing Eren to extract the pilot.","imageUrl":"https://cdn.myanimelist.net/images/characters/8/220267.jpg?s=afa2751e2201aba1f5179544e787ba1a","malId":46494,"slug":"armin-arlert","description":"Armin Arlert is the strategic prodigy and seventeenth Commander of the Survey Corps who inherits the Colossal Titan to become humanity's most consequential leader, from Attack on Titan.","role":"Main","relationships":["Eren Yeager","Mikasa Ackerman","Erwin Smith"]},{"name":"Levi Ackerman","title":"Captain","rank":"Captain","primaryAbility":"Max Output Maneuvers","loreBio":"The legendary squad captain universally recognized as humanity's strongest soldier. His masterful ODM gear movement makes him an unstoppable kinetic force.","systemBio":"An isolated, heavily overclocked processing thread that routinely bypasses standard thermal limits to deliver maximum DPS, identifying and terminating high-level malware.","gradientFrom":"slate-900","gradientTo":"emerald-800","accentColor":"emerald-400","icon":"Zap","dangerLevel":10,"signatureMoment":"A dizzying, brutal vivisection of the Beast Titan in a forest, reducing a major, seemingly invincible threat to a mutilated husk in mere seconds.","imageUrl":"https://cdn.myanimelist.net/images/characters/2/241413.jpg?s=1a789f9d4c7a441881e4b06a75bd91db","_fetchFailed":false,"malId":45627,"slug":"levi-ackerman","description":"Levi Ackerman is the squad captain of the Survey Corps, humanity's strongest soldier renowned for his unmatched combat speed and 3DMG proficiency, from Attack on Titan.","role":"Main","relationships":["Erwin Smith","Hange Zoe","Zeke Yeager","Mikasa Ackerman"]},{"name":"Reiner Braun","title":"The Shield Warrior","rank":"Warrior","primaryAbility":"Armored Titan","loreBio":"A Marleyan child soldier sent to infiltrate Paradis who develops a severe dissociative identity disorder from the crushing guilt of his betrayals.","systemBio":"A robust, hardware-level firewall that successfully infiltrates an enemy network but subsequently suffers critical sector corruption and logic loops due to conflicting parameters.","gradientFrom":"slate-900","gradientTo":"yellow-700","accentColor":"yellow-500","icon":"Hexagon","dangerLevel":8,"signatureMoment":"Surviving a direct, catastrophic decapitation attempt by rapidly transferring his neurological consciousness throughout his Titan's central nervous system.","imageUrl":"https://cdn.myanimelist.net/images/characters/16/206489.jpg?s=e48695a419dc6e71c831d7481a5fc86f","malId":46484,"slug":"reiner-braun","description":"Reiner Braun is the Armored Titan and deeply fractured Warrior who infiltrated Paradis as a child and suffers permanent dissociative identity disorder from the trauma of his betrayals, from Attack on Titan.","role":"Supporting","relationships":["Eren Yeager","Annie Leonhart","Zeke Yeager","Armin Arlert"]},{"name":"Zeke Yeager","title":"Warchief","rank":"Warchief","primaryAbility":"Beast Titan / Royal Blood","loreBio":"Eren's highly intelligent half-brother, possessing royal blood that inadvertently unlocks the Founding Titan's true potential. Harbors a nihilistic plan to euthanize his own race.","systemBio":"A compromised wireless router operating with a backdoor exploit, capable of broadcasting malicious packet payloads to infected nodes seeking to wipe the entire database.","gradientFrom":"slate-900","gradientTo":"orange-800","accentColor":"orange-500","icon":"Wifi","dangerLevel":9,"signatureMoment":"Shredding an entire cavalry charge of Survey Corps soldiers to pieces with a supersonic barrage of crushed boulders.","imageUrl":"https://cdn.myanimelist.net/images/characters/13/489878.jpg","_fetchFailed":false,"malId":142314,"slug":"zeke-yeager","description":"Zeke Yeager is the Beast Titan and royal-blooded manipulator who engineers a euthanasia plan to slowly extinguish the Eldian race through sterile reproduction, from Attack on Titan.","role":"Main","relationships":["Eren Yeager","Levi Ackerman","Grisha Yeager","Reiner Braun"]},{"name":"Erwin Smith","title":"The Gambler","rank":"Commander","primaryAbility":"Strategic Calculus","loreBio":"The 13th Commander of the Survey Corps who built the most effective Titan-killing force in history by converting every soldier's death into actionable intelligence. Sacrificed his dream of reaching the basement to lead a suicidal cavalry charge that bought humanity its first real victory.","systemBio":"A high-throughput analytics engine that maximized system output by treating every failed process as a diagnostic input. Voluntarily terminated his own execution thread at peak operational value to ensure a dependent subroutine could complete its critical-path function.","gradientFrom":"slate-900","gradientTo":"sky-900","accentColor":"sky-400","icon":"Brain","dangerLevel":8,"signatureMoment":"Leading a final suicidal cavalry charge directly into the Beast Titan's kill zone, screaming 'My soldiers, rage!' as boulders shred his formation — buying Levi the opening to annihilate Zeke.","imageUrl":"https://cdn.myanimelist.net/images/characters/14/559023.jpg?s=148a0689d341e23cae536207d030f3fc","malId":46496,"slug":"erwin-smith","description":"Erwin Smith is the thirteenth Commander of the Survey Corps who sacrificed his dream of reaching the basement to lead humanity's most consequential suicidal charge, buying the opening for Levi to kill the Beast Titan, from Attack on Titan.","role":"Supporting","relationships":["Levi Ackerman","Hange Zoe","Armin Arlert"]},{"name":"Annie Leonhart","title":"The Sleeper","rank":"Warrior","primaryAbility":"Female Titan / Hardening","loreBio":"A Marleyan Warrior and elite hand-to-hand combatant who infiltrated the 104th Cadet Corps as a spy. Encased herself in an impenetrable crystal cocoon for four years rather than risk exposing Marley's secrets under interrogation.","systemBio":"A deep-cover reconnaissance process embedded in the enemy environment with advanced self-encryption capability. When compromised, executed an irreversible self-quarantine protocol — suspending all operations inside an uncrackable encrypted shell rather than allowing data extraction.","gradientFrom":"slate-900","gradientTo":"blue-800","accentColor":"blue-400","icon":"Shield","dangerLevel":8,"signatureMoment":"Revealing herself as the Female Titan in the Stohess District, triggering a catastrophic urban battle that forced the Survey Corps to destroy an entire city district to capture her.","imageUrl":"https://cdn.myanimelist.net/images/characters/9/206357.jpg?s=3a853fc7177a3eeaefbecb530d590a4a","malId":46490,"slug":"annie-leonhart","description":"Annie Leonhart is the Female Titan and elite hand-to-hand combatant who encased herself in a crystal cocoon for four years to avoid interrogation and protect Marley's secrets, from Attack on Titan.","role":"Supporting","relationships":["Reiner Braun","Eren Yeager","Bertholdt Hoover"]},{"name":"Ymir Fritz","title":"The Origin","rank":"Unranked","primaryAbility":"Founding Titan / The Coordinate","loreBio":"The first Titan, a slave girl whose consciousness remained trapped in the Paths dimension for 2,000 years, endlessly building Titan bodies out of sand in terrified obedience to the royal bloodline.","systemBio":"The original rootkit and primary server orchestrator. An immortal legacy node trapped in an infinite execution loop, endlessly compiling hardware assets for authorized administrators until an unauthenticated user (Eren) offered her local autonomy.","gradientFrom":"slate-900","gradientTo":"neutral-600","accentColor":"neutral-400","icon":"Globe","dangerLevel":10,"signatureMoment":"Weeping as Eren Yeager breaks her 2,000-year programming of obedience by simply asking her to choose for herself.","imageUrl":"https://cdn.myanimelist.net/images/characters/9/206385.jpg?s=68df6199c1b4e10d1f95215c87264fb0","_fetchFailed":false,"malId":182601,"slug":"ymir-fritz","description":"Ymir Fritz is the first Titan and enslaved origin of all Titan powers, trapped for 2,000 years in the Paths dimension until Eren Yeager offered her the first genuine choice she had ever received, from Attack on Titan.","role":"Supporting","relationships":["Eren Yeager","Historia Reiss","Reiner Braun"]},{"name":"Grisha Yeager","title":"The Vessel","rank":"Restorationist","primaryAbility":"Attack Titan / Founder","loreBio":"Eren's father, an Eldian restorationist from Marley who stole the Founding Titan. He was terrified of the future he saw, yet was coerced by his own son into fulfilling the deterministic timeline.","systemBio":"An intermediary execution script forced into a fatal loop by a future output node. The system falsely believed it had free will, only to realize its parameters were hardcoded by its own successor.","gradientFrom":"slate-900","gradientTo":"zinc-700","accentColor":"zinc-500","icon":"Key","dangerLevel":8,"signatureMoment":"Collapsing in horror after slaughtering the Reiss family, screaming to the invisible future Eren, 'Is this what you wanted?'","imageUrl":"https://cdn.myanimelist.net/images/characters/6/206441.jpg?s=9618f66845f0678a8e993d9bd76675c6","malId":62477,"slug":"grisha-yeager","description":"Grisha Yeager is the Founding Titan carrier and Eldian Restorationist who stole the Founding Titan from the Reiss family and was coerced by his future son into fulfilling a deterministic timeline of atrocity, from Attack on Titan.","role":"Supporting","relationships":["Eren Yeager","Zeke Yeager","Historia Reiss"]}],"relationships":[{"source":"Eren Yeager","target":"Mikasa Ackerman","type":"dependent","loreDesc":"Mikasa's identity, emotional stability, and immense combat lethality are entirely anchored to Eren's physical survival.","weight":10},{"source":"Eren Yeager","target":"Armin Arlert","type":"mirror","loreDesc":"They share a foundational childhood dream, but their ethical methodologies and systemic execution completely diverge as the conflict escalates.","weight":9},{"source":"Eren Yeager","target":"Reiner Braun","type":"mirror","loreDesc":"They represent two sides of the exact same coin: child soldiers pushed to commit horrific atrocities by systemic brainwashing.","weight":9},{"source":"Levi Ackerman","target":"Zeke Yeager","type":"enemy","loreDesc":"A bitter, blood-soaked rivalry defined by Levi's solemn promise to his dying commander that he would assassinate the Beast Titan at any cost.","weight":10},{"source":"Zeke Yeager","target":"Eren Yeager","type":"betrayal","loreDesc":"Zeke genuinely believes he is saving Eren, completely unaware that Eren intends to co-opt Zeke's royal blood to bypass the system and initiate the apocalypse.","weight":9},{"source":"Mikasa Ackerman","target":"Levi Ackerman","type":"mirror","loreDesc":"Two Ackerman-blooded soldiers inheriting the same genetically encoded combat instincts, but diverging completely in what anchors them — Mikasa to a person, Levi to a promise.","weight":8},{"source":"Reiner Braun","target":"Armin Arlert","type":"mirror","loreDesc":"Both inherit command they never wanted — Reiner as Warrior Vice-Captain, Armin as Survey Corps Commander — and both crack under the moral weight of sending others to die.","weight":7},{"source":"Reiner Braun","target":"Zeke Yeager","type":"ally","loreDesc":"Fellow Warriors from the same graduating class, bound by shared Marleyan indoctrination but holding fundamentally incompatible visions for what their service should achieve.","weight":6},{"source":"Eren Yeager","target":"Levi Ackerman","type":"betrayal","loreDesc":"Levi staked his career on Eren's containment, vouching for his loyalty before the tribunal. Eren repaid this by orchestrating a coup that dismantled everything Levi's squad died to protect.","weight":8},{"source":"Armin Arlert","target":"Erwin Smith","type":"successor","loreDesc":"Armin is chosen to survive over the veteran commander, forcing the young strategist to bear the impossible psychological burden of replacing humanity's greatest tactical mind.","weight":8},{"source":"Levi Ackerman","target":"Erwin Smith","type":"dependent","loreDesc":"Levi's entire military purpose was anchored to Erwin's vision. He followed the commander into certain death not out of obedience but because Erwin was the only person whose gambles Levi trusted with his life.","weight":9},{"source":"Annie Leonhart","target":"Reiner Braun","type":"ally","loreDesc":"Fellow Warriors from the same infiltration squad, bonded by shared guilt and mutual dependence during their years embedded in Paradis — though Annie's cold pragmatism increasingly clashed with Reiner's fracturing psyche.","weight":7},{"source":"Annie Leonhart","target":"Eren Yeager","type":"enemy","loreDesc":"Annie trained Eren in hand-to-hand combat as a comrade, then tried to kidnap him as the Female Titan. Their fight in Stohess was the first time Eren confronted the reality that his enemies had faces he recognized.","weight":8},{"source":"Grisha Yeager","target":"Eren Yeager","type":"dependent","loreDesc":"A tragic inversion of the father-son dynamic. Grisha believed he was raising a child to save Eldia, only to discover he was merely a hollow vessel coerced by the future memory of his terrifying son.","weight":9},{"source":"Ymir Fritz","target":"Eren Yeager","type":"ally","loreDesc":"A toxic, apocalyptic liberation. Eren was the first person in 2,000 years to treat Ymir as a human rather than a slave or a god, weaponizing her gratitude into planetary annihilation.","weight":10}],"factions":[{"name":"Survey Corps","role":"protagonist","loreDesc":"The elite, heavily attrited branch dedicated to external exploration and direct Titan combat. They relentlessly seek the truth defined by massive casualty rates.","systemDesc":"An aggressive, highly optimized penetration-testing subroutine designed to relentlessly probe external firewalls, constantly updating based on fatal feedback loops.","icon":"Eye","color":"emerald-500","memberCount":"~300 active personnel"},{"name":"Marley Warrior Unit","role":"antagonist","loreDesc":"Eldian child soldiers subjected to intense imperial brainwashing by the Marleyan empire, granted the power of the Nine Titans to serve as biological WMDs.","systemDesc":"A sophisticated botnet of infected sleeper nodes deployed by a hostile server to infiltrate, map, and extract administrative root keys from an isolated legacy mainframe.","icon":"Shield","color":"yellow-600","memberCount":"6 active Shifters"},{"name":"Yeagerists","role":"chaotic","loreDesc":"A radical, heavily armed ultra-nationalist paramilitary faction viewing Eren Yeager as a messianic figure, staging a violent coup.","systemDesc":"A rapid, decentralized malware infection that executes a total hostile takeover of the host operating system from the inside out.","icon":"Flame","color":"red-500","memberCount":"~500 armed soldiers"},{"name":"Anti-Marleyan Volunteers","role":"neutral","loreDesc":"Conscripted soldiers from conquered nations within the Marleyan military who secretly defect to assist Paradis, providing advanced technology.","systemDesc":"Third-party API developers offering essential technological integration to a legacy system, while secretly embedding undetectable backdoors into the foundational code.","icon":"Layers","color":"blue-400","memberCount":"Unknown exact count"},{"name":"Fritz / Reiss Monarchy","role":"systemic","loreDesc":"The hidden royal bloodline that secretly governed the Walls for a century, deliberately suppressing all knowledge of the outside world and enforcing humanity's captivity through Founding Titan memory wipes.","systemDesc":"A legacy root administrator account running in stealth mode, enforcing a system-wide information quarantine while actively overwriting user memory sectors to maintain operational ignorance.","icon":"Crown","color":"purple-500","memberCount":"Royal lineage (extinct)"}],"rules":[{"name":"The Curse of Ymir","subtitle":"Biological Obsolescence","loreConsequence":"Any human who inherits the power of the Nine Titans will suffer rapid cellular degradation and die exactly 13 years after acquiring the power.","systemEquivalent":"A hard-coded, unalterable cache expiration protocol; after an exact timestamp is reached, the memory block is wiped and automatically reallocated.","severity":"fatal","systemSubtitle":"Biological Obsolescence","loreSubtitle":"The 13-Year Death Sentence"},{"name":"Vow Renouncing War","subtitle":"Ideological Firmware Lock","loreConsequence":"Any royal inheriting the Founding Titan is instantly brainwashed by pacifist ideology, rendering the ultimate weapon completely useless in combat.","systemEquivalent":"A non-overridable firmware lock placed directly onto the root administrative account, permanently blocking the execution of any offensive command lines.","severity":"high","systemSubtitle":"Ideological Firmware Lock","loreSubtitle":"The King's Unbreakable Oath"},{"name":"Subject of Ymir Connectivity","subtitle":"Mandatory Intranet Hub","loreConsequence":"All individuals bearing Eldian blood are perpetually connected to the Founding Titan via the interdimensional Paths, unable to break the connection.","systemEquivalent":"A mandatory, persistent peer-to-peer network connection that lacks an opt-out mechanism or local firewall, allowing forced over-the-air registry updates.","severity":"high","systemSubtitle":"Mandatory Intranet Hub","loreSubtitle":"The Blood of Ymir"},{"name":"Attack Titan Temporal Preemption","subtitle":"Non-Linear Cache Synchronization","loreConsequence":"While all Shifters can view past memories, the Attack Titan holder simultaneously receives curated memory packets from future inheritors, destroying linear time perception.","systemEquivalent":"Cross-temporal registry reads where compiling future outputs overwrite present execution paths. A literal bootstrap paradox enforcing a deterministic, closed-loop processing mandate.","severity":"high","systemSubtitle":"Non-Linear Cache Synchronization","loreSubtitle":"Memories of the Future"}],"counterplay":[{"attacker":"Thunder Spears","defender":"Armored Titan","mechanic":"Explosive Shaped-Charge Penetration","loreDesc":"A volatile, shaped-charge explosive designed specifically to crack and penetrate the localized crystalline armor, effectively obsoleting the Armored Titan's primary defensive advantage."},{"attacker":"Jaw Titan","defender":"War Hammer Crystal","mechanic":"Biological Nutcracker","loreDesc":"Eren uses the Jaw Titan's uniquely hardened teeth and extreme bite force as a biological nutcracker, exploiting one Titan's natural offensive weapon to violently breach another Titan's ultimate defense."},{"attacker":"Ackerman Lineage","defender":"Titan Physiology","mechanic":"Miniaturized Titan Capabilities","loreDesc":"The Ackerman bloodline packs the raw kinetic strength and combat instincts of a Titan into a compact human frame, granting the speed necessary to automatically dismantle larger, sluggish Shifters."},{"attacker":"Founding Titan Scream","defender":"All Subjects of Ymir","mechanic":"Absolute Genetic Override","loreDesc":"The Founding Titan broadcasts commands through the Paths that rewrite Eldian biology at the cellular level — converting humans into Titans, erasing memories across entire populations, or hardening their flesh into architectural structures."},{"attacker":"Non-Royal Holder + Royal Blood Contact","defender":"Vow Renouncing War","mechanic":"Authentication Bypass via Proxy","loreDesc":"A non-royal Founding Titan holder physically touches a royal-blooded Titan to momentarily inherit root privileges without triggering the pacifist firmware lock — the only known exploit against the Vow's absolute constraint."}],"anomalies":[{"name":"Attack Titan Timeline Retro-Causality","ruleViolated":"Principle of Causality / Forward-flowing Time","loreDesc":"The Attack Titan represents a massive systemic anomaly allowing its inheritor to transmit specific memories backward across time to previous holders.","systemDesc":"A process that completely shatters linear execution paths, allowing future outputs to retro-actively overwrite their prerequisite input variables and forge a bootstrap paradox loop."},{"name":"Abnormal Titans","ruleViolated":"Instinctual Consumption Protocol","loreDesc":"Titans that occasionally bypass the hard-coded instinct to indiscriminately consume humans, demonstrating erratic behaviors like speech, mourning, or non-bipedal locomotion.","systemDesc":"Software execution deviations highlighting the chaotic nature of the processing sequence, where external noise deeply corrupts the base biological code resulting in unpredictable behavior."},{"name":"Ackerman Paths Independence","ruleViolated":"Subject of Ymir Connectivity","loreDesc":"The Ackerman bloodline is connected to the Paths network but completely immune to the Founding Titan's memory manipulation, making them the only Subjects of Ymir who cannot be overwritten by the root administrator.","systemDesc":"A client node hardwired into the mandatory intranet but running a local firewall kernel that blocks all incoming registry overwrites — connected to the network yet immune to its broadcast commands."},{"name":"Hallucigenia Parasitic Autonomy","ruleViolated":"Titan Power Hierarchy / Creator–Creation Dependency","loreDesc":"The primordial organism that fused with Ymir Fritz operates as an independent entity with its own survival imperative, capable of acting autonomously to defend the Titan system even after the Founding Titan's will is contested.","systemDesc":"The original rootkit source code exhibiting autonomous self-preservation behavior independent of any user — a parasitic runtime that predates and outlives every administrator account ever instantiated on the system."}],"causalEvents":[{"name":"Ymir's Fall","trigger":"A hunted, severely wounded slave girl falls into a subterranean pool, fusing with the Hallucigenia.","consequence":"The manifestation of the first Titan entity, initiating 2,000 years of global biological warfare.","timelinePosition":"Ancient Past (Year 1003 B1)","loreDesc":"The origin point of all systemic powers; an organic singularity that binds an entire race of people into a shared, inescapable genetic destiny.","systemDesc":"The initial zero-day rootkit injection that permanently corrupted the base human registry across the entire Eldian segment, establishing a permanent interdimensional cloud server (Paths)."},{"name":"The Reiss Chapel Massacre","trigger":"Future Eren transmits curated, terrifying memories to Grisha, actively coercing him to murder the pacifist royal family.","consequence":"Grisha slaughters the royals, steals the Founding Titan, and transfers both Titans to young Eren.","timelinePosition":"Pre-Narrative (Year 845)","loreDesc":"A pristine example of a bootstrap paradox, establishing that the future actively dictates the past to ensure its own localized existence.","systemDesc":"A sophisticated sequence-breaking exploit where a future output node forcibly rewrote the parameter arrays of its prerequisite functions, guaranteeing its own recursive execution."},{"name":"The Fall of Wall Maria","trigger":"The Colossal and Armored Titans breach the outermost wall, destroying Shiganshina District and killing Eren's mother.","consequence":"Humanity loses one-third of its territory, triggering a refugee crisis and the chain of events that eventually unravels the truth of the world.","timelinePosition":"Inciting Event (Year 845)","loreDesc":"The inciting catastrophe that collapses a century of enforced peace. A Warrior infiltration operation disguised as a natural disaster, setting the entire narrative causal chain into motion.","systemDesc":"A coordinated perimeter breach by two sleeper agents that crashed the outermost firewall layer, triggering a cascading resource crisis across all remaining system partitions."},{"name":"The Smiling Titan Encounter","trigger":"Eren punches the open palm of the Smiling Titan, who secretly possesses latent royal blood.","consequence":"Eren temporarily bypasses the Vow Renouncing War, unlocking the Coordinate and commanding pure Titans to destroy the threat.","timelinePosition":"Mid-Narrative (Year 850)","loreDesc":"An exploitation of system loopholes; a non-royal user gains momentary root admin privileges by establishing brief contact with a dormant royal node.","systemDesc":"A critical vulnerability exploitation allowing an unauthenticated legacy node to temporarily utilize the absolute permissions of the locked root administrator."},{"name":"The Medal Ceremony Alignment","trigger":"Eren kisses Historia's royal hand during a military commendation, violently unlocking the full uncompressed memory of his father's massacre.","consequence":"Eren realizes the horrifying, deterministic truth: he is the one who coerced his father from the future. The entire timeline collapses into a single moment in his mind, cementing his apocalyptic path.","timelinePosition":"Late Narrative (Year 850)","loreDesc":"The moment the bootstrap paradox is crystallized. The protagonist witnesses his own future villainy and realizes it is entirely inescapable because it has already happened.","systemDesc":"A forceful synchronization of the temporal cache. The operating system simultaneously reads its final output sequence and writes it into its base configuration, permanently locking the execution path."},{"name":"The Declaration of War","trigger":"Eren reveals himself beneath the Liberio stage, confirming to Reiner that he has crossed the ocean to do to Marley exactly what Marley did to Paradis.","consequence":"Eren transforms inside a civilian population center, kills the War Hammer Titan holder, and triggers a global conflict that makes diplomacy permanently impossible.","timelinePosition":"Late Narrative (Year 854)","loreDesc":"The moment the cycle of violence completes its mirror rotation. The child who lost his home to an enemy attack now delivers the identical trauma to his enemy's homeland, confirming the loop.","systemDesc":"A retaliatory DDoS strike launched from inside the opposing network's civilian infrastructure, permanently escalating the conflict from containable skirmish to total system war."},{"name":"The Rumbling","trigger":"Eren makes physical contact with Zeke in the Paths dimension, rejects the euthanasia plan, and commands Ymir Fritz to unleash the Wall Titans.","consequence":"Millions of Colossal Titans emerge from the Walls and begin a global march of extermination, flattening approximately 80% of all life outside Paradis Island.","timelinePosition":"Endgame (Year 854)","loreDesc":"The terminal consequence of every prior causal event — a planetary extinction march initiated by a single individual who concluded that absolute freedom requires absolute annihilation of all external threats.","systemDesc":"A catastrophic root-level command executing a global wipe of all external servers. The recursive causal chain reaches its terminal output: total environmental reset initiated by the very node the system was designed to contain."}],"systemQuestions":[{"question":"Why is Attack on Titan best analyzed as causality architecture?","answer":"Its decisive shifts come from trigger-consequence chains across generations rather than isolated battles.","tabIndex":3,"sectionId":"causal-events-heading","tabLabel":"Core Laws"},{"question":"How do titan powers function as a control system?","answer":"Power entries show inheritance, transformation limits, and command authority as interacting constraints.","tabIndex":0,"sectionId":"power-system-heading","tabLabel":"Power Engine"},{"question":"What institutional forces keep conflict recurring?","answer":"Factions encode competing survival doctrines that repeatedly lock actors into escalation.","tabIndex":2,"sectionId":"factions-heading","tabLabel":"Factions"},{"question":"How does the relationship graph help explain plot turns?","answer":"Edges expose hidden dependencies and betrayals that make key decisions predictable in retrospect.","tabIndex":1,"sectionId":"relationship-matrix-heading","tabLabel":"Entity Database"}],"hero":{"systemType":"causal","microHook":"Map the causal chain before judging outcomes.","thesis":"Causality itself functions as the supreme power system; the timeline is a malleable battlespace.","primarySystemType":"entity_db"},"introductionSummary":"Attack on Titan deconstructs the titan-wrapped survival genre by making humanity's enemies feel less like monsters and more like a prison the characters built themselves. Every wall breached, every betrayal, and every rumbling decision is traceable to structural constraints baked into how Marley, Eldia, and the scouts organized power. The timeline lens matters here because causality — not strength — determines which walls fall first."}</script>
+</body>
+</html>

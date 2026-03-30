@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Hero Academia System Analysis | Anime Architecture Archive</title>
+  <meta name="description" content="Mutating biological power collides with state-managed hero capitalism." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:title" content="My Hero Academia System Analysis | Anime Architecture Archive" />
+  <meta property="og:description" content="Mutating biological power collides with state-managed hero capitalism." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://animearchive.app/universe/mha" />
+  <meta property="og:image" content="https://animearchive.app/api/og?id=mha" />
+  <meta property="og:site_name" content="Anime Architecture Archive" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="My Hero Academia System Analysis | Anime Architecture Archive" />
+  <meta name="twitter:description" content="Mutating biological power collides with state-managed hero capitalism." />
+  <meta name="twitter:image" content="https://animearchive.app/api/og?id=mha" />
+  <link rel="canonical" href="https://animearchive.app/universe/mha" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050508;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      min-height: 100vh;
+    }
+    .ssr-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(5,5,8,0.95);
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+    .ssr-nav-brand {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .ssr-nav-links { display: flex; gap: 1.5rem; }
+    .ssr-nav-links a {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #64748b; text-decoration: none;
+    }
+    .ssr-nav-links a:hover { color: #e2e8f0; }
+    .ssr-container { max-width: 64rem; margin: 0 auto; padding: 2rem 1rem; }
+    .ssr-hero {
+      text-align: center; padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+    }
+    .ssr-hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #22d3ee; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1.1; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-desc {
+      font-size: 0.8rem; color: #94a3b8; max-width: 42rem;
+      margin: 0 auto; line-height: 1.7;
+    }
+    .ssr-badge-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .ssr-badge {
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04); color: #64748b;
+    }
+    .ssr-badge.accent { border-color: rgba(34,211,238,0.3); color: #22d3ee; background: rgba(34,211,238,0.08); }
+    .ssr-section-title {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #475569; margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ssr-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .ssr-card {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0.75rem; padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+    .ssr-card:hover { border-color: rgba(34,211,238,0.3); }
+    .ssr-card-name { font-size: 0.75rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.25rem; }
+    .ssr-card-sub { font-size: 0.6rem; color: #64748b; margin-bottom: 0.5rem; }
+    .ssr-card-bio { font-size: 0.65rem; color: #94a3b8; line-height: 1.6; }
+    .ssr-danger {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border-radius: 999px;
+    }
+    .ssr-danger.low { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .ssr-danger.moderate { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.2); }
+    .ssr-danger.high { background: rgba(249,115,22,0.1); color: #fb923c; border: 1px solid rgba(249,115,22,0.2); }
+    .ssr-danger.critical { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .ssr-footer {
+      text-align: center; padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem;
+    }
+    .ssr-footer p { font-size: 0.6rem; color: #475569; }
+    .ssr-footer a { color: #64748b; text-decoration: none; }
+    .ssr-footer a:hover { color: #22d3ee; }
+    .ssr-loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60vh; flex-direction: column; gap: 1rem;
+    }
+    .ssr-spinner {
+      width: 2rem; height: 2rem; border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: #22d3ee; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ssr-loading-text { font-size: 0.65rem; color: #475569; letter-spacing: 0.2em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <nav class="ssr-nav">
+    <span class="ssr-nav-brand">Anime Architecture Archive</span>
+    <div class="ssr-nav-links">
+      <a href="https://animearchive.app/">Archive</a>
+      <a href="https://animearchive.app/universes">Universes</a>
+      <a href="https://animearchive.app/compare">Compare</a>
+      <a href="https://animearchive.app/blog">Blog</a>
+    </div>
+  </nav>
+  
+  <main class="ssr-container">
+    <div class="ssr-hero">
+      <div class="ssr-hero-eyebrow">System Analysis</div>
+      <h1 class="ssr-hero-title">My Hero Academia</h1>
+      <p class="ssr-hero-desc">Mutating biological power collides with state-managed hero capitalism.</p>
+      <div class="ssr-badge-row">
+        <span class="ssr-badge accent">Relational Network</span>
+        <span class="ssr-badge">10 entities</span>
+        <span class="ssr-badge">4 mechanics</span>
+        <span class="ssr-badge">6 rules</span>
+      </div>
+    </div>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Key Characters</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Izuku Midoriya</div>
+          <div class="ssr-card-sub">Inherited Containment Node</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">Born Quirkless, Deku becomes the chosen bearer of One For All and must learn to survive a power built for someone else.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">All Might</div>
+          <div class="ssr-card-sub">Symbolic Load-Bearing Pillar</div>
+        </div>
+        <span class="ssr-danger critical">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">All Might embodies absolute reassurance, holding fear and crime down through unmatched presence.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">All For One</div>
+          <div class="ssr-card-sub">Parasitic Routing Hub</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">A mythic villain who steals quirks and turns people into assets by offering power at a price.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Tomura Shigaraki</div>
+          <div class="ssr-card-sub">Entropic Singularity Node</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">Raised through trauma and manipulation, Shigaraki turns pure rejection into world-level destruction.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Enji Todoroki</div>
+          <div class="ssr-card-sub">Market Apex Hero</div>
+        </div>
+        <span class="ssr-danger critical">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">Endeavor reaches the top through relentless force, but his family engineering project reveals the human cost of rank ob…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Keigo Takami</div>
+          <div class="ssr-card-sub">State Intelligence Instrument</div>
+        </div>
+        <span class="ssr-danger critical">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">Hawks is the smiling prodigy hero shaped from childhood to serve national stability at any moral cost.</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Factions</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Hero Public Safety Commission</div>
+      <div class="ssr-card-sub">systemic</div>
+      <div class="ssr-card-bio">The secretive regulator that shapes hero society through licensing, rankings, and narrative managem…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Hero Agency Network</div>
+      <div class="ssr-card-sub">protagonist</div>
+      <div class="ssr-card-bio">Licensed heroes and agencies who protect civilians under public scrutiny.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Meta Liberation Army</div>
+      <div class="ssr-card-sub">antagonist</div>
+      <div class="ssr-card-bio">A movement that frames Quirk suppression as oppression and demands unrestricted expression.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Paranormal Liberation Front</div>
+      <div class="ssr-card-sub">chaotic</div>
+      <div class="ssr-card-bio">A merged alliance of villains and liberation militants preparing systemic overthrow.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">League of Villains</div>
+      <div class="ssr-card-sub">antagonist</div>
+      <div class="ssr-card-bio">Shigaraki&#39;s original crew of anti-hero society actors.</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Power Mechanics</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Quirk Factor</div>
+      <div class="ssr-card-sub">Biological Execution Layer</div>
+      <div class="ssr-card-bio">Quirks are inherited traits tied to a person&#39;s body and instincts, not detachable spells. Training…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">One For All</div>
+      <div class="ssr-card-sub">Inherited Stockpile Network</div>
+      <div class="ssr-card-bio">A torch passed from wielder to wielder, carrying strength and the echoes of everyone who held it be…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">All For One</div>
+      <div class="ssr-card-sub">Parasitic Quirk Routing</div>
+      <div class="ssr-card-bio">A stolen empire of powers built by taking what others were born with and redistributing it for loya…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">State Hero Regulation</div>
+      <div class="ssr-card-sub">Licensing and Incentive Grid</div>
+      <div class="ssr-card-bio">Hero work is legal only inside a managed system of schools, licenses, agencies, and rankings that s…</div>
+    </div></div>
+    </section>
+  </main>
+  <footer class="ssr-footer">
+    <p><a href="https://animearchive.app">Anime Architecture Archive</a> — Structured analysis of anime power systems, factions, and causal logic.</p>
+  </footer>
+  <script type="application/json" id="__ssr_data__">{"anime":"My Hero Academia","tagline":"My Hero Academia — Mutating superpowers collide with state hero capitalism as society crumbles.","malId":31964,"themeColors":{"primary":"#0ea5e9","secondary":"#0f172a","accent":"#f97316","glow":"rgba(14,165,233,0.35)","tabActive":"#38bdf8","badgeBg":"rgba(14,165,233,0.18)","badgeText":"#bae6fd","modeGlow":"rgba(249,115,22,0.42)","heroGradient":"rgba(15,23,42,0.94)"},"visualizationHint":"node-graph","visualizationReason":"MHA is governed by control webs: HPSC policy routing, inherited and stolen Quirk chains, and ideological splinter networks that determine which nodes stabilize or collapse society.","headerFlavor":{"loreQuote":"A society built on heroes can still crack from the inside.","sysWarning":"// [SYS_OP]: QUIRK ESCALATION EXCEEDING REGULATORY BANDWIDTH","sysWarningColor":"amber"},"backgroundMotif":"jagged","revealOverlay":"glow-border-soft","aiInsights":{"casual":"My Hero Academia works like a giant social network under stress: powers keep getting stronger and stranger, while the hero system tries to keep everything marketable and under control. Every major conflict comes from that mismatch.","deep":"The universe is a contested node-graph between biological escalation and institutional containment. Quirk singularity pressure increases variance, while HPSC ranking economics and behavioral regulation compress variance for governance. All For One and Shigaraki exploit this compression gap by converting alienated nodes into high-leverage anti-system edges, causing cascading trust and security failures."},"powerSystem":[{"name":"Quirk Factor","subtitle":"Biological Execution Layer","loreDesc":"Quirks are inherited traits tied to a person's body and instincts, not detachable spells. Training improves expression, but the body always sets the cost.","systemDesc":"A genetic capability stack with phenotype-specific activation paths and strict host hardware limits. Performance is bounded by physiology, recovery bandwidth, and mutation volatility.","icon":"Cpu","color":"sky-400","signatureMoment":"Deku's early Full Cowl experiments show that power output without hardware adaptation causes immediate self-damage.","loreSubtitle":"Power lives in the body","systemSubtitle":"Host-constrained execution"},{"name":"One For All","subtitle":"Inherited Stockpile Network","loreDesc":"A torch passed from wielder to wielder, carrying strength and the echoes of everyone who held it before.","systemDesc":"A transferable accumulation engine that stores kinetic output plus vestige residues, creating a multi-tenant internal decision space that can assist or resist the current host.","icon":"Flame","color":"amber-400","signatureMoment":"Vestiges intervene during Deku's crisis points, proving OFA transfer preserves active legacy logic.","loreSubtitle":"Inherited will and force","systemSubtitle":"Compounding transfer protocol"},{"name":"All For One","subtitle":"Parasitic Quirk Routing","loreDesc":"A stolen empire of powers built by taking what others were born with and redistributing it for loyalty.","systemDesc":"A theft-and-allocation framework that centralizes Quirk ownership in a single controller node, enabling tailored loadouts while accelerating host degradation and dependence loops.","icon":"Key","color":"purple-400","signatureMoment":"All For One combines multiple stolen Quirks in Kamino to brute-force around single-ability counters.","loreSubtitle":"Power stolen, not inherited","systemSubtitle":"Centralized extraction bus"},{"name":"State Hero Regulation","subtitle":"Licensing and Incentive Grid","loreDesc":"Hero work is legal only inside a managed system of schools, licenses, agencies, and rankings that sell safety to the public.","systemDesc":"A governance layer that transforms response capacity into reputation-indexed labor markets, coupling public trust, media incentives, and deployment priorities.","icon":"Shield","color":"cyan-400","signatureMoment":"Billboard rankings reshape hero behavior by tying status and opportunity to visible performance.","loreSubtitle":"Heroism as public institution","systemSubtitle":"Reputation-governed control plane"}],"rankings":{"systemName":"Hero Society Influence Stack","loreName":"Public Hero Hierarchy","topTierName":"System Pillars","topTierLore":"Figures like All Might and, later, Endeavor carry entire eras of public order on their shoulders.","topTierSystem":"Load-bearing nodes whose failure causes broad trust and security cascades across the graph.","tiers":[{"name":"State Instruments","loreDesc":"Licensed elites and covert agents who execute policy under hero branding.","systemDesc":"High-authority operational nodes linked directly to HPSC control channels."},{"name":"Mass Mobilizers","loreDesc":"Ideological leaders who rally disaffected populations into anti-system blocs.","systemDesc":"Narrative-amplification nodes that rapidly convert latent dissatisfaction into active edges."},{"name":"Containment Operators","loreDesc":"Teachers and field heroes who keep escalation manageable at ground level.","systemDesc":"Distributed dampeners that reduce local volatility without rewriting macro incentives."}]},"characters":[{"name":"Izuku Midoriya","title":"Inherited Containment Node","rank":"U.A. Successor Candidate","dangerLevel":9,"loreBio":"Born Quirkless, Deku becomes the chosen bearer of One For All and must learn to survive a power built for someone else.","systemBio":"A rare low-noise host selected for transfer stability; his body becomes an adaptation platform for multi-source vestige throughput.","gradientFrom":"emerald-900","gradientTo":"teal-900","accentColor":"emerald-400","icon":"Target","signatureMoment":"Switching from bone-breaking bursts to distributed Full Cowl and auxiliary quirks to avoid hardware collapse.","imageUrl":"https://cdn.myanimelist.net/images/characters/7/299404.jpg?s=6a448d3702c1d3185ed7ad8f0b8484f0","malId":117909,"slug":"izuku-midoriya","description":"Izuku Midoriya is the ninth wielder of One For All, a Quirk inherited from All Might that lets him channel incredible raw power at the cost of severe bodily damage, from My Hero Academia.","role":"Main","relationships":["Boku no Hero Academia","Boku no Hero Academia 2nd Season","Boku no Hero Academia: Sukue! Kyuujo Kunren!","Boku no Hero Academia: Hero Note","Boku no Hero Academia: Training of the Dead","Boku no Hero Academia 3rd Season","Boku no Hero Academia the Movie 1: Futari no Hero","Boku no Hero Academia 4th Season"]},{"name":"All Might","title":"Symbolic Load-Bearing Pillar","rank":"Former No. 1 Hero","dangerLevel":8,"loreBio":"All Might embodies absolute reassurance, holding fear and crime down through unmatched presence.","systemBio":"A single deterrence super-node whose retirement exposes over-centralization risk in hero-state architecture.","gradientFrom":"yellow-900","gradientTo":"amber-900","accentColor":"yellow-400","icon":"Star","signatureMoment":"His final stand at Kamino ends his era and removes the system's primary stabilizer.","imageUrl":"https://cdn.myanimelist.net/images/characters/14/310613.jpg?s=2bb273c38247c38003176367645e6488","malId":117921,"slug":"all-might","description":"All Might is the Symbol of Peace, the world's most powerful hero whose strength has been fading since the fight with All For One left him with permanent injuries, from My Hero Academia.","role":"Main","relationships":["Boku no Hero Academia","Boku no Hero Academia 2nd Season","Boku no Hero Academia: Sukue! Kyuujo Kunren!","Boku no Hero Academia: Hero Note","Boku no Hero Academia: Training of the Dead","Boku no Hero Academia 3rd Season","Boku no Hero Academia the Movie 1: Futari no Hero","Boku no Hero Academia 4th Season"]},{"name":"All For One","title":"Parasitic Routing Hub","rank":"Underworld Sovereign","dangerLevel":10,"loreBio":"A mythic villain who steals quirks and turns people into assets by offering power at a price.","systemBio":"A central extractor node that aggregates capability, manufactures dependency, and orchestrates succession through controlled heirs.","gradientFrom":"purple-950","gradientTo":"slate-950","accentColor":"purple-400","icon":"Lock","signatureMoment":"Engineering Shigaraki as a vessel while preserving his own continuity through transfer strategy.","imageUrl":"https://cdn.myanimelist.net/images/characters/4/370136.jpg?s=9a8bbc134d9c1719cacb71c58d863e72","malId":141358,"slug":"all-for-one","description":"All For One is a villain who can steal and bestow Quirks, an ancient and calculating mastermind who has shaped the hero society from the shadows for over a century, from My Hero Academia.","role":"Supporting","relationships":["Boku no Hero Academia","Boku no Hero Academia 2nd Season","Boku no Hero Academia 3rd Season","Boku no Hero Academia the Movie 1: Futari no Hero","Boku no Hero Academia 4th Season","Boku no Hero Academia the Movie 1: Futari no Hero Specials","Boku no Hero Academia 5th Season","Boku no Hero Academia 6th Season"]},{"name":"Tomura Shigaraki","title":"Entropic Singularity Node","rank":"PLF Supreme Leader","dangerLevel":10,"loreBio":"Raised through trauma and manipulation, Shigaraki turns pure rejection into world-level destruction.","systemBio":"A high-variance vessel optimized to carry stacked quirks and broadcast anti-order contagion across mass networks.","gradientFrom":"red-950","gradientTo":"zinc-900","accentColor":"red-400","icon":"Flame","signatureMoment":"His upgraded Decay spreads in cascading waves, converting city-scale infrastructure into instant collapse.","imageUrl":"https://cdn.myanimelist.net/images/characters/14/272139.jpg?s=ee7d051f5ff04bd4fe6830e0d268cb10","malId":122103,"slug":"tomura-shigaraki","description":"Tomura Shigaraki is the successor to All For One, a villain born from abuse and driven by a fractured psyche to destroy everything, from My Hero Academia.","role":"Supporting","relationships":["Boku no Hero Academia","Boku no Hero Academia 2nd Season","Boku no Hero Academia: Hero Note","Boku no Hero Academia 3rd Season","Boku no Hero Academia 4th Season","Boku no Hero Academia the Movie 2: Heroes:Rising","Boku no Hero Academia 5th Season","Boku no Hero Academia 6th Season"]},{"name":"Enji Todoroki","title":"Market Apex Hero","rank":"No. 1 Hero","dangerLevel":8,"loreBio":"Endeavor reaches the top through relentless force, but his family engineering project reveals the human cost of rank obsession.","systemBio":"An incentive-maximized node whose private eugenic optimization mirrors the public metrics logic of hero-market competition.","gradientFrom":"orange-900","gradientTo":"red-900","accentColor":"orange-400","icon":"Sword","signatureMoment":"Publicly inheriting the number one position while the Dabi revelation detonates his legitimacy.","imageUrl":"https://myanimelist.net/images/characters/4/414269.jpg","malId":141624,"slug":"enji-todoroki","description":"Enji Todoroki is the Flame Hero Endeavor, a relentless fighter who uses Prominence Burn to project devastating waves of fire, from My Hero Academia.","relationships":["Shouta Aizawa","Keigo Takami","Touya Todoroki","Shoto Todoroki","Fuyumi Todoroki"],"role":"Supporting"},{"name":"Keigo Takami","title":"State Intelligence Instrument","rank":"No. 2 Hero / HPSC Asset","dangerLevel":8,"loreBio":"Hawks is the smiling prodigy hero shaped from childhood to serve national stability at any moral cost.","systemBio":"A high-speed reconnaissance and covert action node embedded in both public hero branding and secret state operations.","gradientFrom":"amber-900","gradientTo":"rose-900","accentColor":"amber-400","icon":"Eye","signatureMoment":"Infiltrating the PLF command chain while balancing hero celebrity optics.","imageUrl":"https://myanimelist.net/images/characters/10/438645.jpg","malId":195199,"slug":"keigo-takami","description":"Keigo Takami is the Wing Hero Hawks, an efficient and pragmatic underground hero with bird-themed abilities who operates in the gray areas between hero and villain, from My Hero Academia.","relationships":["Enji Todoroki","Tomura Shigaraki","All For One"],"role":"Supporting"},{"name":"Chizome Akaguro","title":"Ideological Virus (Stain)","rank":"Vigilante Killer","dangerLevel":7,"loreBio":"Stain hunts heroes he sees as fake, igniting a movement far larger than his own body count.","systemBio":"A memetic disruption node that converts isolated incidents into legitimacy crises for the state hero brand.","gradientFrom":"slate-900","gradientTo":"red-950","accentColor":"red-500","icon":"Zap","signatureMoment":"His Hosu actions trigger mass ideological recruitment among future villain cells.","imageUrl":"https://myanimelist.net/images/characters/15/331442.jpg","malId":132691,"slug":"chizome-akaguro","description":"Chizome Akaguro is Stain, a violent vigilante who believes true heroism requires total sacrifice and kills any hero he deems unworthy with his Bloodcurdle Quirk, from My Hero Academia.","relationships":["Izuku Midoriya","Tomura Shigaraki","All Might"],"role":"Antagonist"},{"name":"Rikiya Yotsubashi","title":"Deregulation Architect (Re-Destro)","rank":"Meta Liberation Commander","dangerLevel":8,"loreBio":"Re-Destro weaponizes inherited doctrine and corporate resources to demand unrestricted Quirk expression.","systemBio":"A capital-backed mobilization node that scales anti-regulation ideology into organized military infrastructure.","gradientFrom":"violet-900","gradientTo":"fuchsia-900","accentColor":"violet-400","icon":"Crown","signatureMoment":"Merging MLA structures into the Paranormal Liberation Front under Shigaraki.","imageUrl":"https://myanimelist.net/images/characters/16/454752.jpg","malId":174410,"slug":"rikiya-yotsubashi","description":"Rikiya Yotsubashi is the sixthuser of One For All, a calm strategist who becomes the leader of the Meta Liberation Army, from My Hero Academia.","relationships":["Izuku Midoriya","Tomura Shigaraki","All For One"],"role":"Supporting"},{"name":"Shouta Aizawa","title":"Quirk Dampener","rank":"U.A. Pro Hero","dangerLevel":7,"loreBio":"Aizawa operates as a grounded teacher and field specialist who neutralizes chaos by turning powers off.","systemBio":"A rare suppression node that temporarily disables activation pathways, making him critical for high-threat containment operations.","gradientFrom":"zinc-900","gradientTo":"slate-800","accentColor":"cyan-300","icon":"Shield","signatureMoment":"Holding front-line control in the war despite catastrophic injury because Erasure is strategically irreplaceable.","imageUrl":"https://cdn.myanimelist.net/images/characters/8/301855.jpg?s=30bde8aa7f840805f22ab894a1eca521","malId":117915,"slug":"shouta-aizawa","description":"Shouta Aizawa is the Underground Hero Eraser Head who can temporarily nullify any Quirk by looking at its user, from My Hero Academia.","role":"Supporting","relationships":["Boku no Hero Academia","Boku no Hero Academia 2nd Season","Boku no Hero Academia: Sukue! Kyuujo Kunren!","Boku no Hero Academia: Hero Note","Boku no Hero Academia: Training of the Dead","Boku no Hero Academia 3rd Season","Boku no Hero Academia 4th Season","Boku no Hero Academia the Movie 2: Heroes:Rising"]},{"name":"Touya Todoroki","title":"Exposure Catalyst (Dabi)","rank":"League/PLF Operative","dangerLevel":8,"loreBio":"Dabi turns personal abandonment into public vengeance, targeting both his family and hero society.","systemBio":"A narrative sabotage node that weaponizes leaked truth to collapse confidence in hero-market legitimacy.","gradientFrom":"blue-950","gradientTo":"indigo-950","accentColor":"blue-400","icon":"Flame","signatureMoment":"Broadcasting his identity to fuse private abuse evidence with national legitimacy shock.","imageUrl":"https://myanimelist.net/images/characters/6/454749.jpg","malId":139262,"slug":"touya-todoroki","description":"Touya Todoroki is Dabi, a villain with a Quirk that generates blue flames hotter than his father's but burns his own body, from My Hero Academia.","relationships":["Enji Todoroki","Shoto Todoroki","Natsuo Todoroki","Fuyumi Todoroki","Tomura Shigaraki"],"role":"Antagonist"}],"relationships":[{"source":"All For One","target":"Tomura Shigaraki","type":"mentor","weight":10,"loreDesc":"All For One raises Shigaraki as an heir while quietly preserving control over him.","systemDesc":"A succession-engineering edge that seeds a future host while maintaining upstream override authority."},{"source":"Tomura Shigaraki","target":"All For One","type":"dependent","weight":9,"loreDesc":"Shigaraki's rise is built on resources and conditioning supplied by his master.","systemDesc":"High dependence on external provisioning for quirk augmentation and organizational scaling."},{"source":"Izuku Midoriya","target":"All Might","type":"successor","weight":10,"loreDesc":"Midoriya inherits One For All as All Might's chosen continuation.","systemDesc":"Formal transfer edge in the OFA lineage, moving system load to a new host."},{"source":"All Might","target":"Izuku Midoriya","type":"mentor","weight":9,"loreDesc":"All Might trains Deku to carry hope without collapsing under power.","systemDesc":"Coaching edge that converts inherited raw throughput into survivable operational profiles."},{"source":"Keigo Takami","target":"Rikiya Yotsubashi","type":"betrayal","weight":8,"loreDesc":"Hawks gains PLF trust while secretly serving the state.","systemDesc":"Deep-cover intelligence edge enabling high-value disruption of adversarial command networks."},{"source":"Keigo Takami","target":"Tomura Shigaraki","type":"enemy","weight":8,"loreDesc":"Hawks works to prevent Shigaraki's coalition from reaching full activation.","systemDesc":"Preemptive containment edge against singularity-class escalation."},{"source":"Chizome Akaguro","target":"Tomura Shigaraki","type":"ally","weight":6,"loreDesc":"Stain's anti-fake-hero ideology energizes villain recruitment that benefits Shigaraki's rise.","systemDesc":"Indirect ideological feed edge that raises anti-system node throughput."},{"source":"Chizome Akaguro","target":"Enji Todoroki","type":"enemy","weight":7,"loreDesc":"Stain condemns heroes motivated by status and reputation, directly clashing with Endeavor's image.","systemDesc":"Normative conflict edge between purity ideology and market-optimized hero behavior."},{"source":"Rikiya Yotsubashi","target":"Tomura Shigaraki","type":"successor","weight":8,"loreDesc":"Re-Destro yields command after recognizing Shigaraki's overwhelming force.","systemDesc":"Authority handoff edge merging corporate militia architecture into singularity leadership."},{"source":"Enji Todoroki","target":"Touya Todoroki","type":"betrayal","weight":9,"loreDesc":"Endeavor's family project leaves Touya feeling discarded, fueling Dabi's vendetta.","systemDesc":"Domestic optimization failure creates a hostile leak node with privileged reputational attack vectors."},{"source":"Touya Todoroki","target":"Enji Todoroki","type":"enemy","weight":9,"loreDesc":"Dabi publicly weaponizes family truth to destroy Endeavor's symbolic authority.","systemDesc":"Counter-legitimacy edge targeting a top-tier trust anchor in hero governance."},{"source":"Shouta Aizawa","target":"Izuku Midoriya","type":"mentor","weight":7,"loreDesc":"Aizawa pushes Midoriya toward controlled, practical Quirk usage.","systemDesc":"Stability edge that lowers self-damage risk and improves containment behavior."},{"source":"Shouta Aizawa","target":"Tomura Shigaraki","type":"counter","weight":8,"loreDesc":"Erasure can blunt high-level Quirk activation in critical windows.","systemDesc":"Direct suppression edge against catastrophic ability execution pathways."},{"source":"All Might","target":"All For One","type":"enemy","weight":10,"loreDesc":"Their rivalry defines the old era's central conflict between protection and domination.","systemDesc":"Primary antagonistic edge between deterrence pillar and parasitic accumulation hub."},{"source":"Izuku Midoriya","target":"Tomura Shigaraki","type":"mirror","weight":9,"loreDesc":"Both inherit legacies they did not choose, then redefine what those inheritances mean.","systemDesc":"Opposed successor nodes carrying legacy stacks that compete to rewrite future system norms."},{"source":"All For One","target":"Keigo Takami","type":"enemy","weight":7,"loreDesc":"All For One views Hawks as a high-value state blade that must be neutralized.","systemDesc":"Adversarial edge between covert state instrument and parasitic command hub."},{"source":"Enji Todoroki","target":"All Might","type":"rival","weight":7,"loreDesc":"Endeavor spends years chasing All Might’s unreachable standard.","systemDesc":"Competitive prestige edge shaped by Billboard-era rank incentives."}],"factions":[{"name":"Hero Public Safety Commission","role":"systemic","loreDesc":"The secretive regulator that shapes hero society through licensing, rankings, and narrative management.","systemDesc":"Central governance hub controlling legitimacy, resource allocation, and covert enforcement pipelines."},{"name":"Hero Agency Network","role":"protagonist","loreDesc":"Licensed heroes and agencies who protect civilians under public scrutiny.","systemDesc":"Distributed response mesh optimized for visible incident resolution and trust maintenance."},{"name":"Meta Liberation Army","role":"antagonist","loreDesc":"A movement that frames Quirk suppression as oppression and demands unrestricted expression.","systemDesc":"Ideological insurgency network converting deregulation doctrine into mass mobilization capacity."},{"name":"Paranormal Liberation Front","role":"chaotic","loreDesc":"A merged alliance of villains and liberation militants preparing systemic overthrow.","systemDesc":"Hybrid coalition that fuses nihilistic violence with scalable organizational logistics."},{"name":"League of Villains","role":"antagonist","loreDesc":"Shigaraki's original crew of anti-hero society actors.","systemDesc":"Core radicalization nucleus later expanded into the PLF's larger command network."}],"rules":[{"name":"Biological Hardware Limit","subtitle":"No body has infinite Quirk bandwidth","loreConsequence":"Pushing a Quirk beyond what the body can hold leads to injury, burnout, or loss of control.","systemEquivalent":"Host physiology enforces hard throughput ceilings; overload events produce structural damage and degraded decision quality.","severity":"fatal","loreSubtitle":"Power hurts its owner first","systemSubtitle":"Hardware saturation threshold"},{"name":"Vestige Imprint Continuity","subtitle":"Transferred power carries prior will","loreConsequence":"When inherited Quirks move hosts, traces of previous users can influence the new bearer's choices.","systemEquivalent":"Transferable quirks preserve legacy-state residues, creating multi-user memory interference and guidance channels.","severity":"high","loreSubtitle":"Past users never fully leave","systemSubtitle":"Persistent state residue"},{"name":"Quirk Singularity Escalation","subtitle":"Generations amplify uncontrollably","loreConsequence":"Each generation tends to produce harder-to-control Quirks, increasing accidents and social fear.","systemEquivalent":"Intergenerational mutation compounds capability complexity faster than governance and training frameworks can adapt.","severity":"fatal","loreSubtitle":"Evolution outruns society","systemSubtitle":"Unbounded variance growth"},{"name":"Hero Market Incentive Law","subtitle":"Safety is ranked and branded","loreConsequence":"Heroes are rewarded for visibility and public approval, which can distort priorities and behavior.","systemEquivalent":"Rank-indexed incentive loops couple crisis response to media-facing metrics, producing optimization drift.","severity":"high","loreSubtitle":"Fame steers the mission","systemSubtitle":"Metric-coupled allocation"},{"name":"Quirk Normalization Pressure","subtitle":"Children are trained into acceptable expression","loreConsequence":"Counseling and social pressure suppress non-normative Quirk behavior, often isolating outliers.","systemEquivalent":"Early compliance protocols reduce short-term volatility but increase alienation among high-variance phenotypes.","severity":"medium","loreSubtitle":"Difference is managed, not solved","systemSubtitle":"Behavioral homogenization protocol"},{"name":"Predatory Quirk Acquisition","subtitle":"Stolen powers centralize control","loreConsequence":"All For One can remove autonomy by taking Quirks and redistributing them to create debt and obedience.","systemEquivalent":"Forced capability transfer enables monopoly accumulation, collapsing distributed resilience into a coercive single hub.","severity":"fatal","loreSubtitle":"Power theft rewrites ownership","systemSubtitle":"Extraction-driven centralization"}],"counterplay":[{"attacker":"High-output Quirk burst","defender":"Aizawa's Erasure","mechanic":"Temporarily disables activation, forcing engagements back to physical fundamentals.","loreDesc":"Aizawa levels impossible fights by turning overwhelming powers off at the right second.","systemDesc":"A suppression interrupt that cuts execution privileges before catastrophic throughput is reached."},{"attacker":"Shigaraki Decay spread","defender":"Mobility fragmentation and vertical separation","mechanic":"Breaking contact chains and spacing nodes prevents area-wide propagation.","loreDesc":"Heroes survive by never letting Decay keep a continuous surface to travel through.","systemDesc":"Propagation denial limits cascade radius for touch-initiated chain destruction."},{"attacker":"Hero ranking propaganda","defender":"Public exposure leaks","mechanic":"Revealed abuse and corruption puncture legitimacy and reduce compliance.","loreDesc":"Dabi and war-era disclosures shatter the polished image of hero society.","systemDesc":"Narrative integrity attacks reduce trust capital, degrading command acceptance."},{"attacker":"Quirk overload in inherited hosts","defender":"Progressive output partitioning","mechanic":"Gradual percentage-based control avoids self-inflicted catastrophic damage.","loreDesc":"Deku survives One For All by learning to spread force instead of exploding limbs.","systemDesc":"Load-balancing strategy keeps utilization below host failure thresholds."},{"attacker":"Mass deregulation mobilization","defender":"Infiltration and targeted decapitation","mechanic":"Embedded assets disrupt leadership synchronization before uprising reaches full scale.","loreDesc":"Hawks infiltrates the PLF to fracture the movement before open war.","systemDesc":"Command-disruption operation reducing adversarial network coherence."}],"anomalies":[{"name":"One For All","ruleViolated":"Biological Hardware Limit","loreDesc":"A Quirk that keeps stacking power and inherited traces across generations beyond normal human design.","systemDesc":"Compounding transfer artifact that exceeds conventional host tolerances while preserving historical user state."},{"name":"All For One","ruleViolated":"Natural Quirk Ownership","loreDesc":"A single individual can steal and redistribute Quirks as if people were inventory.","systemDesc":"Unauthorized capability extraction protocol that bypasses inheritance boundaries and centralizes control."},{"name":"Nomu Bio-Weapons","ruleViolated":"Single-host Quirk Capacity","loreDesc":"Engineered bodies are modified to carry multiple Quirks with minimal individuality.","systemDesc":"Artificial vessel architecture that trades cognition for stable multi-quirk load handling."},{"name":"Quirk-Destroying Drug","ruleViolated":"Irreversible Quirk Identity","loreDesc":"A weaponized biological rewrite can erase Quirk expression itself.","systemDesc":"Targeted phenotype rollback that permanently removes activation pathways from the host."}],"causalEvents":[{"name":"Dawn of Quirks","trigger":"Sudden emergence of meta abilities across the population","consequence":"Legacy institutions fracture as society rebuilds around Quirk-bearing majorities.","timelinePosition":"Pre-Narrative","loreDesc":"The world is forced to reinvent law and daily life when powers appear everywhere.","systemDesc":"Foundational mutation shock that resets governance assumptions and risk models."},{"name":"Kamino Fracture","trigger":"All Might and All For One's public terminal clash","consequence":"All Might retires, exposing systemic overreliance on one symbolic enforcer.","timelinePosition":"Mid-Narrative","loreDesc":"The Symbol of Peace burns out in front of the nation.","systemDesc":"Primary deterrence node failure causes immediate trust and crime volatility spikes."},{"name":"PLF Consolidation","trigger":"League of Villains and MLA unification under Shigaraki","consequence":"Anti-system groups gain military scale and coherent command.","timelinePosition":"Mid-Narrative","loreDesc":"Separate villain currents fuse into one war-capable front.","systemDesc":"Network merge event combines ideology, logistics, and destructive capability into a single threat architecture."},{"name":"Paranormal Liberation War","trigger":"State preemption collides with PLF mobilization and hidden scandals","consequence":"Hero legitimacy and national security both degrade, pushing society toward fragmentation.","timelinePosition":"Final Arc","loreDesc":"The war reveals how deep corruption and trauma run on every side.","systemDesc":"Full-spectrum stress test where governance opacity, incentive drift, and singularity pressure converge into systemic failure."}],"animeImageUrl":"https://myanimelist.net/images/anime/10/78745l.jpg","systemQuestions":[{"question":"How does the quirk ecosystem produce both heroes and villains?","answer":"Quirks create asymmetric capability markets, and institutions decide which abilities are formalized, regulated, or criminalized.","tabIndex":0,"sectionId":"power-system-heading","tabLabel":"Power Engine"},{"question":"Why are rankings so central in MHA?","answer":"Rankings act as resource allocation and trust signals that shape patrol priority, media pressure, and recruitment flow.","tabIndex":0,"sectionId":"rankings-heading","tabLabel":"Power Engine"},{"question":"What rules govern legal force and intervention?","answer":"Core laws define when power use is sanctioned, which determines who can act first during crisis events.","tabIndex":3,"sectionId":"rules-heading","tabLabel":"Core Laws"},{"question":"How do factions influence conflict outcomes?","answer":"Government, school, and villain networks each optimize different objectives, creating recurring systemic friction.","tabIndex":2,"sectionId":"factions-heading","tabLabel":"Factions"},{"question":"How should a new reader approach this universe page?","answer":"Use Power Engine for capability basics, then Relationship Matrix to understand mentorship, rivalry, and succession pressure.","tabIndex":1,"sectionId":"relationship-matrix-heading","tabLabel":"Entity Database"}],"hero":{"systemType":"relational","microHook":"Track control edges before reading motives.","thesis":"MHA is governed by control webs: HPSC policy routing, inherited and stolen Quirk chains, and ideological splinter networks that determine w…","primarySystemType":"entity_db"},"introductionSummary":"My Hero Academia maps a society where Quirk inheritance chains, hero school institutions, and villain syndicates each form distinct control networks — and All For One and One For All represent the system's two poles of power consolidation versus power redistribution. The node graph captures what drives the narrative: not individual battles, but which institutional and Quirk dependency networks survive the collapse of hero capitalism."}</script>
+</body>
+</html>

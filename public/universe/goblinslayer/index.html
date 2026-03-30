@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goblin Slayer System Analysis | Anime Architecture Archive</title>
+  <meta name="description" content="A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta property="og:title" content="Goblin Slayer System Analysis | Anime Architecture Archive" />
+  <meta property="og:description" content="A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://animearchive.app/universe/goblinslayer" />
+  <meta property="og:image" content="https://animearchive.app/api/og?id=goblinslayer" />
+  <meta property="og:site_name" content="Anime Architecture Archive" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Goblin Slayer System Analysis | Anime Architecture Archive" />
+  <meta name="twitter:description" content="A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing." />
+  <meta name="twitter:image" content="https://animearchive.app/api/og?id=goblinslayer" />
+  <link rel="canonical" href="https://animearchive.app/universe/goblinslayer" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050508;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      min-height: 100vh;
+    }
+    .ssr-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(5,5,8,0.95);
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+    .ssr-nav-brand {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .ssr-nav-links { display: flex; gap: 1.5rem; }
+    .ssr-nav-links a {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #64748b; text-decoration: none;
+    }
+    .ssr-nav-links a:hover { color: #e2e8f0; }
+    .ssr-container { max-width: 64rem; margin: 0 auto; padding: 2rem 1rem; }
+    .ssr-hero {
+      text-align: center; padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
+    }
+    .ssr-hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #22d3ee; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      line-height: 1.1; margin-bottom: 0.75rem;
+    }
+    .ssr-hero-desc {
+      font-size: 0.8rem; color: #94a3b8; max-width: 42rem;
+      margin: 0 auto; line-height: 1.7;
+    }
+    .ssr-badge-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .ssr-badge {
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04); color: #64748b;
+    }
+    .ssr-badge.accent { border-color: rgba(34,211,238,0.3); color: #22d3ee; background: rgba(34,211,238,0.08); }
+    .ssr-section-title {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #475569; margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .ssr-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .ssr-card {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0.75rem; padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+    .ssr-card:hover { border-color: rgba(34,211,238,0.3); }
+    .ssr-card-name { font-size: 0.75rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.25rem; }
+    .ssr-card-sub { font-size: 0.6rem; color: #64748b; margin-bottom: 0.5rem; }
+    .ssr-card-bio { font-size: 0.65rem; color: #94a3b8; line-height: 1.6; }
+    .ssr-danger {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.2rem 0.5rem; border-radius: 999px;
+    }
+    .ssr-danger.low { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .ssr-danger.moderate { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.2); }
+    .ssr-danger.high { background: rgba(249,115,22,0.1); color: #fb923c; border: 1px solid rgba(249,115,22,0.2); }
+    .ssr-danger.critical { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .ssr-footer {
+      text-align: center; padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem;
+    }
+    .ssr-footer p { font-size: 0.6rem; color: #475569; }
+    .ssr-footer a { color: #64748b; text-decoration: none; }
+    .ssr-footer a:hover { color: #22d3ee; }
+    .ssr-loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60vh; flex-direction: column; gap: 1rem;
+    }
+    .ssr-spinner {
+      width: 2rem; height: 2rem; border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: #22d3ee; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ssr-loading-text { font-size: 0.65rem; color: #475569; letter-spacing: 0.2em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <nav class="ssr-nav">
+    <span class="ssr-nav-brand">Anime Architecture Archive</span>
+    <div class="ssr-nav-links">
+      <a href="https://animearchive.app/">Archive</a>
+      <a href="https://animearchive.app/universes">Universes</a>
+      <a href="https://animearchive.app/compare">Compare</a>
+      <a href="https://animearchive.app/blog">Blog</a>
+    </div>
+  </nav>
+  
+  <main class="ssr-container">
+    <div class="ssr-hero">
+      <div class="ssr-hero-eyebrow">System Analysis</div>
+      <h1 class="ssr-hero-title">Goblin Slayer</h1>
+      <p class="ssr-hero-desc">A low-prestige extermination niche becomes the hidden maintenance layer that keeps a fantasy civilization from collapsing.</p>
+      <div class="ssr-badge-row">
+        <span class="ssr-badge accent">Relational Network</span>
+        <span class="ssr-badge">10 entities</span>
+        <span class="ssr-badge">4 mechanics</span>
+        <span class="ssr-badge">6 rules</span>
+      </div>
+    </div>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Key Characters</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Goblin Slayer</div>
+          <div class="ssr-card-sub">Specialist Exterminator</div>
+        </div>
+        <span class="ssr-danger critical">CRITICAL</span>
+      </div>
+      <div class="ssr-card-bio">A traumatized survivor who dedicates every waking hour to preventing goblin raids from repeating the tragedy of his chi…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Priestess</div>
+          <div class="ssr-card-sub">Miracle Support Caster</div>
+        </div>
+        <span class="ssr-danger moderate">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">A rookie cleric who survives her first party&#39;s annihilation and grows into a decisive tactical partner.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">High Elf Archer</div>
+          <div class="ssr-card-sub">Ranged Control Specialist</div>
+        </div>
+        <span class="ssr-danger moderate">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">An elf ranger who initially mocks Goblin Slayer&#39;s grim methods, then recognizes their necessity in close-quarters exter…</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Dwarf Shaman</div>
+          <div class="ssr-card-sub">Earth &amp; Utility Caster</div>
+        </div>
+        <span class="ssr-danger moderate">MODERATE</span>
+      </div>
+      <div class="ssr-card-bio">A veteran shaman whose humor masks deep combat experience and battlefield adaptability.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Lizard Priest</div>
+          <div class="ssr-card-sub">Frontline Ritual Combatant</div>
+        </div>
+        <span class="ssr-danger moderate">HIGH</span>
+      </div>
+      <div class="ssr-card-bio">A reptilian priest-warrior who blends humor, honor, and brutal practicality in melee engagements.</div>
+    </div>
+    <div class="ssr-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+        <div>
+          <div class="ssr-card-name">Guild Girl</div>
+          <div class="ssr-card-sub">Dispatch Administrator</div>
+        </div>
+        <span class="ssr-danger low">LOW</span>
+      </div>
+      <div class="ssr-card-bio">The Adventurer&#39;s Guild receptionist who quietly keeps goblin requests visible despite market disinterest.</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Factions</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Adventurer&#39;s Guild</div>
+      <div class="ssr-card-sub">systemic</div>
+      <div class="ssr-card-bio">A contract bureau matching civilians with armed talent, but vulnerable to prestige bias.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Goblin Slayer Party</div>
+      <div class="ssr-card-sub">protagonist</div>
+      <div class="ssr-card-bio">A multi-race unit built around trust, discipline, and anti-goblin specialization.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Goblin Warbands</div>
+      <div class="ssr-card-sub">antagonist</div>
+      <div class="ssr-card-bio">Adaptive raider nests that weaponize fear, numbers, and local surprise.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Temple Authority</div>
+      <div class="ssr-card-sub">neutral</div>
+      <div class="ssr-card-bio">Religious institutions that provide healing legitimacy but are not always tactically proactive.</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Frontier Villages and Militias</div>
+      <div class="ssr-card-sub">neutral</div>
+      <div class="ssr-card-bio">Rural communities absorb first contact with goblin raids and often survive only through ad hoc loca…</div>
+    </div></div>
+    </section>
+
+    <section style="margin-bottom:2rem;">
+      <div class="ssr-section-title">Power Mechanics</div>
+      <div class="ssr-grid">
+    <div class="ssr-card">
+      <div class="ssr-card-name">Skill &amp; Miracle Slot Economy</div>
+      <div class="ssr-card-sub">Finite Daily Cast Budget</div>
+      <div class="ssr-card-bio">Priests and shamans can invoke only a limited number of miracles or spells before exhausting their…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Preparation Doctrine</div>
+      <div class="ssr-card-sub">Tools Over Heroics</div>
+      <div class="ssr-card-bio">Goblin Slayer relies on traps, smoke, mud, poison, and improvised weapons instead of dramatic fair…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Guild Rank Signaling</div>
+      <div class="ssr-card-sub">Credentialed Risk Routing</div>
+      <div class="ssr-card-bio">Adventurers are ranked from porcelain upward, and villages use those signals to request protection…</div>
+    </div>
+    <div class="ssr-card">
+      <div class="ssr-card-name">Goblin Adaptive Ecology</div>
+      <div class="ssr-card-sub">Parasitic Population Engine</div>
+      <div class="ssr-card-bio">Goblins learn from raids, copy weapons, and scale from cave pests to militarized warbands if left u…</div>
+    </div></div>
+    </section>
+  </main>
+  <footer class="ssr-footer">
+    <p><a href="https://animearchive.app">Anime Architecture Archive</a> — Structured analysis of anime power systems, factions, and causal logic.</p>
+  </footer>
+  <script type="application/json" id="__ssr_data__">{"anime":"Goblin Slayer","tagline":"Goblin Slayer — A low-prestige extermination specialist proves that heroism isn't about power levels — it's about purpose.","malId":37349,"themeColors":{"primary":"#065f46","secondary":"#111827","accent":"#b45309","glow":"rgba(6,95,70,0.32)","tabActive":"#10b981","badgeBg":"rgba(17,24,39,0.58)","badgeText":"#a7f3d0","modeGlow":"rgba(180,83,9,0.3)","heroGradient":"rgba(8,12,15,0.94)"},"visualizationHint":"node-graph","visualizationReason":"Goblin Slayer is driven by dependency edges between frontier villages, guild bureaucracy, faith-casters, and specialist operators; the node graph best shows who supplies protection, who absorbs risk, and how trust links stabilize the system.","headerFlavor":{"loreQuote":"He does not let anyone roll the dice.","sysWarning":"// [SYS_WARN]: FRONTIER THREAT UNDERPRICED — LOCAL FAILURE PROPAGATES TO REGIONAL INSTABILITY","sysWarningColor":"amber"},"backgroundMotif":"paper","revealOverlay":"gradient-top","introductionSummary":"Goblin Slayer frames fantasy adventuring as a labor market where prestige quests attract talent while low-paying goblin contracts are ignored until villages are erased. The protagonist turns that neglected niche into a disciplined anti-goblin protocol built on preparation, terrain control, and cross-role party coordination. The series' core mechanics are less about flashy duels and more about risk management: finite miracles, chant latency, guild incentives, and community resilience under chronic asymmetric threat.","aiInsights":{"casual":"Most adventurers chase fame, but Goblin Slayer focuses on the dangerous jobs nobody wants. By specializing completely, he prevents small goblin incidents from turning into mass-casualty disasters.","deep":"Goblin Slayer models a mispriced security market: high-status actors allocate toward prestige threats while frontier micro-threats compound through rapid goblin reproduction and intelligence adaptation. The protagonist's doctrine is a throughput optimizer that converts preparation, reconnaissance, and low-cost tools into outsized casualty reduction. System stability depends on maintaining reliable node links among guild dispatch, rural reporting, and mixed-role party execution under strict resource ceilings."},"powerSystem":[{"name":"Skill & Miracle Slot Economy","subtitle":"Finite Daily Cast Budget","loreDesc":"Priests and shamans can invoke only a limited number of miracles or spells before exhausting their divine and mental reserves.","systemDesc":"Caster throughput is hard-capped per mission, forcing parties to allocate limited activations across scouting, control, and emergency defense windows.","icon":"Lock","color":"amber-400","signatureMoment":"Priestess must decide exactly when to spend Protection because every cast can be the difference between survival and wipe.","loreSubtitle":"Magic is precious, not infinite","systemSubtitle":"Fixed-slot resource budget"},{"name":"Preparation Doctrine","subtitle":"Tools Over Heroics","loreDesc":"Goblin Slayer relies on traps, smoke, mud, poison, and improvised weapons instead of dramatic fair fights.","systemDesc":"Pre-combat planning converts uncertain encounters into controlled kill corridors with lower variance and reduced party attrition.","icon":"Target","color":"emerald-400","signatureMoment":"He floods a nest and seals exits to force goblins into predictable choke points.","loreSubtitle":"Win before battle starts","systemSubtitle":"Variance suppression protocol"},{"name":"Guild Rank Signaling","subtitle":"Credentialed Risk Routing","loreDesc":"Adventurers are ranked from porcelain upward, and villages use those signals to request protection they can rarely afford.","systemDesc":"A credential hierarchy routes labor toward perceived value, often starving low-reward extermination tasks of qualified responders.","icon":"Crown","color":"slate-400","signatureMoment":"New porcelain teams accept goblin quests without operational literacy and suffer catastrophic losses.","loreSubtitle":"Status decides deployment","systemSubtitle":"Incentive-distorted task allocation"},{"name":"Goblin Adaptive Ecology","subtitle":"Parasitic Population Engine","loreDesc":"Goblins learn from raids, copy weapons, and scale from cave pests to militarized warbands if left unchecked.","systemDesc":"Unchecked reproduction plus tactical adaptation creates exponential local threat growth and recurring frontier collapse cycles.","icon":"Flame","color":"red-400","signatureMoment":"A single surviving goblin repeatedly reinfects cleared zones and rebuilds nest strength.","loreSubtitle":"Small monsters, systemic menace","systemSubtitle":"Compounding adversary loop"}],"rankings":{"systemName":"Adventurer Capability & Response Ladder","loreName":"Guild Rank Hierarchy","topTierName":"Platinum/Legend-Class Champions","topTierLore":"Mythic heroes handle dragon-scale and demon-lord crises beyond ordinary frontier incidents.","topTierSystem":"Ultra-high throughput responders reserved for strategic threats, rarely allocated to local pest suppression.","tiers":[{"name":"Gold/Silver Specialists","loreDesc":"Veteran parties capable of leading major subjugation campaigns and urban defense.","systemDesc":"Reliable high-skill teams with enough coordination to execute multi-phase operations."},{"name":"Bronze/Steel Core Workforce","loreDesc":"The practical backbone of guild requests across towns, roads, and nearby ruins.","systemDesc":"Mid-tier labor pool balancing volume and survivability for standard contracts."},{"name":"Obsidian/Porcelain Novices","loreDesc":"New adventurers with minimal field data, high optimism, and high casualty risk.","systemDesc":"Low-experience entrants with weak threat models and limited coordination under pressure."}]},"characters":[{"name":"Goblin Slayer","title":"Specialist Exterminator","rank":"Silver","dangerLevel":9,"loreBio":"A traumatized survivor who dedicates every waking hour to preventing goblin raids from repeating the tragedy of his childhood village.","systemBio":"Single-domain operator with extreme procedural discipline; transforms underfunded contracts into consistent threat-neutralization outcomes.","gradientFrom":"slate-900","gradientTo":"emerald-900","accentColor":"emerald-400","icon":"Sword","signatureMoment":"Uses the Gate Scroll ocean-pressure exploit to erase an entrenched nest that conventional force could not crack.","imageUrl":"https://cdn.myanimelist.net/images/characters/14/523995.jpg?s=377d38330bee0abfd7b0ad909e1b3d71","malId":148622,"slug":"goblin-slayer","description":"Goblin Slayer is a traumatized survivor who dedicates every waking hour to preventing goblin raids from repeating the tragedy of his childhood village in Goblin Slayer.","role":"Main","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Priestess","title":"Miracle Support Caster","rank":"Porcelain → Steel","dangerLevel":7,"loreBio":"A rookie cleric who survives her first party's annihilation and grows into a decisive tactical partner.","systemBio":"Low-latency support node whose limited miracle slots are allocated to barrier control, rescue timing, and mission continuity.","gradientFrom":"blue-900","gradientTo":"amber-800","accentColor":"amber-300","icon":"Shield","signatureMoment":"Recasts Protection creatively to crush goblins against stone and seal choke points.","imageUrl":"https://cdn.myanimelist.net/images/characters/12/523996.jpg?s=ca16bb3d249cd4a8c33f0f86e115ff7a","jikanAliases":["Onna Shinkan","Minarai Seijo"],"malId":148623,"slug":"priestess","description":"Priestess is a rookie cleric who survives her first party's annihilation and grows into a decisive tactical partner alongside Goblin Slayer in Goblin Slayer.","role":"Main","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"High Elf Archer","title":"Ranged Control Specialist","rank":"Silver","dangerLevel":7,"loreBio":"An elf ranger who initially mocks Goblin Slayer's grim methods, then recognizes their necessity in close-quarters extermination.","systemBio":"Precision ranged node that extends party engagement distance, recon quality, and anti-swarm containment.","gradientFrom":"emerald-900","gradientTo":"teal-800","accentColor":"green-300","icon":"Target","signatureMoment":"Coordinates elevated firing lines to stop retreating goblin scouts from triggering reinforcements.","imageUrl":"https://cdn.myanimelist.net/images/characters/3/523997.jpg?s=96a7d43bb3e904913ee73e89c0363648","jikanAliases":["Elf","Onna Elf"],"malId":148956,"slug":"high-elf-archer","description":"High Elf Archer is an elf ranger who initially mocks Goblin Slayer's grim methods but later recognizes their tactical necessity in Goblin Slayer.","role":"Main","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Dwarf Shaman","title":"Earth & Utility Caster","rank":"Silver","dangerLevel":6,"loreBio":"A veteran shaman whose humor masks deep combat experience and battlefield adaptability.","systemBio":"Control-caster node that supplies terrain denial, enemy displacement, and emergency battlefield stabilization.","gradientFrom":"amber-900","gradientTo":"stone-800","accentColor":"orange-300","icon":"Brain","signatureMoment":"Uses shaping magic to collapse tunnel vectors and protect the party from flanking swarms.","imageUrl":"https://cdn.myanimelist.net/images/characters/14/524000.jpg?s=25d8009da87fd29f81c1e7ac9fab81b7","malId":159323,"slug":"dwarf-shaman","description":"Dwarf Shaman is a veteran shaman whose humor masks deep combat experience and battlefield adaptability in Goblin Slayer.","role":"Main","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Lizard Priest","title":"Frontline Ritual Combatant","rank":"Silver","dangerLevel":7,"loreBio":"A reptilian priest-warrior who blends humor, honor, and brutal practicality in melee engagements.","systemBio":"Hybrid tank-support node that anchors formation integrity while adding summon utility and sustain pressure.","gradientFrom":"lime-900","gradientTo":"green-800","accentColor":"lime-300","icon":"Zap","signatureMoment":"Holds a narrow corridor alone long enough for the team to complete a controlled purge.","imageUrl":"https://cdn.myanimelist.net/images/characters/8/524001.jpg?s=1616f49a73b9a680509067b4700e4a42","jikanAliases":["Lizardman"],"malId":159322,"slug":"lizard-priest","description":"Lizard Priest is a reptilian priest-warrior who blends humor, honor, and brutal practicality in melee goblin extermination engagements in Goblin Slayer.","role":"Main","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Guild Girl","title":"Dispatch Administrator","rank":"Guild Staff","dangerLevel":3,"loreBio":"The Adventurer's Guild receptionist who quietly keeps goblin requests visible despite market disinterest.","systemBio":"Information-routing node that connects rural demand signals to available labor and preserves institutional memory of recurring threats.","gradientFrom":"indigo-900","gradientTo":"sky-800","accentColor":"sky-300","icon":"Globe","signatureMoment":"Prioritizes urgent village reports so Goblin Slayer can intercept raids before full settlement collapse.","imageUrl":"https://cdn.myanimelist.net/images/characters/3/523999.jpg?s=af884012ea653e50234d9c22174e4591","jikanAliases":["Uketsuke-jou"],"malId":148958,"slug":"guild-girl","description":"Guild Girl is the Adventurer's Guild receptionist who quietly keeps goblin extermination requests visible despite market disinterest in Goblin Slayer.","role":"Supporting","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Cow Girl","title":"Frontier Civilian Anchor","rank":"Farm Steward","dangerLevel":4,"loreBio":"Goblin Slayer's childhood friend whose farm becomes an emotional and logistical safe zone after missions.","systemBio":"Civilian resilience node providing recovery bandwidth, social reintegration pressure, and local intelligence continuity.","gradientFrom":"rose-900","gradientTo":"orange-800","accentColor":"rose-300","icon":"Heart","signatureMoment":"Keeps him connected to ordinary life, preventing full psychological collapse into pure combat function.","imageUrl":"https://cdn.myanimelist.net/images/characters/13/402006.jpg?s=d6bd461dd828018bc9d033d00d1b7ae2","jikanAliases":["Bokujoushu"],"malId":154478,"slug":"cow-girl","description":"Cow Girl is Goblin Slayer's childhood friend whose farm serves as an emotional and logistical safe zone after dangerous goblin missions in Goblin Slayer.","role":"Supporting","relationships":["Goblin Slayer","Goblin Slayer: Bouken Kiroku Youshi - Adventure Sheet","Goblin Slayer II"]},{"name":"Sword Maiden","title":"Archbishop & Former Hero","rank":"Gold-Class Veteran","dangerLevel":8,"loreBio":"A celebrated hero still haunted by goblin trauma who seeks Goblin Slayer's help when institutions hesitate.","systemBio":"High-authority religious node with broad legitimacy but localized vulnerability to unresolved threat memory and political constraints.","gradientFrom":"purple-900","gradientTo":"blue-800","accentColor":"violet-300","icon":"Crown","signatureMoment":"Commissions covert extermination of goblins beneath Water Town to avoid public panic and theological fracture.","imageUrl":"https://cdn.myanimelist.net/images/characters/9/531090.jpg?s=ee3041511da0af83ec23d8a58892270b","jikanAliases":["Kenja"],"malId":178477,"slug":"sword-maiden","description":"Sword Maiden is a celebrated former hero still haunted by goblin trauma who seeks Goblin Slayer's help when institutions hesitate in Goblin Slayer.","role":"Supporting","relationships":["Goblin Slayer","Goblin Slayer II"]},{"name":"Spearman","title":"Frontier Vanguard Specialist","rank":"Silver","dangerLevel":7,"loreBio":"A veteran adventurer whose confidence and frontline discipline cover regions Goblin Slayer cannot personally patrol.","systemBio":"Parallel high-skill response node that prevents the ecosystem from overfitting to one specialist actor.","gradientFrom":"sky-900","gradientTo":"indigo-800","accentColor":"cyan-300","icon":"Shield","signatureMoment":"He holds high-threat fronts long enough for guild dispatches and civilian evacuation chains to stabilize.","imageUrl":"https://cdn.myanimelist.net/images/characters/8/402005.jpg?s=527f7f0a047cda61eeb0840cef870d9a","malId":159321,"jikanAliases":["Yaritsukai"],"slug":"spearman","description":"Spearman is a veteran adventurer whose frontline discipline and confidence cover regions Goblin Slayer cannot personally patrol in Goblin Slayer.","role":"Supporting","relationships":["Goblin Slayer","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]},{"name":"Witch","title":"Utility Caster & Recon Support","rank":"Silver","dangerLevel":6,"loreBio":"A composed caster who supports frontier veterans with precision utility and calm threat assessment.","systemBio":"Flexible support node that improves mission survivability by bridging reconnaissance, debuff timing, and extraction safety.","gradientFrom":"violet-900","gradientTo":"fuchsia-800","accentColor":"purple-300","icon":"Brain","signatureMoment":"Her spell timing repeatedly converts uncertain skirmishes into controllable engagements for allied teams.","imageUrl":"https://cdn.myanimelist.net/images/characters/10/402054.jpg?s=25eda14d085150f11b114337b66cc522","malId":148959,"jikanAliases":["Majo"],"slug":"witch","description":"Witch is a composed utility caster who supports frontier veterans with precision spell timing and calm threat assessment in Goblin Slayer.","role":"Supporting","relationships":["Goblin Slayer","Goblin Slayer: Goblin's Crown","Goblin Slayer II"]}],"relationships":[{"source":"Goblin Slayer","target":"Priestess","type":"mentor","weight":9,"loreDesc":"He trains her to survive by treating every corridor, sound, and corpse as tactical data.","systemDesc":"Experience transfer edge that upgrades novice decision quality under high-lethality conditions."},{"source":"Priestess","target":"Goblin Slayer","type":"dependent","weight":8,"loreDesc":"She relies on his doctrine while gradually becoming confident enough to improvise within it.","systemDesc":"Asymmetric trust link initially centered on specialist guidance and threat modeling."},{"source":"Goblin Slayer","target":"High Elf Archer","type":"ally","weight":7,"loreDesc":"Their friction over style evolves into mutual respect built on repeated survival.","systemDesc":"Cross-domain coordination link between stealth-precision range and close-quarters extermination doctrine."},{"source":"Goblin Slayer","target":"Dwarf Shaman","type":"ally","weight":7,"loreDesc":"Dwarf Shaman reinforces Goblin Slayer's plans with earth-control utility and veteran judgment.","systemDesc":"Support integration edge increasing trap reliability and denial-zone persistence."},{"source":"Goblin Slayer","target":"Lizard Priest","type":"ally","weight":7,"loreDesc":"Lizard Priest trusts his ruthless caution when others might overcommit to heroics.","systemDesc":"Formation integrity edge that keeps frontline pressure stable during swarm encounters."},{"source":"Guild Girl","target":"Goblin Slayer","type":"dependent","weight":8,"loreDesc":"She depends on him to answer village requests that no one else accepts.","systemDesc":"Dispatch-to-operator routing edge sustaining frontier incident response throughput."},{"source":"Cow Girl","target":"Goblin Slayer","type":"ally","weight":6,"loreDesc":"Her steady support gives him a place to return to after each extermination.","systemDesc":"Psychological stabilization edge that preserves long-term operational continuity."},{"source":"Sword Maiden","target":"Goblin Slayer","type":"dependent","weight":7,"loreDesc":"Despite her status, she entrusts goblin-specific crises to the one specialist she believes can finish them.","systemDesc":"Authority-to-specialist escalation edge used when institutional channels underperform."},{"source":"Goblin Slayer","target":"Sword Maiden","type":"ally","weight":5,"loreDesc":"He accepts her requests when they align with his mission to prevent further goblin casualties.","systemDesc":"Conditional cooperation link bridging local extermination ops and city-level governance pressure."},{"source":"Spearman","target":"Goblin Slayer","type":"ally","weight":6,"loreDesc":"He jokes about Goblin Slayer's obsession yet repeatedly backs him when stakes exceed routine quests.","systemDesc":"Cross-team reinforcement edge that adds depth to regional response coverage."},{"source":"Witch","target":"Spearman","type":"ally","weight":7,"loreDesc":"Their battlefield trust lets them execute fast support-and-strike rotations under pressure.","systemDesc":"Stable duo edge improving reliability of non-party interventions."},{"source":"Guild Girl","target":"Spearman","type":"ally","weight":6,"loreDesc":"She routes urgent requests to available veterans when Goblin Slayer is already deployed elsewhere.","systemDesc":"Dispatch redundancy edge preventing single-node saturation in guild operations."}],"factions":[{"name":"Adventurer's Guild","role":"systemic","loreDesc":"A contract bureau matching civilians with armed talent, but vulnerable to prestige bias.","systemDesc":"Central labor allocator that optimizes for market incentives rather than worst-case frontier risk."},{"name":"Goblin Slayer Party","role":"protagonist","loreDesc":"A multi-race unit built around trust, discipline, and anti-goblin specialization.","systemDesc":"High-cohesion strike team tuned for cave warfare, attrition control, and casualty minimization."},{"name":"Goblin Warbands","role":"antagonist","loreDesc":"Adaptive raider nests that weaponize fear, numbers, and local surprise.","systemDesc":"Distributed parasitic clusters that exploit weak surveillance and delayed response loops."},{"name":"Temple Authority","role":"neutral","loreDesc":"Religious institutions that provide healing legitimacy but are not always tactically proactive.","systemDesc":"Stability infrastructure with high symbolic capital and uneven tactical deployment speed."},{"name":"Frontier Villages and Militias","role":"neutral","influence":7,"loreDesc":"Rural communities absorb first contact with goblin raids and often survive only through ad hoc local defense.","systemDesc":"Civilian early-warning and resilience layer whose reports determine whether response arrives before collapse."}],"rules":[{"name":"Never Underestimate Goblins","subtitle":"Threat Model Discipline","loreConsequence":"Treating goblins as weak fodder gets entire rookie parties killed.","systemEquivalent":"Underclassification of adaptive low-tier threats causes nonlinear casualty spikes.","severity":"fatal","loreSubtitle":"Arrogance is a death sentence","systemSubtitle":"Classification error cascade"},{"name":"Spells Are Finite","subtitle":"Cast Budget Constraint","loreConsequence":"A wasted miracle can leave allies defenseless when the true ambush appears.","systemEquivalent":"Finite activation ceilings require deliberate timing and reserve management.","severity":"high","loreSubtitle":"Save miracles for the kill zone","systemSubtitle":"Resource gating protocol"},{"name":"Terrain Dictates Survival","subtitle":"Battlefield Geometry","loreConsequence":"Caves, sewers, and ruins punish flashy swordplay and reward preparation.","systemEquivalent":"Constrained environments amplify setup advantages and invalidate generic duel doctrine.","severity":"high","loreSubtitle":"Control the tunnel, control the fight","systemSubtitle":"Environment-first optimization"},{"name":"Frontier Reports Must Be Acted On Immediately","subtitle":"Early Response Window","loreConsequence":"Delays let small nests evolve into fortified breeding hubs.","systemEquivalent":"Slow incident response increases adversary reproduction and hardens future intervention cost.","severity":"fatal","loreSubtitle":"Hours matter more than heroics","systemSubtitle":"Latency-to-loss escalation"},{"name":"No Civilian-Scale Collateral","subtitle":"Containment Ethics","loreConsequence":"Using fire, flood, or poison recklessly can kill villagers and destroy livelihoods.","systemEquivalent":"Countermeasure selection is bounded by downstream social and infrastructure cost constraints.","severity":"medium","loreSubtitle":"Kill goblins, not the town","systemSubtitle":"Collateral-risk guardrail"},{"name":"Prestige Markets Misprice Rural Threat","severity":"high","loreSubtitle":"The deadliest jobs are often the least glamorous","systemSubtitle":"Incentive mismatch creates recurring blind spots","loreConsequence":"High-visibility quests draw talent away while villages facing goblins remain under-protected until too late.","systemEquivalent":"Reward structures bias labor allocation, so low-pay extermination work requires intentional correction mechanisms.","subtitle":"Structural Escalation Constraint"}],"counterplay":[{"attacker":"Goblin Swarm Ambush","defender":"Choke-Point Channeling","mechanic":"Funnels mass numbers into narrow corridors where area denial and melee anchors can hold.","loreDesc":"Goblin Slayer turns their numerical advantage into a queue for slaughter.","systemDesc":"Geometry compression reduces parallel threat vectors and raises defender efficiency."},{"attacker":"Caster Interruption","defender":"Layered Party Guard","mechanic":"Frontline and ranged allies buy chant time for critical miracle deployment.","loreDesc":"Priestess survives by trusting teammates to guard her cast windows.","systemDesc":"Protection of vulnerable cast phases preserves high-impact utility output."},{"attacker":"Nest Regrowth","defender":"Total Den Clearance","mechanic":"Eliminate leaders, eggs, and exits so no survivors rebuild the cycle.","loreDesc":"Half measures only guarantee another raid in a few weeks.","systemDesc":"Complete node neutralization prevents threat reseeding."},{"attacker":"High-Rank Prestige Bias","defender":"Specialist Persistence","mechanic":"Dedicated goblin contracts maintain baseline security while elites chase major threats.","loreDesc":"One obsessive slayer fills the gap the hero economy ignores.","systemDesc":"Niche specialization patches incentive failures in broader task allocation."},{"attacker":"Fortified Den Defense","defender":"Gate Scroll Pressure Exploit","mechanic":"Weaponized portal hydraulics overwhelm defenses impossible to breach by direct assault.","loreDesc":"A survival tool becomes a catastrophic anti-den strike.","systemDesc":"Environmental energy redirection bypasses conventional durability thresholds."}],"anomalies":[{"name":"Silver-Rank Single-Target Obsession","ruleViolated":"High-rank adventurers should diversify contracts for prestige and payout","loreDesc":"Goblin Slayer rejects fame loops to pursue only goblin extermination.","systemDesc":"Extreme specialization overrides market incentives and creates a unique reliability node."},{"name":"Defensive Miracle as Offensive Crusher","ruleViolated":"Barrier miracles are expected to be purely protective","loreDesc":"Priestess repurposes Protection into a lethal trapping technique.","systemDesc":"Function reinterpretation expands utility class from mitigation to kill-enablement."},{"name":"Ocean-Gate Weaponization","ruleViolated":"Teleportation tools are for escape, not siege-breaking firepower","loreDesc":"A retreat artifact becomes one of the deadliest anti-monster weapons in the setting.","systemDesc":"Cross-domain resource repurposing produces nonlinear offensive output from utility infrastructure."},{"name":"Single-Target Specialist Outperforms Heroic Generalists","loreDesc":"A supposedly narrow hunter repeatedly outperforms celebrated adventurers against the most persistent frontier threat.","systemDesc":"Domain-specialized optimization beats broad heroic profiles in environments dominated by one adaptive enemy class.","ruleViolated":"Generalist hero parties should outperform narrow specialists at scale"}],"causalEvents":[{"name":"Village Massacre Trauma","trigger":"Goblin raid destroys Goblin Slayer's childhood home","consequence":"He commits to lifelong extermination doctrine and rejects prestige questing.","timelinePosition":"Pre-Narrative","loreDesc":"A survivor's vow becomes the foundation of his identity.","systemDesc":"Personal catastrophic loss initializes permanent specialist role selection."},{"name":"Rookie Party Catastrophe","trigger":"Inexperienced adventurers accept a goblin quest without proper threat modeling","consequence":"Priestess is rescued and joins Goblin Slayer's team, spreading his doctrine.","timelinePosition":"Pre-Narrative","loreDesc":"The cost of underestimating goblins is shown immediately and brutally.","systemDesc":"Failure event recruits a high-retention support node into specialist network."},{"name":"Water Town Infestation","trigger":"Sword Maiden reports covert goblin activity beneath a major city","consequence":"The party proves that even high-status regions are vulnerable to neglected micro-threats.","timelinePosition":"Mid-Narrative","loreDesc":"Urban sanctuaries are revealed to be fragile masks over unresolved fear.","systemDesc":"Peripheral threat class penetrates central nodes when surveillance assumptions fail."},{"name":"Farm Defense Operation","trigger":"Organized goblin force targets Cow Girl's settlement","consequence":"Community-level coordination and prepared defenses repel a mass raid.","timelinePosition":"Mid-Narrative","loreDesc":"The battle shows that villagers can survive when warned and organized.","systemDesc":"Early warning plus layered defense converts civilian node from passive victim to resilient cluster."},{"name":"Guild Training Grounds Raise Baseline Survival","trigger":"Repeated goblin incidents force veterans to formalize anti-goblin methods for newer ranks.","consequence":"More adventurers survive first-contact encounters, reducing catastrophic novice wipe patterns.","timelinePosition":4,"loreDesc":"Hard lessons from massacres are converted into shared doctrine instead of being buried as isolated tragedies.","systemDesc":"Knowledge codification shifts outcomes by moving tactics from individual memory to institutional protocol."}],"systemQuestions":[{"question":"Why is Goblin Slayer a node-graph universe instead of a pure combat ladder?","answer":"Because outcomes depend on who reports threats, who accepts contracts, and how trust links between guild, party, and civilians stay intact.","tabIndex":1,"sectionId":"character-database-heading","tabLabel":"Entity Database"},{"question":"What makes goblins systemically dangerous despite low individual strength?","answer":"Their rapid reproduction and adaptation mean small incidents compound quickly when response is delayed.","tabIndex":3,"sectionId":"core-laws-heading","tabLabel":"Core Laws"},{"question":"Why do finite miracles change party strategy?","answer":"Limited cast slots force strict prioritization, so every support spell must be timed for maximum survival impact.","tabIndex":0,"sectionId":"power-system-heading","tabLabel":"Power Engine"},{"question":"How does the Adventurer's Guild create both stability and failure?","answer":"It routes contracts efficiently, but prestige-biased incentives under-serve low-paying goblin missions until specialists intervene.","tabIndex":2,"sectionId":"faction-map-heading","tabLabel":"Faction Map"},{"question":"How does the low-prestige/utility specialization counterbalance in Goblin Slayer's system create strategic depth against stronger foes?","answer":"Control terrain first, then force goblins into predictable kill zones where numbers stop mattering.","tabIndex":0,"sectionId":"counterplay-heading","tabLabel":"Power Engine"}],"animeImageUrl":"https://myanimelist.net/images/anime/1719/95621l.jpg","hero":{"systemType":"relational","microHook":"Track control edges before reading motives.","thesis":"Goblin Slayer is driven by dependency edges between frontier villages, guild bureaucracy, faith-casters, and specialist operators; the node…","primarySystemType":"entity_db"}}</script>
+</body>
+</html>
