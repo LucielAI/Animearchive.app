@@ -158,7 +158,7 @@ export default function BlogPost() {
   useEffect(() => {
     let cancelled = false
 
-    fetch(`/blog/${slug}.json`)
+    fetch(`/blog/data/${slug}.json`)
       .then((res) => {
         if (!res.ok) throw new Error(`Post not found (${res.status})`)
         return res.json()

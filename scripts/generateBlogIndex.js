@@ -3,7 +3,7 @@
  * generateBlogIndex.js
  * Reads all JSON files from content/blog/, generates:
  *   - public/blog-index.json  (metadata only, for listing page)
- *   - public/blog/<slug>.json (full post, for lazy loading)
+ *   - public/blog/data/<slug>.json (full post, for lazy loading)
  */
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'fs'
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 const BLOG_CONTENT_DIR = join(ROOT, 'content', 'blog')
-const PUBLIC_BLOG_DIR = join(ROOT, 'public', 'blog')
+const PUBLIC_BLOG_DIR = join(ROOT, 'public', 'blog', 'data')
 const BLOG_INDEX_OUT = join(ROOT, 'public', 'blog-index.json')
 
 // Ensure output directory exists
@@ -56,7 +56,7 @@ for (const file of files) {
     continue
   }
 
-  // Write full post to public/blog/<slug>.json
+  // Write full post to public/blog/data/<slug>.json
   const outPath = join(PUBLIC_BLOG_DIR, `${post.slug}.json`)
   writeFileSync(outPath, JSON.stringify(post, null, 2))
   console.log(`[blog] Wrote ${outPath}`)

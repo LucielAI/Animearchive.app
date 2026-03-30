@@ -130,11 +130,16 @@ function injectUniverseBundles() {
 function main() {
   console.log('[postbuild] Copying static SEO HTML files to dist/...');
 
-  // Copy public/universe/ → dist/universe/ (for /universe/{slug}/ static serving)
-  // NOTE: homepage (public/index.html) is NOT copied — it stays as the Vite SPA shell
-  const srcUniverse = path.join(PUBLIC_DIR, 'universe');
-  const dstUniverse = path.join(DIST_DIR, 'universe');
-  copyDir(srcUniverse, dstUniverse);
+  // Copy all static HTML directories to dist/
+  // Order matters: universe/ first (already done above), then blog/, universes/, about/, compare/, privacy/
+  const staticDirs = ['universe', 'blog', 'universes', 'about', 'compare', 'privacy']
+  for (const dir of staticDirs) {
+    const src = path.join(PUBLIC_DIR, dir)
+    const dst = path.join(DIST_DIR, dir)
+    if (fs.existsSync(src)) {
+      copyDir(src, dst)
+    }
+  }
 
   // Inject Vite JS/CSS bundle into each universe's index.html so the SPA boots
   // on hard refresh (not just SPA navigation). Static SEO meta tags (og:title,
