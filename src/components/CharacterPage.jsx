@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Shield, Lock, Zap, Star, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Shield, Lock, Zap, Star, ChevronRight, Compass } from 'lucide-react'
 import ImageWithFallback from './ImageWithFallback'
 import DangerBar from './DangerBar'
 import SeoHead from './SeoHead'
 import { buildCharacterSeo, buildCharacterStructuredData } from '../utils/seo'
 import { resolveColor } from '../utils/resolveColor'
+import { UNIVERSE_CATALOG } from '../data/catalog'
+import { getRelatedUniverseSuggestions } from '../utils/discovery'
 
 const DANGER_LABELS = {
   1: 'MINIMAL',
@@ -71,6 +73,9 @@ export default function CharacterPage({ preview, data, charIndex }) {
   const relationships = (data?.relationships || []).filter(
     (r) => r.source === character.name || r.target === character.name
   )
+
+  // Related universes cross-link (SEO interlinking)
+  const relatedUniverseSuggestions = getRelatedUniverseSuggestions(UNIVERSE_CATALOG, preview.id, 3)
 
   return (
     <div className="min-h-screen bg-[#050508] text-white font-mono selection:bg-cyan-500/30">
@@ -361,6 +366,38 @@ export default function CharacterPage({ preview, data, charIndex }) {
                     View all {characters.length} entities →
                   </Link>
                 )}
+              </div>
+            )}
+
+            {/* Related universes — cross-link for SEO interlinking */}
+            {relatedUniverseSuggestions.length > 0 && (
+              <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+                <h2 className="text-[9px] tracking-[0.3em] uppercase text-gray-500 mb-4 flex items-center gap-2">
+                  <Compass className="w-3 h-3" /> Other Systems
+                </h2>
+                <div className="space-y-2">
+                  {relatedUniverseSuggestions.map(({ entry }) => (
+                    <Link
+                      key={entry.id}
+                      to={`/universe/${entry.id}`}
+                      className="flex items-center gap-3 p-2.5 rounded-lg bg-black/30 border border-white/5 hover:border-white/20 hover:bg-white/5 transition-all group"
+                    >
+                      <div
+                        className="w-8 h-8 rounded-full overflow-hidden shrink-0 border"
+                        style={{ borderColor: `${entry.themeColors?.primary || '#22d3ee'}40` }}
+                      >
+                        {entry.animeImageUrl && (
+                          <img src={entry.animeImageUrl} alt={entry.anime} className="w-full h-full object-cover" loading="lazy" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[11px] font-bold text-gray-200 truncate group-hover:text-white transition-colors">{entry.anime}</p>
+                        <p className="text-[9px] text-gray-600 truncate">{entry.tagline?.slice(0, 50)}</p>
+                      </div>
+                      <ChevronRight className="w-3 h-3 text-gray-600 group-hover:text-gray-400 shrink-0 transition-colors" />
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 

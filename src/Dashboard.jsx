@@ -457,6 +457,13 @@ export default function Dashboard({ data }) {
             <p className="text-[10px] text-gray-400 tracking-[0.18em] uppercase">
               Primary path: {TABS[heroContract.primaryTabIndex]}
             </p>
+            <p className="text-[10px] text-gray-600 tracking-[0.15em] uppercase">
+              Press <kbd className="inline-flex items-center justify-center min-w-[18px] h-4 px-1 rounded border border-white/10 bg-white/5 text-[9px] font-mono">?</kbd> for shortcuts
+              <span className="mx-2 text-white/10">·</span>
+              <Link to="/universes" className="hover:text-gray-400 transition-colors">Browse all universes</Link>
+              <span className="mx-2 text-white/10">·</span>
+              <Link to="/blog" className="hover:text-gray-400 transition-colors">Read analyses</Link>
+            </p>
           </div>
         </div>
       </header>
