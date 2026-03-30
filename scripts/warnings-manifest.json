@@ -1,5 +1,0 @@
-{
-  "generated": "2026-03-26T16:08:00Z",
-  "note": "Purged and replaced. Enforcement now only produces hero.imageUrl MISSING warnings (non-blocking, not used in UI). All other previously tracked warnings were stale — resolved or false positives.",
-  "warnings": []
-}
